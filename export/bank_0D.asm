@@ -370,12 +370,12 @@
                        dw grantSpriteAssembList_02          ;0D8242|        |0D8324;
                        dw alucardSpriteAssemb_03            ;0D8244|        |0D8378;
                        dw enemySpriteAssembList_04          ;0D8246|        |0D8BE9;
-                       dw bossAssembPointer06               ;0D8248|        |0D96A2;
-                       dw bossAssembPointer07               ;0D824A|        |0DABE7;
-                       dw doorETCAssembPointer08            ;0D824C|        |0DAD53;
-                       dw miscSpriteList_09                 ;0D824E|        |0D9FD6;
-                       dw bossAssembList_0a                 ;0D8250|        |0D8CE9;
-                       dw enemyAssemPointer0b               ;0D8252|        |0DACE7;
+                       dw bossAssembPointer05               ;0D8248|        |0D96A2;
+                       dw bossAssembPointer06               ;0D824A|        |0DABE7;
+                       dw doorETCAssembPointer07            ;0D824C|        |0DAD53;
+                       dw miscSpriteList_08                 ;0D824E|        |0D9FD6;
+                       dw enemyAssembList_09                ;0D8250|        |0D8CE9;
+                       dw enemyAssemPointer0a               ;0D8252|        |0DACE7;
                        dw trevor_spriteAssembList_00        ;0D8254|        |0D825C;
  
                        dw sympha_spriteAssemb_01            ;0D8256|        |0D82CC;
@@ -1341,70 +1341,70 @@ enemySpriteAssembList_04: dw sprAssembZombie00                 ;0D8BE9|        |
                        dw enemy_spriteAssemb_FC             ;0D8CE5|        |0D9529;
                        dw enemy_spriteAssemb_FE             ;0D8CE7|        |0D8D67;
  
-    bossAssembList_0a: dw sprAssembZombie00                 ;0D8CE9|        |0D8D7E;
-                       dw boss_spriteAssemb_02              ;0D8CEB|        |0D93DA;
-                       dw boss_spriteAssemb_04              ;0D8CED|        |0D93E3;
-                       dw boss_spriteAssemb_06              ;0D8CEF|        |0D93EC;
-                       dw boss_spriteAssemb_08              ;0D8CF1|        |0D93FD;
-                       dw boss_spriteAssemb_0A              ;0D8CF3|        |0D9419;
-                       dw boss_spriteAssemb_0C              ;0D8CF5|        |0D9430;
-                       dw boss_spriteAssemb_0E              ;0D8CF7|        |0D9441;
-                       dw boss_spriteAssemb_10              ;0D8CF9|        |0D94C2;
-                       dw boss_spriteAssemb_12              ;0D8CFB|        |0D94CD;
-                       dw boss_spriteAssemb_14              ;0D8CFD|        |0D94E1;
-                       dw boss_spriteAssemb_16              ;0D8CFF|        |0D94EC;
+   enemyAssembList_09: dw sprAssembZombie00                 ;0D8CE9|        |0D8D7E;
+                       dw enemy_09_spriteAssemb_00          ;0D8CEB|        |0D93DA;
+                       dw enemy_09_spriteAssemb_02          ;0D8CED|        |0D93E3;
+                       dw enemy_09_spriteAssemb_04          ;0D8CEF|        |0D93EC;
+                       dw enemy_09_spriteAssemb_06          ;0D8CF1|        |0D93FD;
+                       dw enemy_09_spriteAssemb_08          ;0D8CF3|        |0D9419;
+                       dw enemy_09_spriteAssemb_0A          ;0D8CF5|        |0D9430;
+                       dw enemy_09_spriteAssemb_0C          ;0D8CF7|        |0D9441;
+                       dw enemy_09_spriteAssemb_0E          ;0D8CF9|        |0D94C2;
+                       dw enemy_09_spriteAssemb_10          ;0D8CFB|        |0D94CD;
+                       dw enemy_09_spriteAssemb_12          ;0D8CFD|        |0D94E1;
+                       dw enemy_09_spriteAssemb_14          ;0D8CFF|        |0D94EC;
                        dw sprAssembZombie00                 ;0D8D01|        |0D8D7E;
-                       dw boss_spriteAssemb_18              ;0D8D03|        |0D9541;
-                       dw boss_spriteAssemb_1A              ;0D8D05|        |0D954F;
-                       dw boss_spriteAssemb_1C              ;0D8D07|        |0D955D;
-                       dw boss_spriteAssemb_1E              ;0D8D09|        |0D956B;
+                       dw enemy_09_spriteAssemb_16          ;0D8D03|        |0D9541;
+                       dw enemy_09_spriteAssemb_18          ;0D8D05|        |0D954F;
+                       dw enemy_09_spriteAssemb_1A          ;0D8D07|        |0D955D;
+                       dw enemy_09_spriteAssemb_1C          ;0D8D09|        |0D956B;
  
-                       dw boss_spriteAssemb_20              ;0D8D0B|        |0D9574;
-                       dw boss_spriteAssemb_22              ;0D8D0D|        |0D8FD8;
-                       dw boss_spriteAssemb_24              ;0D8D0F|        |0D8FE3;
-                       dw boss_spriteAssemb_26              ;0D8D11|        |0D957C;
-                       dw boss_spriteAssemb_28              ;0D8D13|        |0D958D;
-                       dw boss_spriteAssemb_2A              ;0D8D15|        |0D959E;
-                       dw boss_spriteAssemb_2C              ;0D8D17|        |0D95AF;
-                       dw boss_spriteAssemb_2E              ;0D8D19|        |0D95B4;
-                       dw boss_spriteAssemb_30              ;0D8D1B|        |0D95B9;
-                       dw boss_spriteAssemb_32              ;0D8D1D|        |0D95BE;
-                       dw boss_spriteAssemb_34              ;0D8D1F|        |0D95CC;
-                       dw boss_spriteAssemb_36              ;0D8D21|        |0D95DA;
-                       dw boss_spriteAssemb_38              ;0D8D23|        |0D8FFE;
-                       dw boss_spriteAssemb_3A              ;0D8D25|        |0D9006;
-                       dw boss_spriteAssemb_3C              ;0D8D27|        |0D901E;
-                       dw boss_spriteAssemb_3E              ;0D8D29|        |0D902E;
-                       dw boss_spriteAssemb_40              ;0D8D2B|        |0D903E;
-                       dw boss_spriteAssemb_42              ;0D8D2D|        |0D9048;
-                       dw boss_spriteAssemb_44              ;0D8D2F|        |0D9058;
-                       dw boss_spriteAssemb_46              ;0D8D31|        |0D900E;
-                       dw boss_spriteAssemb_48              ;0D8D33|        |0D9016;
-                       dw boss_spriteAssemb_4A              ;0D8D35|        |0D9026;
-                       dw boss_spriteAssemb_4C              ;0D8D37|        |0D9036;
-                       dw boss_spriteAssemb_4E              ;0D8D39|        |0D9043;
-                       dw boss_spriteAssemb_50              ;0D8D3B|        |0D9050;
-                       dw boss_spriteAssemb_52              ;0D8D3D|        |0D9060;
-                       dw boss_spriteAssemb_54              ;0D8D3F|        |0D9612;
-                       dw boss_spriteAssemb_56              ;0D8D41|        |0D961A;
-                       dw boss_spriteAssemb_58              ;0D8D43|        |0D95E8;
-                       dw boss_spriteAssemb_5A              ;0D8D45|        |0D95F6;
-                       dw boss_spriteAssemb_5C              ;0D8D47|        |0D9604;
-                       dw boss_spriteAssemb_5E              ;0D8D49|        |0D94FD;
-                       dw boss_spriteAssemb_60              ;0D8D4B|        |0D9508;
-                       dw boss_spriteAssemb_62              ;0D8D4D|        |0D9622;
-                       dw boss_spriteAssemb_64              ;0D8D4F|        |0D962A;
-                       dw boss_spriteAssemb_66              ;0D8D51|        |0D8DD7;
-                       dw boss_spriteAssemb_68              ;0D8D53|        |0D8DE5;
-                       dw boss_spriteAssemb_6A              ;0D8D55|        |0D8DED;
-                       dw boss_spriteAssemb_68              ;0D8D57|        |0D8DE5;
-                       dw boss_spriteAssemb_6E              ;0D8D59|        |0D8DFB;
-                       dw boss_spriteAssemb_70              ;0D8D5B|        |0D9632;
-                       dw boss_spriteAssemb_72              ;0D8D5D|        |0D9650;
-                       dw boss_spriteAssemb_74              ;0D8D5F|        |0D9671;
-                       dw boss_spriteAssemb_76              ;0D8D61|        |0D9688;
-                       dw boss_spriteAssemb_78              ;0D8D63|        |0D8E76;
-                       dw boss_spriteAssemb_7A              ;0D8D65|        |0D8E7E;
+                       dw enemy_09_spriteAssemb_1E          ;0D8D0B|        |0D9574;
+                       dw enemy_09_spriteAssemb_20          ;0D8D0D|        |0D8FD8;
+                       dw enemy_09_spriteAssemb_22          ;0D8D0F|        |0D8FE3;
+                       dw enemy_09_spriteAssemb_24          ;0D8D11|        |0D957C;
+                       dw enemy_09_spriteAssemb_26          ;0D8D13|        |0D958D;
+                       dw enemy_09_spriteAssemb_28          ;0D8D15|        |0D959E;
+                       dw enemy_09_spriteAssemb_2A          ;0D8D17|        |0D95AF;
+                       dw enemy_09_spriteAssemb_2C          ;0D8D19|        |0D95B4;
+                       dw enemy_09_spriteAssemb_2E          ;0D8D1B|        |0D95B9;
+                       dw enemy_09_spriteAssemb_30          ;0D8D1D|        |0D95BE;
+                       dw enemy_09_spriteAssemb_32          ;0D8D1F|        |0D95CC;
+                       dw enemy_09_spriteAssemb_34          ;0D8D21|        |0D95DA;
+                       dw enemy_09_spriteAssemb_36          ;0D8D23|        |0D8FFE;
+                       dw enemy_09_spriteAssemb_38          ;0D8D25|        |0D9006;
+                       dw enemy_09_spriteAssemb_3A          ;0D8D27|        |0D901E;
+                       dw enemy_09_spriteAssemb_3C          ;0D8D29|        |0D902E;
+                       dw enemy_09_spriteAssemb_3E          ;0D8D2B|        |0D903E;
+                       dw enemy_09_spriteAssemb_40          ;0D8D2D|        |0D9048;
+                       dw enemy_09_spriteAssemb_42          ;0D8D2F|        |0D9058;
+                       dw enemy_09_spriteAssemb_44          ;0D8D31|        |0D900E;
+                       dw enemy_09_spriteAssemb_46          ;0D8D33|        |0D9016;
+                       dw enemy_09_spriteAssemb_48          ;0D8D35|        |0D9026;
+                       dw enemy_09_spriteAssemb_4A          ;0D8D37|        |0D9036;
+                       dw enemy_09_spriteAssemb_4C          ;0D8D39|        |0D9043;
+                       dw enemy_09_spriteAssemb_4E          ;0D8D3B|        |0D9050;
+                       dw enemy_09_spriteAssemb_50          ;0D8D3D|        |0D9060;
+                       dw enemy_09_spriteAssemb_52          ;0D8D3F|        |0D9612;
+                       dw enemy_09_spriteAssemb_54          ;0D8D41|        |0D961A;
+                       dw enemy_09_spriteAssemb_56          ;0D8D43|        |0D95E8;
+                       dw enemy_09_spriteAssemb_58          ;0D8D45|        |0D95F6;
+                       dw enemy_09_spriteAssemb_5A          ;0D8D47|        |0D9604;
+                       dw enemy_09_spriteAssemb_5C          ;0D8D49|        |0D94FD;
+                       dw enemy_09_spriteAssemb_5E          ;0D8D4B|        |0D9508;
+                       dw enemy_09_spriteAssemb_60          ;0D8D4D|        |0D9622;
+                       dw enemy_09_spriteAssemb_62          ;0D8D4F|        |0D962A;
+                       dw enemy_09_spriteAssemb_64          ;0D8D51|        |0D8DD7;
+                       dw enemy_09_spriteAssemb_66          ;0D8D53|        |0D8DE5;
+                       dw enemy_09_spriteAssemb_68          ;0D8D55|        |0D8DED;
+                       dw enemy_09_spriteAssemb_66          ;0D8D57|        |0D8DE5;
+                       dw enemy_09_spriteAssemb_6C          ;0D8D59|        |0D8DFB;
+                       dw enemy_09_spriteAssemb_6E          ;0D8D5B|        |0D9632;
+                       dw enemy_09_spriteAssemb_70          ;0D8D5D|        |0D9650;
+                       dw enemy_09_spriteAssemb_72          ;0D8D5F|        |0D9671;
+                       dw enemy_09_spriteAssemb_74          ;0D8D61|        |0D9688;
+                       dw enemy_09_spriteAssemb_76          ;0D8D63|        |0D8E76;
+                       dw enemy_09_spriteAssemb_78          ;0D8D65|        |0D8E7E;
  
 enemy_spriteAssemb_FE: db $07,$F0,$71,$01,$E4               ;0D8D67|        |      ;
                        db $E1,$73,$EC,$E1,$75               ;0D8D6C|        |      ;
@@ -1440,18 +1440,18 @@ sprAssembZombieAppear08: db $02,$00,$8C,$02,$F8               ;0D8DA3|        | 
    sprAssembBirdSit12: db $02,$00,$A6,$02,$F8               ;0D8DCF|        |      ;
                        db $01,$A8,$00                       ;0D8DD4|        |      ;
  
- boss_spriteAssemb_66: db $04,$E0,$D2,$02,$FD               ;0D8DD7|        |      ;
+enemy_09_spriteAssemb_64: db $04,$E0,$D2,$02,$FD               ;0D8DD7|        |      ;
                        db $E1,$D4,$05,$01,$D6               ;0D8DDC|        |      ;
                        db $F8,$01,$D8,$00                   ;0D8DE1|        |      ;
  
- boss_spriteAssemb_68: db $02,$00,$DA,$02,$F8               ;0D8DE5|        |      ;
+enemy_09_spriteAssemb_66: db $02,$00,$DA,$02,$F8               ;0D8DE5|        |      ;
                        db $01,$DC,$00                       ;0D8DEA|        |      ;
  
- boss_spriteAssemb_6A: db $04,$E2,$DE,$02,$F8               ;0D8DED|        |      ;
+enemy_09_spriteAssemb_68: db $04,$E2,$DE,$02,$F8               ;0D8DED|        |      ;
                        db $E3,$E0,$00,$03,$E2               ;0D8DF2|        |      ;
                        db $F8,$03,$E4,$00                   ;0D8DF7|        |      ;
  
- boss_spriteAssemb_6E: db $02,$00,$E6,$02,$F8               ;0D8DFB|        |      ;
+enemy_09_spriteAssemb_6C: db $02,$00,$E6,$02,$F8               ;0D8DFB|        |      ;
                        db $01,$E8,$00                       ;0D8E00|        |      ;
  
 enemy_spriteAssemb_14: db $01,$F0,$BE,$01,$FC               ;0D8E03|        |      ;
@@ -1497,10 +1497,10 @@ enemy_spriteAssemb_28: db $02,$F0,$EA,$01,$F8               ;0D8E66|        |   
 enemy_spriteAssemb_2A: db $02,$F0,$EE,$01,$F8               ;0D8E6E|        |      ;
                        db $F1,$F0,$00                       ;0D8E73|        |      ;
  
- boss_spriteAssemb_78: db $02,$F0,$8A,$01,$F8               ;0D8E76|        |      ;
+enemy_09_spriteAssemb_76: db $02,$F0,$8A,$01,$F8               ;0D8E76|        |      ;
                        db $F1,$8C,$00                       ;0D8E7B|        |      ;
  
- boss_spriteAssemb_7A: db $02,$F0,$8E,$01,$F8               ;0D8E7E|        |      ;
+enemy_09_spriteAssemb_78: db $02,$F0,$8E,$01,$F8               ;0D8E7E|        |      ;
                        db $F1,$AE,$00                       ;0D8E83|        |      ;
  
 enemy_spriteAssemb_7E: db $02,$F0,$59,$01,$F8               ;0D8E86|        |      ;
@@ -1596,11 +1596,11 @@ enemy_spriteAssemb_4A: db $04,$E0,$A6,$03,$F7               ;0D8FCA|        |   
                        db $E1,$A8,$FF,$01,$94               ;0D8FCF|        |      ;
                        db $F8,$01,$96,$00                   ;0D8FD4|        |      ;
  
- boss_spriteAssemb_22: db $03,$F0,$B2,$02,$F4               ;0D8FD8|        |      ;
+enemy_09_spriteAssemb_20: db $03,$F0,$B2,$02,$F4               ;0D8FD8|        |      ;
                        db $F1,$B4,$FC,$F1,$B6               ;0D8FDD|        |      ;
                        db $04                               ;0D8FE2|        |      ;
  
- boss_spriteAssemb_24: db $03,$F0,$B2,$82,$F4               ;0D8FE3|        |      ;
+enemy_09_spriteAssemb_22: db $03,$F0,$B2,$82,$F4               ;0D8FE3|        |      ;
                        db $F1,$B4,$FC,$F1,$B6               ;0D8FE8|        |      ;
                        db $04                               ;0D8FED|        |      ;
  
@@ -1610,44 +1610,44 @@ enemy_spriteAssemb_4C: db $02,$F0,$84,$02,$F8               ;0D8FEE|        |   
 enemy_spriteAssemb_4E: db $02,$F0,$88,$02,$F8               ;0D8FF6|        |      ;
                        db $F1,$8A,$00                       ;0D8FFB|        |      ;
  
- boss_spriteAssemb_38: db $02,$F0,$E0,$01,$F8               ;0D8FFE|        |      ;
+enemy_09_spriteAssemb_36: db $02,$F0,$E0,$01,$F8               ;0D8FFE|        |      ;
                        db $F1,$E2,$00                       ;0D9003|        |      ;
  
- boss_spriteAssemb_3A: db $02,$F0,$E4,$01,$F8               ;0D9006|        |      ;
+enemy_09_spriteAssemb_38: db $02,$F0,$E4,$01,$F8               ;0D9006|        |      ;
                        db $F1,$E6,$00                       ;0D900B|        |      ;
  
- boss_spriteAssemb_46: db $02,$F0,$90,$01,$F8               ;0D900E|        |      ;
+enemy_09_spriteAssemb_44: db $02,$F0,$90,$01,$F8               ;0D900E|        |      ;
                        db $F1,$92,$00                       ;0D9013|        |      ;
  
- boss_spriteAssemb_48: db $02,$F0,$94,$01,$F8               ;0D9016|        |      ;
+enemy_09_spriteAssemb_46: db $02,$F0,$94,$01,$F8               ;0D9016|        |      ;
                        db $F1,$96,$00                       ;0D901B|        |      ;
  
- boss_spriteAssemb_3C: db $02,$F0,$E8,$01,$F8               ;0D901E|        |      ;
+enemy_09_spriteAssemb_3A: db $02,$F0,$E8,$01,$F8               ;0D901E|        |      ;
                        db $F1,$EA,$00                       ;0D9023|        |      ;
  
- boss_spriteAssemb_4A: db $02,$F0,$98,$01,$F8               ;0D9026|        |      ;
+enemy_09_spriteAssemb_48: db $02,$F0,$98,$01,$F8               ;0D9026|        |      ;
                        db $F1,$9A,$00                       ;0D902B|        |      ;
  
- boss_spriteAssemb_3E: db $02,$F0,$EC,$01,$F8               ;0D902E|        |      ;
+enemy_09_spriteAssemb_3C: db $02,$F0,$EC,$01,$F8               ;0D902E|        |      ;
                        db $F1,$EE,$00                       ;0D9033|        |      ;
  
- boss_spriteAssemb_4C: db $02,$F0,$9C,$01,$F8               ;0D9036|        |      ;
+enemy_09_spriteAssemb_4A: db $02,$F0,$9C,$01,$F8               ;0D9036|        |      ;
                        db $F1,$9E,$00                       ;0D903B|        |      ;
  
- boss_spriteAssemb_40: db $01,$F0,$F0,$01,$FC               ;0D903E|        |      ;
+enemy_09_spriteAssemb_3E: db $01,$F0,$F0,$01,$FC               ;0D903E|        |      ;
  
- boss_spriteAssemb_4E: db $01,$F0,$A0,$01,$FC               ;0D9043|        |      ;
+enemy_09_spriteAssemb_4C: db $01,$F0,$A0,$01,$FC               ;0D9043|        |      ;
  
- boss_spriteAssemb_42: db $02,$F0,$F2,$01,$F8               ;0D9048|        |      ;
+enemy_09_spriteAssemb_40: db $02,$F0,$F2,$01,$F8               ;0D9048|        |      ;
                        db $F1,$F4,$00                       ;0D904D|        |      ;
  
- boss_spriteAssemb_50: db $02,$F0,$A2,$01,$F8               ;0D9050|        |      ;
+enemy_09_spriteAssemb_4E: db $02,$F0,$A2,$01,$F8               ;0D9050|        |      ;
                        db $F1,$A4,$00                       ;0D9055|        |      ;
  
- boss_spriteAssemb_44: db $02,$F0,$FA,$C1,$F8               ;0D9058|        |      ;
+enemy_09_spriteAssemb_42: db $02,$F0,$FA,$C1,$F8               ;0D9058|        |      ;
                        db $F1,$F8,$00                       ;0D905D|        |      ;
  
- boss_spriteAssemb_52: db $02,$F0,$9A,$C1,$F8               ;0D9060|        |      ;
+enemy_09_spriteAssemb_50: db $02,$F0,$9A,$C1,$F8               ;0D9060|        |      ;
                        db $F1,$98,$00                       ;0D9065|        |      ;
  
 enemy_spriteAssemb_58: db $02,$F0,$80,$03,$F8               ;0D9068|        |      ;
@@ -1905,36 +1905,36 @@ trevorSpriteAssemb_58: db $01,$F0,$ED,$03,$FC               ;0D93D0|        |   
  
 trevorSpriteAssemb_5A: db $01,$F0,$EF,$03,$FC               ;0D93D5|        |      ;
  
- boss_spriteAssemb_02: db $02,$E0,$8E,$02,$F8               ;0D93DA|        |      ;
+enemy_09_spriteAssemb_00: db $02,$E0,$8E,$02,$F8               ;0D93DA|        |      ;
                        db $E0,$8E,$42,$FF                   ;0D93DF|        |      ;
  
- boss_spriteAssemb_04: db $02,$E0,$90,$02,$F8               ;0D93E3|        |      ;
+enemy_09_spriteAssemb_02: db $02,$E0,$90,$02,$F8               ;0D93E3|        |      ;
                        db $E0,$90,$42,$FF                   ;0D93E8|        |      ;
  
- boss_spriteAssemb_06: db $04,$E0,$92,$02,$F8               ;0D93EC|        |      ;
+enemy_09_spriteAssemb_04: db $04,$E0,$92,$02,$F8               ;0D93EC|        |      ;
                        db $E0,$92,$42,$FF,$00               ;0D93F1|        |      ;
                        db $94,$02,$F8,$00,$94               ;0D93F6|        |      ;
                        db $42,$FF                           ;0D93FB|        |      ;
  
- boss_spriteAssemb_08: db $08,$E0,$96,$02,$E8               ;0D93FD|        |      ;
+enemy_09_spriteAssemb_06: db $08,$E0,$96,$02,$E8               ;0D93FD|        |      ;
                        db $E1,$98,$F0,$E1,$9A               ;0D9402|        |      ;
                        db $F8,$E0,$9A,$42,$FF               ;0D9407|        |      ;
                        db $E1,$98,$07,$E1,$96               ;0D940C|        |      ;
                        db $0F,$00,$9C,$02,$F8               ;0D9411|        |      ;
                        db $01,$9C,$FF                       ;0D9416|        |      ;
  
- boss_spriteAssemb_0A: db $07,$E0,$9E,$02,$F0               ;0D9419|        |      ;
+enemy_09_spriteAssemb_08: db $07,$E0,$9E,$02,$F0               ;0D9419|        |      ;
                        db $E1,$A0,$F8,$E1,$A2               ;0D941E|        |      ;
                        db $00,$E1,$A4,$08,$E1               ;0D9423|        |      ;
                        db $A6,$10,$01,$A8,$F8               ;0D9428|        |      ;
                        db $01,$AA,$00                       ;0D942D|        |      ;
  
- boss_spriteAssemb_0C: db $05,$E0,$AE,$02,$FB               ;0D9430|        |      ;
+enemy_09_spriteAssemb_0A: db $05,$E0,$AE,$02,$FB               ;0D9430|        |      ;
                        db $E1,$B0,$03,$F9,$AC               ;0D9435|        |      ;
                        db $F0,$01,$B2,$F8,$01               ;0D943A|        |      ;
                        db $B4,$00                           ;0D943F|        |      ;
  
- boss_spriteAssemb_0E: db $06,$F0,$AC,$02,$F0               ;0D9441|        |      ;
+enemy_09_spriteAssemb_0C: db $06,$F0,$AC,$02,$F0               ;0D9441|        |      ;
                        db $F1,$B6,$F8,$F1,$B8               ;0D9446|        |      ;
                        db $00,$11,$BA,$F0,$11               ;0D944B|        |      ;
                        db $BC,$F8,$11,$BE,$00               ;0D9450|        |      ;
@@ -1975,29 +1975,29 @@ enemy_spriteAssemb_EC: db $03,$F0,$E6,$03,$F4               ;0D94B6|        |   
                        db $F1,$E8,$FC,$F0,$E6               ;0D94BB|        |      ;
                        db $43,$04                           ;0D94C0|        |      ;
  
- boss_spriteAssemb_10: db $03,$F0,$84,$03,$F4               ;0D94C2|        |      ;
+enemy_09_spriteAssemb_0E: db $03,$F0,$84,$03,$F4               ;0D94C2|        |      ;
                        db $F1,$86,$FC,$F1,$88               ;0D94C7|        |      ;
                        db $04                               ;0D94CC|        |      ;
  
- boss_spriteAssemb_12: db $06,$E0,$84,$03,$F0               ;0D94CD|        |      ;
+enemy_09_spriteAssemb_10: db $06,$E0,$84,$03,$F0               ;0D94CD|        |      ;
                        db $E1,$86,$F8,$E1,$A8               ;0D94D2|        |      ;
                        db $00,$01,$AA,$F8,$01               ;0D94D7|        |      ;
                        db $AC,$00,$F9,$AE,$08               ;0D94DC|        |      ;
  
- boss_spriteAssemb_14: db $03,$F0,$8A,$03,$F4               ;0D94E1|        |      ;
+enemy_09_spriteAssemb_12: db $03,$F0,$8A,$03,$F4               ;0D94E1|        |      ;
                        db $F1,$8C,$FC,$F1,$88               ;0D94E6|        |      ;
                        db $04                               ;0D94EB|        |      ;
  
- boss_spriteAssemb_16: db $05,$F0,$90,$03,$F0               ;0D94EC|        |      ;
+enemy_09_spriteAssemb_14: db $05,$F0,$90,$03,$F0               ;0D94EC|        |      ;
                        db $E9,$92,$F8,$E1,$94               ;0D94F1|        |      ;
                        db $00,$E1,$96,$08,$01               ;0D94F6|        |      ;
                        db $98,$00                           ;0D94FB|        |      ;
  
- boss_spriteAssemb_5E: db $03,$F0,$80,$03,$F4               ;0D94FD|        |      ;
+enemy_09_spriteAssemb_5C: db $03,$F0,$80,$03,$F4               ;0D94FD|        |      ;
                        db $F1,$82,$FC,$F1,$88               ;0D9502|        |      ;
                        db $04                               ;0D9507|        |      ;
  
- boss_spriteAssemb_60: db $04,$F0,$9A,$01,$F4               ;0D9508|        |      ;
+enemy_09_spriteAssemb_5E: db $04,$F0,$9A,$01,$F4               ;0D9508|        |      ;
                        db $F0,$80,$03,$F4,$F1               ;0D950D|        |      ;
                        db $82,$FC,$F1,$88,$04               ;0D9512|        |      ;
  
@@ -2012,89 +2012,89 @@ enemy_spriteAssemb_FC: db $07,$F0,$9C,$01,$DC               ;0D9529|        |   
                        db $80,$03,$F4,$F1,$82               ;0D9538|        |      ;
                        db $FC,$F1,$88,$04                   ;0D953D|        |      ;
  
- boss_spriteAssemb_18: db $04,$E0,$95,$02,$F5               ;0D9541|        |      ;
+enemy_09_spriteAssemb_16: db $04,$E0,$95,$02,$F5               ;0D9541|        |      ;
                        db $E1,$97,$FD,$01,$99               ;0D9546|        |      ;
                        db $F8,$01,$9B,$00                   ;0D954B|        |      ;
  
- boss_spriteAssemb_1A: db $04,$E0,$9D,$02,$F5               ;0D954F|        |      ;
+enemy_09_spriteAssemb_18: db $04,$E0,$9D,$02,$F5               ;0D954F|        |      ;
                        db $E1,$9F,$FD,$01,$B0               ;0D9554|        |      ;
                        db $F8,$01,$B2,$00                   ;0D9559|        |      ;
  
- boss_spriteAssemb_1C: db $04,$E0,$B4,$02,$F5               ;0D955D|        |      ;
+enemy_09_spriteAssemb_1A: db $04,$E0,$B4,$02,$F5               ;0D955D|        |      ;
                        db $E1,$B6,$FD,$01,$B8               ;0D9562|        |      ;
                        db $F8,$01,$BA,$00                   ;0D9567|        |      ;
  
- boss_spriteAssemb_1E: db $02,$00,$A2,$02,$F8               ;0D956B|        |      ;
+enemy_09_spriteAssemb_1C: db $02,$00,$A2,$02,$F8               ;0D956B|        |      ;
                        db $00,$A2,$42,$00                   ;0D9570|        |      ;
  
- boss_spriteAssemb_20: db $02,$00,$BC,$02,$F8               ;0D9574|        |      ;
+enemy_09_spriteAssemb_1E: db $02,$00,$BC,$02,$F8               ;0D9574|        |      ;
                        db $01,$BE,$00                       ;0D9579|        |      ;
  
- boss_spriteAssemb_26: db $05,$E0,$D8,$02,$F8               ;0D957C|        |      ;
+enemy_09_spriteAssemb_24: db $05,$E0,$D8,$02,$F8               ;0D957C|        |      ;
                        db $E1,$DA,$00,$01,$DC               ;0D9581|        |      ;
                        db $F8,$01,$DE,$00,$01               ;0D9586|        |      ;
                        db $E0,$08                           ;0D958B|        |      ;
  
- boss_spriteAssemb_28: db $05,$E0,$E2,$02,$F8               ;0D958D|        |      ;
+enemy_09_spriteAssemb_26: db $05,$E0,$E2,$02,$F8               ;0D958D|        |      ;
                        db $E1,$E4,$00,$01,$E6               ;0D9592|        |      ;
                        db $F8,$01,$E8,$00,$01               ;0D9597|        |      ;
                        db $EA,$08                           ;0D959C|        |      ;
  
- boss_spriteAssemb_2A: db $05,$E0,$EC,$02,$F9               ;0D959E|        |      ;
+enemy_09_spriteAssemb_28: db $05,$E0,$EC,$02,$F9               ;0D959E|        |      ;
                        db $E1,$EE,$01,$01,$F0               ;0D95A3|        |      ;
                        db $F8,$01,$F2,$00,$01               ;0D95A8|        |      ;
                        db $F8,$08                           ;0D95AD|        |      ;
  
- boss_spriteAssemb_2C: db $01,$F0,$F4,$02,$FC               ;0D95AF|        |      ;
+enemy_09_spriteAssemb_2A: db $01,$F0,$F4,$02,$FC               ;0D95AF|        |      ;
  
- boss_spriteAssemb_2E: db $01,$F0,$F6,$02,$FC               ;0D95B4|        |      ;
+enemy_09_spriteAssemb_2C: db $01,$F0,$F6,$02,$FC               ;0D95B4|        |      ;
  
- boss_spriteAssemb_30: db $01,$F0,$F8,$02,$FC               ;0D95B9|        |      ;
+enemy_09_spriteAssemb_2E: db $01,$F0,$F8,$02,$FC               ;0D95B9|        |      ;
  
- boss_spriteAssemb_32: db $04,$E2,$B0,$01,$F8               ;0D95BE|        |      ;
+enemy_09_spriteAssemb_30: db $04,$E2,$B0,$01,$F8               ;0D95BE|        |      ;
                        db $E3,$B2,$00,$01,$B4               ;0D95C3|        |      ;
                        db $F8,$01,$B6,$00                   ;0D95C8|        |      ;
  
- boss_spriteAssemb_34: db $04,$E2,$B0,$01,$F8               ;0D95CC|        |      ;
+enemy_09_spriteAssemb_32: db $04,$E2,$B0,$01,$F8               ;0D95CC|        |      ;
                        db $E3,$B2,$00,$01,$B8               ;0D95D1|        |      ;
                        db $F8,$01,$BA,$00                   ;0D95D6|        |      ;
  
- boss_spriteAssemb_36: db $04,$E0,$B0,$01,$F8               ;0D95DA|        |      ;
+enemy_09_spriteAssemb_34: db $04,$E0,$B0,$01,$F8               ;0D95DA|        |      ;
                        db $E1,$B2,$00,$01,$BC               ;0D95DF|        |      ;
                        db $F8,$01,$BE,$00                   ;0D95E4|        |      ;
  
- boss_spriteAssemb_58: db $04,$E2,$C0,$01,$F8               ;0D95E8|        |      ;
+enemy_09_spriteAssemb_56: db $04,$E2,$C0,$01,$F8               ;0D95E8|        |      ;
                        db $E3,$C2,$00,$01,$C4               ;0D95ED|        |      ;
                        db $F8,$01,$C6,$00                   ;0D95F2|        |      ;
  
- boss_spriteAssemb_5A: db $04,$E2,$C0,$01,$F8               ;0D95F6|        |      ;
+enemy_09_spriteAssemb_58: db $04,$E2,$C0,$01,$F8               ;0D95F6|        |      ;
                        db $E3,$C2,$00,$01,$C8               ;0D95FB|        |      ;
                        db $F8,$01,$CA,$00                   ;0D9600|        |      ;
  
- boss_spriteAssemb_5C: db $04,$E0,$C0,$01,$F8               ;0D9604|        |      ;
+enemy_09_spriteAssemb_5A: db $04,$E0,$C0,$01,$F8               ;0D9604|        |      ;
                        db $E1,$C2,$00,$01,$CC               ;0D9609|        |      ;
                        db $F8,$01,$CE,$00                   ;0D960E|        |      ;
  
- boss_spriteAssemb_54: db $02,$F0,$F6,$01,$F8               ;0D9612|        |      ;
+enemy_09_spriteAssemb_52: db $02,$F0,$F6,$01,$F8               ;0D9612|        |      ;
                        db $F1,$F8,$00                       ;0D9617|        |      ;
  
- boss_spriteAssemb_56: db $02,$F0,$FA,$01,$F8               ;0D961A|        |      ;
+enemy_09_spriteAssemb_54: db $02,$F0,$FA,$01,$F8               ;0D961A|        |      ;
                        db $F1,$FC,$00                       ;0D961F|        |      ;
  
- boss_spriteAssemb_62: db $02,$F0,$B6,$01,$F8               ;0D9622|        |      ;
+enemy_09_spriteAssemb_60: db $02,$F0,$B6,$01,$F8               ;0D9622|        |      ;
                        db $F1,$B8,$00                       ;0D9627|        |      ;
  
- boss_spriteAssemb_64: db $02,$F0,$BA,$01,$F8               ;0D962A|        |      ;
+enemy_09_spriteAssemb_62: db $02,$F0,$BA,$01,$F8               ;0D962A|        |      ;
                        db $F1,$BC,$00                       ;0D962F|        |      ;
  
- boss_spriteAssemb_70: db $09,$D0,$C0,$01,$F0               ;0D9632|        |      ;
+enemy_09_spriteAssemb_6E: db $09,$D0,$C0,$01,$F0               ;0D9632|        |      ;
                        db $E1,$C2,$F8,$E1,$C4               ;0D9637|        |      ;
                        db $00,$DB,$C6,$08,$D1               ;0D963C|        |      ;
                        db $C8,$10,$01,$CA,$FB               ;0D9641|        |      ;
                        db $01,$CC,$03,$1A,$84               ;0D9646|        |      ;
                        db $02,$F8,$1B,$86,$00               ;0D964B|        |      ;
  
- boss_spriteAssemb_72: db $0A,$E6,$CE,$01,$F0               ;0D9650|        |      ;
+enemy_09_spriteAssemb_70: db $0A,$E6,$CE,$01,$F0               ;0D9650|        |      ;
                        db $E1,$D0,$F8,$E1,$D2               ;0D9655|        |      ;
                        db $00,$E7,$D4,$08,$05               ;0D965A|        |      ;
                        db $D6,$F0,$01,$D8,$F8               ;0D965F|        |      ;
@@ -2102,20 +2102,20 @@ enemy_spriteAssemb_FC: db $07,$F0,$9C,$01,$DC               ;0D9529|        |   
                        db $08,$1E,$88,$02,$F8               ;0D9669|        |      ;
                        db $1F,$8A,$00                       ;0D966E|        |      ;
  
- boss_spriteAssemb_74: db $07,$D0,$C0,$01,$F0               ;0D9671|        |      ;
+enemy_09_spriteAssemb_72: db $07,$D0,$C0,$01,$F0               ;0D9671|        |      ;
                        db $E1,$C2,$F8,$E1,$C4               ;0D9676|        |      ;
                        db $00,$DB,$C6,$08,$D1               ;0D967B|        |      ;
                        db $C8,$10,$01,$CA,$FB               ;0D9680|        |      ;
                        db $01,$CC,$03                       ;0D9685|        |      ;
  
- boss_spriteAssemb_76: db $08,$E6,$CE,$01,$F0               ;0D9688|        |      ;
+enemy_09_spriteAssemb_74: db $08,$E6,$CE,$01,$F0               ;0D9688|        |      ;
                        db $E1,$D0,$F8,$E1,$D2               ;0D968D|        |      ;
                        db $00,$E7,$D4,$08,$05               ;0D9692|        |      ;
                        db $D6,$F0,$01,$D8,$F8               ;0D9697|        |      ;
                        db $01,$DA,$00,$05,$DC               ;0D969C|        |      ;
                        db $08                               ;0D96A1|        |      ;
  
-  bossAssembPointer06: dw boss2_spriteAssemb_00             ;0D96A2|        |0D9782;
+  bossAssembPointer05: dw boss2_spriteAssemb_00             ;0D96A2|        |0D9782;
                        dw boss2_spriteAssemb_00             ;0D96A4|        |0D9782;
                        dw boss2_spriteAssemb_04             ;0D96A6|        |0D97A9;
                        dw boss2_spriteAssemb_06             ;0D96A8|        |0D97CA;
@@ -2796,7 +2796,7 @@ boss2_spriteAssemb_DA: db $0B,$C0,$F2,$02,$F9               ;0D9FB3|        |   
                        db $02,$21,$BA,$F3,$21               ;0D9FCC|        |      ;
                        db $BC,$FB,$21,$BE,$03               ;0D9FD1|        |      ;
  
-    miscSpriteList_09: dw miscSpriteAssemb_00               ;0D9FD6|        |0DA0D6;
+    miscSpriteList_08: dw miscSpriteAssemb_00               ;0D9FD6|        |0DA0D6;
                        dw miscSpriteAssemb_02               ;0D9FD8|        |0DA0DE;
                        dw boss2_spriteAssemb_D4             ;0D9FDA|        |0D9F56;
                        dw miscSpriteAssemb_00               ;0D9FDC|        |0DA0D6;
@@ -3704,7 +3704,7 @@ boss2_spriteAssemb_DC: db $01,$F0,$FA,$81,$F8               ;0DA9B9|        |   
          DATA8_0DABDF: db $02,$F0,$DA,$41,$F8               ;0DABDF|        |      ;
                        db $F1,$D8,$00                       ;0DABE4|        |      ;
  
-  bossAssembPointer07: dw DATA8_0DAE99                      ;0DABE7|        |0DAE99;
+  bossAssembPointer06: dw DATA8_0DAE99                      ;0DABE7|        |0DAE99;
                        dw DATA8_0DAEA7                      ;0DABE9|        |0DAEA7;
                        dw DATA8_0DAEBB                      ;0DABEB|        |0DAEBB;
                        dw DATA8_0DAEA7                      ;0DABED|        |0DAEA7;
@@ -3833,7 +3833,7 @@ boss2_spriteAssemb_DC: db $01,$F0,$FA,$81,$F8               ;0DA9B9|        |   
                        dw DATA8_0DABDF                      ;0DACE3|        |0DABDF;
                        dw DATA8_0DB1CC                      ;0DACE5|        |0DB1CC;
  
-  enemyAssemPointer0b: dw DATA8_0DB4B5                      ;0DACE7|        |0DB4B5;
+  enemyAssemPointer0a: dw DATA8_0DB4B5                      ;0DACE7|        |0DB4B5;
                        dw DATA8_0DB4B5                      ;0DACE9|        |0DB4B5;
                        dw DATA8_0DB4C4                      ;0DACEB|        |0DB4C4;
                        dw DATA8_0DB4D3                      ;0DACED|        |0DB4D3;
@@ -3888,7 +3888,7 @@ boss2_spriteAssemb_DC: db $01,$F0,$FA,$81,$F8               ;0DA9B9|        |   
                        dw DATA8_0DAE2D                      ;0DAD4F|        |0DAE2D;
                        dw DATA8_0DAE32                      ;0DAD51|        |0DAE32;
  
-doorETCAssembPointer08: dw DATA8_0DAE99                      ;0DAD53|        |0DAE99;
+doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0DAE99;
                        dw DATA8_0DAEF8                      ;0DAD55|        |0DAEF8;
                        dw DATA8_0DAEFD                      ;0DAD57|        |0DAEFD;
                        dw DATA8_0DAE99                      ;0DAD59|        |0DAE99;

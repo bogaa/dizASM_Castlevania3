@@ -2769,7 +2769,7 @@
           <Value exs:type="ns1:Label" Name="enemySpriteAssembList_04" Comment="" />
         </sys:Item>
         <sys:Item Key="888041">
-          <Value exs:type="ns1:Label" Name="bossAssembList_0a" Comment="" />
+          <Value exs:type="ns1:Label" Name="enemyAssembList_09" Comment="" />
         </sys:Item>
         <sys:Item Key="888167">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_FE" Comment="" />
@@ -2794,18 +2794,6 @@
         </sys:Item>
         <sys:Item Key="888271">
           <Value exs:type="ns1:Label" Name="sprAssembBirdSit12" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888279">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_66" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888293">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_68" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888301">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_6A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888315">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_6E" Comment="" />
         </sys:Item>
         <sys:Item Key="888323">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_14" Comment="" />
@@ -2851,12 +2839,6 @@
         </sys:Item>
         <sys:Item Key="888430">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_2A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888438">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_78" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888446">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_7A" Comment="" />
         </sys:Item>
         <sys:Item Key="888454">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_7E" Comment="" />
@@ -2918,59 +2900,11 @@
         <sys:Item Key="888778">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_4A" Comment="" />
         </sys:Item>
-        <sys:Item Key="888792">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_22" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888803">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_24" Comment="" />
-        </sys:Item>
         <sys:Item Key="888814">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_4C" Comment="" />
         </sys:Item>
         <sys:Item Key="888822">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_4E" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888830">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_38" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888838">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_3A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888846">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_46" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888854">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_48" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888862">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_3C" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888870">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_4A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888878">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_3E" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888886">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_4C" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888894">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_40" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888899">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_4E" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888904">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_42" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888912">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_50" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888920">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_44" Comment="" />
-        </sys:Item>
-        <sys:Item Key="888928">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_52" Comment="" />
         </sys:Item>
         <sys:Item Key="888936">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_58" Comment="" />
@@ -3149,27 +3083,6 @@
         <sys:Item Key="889813">
           <Value exs:type="ns1:Label" Name="trevorSpriteAssemb_5A" Comment="" />
         </sys:Item>
-        <sys:Item Key="889818">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_02" Comment="" />
-        </sys:Item>
-        <sys:Item Key="889827">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_04" Comment="" />
-        </sys:Item>
-        <sys:Item Key="889836">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_06" Comment="" />
-        </sys:Item>
-        <sys:Item Key="889853">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_08" Comment="" />
-        </sys:Item>
-        <sys:Item Key="889881">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_0A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="889904">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_0C" Comment="" />
-        </sys:Item>
-        <sys:Item Key="889921">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_0E" Comment="" />
-        </sys:Item>
         <sys:Item Key="889941">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_DE" Comment="" />
         </sys:Item>
@@ -3200,107 +3113,14 @@
         <sys:Item Key="890038">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_EC" Comment="" />
         </sys:Item>
-        <sys:Item Key="890050">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_10" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890061">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_12" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890081">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_14" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890092">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_16" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890109">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_5E" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890120">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_60" Comment="" />
-        </sys:Item>
         <sys:Item Key="890135">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_FA" Comment="" />
         </sys:Item>
         <sys:Item Key="890153">
           <Value exs:type="ns1:Label" Name="enemy_spriteAssemb_FC" Comment="" />
         </sys:Item>
-        <sys:Item Key="890177">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_18" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890191">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_1A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890205">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_1C" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890219">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_1E" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890228">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_20" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890236">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_26" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890253">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_28" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890270">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_2A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890287">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_2C" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890292">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_2E" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890297">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_30" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890302">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_32" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890316">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_34" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890330">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_36" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890344">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_58" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890358">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_5A" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890372">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_5C" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890386">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_54" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890394">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_56" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890402">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_62" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890410">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_64" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890418">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_70" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890448">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_72" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890481">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_74" Comment="" />
-        </sys:Item>
-        <sys:Item Key="890504">
-          <Value exs:type="ns1:Label" Name="boss_spriteAssemb_76" Comment="" />
-        </sys:Item>
         <sys:Item Key="890530">
-          <Value exs:type="ns1:Label" Name="bossAssembPointer06" Comment="" />
+          <Value exs:type="ns1:Label" Name="bossAssembPointer05" Comment="" />
         </sys:Item>
         <sys:Item Key="890754">
           <Value exs:type="ns1:Label" Name="boss2_spriteAssemb_00" Comment="" />
@@ -3603,7 +3423,7 @@
           <Value exs:type="ns1:Label" Name="boss2_spriteAssemb_DA" Comment="" />
         </sys:Item>
         <sys:Item Key="892886">
-          <Value exs:type="ns1:Label" Name="miscSpriteList_09" Comment="" />
+          <Value exs:type="ns1:Label" Name="miscSpriteList_08" Comment="" />
         </sys:Item>
         <sys:Item Key="893142">
           <Value exs:type="ns1:Label" Name="miscSpriteAssemb_00" Comment="" />
@@ -3972,13 +3792,13 @@
           <Value exs:type="ns1:Label" Name="miscSpriteAssemb_FE" Comment="" />
         </sys:Item>
         <sys:Item Key="895975">
-          <Value exs:type="ns1:Label" Name="bossAssembPointer07" Comment="" />
+          <Value exs:type="ns1:Label" Name="bossAssembPointer06" Comment="" />
         </sys:Item>
         <sys:Item Key="896231">
-          <Value exs:type="ns1:Label" Name="enemyAssemPointer0b" Comment="" />
+          <Value exs:type="ns1:Label" Name="enemyAssemPointer0a" Comment="" />
         </sys:Item>
         <sys:Item Key="896339">
-          <Value exs:type="ns1:Label" Name="doorETCAssembPointer08" Comment="" />
+          <Value exs:type="ns1:Label" Name="doorETCAssembPointer07" Comment="" />
         </sys:Item>
         <sys:Item Key="950272">
           <Value exs:type="ns1:Label" Name="bank_9c" Comment="" />
