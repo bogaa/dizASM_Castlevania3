@@ -1,0 +1,9 @@
+
+;pos=0F1000
+XD
+XD
+XD
+XD
+XD
+Xj
+r 2042 XD

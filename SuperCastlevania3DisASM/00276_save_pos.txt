@@ -1,0 +1,11 @@
+
+;pos=087800
+Xj
+Xj
+r 1057 XD
+Xj
+r 766 XD
+XH
+r 219 XD
+Xj
+XD

@@ -1,0 +1,7 @@
+
+;pos=0C2000
+r 180 XD
+Xj
+r 1028 XD
+XH
+r 838 XD

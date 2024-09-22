@@ -1,0 +1,110 @@
+
+;pos=004000
+AD
+AD
+AD
+AD
+Aj
+AD
+AD
+AD
+AD
+AD
+AH
+Ab
+AD
+AD
+AD
+Aj
+Aj
+r 14 AD
+Aj
+r 31 AD
+Aj
+r 63 AD
+Aj
+r 39 AD
+Aj
+AD
+Aj
+Aj
+r 37 AD
+Aj
+r 15 AD
+Aj
+r 14 AD
+Aj
+AD
+Aj
+r 13 AD
+Aj
+r 151 AD
+Aj
+r 36 AD
+Aj
+AD
+AD
+Aj
+AD
+AD
+AD
+AD
+AD
+Aj
+r 49 AD
+Aj
+AD
+AD
+AD
+AD
+AD
+AD
+AD
+Aj
+r 175 AD
+Aj
+r 64 AD
+Aj
+r 9 AD
+Aj
+r 9 AD
+Aj
+r 135 AD
+Aj
+Aj
+r 51 AD
+Aj
+r 30 AD
+Aj
+r 47 AD
+Aj
+r 45 AD
+Aj
+r 77 AD
+Aj
+r 18 AD
+Aj
+r 291 AD
+Aj
+r 91 AD
+Aj
+r 63 AD
+Aj
+r 59 AD
+Aj
+r 11 AD
+Aj
+r 102 AD
+Aj
+r 8 AD
+Aj
+r 87 AD
+Aj
+r 22 AD
+Aj
+r 59 AD
+Aj
+AD
+AD
+Aj
+r 58 AD

@@ -1,0 +1,20 @@
+
+;pos=057800
+r 916 XD
+XH
+r 14 XD
+XH
+r 10 XD
+XH
+r 10 XD
+XH
+r 91 XD
+XH
+r 674 XD
+XH
+r 14 XD
+XH
+r 14 XD
+XH
+r 296 XD
+AD0B

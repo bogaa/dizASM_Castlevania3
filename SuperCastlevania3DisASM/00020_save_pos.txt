@@ -1,0 +1,330 @@
+
+;pos=007800
+Xj
+Xj
+Xj
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+Xj
+r 11 XD
+Xj
+r 10 XD
+Xj
+XD
+XD
+Xj
+XD
+XD
+XD
+Xj
+r 22 XD
+Xj
+Xj
+Xj
+r 23 XD
+Xj
+r 28 XD
+Xj
+r 8 XD
+Xj
+r 9 XD
+Xj
+r 28 XD
+Xj
+XD
+Xj
+Xj
+Xj
+XD
+Xj
+r 25 XD
+Xj
+r 17 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 15 XD
+Xj
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+Xj
+r 130 XD
+Xj
+r 55 XD
+Xj
+r 44 XD
+Xj
+r 8 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 50 XD
+Xj
+r 90 XD
+Xj
+XD
+Xj
+Xj
+XD
+XD
+Xj
+Xj
+XD
+XD
+Xj
+r 95 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+XD
+Xj
+Xj
+Xj
+r 27 XD
+Xj
+r 15 XD
+Xj
+r 51 XD
+Xj
+r 32 XD
+XH
+r 22 XD
+Xj
+r 18 XD
+XH
+r 29 XD
+Xj
+Xj
+r 23 XD
+Xj
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 10 XD
+Xj
+XD
+XD
+Xj
+XD
+Xj
+Xj
+Xj
+Xj
+Xj
+r 119 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 90 XD
+XH
+r 22 XD
+Xj
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+Xj
+XD
+Xj
+r 9 XD
+Xj
+r 65 XD
+Xj
+r 20 XD
+Xj
+r 31 XD
+Xj
+XD
+Xj
+r 62 XD
+Xj
+r 36 XD
+Xj
+r 21 XD
+Xj
+XD
+XD
+Xj
+r 27 XD
+Xj
+XD
+XD
+Xj
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 88 XD
+Xj
+r 29 XD
+Xj
+r 15 XD
+Xj
+r 16 XD
+Xj
+r 27 XD
+Xj
+r 23 XD
+Xj
+r 9 XD
+Xj
+Xj
+XD
++j
++j
++j
+.D
++b
+.D
+.D
+.D
+Xj
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+Xj
+r 9 XD
+Xj
+r 13 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 9 XD
++7
+.D
+.D
+.D
+r 60 XD
++7
+.D
+.D
+.D
+r 19 XD
+Xj
+r 32 XD
+Xj
+XD
+XD
+XD
+Xj
+XD
+Xj
+XD
+Tj
+r 9 TD
+Tj
+r 11 TD
+AD
+AD
+AD
+AD
+Aj
+AD
+AD
+AD
+BD
+BD
+BD
+BD
+BD
+BD
+ET
+ED
+Ej
+ED
+ED
+ED
+Eb
+EH
+r 8 ED
+ET
+Ej
+ED
+ED
+ED
+ED
+ED
+ED
+Ej
+ED
+Ez
+Ej
+AD01

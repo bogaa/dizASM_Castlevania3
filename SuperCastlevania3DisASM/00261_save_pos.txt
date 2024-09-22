@@ -1,0 +1,7 @@
+
+;pos=080000
+Xj
+Xj
+r 14 XD
+Xj
+r 2031 XD

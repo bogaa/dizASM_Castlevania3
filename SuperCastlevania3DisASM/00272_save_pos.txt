@@ -1,0 +1,7 @@
+
+;pos=085800
+r 1535 XD
+Xj
+r 50 XD
+Xj
+r 461 XD

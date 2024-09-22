@@ -1,0 +1,7 @@
+
+;pos=0FA800
+r 1877 XD
+Xj
+r 62 XD
+Xj
+r 107 XD

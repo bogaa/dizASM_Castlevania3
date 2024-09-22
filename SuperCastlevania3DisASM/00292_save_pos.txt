@@ -1,0 +1,7 @@
+
+;pos=08F800
+r 769 XD
+Xj
+r 447 XD
+Xj
+r 830 XD

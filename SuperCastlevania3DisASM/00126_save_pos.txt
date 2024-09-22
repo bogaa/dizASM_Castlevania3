@@ -1,0 +1,7 @@
+
+;pos=03C800
+r 72 XD
+Xj
+r 447 XD
+Xj
+r 1527 XD

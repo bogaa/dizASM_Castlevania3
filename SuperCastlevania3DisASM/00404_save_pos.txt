@@ -1,0 +1,7 @@
+
+;pos=0C7800
+r 1799 XD
+XH
+r 246 XD
+Xj
+XD

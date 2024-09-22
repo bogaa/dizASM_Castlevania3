@@ -1,0 +1,27 @@
+
+;pos=056000
+r 606 XD
+XH
+r 122 XD
+XH
+r 97 XD
+XH
+r 551 XD
+Xj
+r 20 XD
+XH
+r 20 XD
+XH
+r 50 XD
+XH
+r 164 XD
+XH
+r 175 XD
+XH
+r 25 XD
+XH
+r 187 XD
+XH
+r 10 XD
+XH
+r 9 XD

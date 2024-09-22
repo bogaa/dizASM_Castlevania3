@@ -1,0 +1,65 @@
+
+;pos=004800
+r 8 AD
+Aj
+r 9 AD
+Aj
+r 125 AD
+Aj
+r 58 AD
+Aj
+r 36 AD
+Aj
+r 18 AD
+Aj
+Aj
+r 69 AD
+Aj
+r 60 AD
+Aj
+r 123 AD
+Aj
+r 43 AD
+Aj
+Aj
+Aj
+AD
+AD
+AD
+Aj
+Aj
+AD
+AD
+Aj
+Aj
+r 162 AD
+Aj
+r 188 AD
+Aj
+r 32 AD
+Aj
+r 270 AD
+Aj
+AD
+Aj
+AD
+AD
+Aj
+Aj
+r 31 AD
+Aj
+r 14 AD
+Aj
+r 91 AD
+Aj
+r 60 AD
+Aj
+r 52 AD
+Aj
+r 254 AD
+Aj
+r 51 AD
+Aj
+r 139 AD
+Aj
+r 115 AD

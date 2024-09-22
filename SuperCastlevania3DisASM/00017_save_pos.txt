@@ -1,0 +1,276 @@
+
+;pos=006000
+Xj
+XD
+XD
+XD
+XD
+Xj
+r 27 XD
+XH
+r 25 XD
+Xj
+r 116 XD
+Xj
+r 12 XD
+Xj
+r 15 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 12 XD
+Xj
+r 8 XD
+Xj
+XD
+Xj
+XD
+XD
+XD
+Xj
+Xj
+XD
+XD
+XD
+Xj
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+Xj
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+r 118 XD
+Xj
+r 88 XD
+Xj
+XD
+XD
+Xj
+XD
+XD
+XD
+Xj
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+Xj
+XD
+Xj
+XD
+XD
+Xj
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+Xj
+r 38 XD
+XH
+r 55 XD
+XH
+r 62 XD
+Xj
+r 59 XD
+XH
+r 87 XD
+Xj
+r 9 XD
+XH
+r 32 XD
+XH
+r 43 XD
+Xj
+r 17 XD
+Xj
+XD
+Xj
+r 34 XD
+Xj
+r 31 XD
+Xj
+XD
+Xj
+XD
+Xj
+r 9 XD
+Xj
+r 18 XD
+Xj
+Xj
+r 61 XD
+Xj
+r 160 XD
+Xj
+Xj
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+Xj
+XD
+Xj
+XD
+Xj
+XD
+Xj
+XD
+XD
+XD
+Xj
+r 116 XD
+Xj
+r 14 XD
+XH
+r 19 XD
+Xj
+XH
+r 32 XD
+XH
+r 15 XD
+XH
+XD
+XH
+r 8 XD
+XH
+XD
+XD
+XD
+XH
+r 21 XD
+Xj
+Xj
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+Xj
+r 17 XD
+Xj
+Xj
+XD
+XD
+Xj
+r 12 XD
+Xj
+r 12 XD
+XH
+r 71 XD
+XH
+r 16 XD
+XH
+r 23 XD
+XH
+r 18 XD
+Xj
+r 34 XD
+XH
+r 8 XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XH
+r 10 XD
+XH
+XD
+Xj
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XH
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 10 XD
+XH
+Xj
+XD
+XD
+XD
+XD
+Xj
+XD
+XD
+XD
+XD
+XH
+r 10 XD
+XH
+XD
+XD
+XD
+XD
+XD
+Xj
+r 32 XD
+XH
+r 76 XD
+XH
+r 10 XD
+XH
+r 93 XD
+Xj
+XD
+Xj
+XD
+XH
+r 9 XD

@@ -1,0 +1,17 @@
+
+;pos=00F800
+XD
+XD
+Xj
+r 1020 XD
+Xj
+r 767 XD
+Xj
+r 127 XD
+Xj
+r 123 XD
+Xj
+XD
+XD
+XD
+AD02

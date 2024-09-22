@@ -1,0 +1,7 @@
+
+;pos=0CF800
+r 511 XD
+XH
+r 1400 XD
+Xj
+r 135 XD

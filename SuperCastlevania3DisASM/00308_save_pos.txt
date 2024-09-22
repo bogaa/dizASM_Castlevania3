@@ -1,0 +1,9 @@
+
+;pos=097800
+r 1809 XD
+Xj
+r 33 XD
+Xj
+r 23 XD
+Xj
+r 180 XD

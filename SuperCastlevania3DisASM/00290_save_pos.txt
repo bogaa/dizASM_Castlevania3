@@ -1,0 +1,7 @@
+
+;pos=08E800
+r 1527 XD
+Xj
+r 236 XD
+Xj
+r 283 XD

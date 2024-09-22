@@ -1,0 +1,386 @@
+
+;pos=078000
+XH
+r 9 XD
+XH
+Xf
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 26 XD
+Xb
+r 23 XD
+XT
+XH
+XD
+XL
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 50 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 154 XD
+XT
+r 193 XD
+XT
+r 16 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XD
+Xj
+XD
+XT
+r 28 XD
+XH
+r 10 XD
+XH
+r 37 XD
+XL
+r 18 XD
+XH
+r 41 XD
+XL
+XD
+XH
+XD
+XD
+XD
+XL
+r 10 XD
+XH
+r 21 XD
+XP
+XD
+XL
+r 8 XD
+XL
+XD
+XD
+XH
+Xb
+XD
+XH
+XD
+XD
+XD
+XL
+XD
+Xb
+r 20 XD
+XH
+XD
+XT
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 12 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 13 XD
+XH
+r 40 XD
+XL
+XD
+XD
+XD
+XD
+XD
+XL
+r 10 XD
+XH
+XD
+XD
+XD
+XD
+Xb
+XD
+XT
+XD
+XD
+XD
+XD
+XD
+XD
+XL
+XD
+XD
+XH
+r 15 XD
+XL
+XD
+XD
+XD
+XD
+XH
+r 10 XD
+XP
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+XD
+XD
+XL
+r 14 XD
+XH
+r 14 XD
+XL
+r 9 XD
+XL
+r 10 XD
+XT
+XD
+XH
+XD
+XD
+XL
+r 10 XD
+XL
+XD
+XD
+XD
+XD
+XD
+XD
+XL
+XD
+XD
+XD
+XD
+XH
+r 30 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XD
+XL
+r 12 XD
+XH
+r 15 XD
+XL
+r 15 XD
+XH
+r 13 XD
+XX
+XD
+XD
+XD
+XD
+XH
+XD
+XD
+XH
+XD
+XD
+XL
+XD
+XD
+XP
+r 9 XD
+XH
+r 21 XD
+XH
+r 11 XD
+XT
+XD
+XD
+XL
+XD
+XD
+XL
+XD
+XD
+XD
+XD
+XD
+XL
+r 18 XD
+XH
+XD
+XD
+XH
+XD
+XD
+XT
+r 14 XD
+XH
+XD
+XP
+r 13 XD
+XL
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+XD
+XD
+XD
+XD
+XT
+r 9 XD
+XL
+r 21 XD
+XH
+r 15 XD
+XH
+r 62 XD
+XH
+XD
+XD
+XH
+r 28 XD
+XT
+r 35 XD
+XL
+XD
+XD
+XH
+XD
+XD
+XD
+XH
+r 19 XD
+XH
+r 21 XD
+XH
+XP
+r 14 XD
+XL
+r 9 XD
+XH
+XD
+XD
+XH
+r 18 XD
+XL
+XD
+XD
+XD
+XH
+r 21 XD
+XH
+XD
+XL
+XD
+XH
+XD
+XT
+r 68 XD
+XT
+r 13 XD
+XT
+XH
+r 94 XD
+XT
+r 9 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XD
+XT
+r 27 XD
+XL
+XH
+XD
+XD
+XD
+XD
+XH
+XD
+XT
+r 34 XD
+XL
+XD
+XD
+XL
+r 12 XD
+Xb
+r 25 XD
+XT
+r 15 XD
+XT
+r 42 XD
+XH
+r 13 XD
+Xb
+XH
+r 11 XD
+Xb
+XH
+XD
+XD
+XD
+XD
+XD
+Xb
+XH
+XD
+XD
+XD
+XD
+XL
+XD
+XD
+XD
+XD
+XD
+XD
+XL
+XH
+r 15 XD
+XL
+r 8 XD
+XH
+r 23 XD
+XL
+XH
+r 30 XD
+XH
+XD
+XD
+XH
+r 11 XD
+XT
+r 18 XD

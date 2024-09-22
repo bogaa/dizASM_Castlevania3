@@ -1,0 +1,9 @@
+
+;pos=01C800
+r 1024 XD
+Xj
+r 153 XD
+Xj
+r 105 XD
+Xj
+r 763 XD

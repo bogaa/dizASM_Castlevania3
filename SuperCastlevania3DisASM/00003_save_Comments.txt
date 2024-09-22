@@ -1,0 +1,147 @@
+<Comments>
+        <sys:Item Key="32768" Value="NES PRG 0000" />
+        <sys:Item Key="34249" Value="Trevor Palette Index" />
+        <sys:Item Key="34250" Value="Sympa Palette Index" />
+        <sys:Item Key="34251" Value="Grant Palette Index" />
+        <sys:Item Key="34252" Value="AlucardPalette Index" />
+        <sys:Item Key="37589" Value="c6 enity index is y offset " />
+        <sys:Item Key="37615" Value="afterMedua" />
+        <sys:Item Key="40961" Value="NES PRG 2000" />
+        <sys:Item Key="42509" Value="mapScreen Bank" />
+        <sys:Item Key="43738" Value="??" />
+        <sys:Item Key="49152" Value="NES PRG E000" />
+        <sys:Item Key="98304" Value="NES PRG 4000" />
+        <sys:Item Key="98642" Value="initiate ending sequance " />
+        <sys:Item Key="98646" Value="initiate map sequance " />
+        <sys:Item Key="103089" Value="get sympha Screen " />
+        <sys:Item Key="163840" Value="NES PRG 8000" />
+        <sys:Item Key="229376" Value="NES PRG C000" />
+        <sys:Item Key="294912" Value="NES PRG 10000" />
+        <sys:Item Key="360448" Value="NES PRG 14000" />
+        <sys:Item Key="425984" Value="NES PRG 18000" />
+        <sys:Item Key="491520" Value="NES PRG 1c000" />
+        <sys:Item Key="557056" Value="PRG 20000" />
+        <sys:Item Key="622592" Value="NES PRG 24000" />
+        <sys:Item Key="688128" Value="NES PRG 28000" />
+        <sys:Item Key="689447" Value="#00  Unused address used by diverted spawners" />
+        <sys:Item Key="689449" Value="#01  Zombie (slow rate) normal zombie&#x9; " />
+        <sys:Item Key="689450" Value=" " />
+        <sys:Item Key="689451" Value="#02  Zombie (from ground)   " />
+        <sys:Item Key="689452" Value="    " />
+        <sys:Item Key="689453" Value="#03  Medusa Head (one)    " />
+        <sys:Item Key="689455" Value="#04  Winged Demon (one)   " />
+        <sys:Item Key="689456" Value=" " />
+        <sys:Item Key="689457" Value=" #05  Skull Knight (Boss) " />
+        <sys:Item Key="689459" Value="#06  Cyclops (Boss) " />
+        <sys:Item Key="689461" Value="#07  Grant (Boss)    " />
+        <sys:Item Key="689463" Value="#08  Lightning (bolts) first visual effect  " />
+        <sys:Item Key="689465" Value="#09  Lightning (Sypha) cinematic visual effect " />
+        <sys:Item Key="689467" Value="#0A  Lightning (clouds) boss fight visual effect " />
+        <sys:Item Key="689469" Value=" #0B  Hunchback " />
+        <sys:Item Key="689471" Value="#0C  Bats (flying)[1] " />
+        <sys:Item Key="689473" Value="#0D  Bats (asleep)   " />
+        <sys:Item Key="689475" Value="#0E  Bone Pillar (3-shot)[1]   " />
+        <sys:Item Key="689477" Value="#0F  Axe Knight " />
+        <sys:Item Key="689479" Value="#10  Crow (flying low)       " />
+        <sys:Item Key="689481" Value="#11  Skeleton (sword)[1]  " />
+        <sys:Item Key="689483" Value="#12  Fishmen (jumping) bridge variety    " />
+        <sys:Item Key="689485" Value="#13  Skeleton (whip,red)     " />
+        <sys:Item Key="689487" Value="#14  Floating Eye   " />
+        <sys:Item Key="689489" Value="#15  Slime Ball      " />
+        <sys:Item Key="689491" Value="#16  Skeleton (bones)  " />
+        <sys:Item Key="689493" Value="#17  Skeleton (whip,blue)    " />
+        <sys:Item Key="689494" Value="   " />
+        <sys:Item Key="689495" Value="#18  Ghost (no flicker)  " />
+        <sys:Item Key="689497" Value="#19  Skeleton (red)      " />
+        <sys:Item Key="689499" Value="#1A  Mummies[1]  " />
+        <sys:Item Key="689501" Value="#1B  Giant Bat (Boss)    " />
+        <sys:Item Key="689503" Value="#1C  Alucard (Boss)     " />
+        <sys:Item Key="689505" Value="#1D  Bone Dragon King (Boss)   " />
+        <sys:Item Key="689507" Value="#1E  Medusa (Boss)         " />
+        <sys:Item Key="689509" Value="#1F  Water Dragons (Boss)    " />
+        <sys:Item Key="689511" Value="#20  Mummies + Cyclops (Boss)         " />
+        <sys:Item Key="689513" Value="#21  Frankenstein's Monster (Boss) " />
+        <sys:Item Key="689515" Value="#22  UNUSED BOSS (no object, spawner position #2A)     " />
+        <sys:Item Key="689517" Value="#23  Grim Reaper (Boss) " />
+        <sys:Item Key="689519" Value="#24  Doppelganger (Boss)" />
+        <sys:Item Key="689521" Value="#25  Mummy + Cyclops + Leviathan (Boss) " />
+        <sys:Item Key="689523" Value="#26  Dracula (Boss)" />
+        <sys:Item Key="689525" Value="#27  Crow (flying high) " />
+        <sys:Item Key="689527" Value="#28  Headless Pirate a.k.a. Dhuron " />
+        <sys:Item Key="689529" Value="#29  Spider " />
+        <sys:Item Key="689531" Value="#2A  Bone Pillar (2-shot)    " />
+        <sys:Item Key="689533" Value="#2B  Bats (flying)[2] *unused in CV3j* " />
+        <sys:Item Key="689535" Value="#2C  Fuzz Buster[1] *unused in CV3j*   " />
+        <sys:Item Key="689537" Value=" #2D  Spore (floating)    " />
+        <sys:Item Key="689539" Value=" #2E  Spore   " />
+        <sys:Item Key="689541" Value=" #2F  Trap Door *unused*    " />
+        <sys:Item Key="689543" Value="#30  Trap Door (spikes) *unused*   " />
+        <sys:Item Key="689545" Value="#31  Gear Tooth *unused*     " />
+        <sys:Item Key="689547" Value="#32  Skeleton (blue)      " />
+        <sys:Item Key="689549" Value="#33  Pendulum *unused*        " />
+        <sys:Item Key="689551" Value="#34  Falling Spikes[1] *unused*      " />
+        <sys:Item Key="689553" Value="#35  Falling Spikes[2] *unused* " />
+        <sys:Item Key="689555" Value="#36  Water Current (4 blocks)    " />
+        <sys:Item Key="689557" Value="#37  Falling Blocks *unused*   " />
+        <sys:Item Key="689559" Value=" #38  Acid Drops *unused*   " />
+        <sys:Item Key="689561" Value="#39  Water Current (2 blocks)[1]   " />
+        <sys:Item Key="689563" Value="#3A  Zombie (fast rate)[1]          " />
+        <sys:Item Key="689565" Value="#3B  Mudmen    " />
+        <sys:Item Key="689567" Value="#3C  Frog     " />
+        <sys:Item Key="689569" Value="#3D  Fishmen (swimming) aqueduct variety     " />
+        <sys:Item Key="689571" Value=" #3E  Fishmen (swim+jump) deep water variety   " />
+        <sys:Item Key="689573" Value=" #3F  Fire Man   " />
+        <sys:Item Key="689575" Value="#40  Knight   " />
+        <sys:Item Key="689577" Value="#41  Bone Pillar (3-shot)[2]   " />
+        <sys:Item Key="689579" Value="#42  Auto-Walk (forest) " />
+        <sys:Item Key="689581" Value="#43  Bone Dragon           " />
+        <sys:Item Key="689583" Value="#44  Owl     " />
+        <sys:Item Key="689585" Value="#45  Fuzz Buster[2]    " />
+        <sys:Item Key="689587" Value="#46  Harpy   " />
+        <sys:Item Key="689589" Value="#47  Bats Flying[3]    " />
+        <sys:Item Key="689591" Value=" #48  Medusa Heads (two)[1]    " />
+        <sys:Item Key="689593" Value="#49  Skeleton (sword)[2]   " />
+        <sys:Item Key="689595" Value=" #4A  Medusa Heads (two)[2]     " />
+        <sys:Item Key="689597" Value="#4B  Ghost (w/flicker)         " />
+        <sys:Item Key="689599" Value="#4C  Auto-Walk (caves)  " />
+        <sys:Item Key="689601" Value="#4D  Water Current (6 blocks)    " />
+        <sys:Item Key="689603" Value=" #4E  Water Current (2 blocks)[2]      " />
+        <sys:Item Key="689605" Value=" #4F  Zombie (fast rate)[2]   " />
+        <sys:Item Key="689607" Value="#50  Mummies[2]&#x9;" />
+        <sys:Item Key="689609" Value="#51  Flood Controller    " />
+        <sys:Item Key="689611" Value="#52  Winged Demon (two) *CV3u only*       " />
+        <sys:Item Key="689613" Value="??" />
+        <sys:Item Key="691193" Value="floating eye 14" />
+        <sys:Item Key="691287" Value="bonePillar, crow" />
+        <sys:Item Key="692769" Value="clouds" />
+        <sys:Item Key="701974" Value="address then bank" />
+        <sys:Item Key="753664" Value="PRG 2c000" />
+        <sys:Item Key="762891" Value="sc_clearSpeeds" />
+        <sys:Item Key="764636" Value="04" />
+        <sys:Item Key="765944" Value="72" />
+        <sys:Item Key="766112" Value="34 - 42,4c-50 " />
+        <sys:Item Key="766132" Value="44-4b" />
+        <sys:Item Key="766164" Value="52,53" />
+        <sys:Item Key="819200" Value="NES PRG 30000" />
+        <sys:Item Key="884736" Value="PRG 34000" />
+        <sys:Item Key="950272" Value="NES PRG 38000" />
+        <sys:Item Key="952865" Value="??" />
+        <sys:Item Key="952988" Value="alucard" />
+        <sys:Item Key="952994" Value="trevor" />
+        <sys:Item Key="953002" Value="sypha" />
+        <sys:Item Key="953008" Value="grant" />
+        <sys:Item Key="953009" Value="grant" />
+        <sys:Item Key="1032192" Value="NES PRG 3C000" />
+        <sys:Item Key="1040384" Value="NES PRG 3e000" />
+        <sys:Item Key="1040397" Value="blank" />
+        <sys:Item Key="1040405" Value="init Stack " />
+        <sys:Item Key="1040558" Value="d8001 mainSpriteOAM" />
+        <sys:Item Key="1040604" Value="endNMI Loop" />
+        <sys:Item Key="1040708" Value="endIRQ loop" />
+        <sys:Item Key="1040770" Value="make screen black and no sprites " />
+        <sys:Item Key="1040787" Value="make screen black and no sprites 1110 0111" />
+        <sys:Item Key="1040798" Value="moreSoundSettings" />
+        <sys:Item Key="1043413" Value="screenLoadSetup??" />
+        <sys:Item Key="1043517" Value="bit7 trim unrol byte langth" />
+      </Comments>
+      

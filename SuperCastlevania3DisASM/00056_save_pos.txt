@@ -1,0 +1,12 @@
+
+;pos=019800
+r 331 UD03
+UH03
+r 1552 UD03
+Uj03
+r 33 UD03
+Uj03
+r 29 UD03
+Uj03
+r 98 UD03
+XD

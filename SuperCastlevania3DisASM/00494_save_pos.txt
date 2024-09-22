@@ -1,0 +1,8 @@
+
+;pos=0F4800
+r 31 XD
+Xj
+r 1128 XD
+Xj
+XH
+r 886 XD

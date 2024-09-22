@@ -1,0 +1,11 @@
+
+;pos=0F7800
+r 1789 XD
+Xj
+r 41 XD
+Xj
+r 134 XD
+Xj
+r 79 XD
+Xj
+XD

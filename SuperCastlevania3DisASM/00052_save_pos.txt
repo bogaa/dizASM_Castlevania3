@@ -1,0 +1,10 @@
+
+;pos=017800
+r 1024 XD
+XH
+XD
+Xj
+r 540 XD
+Xj
+r 479 XD
+AH03

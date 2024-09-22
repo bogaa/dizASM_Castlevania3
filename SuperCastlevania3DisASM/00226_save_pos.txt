@@ -1,0 +1,16 @@
+
+;pos=06E800
+r 308 XD
+XH
+r 125 XD
+XH
+r 862 XD
+XH
+XD
+XH0D
+XD0D
+r 554 XD
+XH
+r 27 XD
+XH
+r 164 XD

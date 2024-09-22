@@ -1,0 +1,8 @@
+
+;pos=0E7800
+r 2043 XD
+Xj
+XD
+XD
+Xj
+XD

@@ -1,0 +1,7 @@
+
+;pos=0B5000
+r 82 XD
+Xj
+r 1963 XD
+Xj
+XD

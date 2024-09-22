@@ -1,0 +1,7 @@
+
+;pos=090000
+r 943 XD
+Xj
+r 335 XD
+XH
+r 768 XD

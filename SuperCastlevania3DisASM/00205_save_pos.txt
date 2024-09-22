@@ -1,0 +1,7 @@
+
+;pos=064000
+r 1392 XD
+XH
+r 570 XD
+Xj
+r 84 XD

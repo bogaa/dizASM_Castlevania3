@@ -1,0 +1,8 @@
+
+;pos=0EF800
+r 1790 XD
+Xj
+r 93 XD
+Xj
+r 162 XD
+Xj

@@ -1,0 +1,7 @@
+
+;pos=0C9800
+r 1970 XD
+Xj
+r 49 XD
+Xj
+r 27 XD

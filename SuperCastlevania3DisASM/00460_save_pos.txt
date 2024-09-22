@@ -1,0 +1,7 @@
+
+;pos=0E3800
+r 98 XD
+Xj
+r 1144 XD
+Xj
+r 804 XD

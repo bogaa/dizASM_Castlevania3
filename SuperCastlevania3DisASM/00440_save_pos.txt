@@ -1,0 +1,7 @@
+
+;pos=0D9800
+r 1350 XD
+Xj
+r 567 XD
+Xj
+r 129 XD

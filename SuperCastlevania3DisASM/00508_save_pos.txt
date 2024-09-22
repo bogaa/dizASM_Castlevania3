@@ -1,0 +1,10 @@
+
+;pos=0FB800
+r 1725 XD
+Xn
+r 68 XD
+Xj
+r 135 XD
+Xj
+r 116 XD
+Xj

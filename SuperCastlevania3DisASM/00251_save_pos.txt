@@ -1,0 +1,47 @@
+
+;pos=07B000
+r 233 XD
+XH
+r 201 XD
+XH
+r 70 XD
+XH
+r 233 XD
+XH
+r 98 XD
+XH
+r 11 XD
+XH
+r 149 XD
+XH
+r 195 XD
+XH
+r 144 XD
+XH
+r 67 XD
+XH
+r 30 XD
+XH
+r 20 XD
+XH
+r 58 XD
+XH
+XD
+XD
+XD
+XH
+r 21 XD
+XH
+r 36 XD
+XH
+r 12 XD
+XH
+r 79 XD
+XH
+r 130 XD
+XH
+r 30 XD
+XH
+r 142 XD
+XH
+r 65 XD

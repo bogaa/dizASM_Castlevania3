@@ -1,0 +1,7 @@
+
+;pos=0E0800
+r 923 XD
+Xj
+r 1094 XD
+Xj
+r 29 XD

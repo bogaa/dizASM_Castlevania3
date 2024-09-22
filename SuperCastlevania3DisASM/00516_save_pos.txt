@@ -1,0 +1,29 @@
+
+;pos=0FF800
+r 240 XD
+Xj
+r 270 XD
+Xj
+r 261 XD
+Xj
+r 41 XD
+Xj
+r 47 XD
+Xj
+r 15 XD
+Xj
+r 671 XD
+Xj
+r 15 XD
+Xj
+r 223 XD
+Xj
+r 17 XD
+Xj
+r 12 XD
+Xj
+Xj
+r 155 XD
+Xj
+r 66 XD
+Xj

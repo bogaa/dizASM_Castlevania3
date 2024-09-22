@@ -1,0 +1,10 @@
+
+;pos=02F800
+r 495 XD
+Xj
+r 1080 XD
+Xj
+r 341 XD
+Xj
+r 128 XD
+AD06

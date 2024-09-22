@@ -1,0 +1,8 @@
+
+;pos=04F800
+r 1023 XD
+XH
+r 767 XD
+Xj
+r 255 XD
+AD0A

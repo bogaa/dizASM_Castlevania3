@@ -1,0 +1,20 @@
+
+;pos=077800
+r 252 XD
+XH
+r 647 XD
+XH
+XD
+XD
+XD
+XH
+r 94 XD
+XH
+r 53 XD
+XH
+r 190 XD
+XH
+r 446 XD
+XH
+r 355 XD
+Xj

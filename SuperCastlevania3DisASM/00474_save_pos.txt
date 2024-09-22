@@ -1,0 +1,9 @@
+
+;pos=0EA800
+r 1972 XD
+Xj
+r 31 XD
+Xj
+r 31 XD
+Xj
+r 11 XD

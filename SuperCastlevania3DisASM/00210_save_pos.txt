@@ -1,0 +1,13 @@
+
+;pos=066800
+r 108 XD
+XH
+r 71 XD
+XH
+r 40 XD
+XH
+r 1034 XD
+XH
+r 630 XD
+XH
+r 160 XD
