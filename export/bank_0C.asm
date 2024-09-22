@@ -5,7 +5,7 @@
               bank_98: db $98                               ;0C8000|        |      ; NES PRG 30000
                        CPX.B #$05                           ;0C8001|E005    |      ;
                        BEQ UNREACH_0C8037                   ;0C8003|F032    |0C8037;
-                       LDA.B (wCurrInstrumentDataAddr),Y    ;0C8005|B1E0    |0000E0;
+                       LDA.B (r_CurrInstrumentDataAddr),Y   ;0C8005|B1E0    |0000E0;
                        CMP.B #$FF                           ;0C8007|C9FF    |      ;
                        BEQ CODE_0C8013                      ;0C8009|F008    |0C8013;
                        LDA.W $016E,X                        ;0C800B|BD6E01  |0C016E;
@@ -13,7 +13,7 @@
                        JMP.W CODE_0C8408                    ;0C8010|4C0884  |0C8408;
  
  
-          CODE_0C8013: LDA.B (wCurrInstrumentDataAddr),Y    ;0C8013|B1E0    |0000E0;
+          CODE_0C8013: LDA.B (r_CurrInstrumentDataAddr),Y   ;0C8013|B1E0    |0000E0;
                        AND.B #$F0                           ;0C8015|29F0    |      ;
                        CMP.B #$C0                           ;0C8017|C9C0    |      ;
                        BCS UNREACH_0C801E                   ;0C8019|B003    |0C801E;
@@ -106,24 +106,24 @@
                        STA.W $03C6,X                        ;0C8146|9DC603  |0C03C6;
                        STA.W $03C0,X                        ;0C8149|9DC003  |0C03C0;
                        INC.W $03C0,X                        ;0C814C|FEC003  |0C03C0;
-                       STY.B wSoundBankTempVar1             ;0C814F|84E4    |0000E4;
+                       STY.B r_SoundBankTempVar1            ;0C814F|84E4    |0000E4;
                        db $20                               ;0C8151|        |      ;
                        dw UNREACH_0FE1DE                    ;0C8152|        |0FE1DE;
-                       LDY.B wSoundBankTempVar1             ;0C8154|A4E4    |0000E4;
+                       LDY.B r_SoundBankTempVar1            ;0C8154|A4E4    |0000E4;
                        LDA.W $0115,X                        ;0C8156|BD1501  |0C0115;
                        AND.B #$B9                           ;0C8159|29B9    |      ;
                        STA.W $0115,X                        ;0C815B|9D1501  |0C0115;
                        LDA.W $016E,X                        ;0C815E|BD6E01  |0C016E;
                        AND.B #$DF                           ;0C8161|29DF    |      ;
                        STA.W $016E,X                        ;0C8163|9D6E01  |0C016E;
-                       LDA.B (wCurrInstrumentDataAddr),Y    ;0C8166|B1E0    |0000E0;
+                       LDA.B (r_CurrInstrumentDataAddr),Y   ;0C8166|B1E0    |0000E0;
                        AND.B #$F0                           ;0C8168|29F0    |      ;
                        LSR A                                ;0C816A|4A      |      ;
                        LSR A                                ;0C816B|4A      |      ;
                        LSR A                                ;0C816C|4A      |      ;
                        TAX                                  ;0C816D|AA      |      ;
-                       STY.B wSoundBankJumpAddr             ;0C816E|84E2    |0000E2;
-                       LDY.B wCurrInstrumentIdx             ;0C8170|A4EE    |0000EE;
+                       STY.B r_SoundBankJumpAddr            ;0C816E|84E2    |0000E2;
+                       LDY.B r_CurrInstrumentIdx            ;0C8170|A4EE    |0000EE;
                        LDA.W $0180,Y                        ;0C8172|B98001  |0C0180;
                        BEQ CODE_0C817F                      ;0C8175|F008    |0C817F;
                        BMI UNREACH_0C8126                   ;0C8177|30AD    |0C8126;
@@ -133,23 +133,23 @@
                        TAX                                  ;0C817E|AA      |      ;
  
           CODE_0C817F: LDA.W UNREACH_0C8723,X               ;0C817F|BD2387  |0C8723;
-                       STA.B wSoundFrequency                ;0C8182|85EC    |0000EC;
+                       STA.B r_SoundFrequency               ;0C8182|85EC    |0000EC;
                        LDA.W UNREACH_0C8724,X               ;0C8184|BD2487  |0C8724;
                        STA.B $ED                            ;0C8187|85ED    |0000ED;
-                       LDY.B wSoundBankJumpAddr             ;0C8189|A4E2    |0000E2;
-                       LDX.B wCurrInstrumentIdx             ;0C818B|A6EE    |0000EE;
+                       LDY.B r_SoundBankJumpAddr            ;0C8189|A4E2    |0000E2;
+                       LDX.B r_CurrInstrumentIdx            ;0C818B|A6EE    |0000EE;
                        LDA.W $017D,X                        ;0C818D|BD7D01  |0C017D;
                        TAX                                  ;0C8190|AA      |      ;
  
           CODE_0C8191: CPX.B #$05                           ;0C8191|E005    |      ;
                        BEQ CODE_0C819C                      ;0C8193|F007    |0C819C;
                        LSR.B $ED                            ;0C8195|46ED    |0000ED;
-                       ROR.B wSoundFrequency                ;0C8197|66EC    |0000EC;
+                       ROR.B r_SoundFrequency               ;0C8197|66EC    |0000EC;
                        INX                                  ;0C8199|E8      |      ;
                        BNE CODE_0C8191                      ;0C819A|D0F5    |0C8191;
  
-          CODE_0C819C: LDX.B wCurrInstrumentIdx             ;0C819C|A6EE    |0000EE;
-                       LDA.B wSoundFrequency                ;0C819E|A5EC    |0000EC;
+          CODE_0C819C: LDX.B r_CurrInstrumentIdx            ;0C819C|A6EE    |0000EE;
+                       LDA.B r_SoundFrequency               ;0C819E|A5EC    |0000EC;
                        STA.W $0183,X                        ;0C81A0|9D8301  |0C0183;
                        LDA.B $ED                            ;0C81A3|A5ED    |0000ED;
                        STA.W $0186,X                        ;0C81A5|9D8601  |0C0186;
@@ -197,7 +197,7 @@
                        db $40,$20,$53,$87,$A6               ;0C8222|        |      ;
                        db $EE,$60                           ;0C8227|        |0C8460;
  
-          CODE_0C8229: STY.B wSoundBankJumpAddr             ;0C8229|84E2    |0000E2;
+          CODE_0C8229: STY.B r_SoundBankJumpAddr            ;0C8229|84E2    |0000E2;
                        LDA.W $06AF,X                        ;0C822B|BDAF06  |0C06AF;
                        CPX.B #$00                           ;0C822E|E000    |      ;
                        BEQ CODE_0C8234                      ;0C8230|F002    |0C8234;
@@ -206,7 +206,7 @@
           CODE_0C8234: TAY                                  ;0C8234|A8      |      ;
                        LDA.B $ED                            ;0C8235|A5ED    |0000ED;
                        STA.W $06BF,Y                        ;0C8237|99BF06  |0C06BF;
-                       LDA.B wSoundFrequency                ;0C823A|A5EC    |0000EC;
+                       LDA.B r_SoundFrequency               ;0C823A|A5EC    |0000EC;
                        STA.W $06B5,Y                        ;0C823C|99B506  |0C06B5;
                        LDA.W $06AC,X                        ;0C823F|BDAC06  |0C06AC;
                        AND.B #$40                           ;0C8242|2940    |      ;
@@ -215,17 +215,17 @@
                        AND.B #$BF                           ;0C8249|29BF    |      ;
                        STA.W $06AC,X                        ;0C824B|9DAC06  |0C06AC;
                        LDA.B #$03                           ;0C824E|A903    |      ;
-                       STA.B wSoundBankTempVar1             ;0C8250|85E4    |0000E4;
+                       STA.B r_SoundBankTempVar1            ;0C8250|85E4    |0000E4;
  
           CODE_0C8252: INY                                  ;0C8252|C8      |      ;
                        LDA.B $ED                            ;0C8253|A5ED    |0000ED;
                        STA.W $06BF,Y                        ;0C8255|99BF06  |0C06BF;
-                       LDA.B wSoundFrequency                ;0C8258|A5EC    |0000EC;
+                       LDA.B r_SoundFrequency               ;0C8258|A5EC    |0000EC;
                        STA.W $06B5,Y                        ;0C825A|99B506  |0C06B5;
-                       DEC.B wSoundBankTempVar1             ;0C825D|C6E4    |0000E4;
+                       DEC.B r_SoundBankTempVar1            ;0C825D|C6E4    |0000E4;
                        BNE CODE_0C8252                      ;0C825F|D0F1    |0C8252;
  
-          CODE_0C8261: LDY.B wSoundBankJumpAddr             ;0C8261|A4E2    |0000E2;
+          CODE_0C8261: LDY.B r_SoundBankJumpAddr            ;0C8261|A4E2    |0000E2;
                        INC.W $06AF,X                        ;0C8263|FEAF06  |0C06AF;
                        LDA.W $06AF,X                        ;0C8266|BDAF06  |0C06AF;
                        AND.B #$03                           ;0C8269|2903    |      ;
@@ -244,15 +244,15 @@
        UNREACH_0C8294: db $20,$C6,$86,$88,$4C               ;0C8294|        |0C86C6;
                        db $58,$80                           ;0C8299|        |      ;
  
-          CODE_0C829B: LDA.B (wCurrInstrumentDataAddr),Y    ;0C829B|B1E0    |0000E0;
+          CODE_0C829B: LDA.B (r_CurrInstrumentDataAddr),Y   ;0C829B|B1E0    |0000E0;
                        AND.B #$0F                           ;0C829D|290F    |      ;
-                       STA.B wSoundBankJumpAddr             ;0C829F|85E2    |0000E2;
+                       STA.B r_SoundBankJumpAddr            ;0C829F|85E2    |0000E2;
                        BEQ CODE_0C82B0                      ;0C82A1|F00D    |0C82B0;
                        LDA.W $010E,X                        ;0C82A3|BD0E01  |0C010E;
  
           CODE_0C82A6: CLC                                  ;0C82A6|18      |      ;
                        ADC.W $010E,X                        ;0C82A7|7D0E01  |0C010E;
-                       DEC.B wSoundBankJumpAddr             ;0C82AA|C6E2    |0000E2;
+                       DEC.B r_SoundBankJumpAddr            ;0C82AA|C6E2    |0000E2;
                        BNE CODE_0C82A6                      ;0C82AC|D0F8    |0C82A6;
                        BEQ CODE_0C82B3                      ;0C82AE|F003    |0C82B3;
  
@@ -284,30 +284,30 @@
  
  
           CODE_0C82E8: AND.B #$0F                           ;0C82E8|290F    |      ;
-                       STA.B wSoundBankJumpAddr             ;0C82EA|85E2    |0000E2;
+                       STA.B r_SoundBankJumpAddr            ;0C82EA|85E2    |0000E2;
                        LDA.B #$00                           ;0C82EC|A900    |      ;
-                       STA.B wSoundBankTempVar1             ;0C82EE|85E4    |0000E4;
-                       STA.B wSoundBankTempVar2             ;0C82F0|85E5    |0000E5;
+                       STA.B r_SoundBankTempVar1            ;0C82EE|85E4    |0000E4;
+                       STA.B r_SoundBankTempVar2            ;0C82F0|85E5    |0000E5;
  
-          CODE_0C82F2: DEC.B wSoundBankJumpAddr             ;0C82F2|C6E2    |0000E2;
+          CODE_0C82F2: DEC.B r_SoundBankJumpAddr            ;0C82F2|C6E2    |0000E2;
                        BMI CODE_0C8304                      ;0C82F4|300E    |0C8304;
                        CLC                                  ;0C82F6|18      |      ;
                        LDA.W $0100,X                        ;0C82F7|BD0001  |0C0100;
-                       ADC.B wSoundBankTempVar1             ;0C82FA|65E4    |0000E4;
-                       STA.B wSoundBankTempVar1             ;0C82FC|85E4    |0000E4;
+                       ADC.B r_SoundBankTempVar1            ;0C82FA|65E4    |0000E4;
+                       STA.B r_SoundBankTempVar1            ;0C82FC|85E4    |0000E4;
                        BCC CODE_0C82F2                      ;0C82FE|90F2    |0C82F2;
-                       INC.B wSoundBankTempVar2             ;0C8300|E6E5    |0000E5;
+                       INC.B r_SoundBankTempVar2            ;0C8300|E6E5    |0000E5;
                        BNE CODE_0C82F2                      ;0C8302|D0EE    |0C82F2;
  
           CODE_0C8304: ASL A                                ;0C8304|0A      |      ;
-                       ROL.B wSoundBankTempVar2             ;0C8305|26E5    |0000E5;
+                       ROL.B r_SoundBankTempVar2            ;0C8305|26E5    |0000E5;
                        ASL A                                ;0C8307|0A      |      ;
-                       ROL.B wSoundBankTempVar2             ;0C8308|26E5    |0000E5;
+                       ROL.B r_SoundBankTempVar2            ;0C8308|26E5    |0000E5;
                        ASL A                                ;0C830A|0A      |      ;
-                       ROL.B wSoundBankTempVar2             ;0C830B|26E5    |0000E5;
+                       ROL.B r_SoundBankTempVar2            ;0C830B|26E5    |0000E5;
                        ASL A                                ;0C830D|0A      |      ;
-                       ROL.B wSoundBankTempVar2             ;0C830E|26E5    |0000E5;
-                       LDA.B wSoundBankTempVar2             ;0C8310|A5E5    |0000E5;
+                       ROL.B r_SoundBankTempVar2            ;0C830E|26E5    |0000E5;
+                       LDA.B r_SoundBankTempVar2            ;0C8310|A5E5    |0000E5;
                        RTS                                  ;0C8312|60      |      ;
  
                        db $48,$E0,$00,$F0,$12               ;0C8313|        |      ;
@@ -363,7 +363,7 @@
                        db $80,$C8,$BD,$6E,$01               ;0C83FE|        |0C83C8;
                        db $09,$80,$9D,$6E,$01               ;0C8403|        |      ;
  
-          CODE_0C8408: LDA.B (wCurrInstrumentDataAddr),Y    ;0C8408|B1E0    |0000E0;
+          CODE_0C8408: LDA.B (r_CurrInstrumentDataAddr),Y   ;0C8408|B1E0    |0000E0;
                        AND.B #$F0                           ;0C840A|29F0    |      ;
                        LSR A                                ;0C840C|4A      |      ;
                        LSR A                                ;0C840D|4A      |      ;
@@ -371,11 +371,11 @@
                        TAX                                  ;0C840F|AA      |      ;
                        DEY                                  ;0C8410|88      |      ;
                        LDA.W UNREACH_0C8420,X               ;0C8411|BD2084  |0C8420;
-                       STA.B wSoundBankJumpAddr             ;0C8414|85E2    |0000E2;
+                       STA.B r_SoundBankJumpAddr            ;0C8414|85E2    |0000E2;
                        LDA.W UNREACH_0C8421,X               ;0C8416|BD2184  |0C8421;
                        STA.B $E3                            ;0C8419|85E3    |0000E3;
-                       LDX.B wCurrInstrumentIdx             ;0C841B|A6EE    |0000EE;
-                       JMP.W (wSoundBankJumpAddr)           ;0C841D|6CE200  |0000E2;
+                       LDX.B r_CurrInstrumentIdx            ;0C841B|A6EE    |0000EE;
+                       JMP.W (r_SoundBankJumpAddr)          ;0C841D|6CE200  |0000E2;
  
  
        UNREACH_0C8420: db $34                               ;0C8420|        |000084;
@@ -527,7 +527,7 @@
           CODE_0C86D6: INY                                  ;0C86D6|C8      |      ;
                        TYA                                  ;0C86D7|98      |      ;
                        CLC                                  ;0C86D8|18      |      ;
-                       ADC.B wCurrInstrumentDataAddr        ;0C86D9|65E0    |0000E0;
+                       ADC.B r_CurrInstrumentDataAddr       ;0C86D9|65E0    |0000E0;
                        STA.W $0123,X                        ;0C86DB|9D2301  |0C0123;
                        LDA.B #$00                           ;0C86DE|A900    |      ;
                        ADC.B $E1                            ;0C86E0|65E1    |0000E1;

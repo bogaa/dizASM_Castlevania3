@@ -112,14 +112,14 @@
           CODE_0B80C1: LDA.W $041C,X                        ;0B80C1|BD1C04  |0B041C;
  
           CODE_0B80C4: SEC                                  ;0B80C4|38      |      ;
-                       SBC.B wCollisionPointYinScreen       ;0B80C5|E511    |000011;
+                       SBC.B r_CollisionPointYinScreen      ;0B80C5|E511    |000011;
                        BCS CODE_0B80C0                      ;0B80C7|B0F7    |0B80C0;
                        BCC CODE_0B80BC                      ;0B80C9|90F1    |0B80BC;
  
           CODE_0B80CB: LDA.W $0438,X                        ;0B80CB|BD3804  |0B0438;
  
           CODE_0B80CE: SEC                                  ;0B80CE|38      |      ;
-                       SBC.B wCurrDrawnEntityCachedAttr     ;0B80CF|E510    |000010;
+                       SBC.B r_CurrDrawnEntityCachedAttr    ;0B80CF|E510    |000010;
                        BCS CODE_0B80C0                      ;0B80D1|B0ED    |0B80C0;
                        BCC CODE_0B80BC                      ;0B80D3|90E7    |0B80BC;
  
@@ -170,10 +170,10 @@
           CODE_0B8112: RTS                                  ;0B8112|60      |      ;
  
  
-          CODE_0B8113: LDA.B wCurrRoomGroupStage            ;0B8113|A532    |000032;
+          CODE_0B8113: LDA.B r_CurrRoomGroupStage           ;0B8113|A532    |000032;
                        CMP.B #$08                           ;0B8115|C908    |      ;
                        BNE CODE_0B811E                      ;0B8117|D005    |0B811E;
-                       LDA.B wCurrRoomSectionBlock          ;0B8119|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0B8119|A533    |000033;
                        CMP.B #$03                           ;0B811B|C903    |      ;
                        RTS                                  ;0B811D|60      |      ;
  
@@ -186,14 +186,14 @@
           CODE_0B8120: JSR.W CODE_0B8113                    ;0B8120|201381  |0B8113;
                        BCC CODE_0B811F                      ;0B8123|90FA    |0B811F;
                        LDA.W $041C,X                        ;0B8125|BD1C04  |0B041C;
-                       CMP.B wFloodHight                    ;0B8128|C5CA    |0000CA;
+                       CMP.B r_FloodHight                   ;0B8128|C5CA    |0000CA;
                        BCC CODE_0B811F                      ;0B812A|90F3    |0B811F;
                        JSR.W CODE_0B84B2                    ;0B812C|20B284  |0B84B2;
                        SEC                                  ;0B812F|38      |      ;
                        RTS                                  ;0B8130|60      |      ;
  
  
-          CODE_0B8131: LDA.B wInGameSubstate                ;0B8131|A52A    |00002A;
+          CODE_0B8131: LDA.B r_InGameSubstate               ;0B8131|A52A    |00002A;
                        CMP.B #$1B                           ;0B8133|C91B    |      ;
                        BNE CODE_0B814F                      ;0B8135|D018    |0B814F;
                        LDA.W $0470,X                        ;0B8137|BD7004  |0B0470;
@@ -219,7 +219,7 @@
                        LDY.B #$06                           ;0B8158|A006    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B815A|20A6B7  |0BB7A6;
                        BEQ CODE_0B8112                      ;0B815D|F0B3    |0B8112;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B815F|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B815F|A66C    |00006C;
                        JSR.W CODE_0B8B91                    ;0B8161|20918B  |0B8B91;
  
           CODE_0B8164: INC.W $05C1,X                        ;0B8164|FEC105  |0B05C1;
@@ -232,7 +232,7 @@
                        LDY.B #$0E                           ;0B816F|A00E    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B8171|20A6B7  |0BB7A6;
                        BEQ CODE_0B819A                      ;0B8174|F024    |0B819A;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8176|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8176|A66C    |00006C;
                        LDA.W $041C,X                        ;0B8178|BD1C04  |0B041C;
                        AND.B #$F8                           ;0B817B|29F8    |      ;
                        STA.W $041C,X                        ;0B817D|9D1C04  |0B041C;
@@ -410,7 +410,7 @@
  
  
           CODE_0B829C: LDY.B #$07                           ;0B829C|A007    |      ;
-                       LDA.B wChrBankSpr_0800               ;0B829E|A548    |000048;
+                       LDA.B r_ChrBankSpr_0800              ;0B829E|A548    |000048;
                        CMP.B #$08                           ;0B82A0|C908    |      ;
                        BNE CODE_0B82A6                      ;0B82A2|D002    |0B82A6;
                        LDY.B #$0A                           ;0B82A4|A00A    |      ;
@@ -426,7 +426,7 @@
                        BNE CODE_0B82A8                      ;0B82B2|D0F4    |0B82A8;
  
           CODE_0B82B4: LDY.B #$00                           ;0B82B4|A000    |      ;
-                       LDA.B wChrBankSpr_0800               ;0B82B6|A548    |000048;
+                       LDA.B r_ChrBankSpr_0800              ;0B82B6|A548    |000048;
                        CMP.B #$08                           ;0B82B8|C908    |      ;
                        BEQ CODE_0B82BD                      ;0B82BA|F001    |0B82BD;
                        INY                                  ;0B82BC|C8      |      ;
@@ -446,7 +446,7 @@
           CODE_0B82D5: JSR.W CODE_0B8230                    ;0B82D5|203082  |0B8230;
                        JSR.W CODE_0B81EC                    ;0B82D8|20EC81  |0B81EC;
                        LDY.B #$00                           ;0B82DB|A000    |      ;
-                       LDA.B wChrBankSpr_0800               ;0B82DD|A548    |000048;
+                       LDA.B r_ChrBankSpr_0800              ;0B82DD|A548    |000048;
                        CMP.B #$08                           ;0B82DF|C908    |      ;
                        BEQ CODE_0B82E4                      ;0B82E1|F001    |0B82E4;
                        INY                                  ;0B82E3|C8      |      ;
@@ -456,10 +456,10 @@
                        LDA.W CODE_0B8305,Y                  ;0B82EA|B90583  |0B8305;
                        STA.W $0400,X                        ;0B82ED|9D0004  |0B0400;
  
-          CODE_0B82F0: LDA.B wCurrRoomGroupStage            ;0B82F0|A532    |000032;
+          CODE_0B82F0: LDA.B r_CurrRoomGroupStage           ;0B82F0|A532    |000032;
                        CMP.B #$05                           ;0B82F2|C905    |      ;
                        BNE CODE_0B8304                      ;0B82F4|D00E    |0B8304;
-                       LDA.B wCurrRoomSectionBlock          ;0B82F6|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0B82F6|A533    |000033;
                        CMP.B #$03                           ;0B82F8|C903    |      ;
                        BNE CODE_0B8304                      ;0B82FA|D008    |0B8304;
                        LDA.W $0454,X                        ;0B82FC|BD5404  |0B0454;
@@ -469,10 +469,10 @@
           CODE_0B8304: RTS                                  ;0B8304|60      |      ;
  
  
-          CODE_0B8305: ORA.B (wGameplayScrollXRoom)         ;0B8305|1270    |000070;
+          CODE_0B8305: ORA.B (r_GameplayScrollXRoom)        ;0B8305|1270    |000070;
  
           CODE_0B8307: LDY.B #$02                           ;0B8307|A002    |      ;
-                       LDA.B wChrBankSpr_0c00               ;0B8309|A549    |000049;
+                       LDA.B r_ChrBankSpr_0c00              ;0B8309|A549    |000049;
                        CMP.B #$0F                           ;0B830B|C90F    |      ;
                        BEQ CODE_0B82BD                      ;0B830D|F0AE    |0B82BD;
                        INY                                  ;0B830F|C8      |      ;
@@ -526,7 +526,7 @@
                        db $30,$32,$34,$70                   ;0B838E|        |      ;
  
           CODE_0B8392: LDY.B #$00                           ;0B8392|A000    |      ;
-                       LDA.B wChrBankSpr_0800               ;0B8394|A548    |000048;
+                       LDA.B r_ChrBankSpr_0800              ;0B8394|A548    |000048;
                        CMP.B #$14                           ;0B8396|C914    |      ;
                        BNE CODE_0B839C                      ;0B8398|D002    |0B839C;
                        LDY.B #$0E                           ;0B839A|A00E    |      ;
@@ -613,8 +613,8 @@
  
           CODE_0B841C: TXA                                  ;0B841C|8A      |      ;
                        ADC.W $0438                          ;0B841D|6D3804  |0B0438;
-                       AND.B wRandomVal                     ;0B8420|251F    |00001F;
-                       ADC.B wGameStateLoopCounter          ;0B8422|651A    |00001A;
+                       AND.B r_RandomVal                    ;0B8420|251F    |00001F;
+                       ADC.B r_GameStateLoopCounter         ;0B8422|651A    |00001A;
                        AND.B #$03                           ;0B8424|2903    |      ;
                        TAY                                  ;0B8426|A8      |      ;
                        RTS                                  ;0B8427|60      |      ;
@@ -649,7 +649,7 @@
  
           CODE_0B8453: LDY.W $07F6                          ;0B8453|ACF607  |0B07F6;
                        TXA                                  ;0B8456|8A      |      ;
-                       ADC.B wRandomVal                     ;0B8457|651F    |00001F;
+                       ADC.B r_RandomVal                    ;0B8457|651F    |00001F;
                        AND.B #$07                           ;0B8459|2907    |      ;
                        CLC                                  ;0B845B|18      |      ;
                        ADC.W difficultyModeOffsetsForAbove,Y;0B845C|797584  |0B8475;
@@ -690,16 +690,16 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.B $09                            ;0B8499|8509    |000009;
                        INY                                  ;0B849B|C8      |      ;
                        LDA.B ($02),Y                        ;0B849C|B102    |000002;
-                       STA.B wCurrNumToVramQueue            ;0B849E|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0B849E|8508    |000008;
                        JSR.W CODE_0B80B3                    ;0B84A0|20B380  |0B80B3;
                        CMP.B $09                            ;0B84A3|C509    |000009;
                        BCS CODE_0B8494                      ;0B84A5|B0ED    |0B8494;
                        JSR.W CODE_0B80D5                    ;0B84A7|20D580  |0B80D5;
-                       CMP.B wCurrNumToVramQueue            ;0B84AA|C508    |000008;
+                       CMP.B r_CurrNumToVramQueue           ;0B84AA|C508    |000008;
                        BCS CODE_0B8494                      ;0B84AC|B0E6    |0B8494;
                        BCC CODE_0B8491                      ;0B84AE|90E1    |0B8491;
  
-          CODE_0B84B0: LDX.B wCurrEntityIdxBeingProcessed   ;0B84B0|A66C    |00006C;
+          CODE_0B84B0: LDX.B r_CurrEntityIdxBeingProcessed  ;0B84B0|A66C    |00006C;
  
           CODE_0B84B2: JSR.W CODE_0B8E36                    ;0B84B2|20368E  |0B8E36;
                        JMP.W CODE_0B810D                    ;0B84B5|4C0D81  |0B810D;
@@ -712,7 +712,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BEQ CODE_0B84C3                      ;0B84BF|F002    |0B84C3;
                        BNE CODE_0B84B0                      ;0B84C1|D0ED    |0B84B0;
  
-          CODE_0B84C3: LDX.B wCurrEntityIdxBeingProcessed   ;0B84C3|A66C    |00006C;
+          CODE_0B84C3: LDX.B r_CurrEntityIdxBeingProcessed  ;0B84C3|A66C    |00006C;
                        JMP.W CODE_0B8E20                    ;0B84C5|4C208E  |0B8E20;
  
  
@@ -804,7 +804,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W getCollisionTileValUsingOffsetPresets;0B8574|20A6B7  |0BB7A6;
                        BNE CODE_0B85B2                      ;0B8577|D039    |0B85B2;
                        LDY.B #$02                           ;0B8579|A002    |      ;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B857B|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B857B|A66C    |00006C;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B857D|20A6B7  |0BB7A6;
                        BNE CODE_0B85AD                      ;0B8580|D02B    |0B85AD;
                        LDA.W $0520,X                        ;0B8582|BD2005  |0B0520;
@@ -819,7 +819,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B8597|        |      ;
                        dw CODE_0FE25F                       ;0B8598|        |0FE25F;
  
-          CODE_0B859A: LDX.B wCurrEntityIdxBeingProcessed   ;0B859A|A66C    |00006C;
+          CODE_0B859A: LDX.B r_CurrEntityIdxBeingProcessed  ;0B859A|A66C    |00006C;
                        db $20                               ;0B859C|        |      ;
                        dw UNREACH_0FFEC8                    ;0B859D|        |0FFEC8;
                        INC.W $05C1,X                        ;0B859F|FEC105  |0B05C1;
@@ -831,11 +831,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B85AC: RTS                                  ;0B85AC|60      |      ;
  
  
-          CODE_0B85AD: LDX.B wCurrEntityIdxBeingProcessed   ;0B85AD|A66C    |00006C;
+          CODE_0B85AD: LDX.B r_CurrEntityIdxBeingProcessed  ;0B85AD|A66C    |00006C;
                        JMP.W CODE_0B895E                    ;0B85AF|4C5E89  |0B895E;
  
  
-          CODE_0B85B2: LDX.B wCurrEntityIdxBeingProcessed   ;0B85B2|A66C    |00006C;
+          CODE_0B85B2: LDX.B r_CurrEntityIdxBeingProcessed  ;0B85B2|A66C    |00006C;
                        LDA.W $0520,X                        ;0B85B4|BD2005  |0B0520;
                        BPL CODE_0B85AC                      ;0B85B7|10F3    |0B85AC;
                        JMP.W CODE_0B805D                    ;0B85B9|4C5D80  |0B805D;
@@ -896,7 +896,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $041C,X                        ;0B8622|9D1C04  |0B041C;
                        JMP.W CODE_0B860C                    ;0B8625|4C0C86  |0B860C;
  
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8628|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8628|A66C    |00006C;
                        LDA.W $0520,X                        ;0B862A|BD2005  |0B0520;
                        BMI CODE_0B863D                      ;0B862D|300E    |0B863D;
                        CMP.B #$02                           ;0B862F|C902    |      ;
@@ -978,11 +978,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B86CA|60      |      ;
  
  
-          CODE_0B86CB: LDA.B wRoomOrientation               ;0B86CB|A568    |000068;
+          CODE_0B86CB: LDA.B r_RoomOrientation              ;0B86CB|A568    |000068;
                        BPL CODE_0B86D8                      ;0B86CD|1009    |0B86D8;
                        CLC                                  ;0B86CF|18      |      ;
                        LDA.W $0606,X                        ;0B86D0|BD0606  |0B0606;
-                       ADC.B wViewSpeed                     ;0B86D3|656E    |00006E;
+                       ADC.B r_ViewSpeed                    ;0B86D3|656E    |00006E;
                        STA.W $0606,X                        ;0B86D5|9D0606  |0B0606;
  
           CODE_0B86D8: LDA.W $041C,X                        ;0B86D8|BD1C04  |0B041C;
@@ -1009,7 +1009,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $061D,X                        ;0B86FC|9D1D06  |0B061D;
                        JSR.W CODE_0B8662                    ;0B86FF|206286  |0B8662;
  
-          CODE_0B8702: LDA.B wRoomOrientation               ;0B8702|A568    |000068;
+          CODE_0B8702: LDA.B r_RoomOrientation              ;0B8702|A568    |000068;
                        BPL CODE_0B86D8                      ;0B8704|10D2    |0B86D8;
                        SEC                                  ;0B8706|38      |      ;
                        LDA.W $041C,X                        ;0B8707|BD1C04  |0B041C;
@@ -1040,7 +1040,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B873A: DEC.W $0633,X                        ;0B873A|DE3306  |0B0633;
                        BNE CODE_0B8702                      ;0B873D|D0C3    |0B8702;
  
-          CODE_0B873F: LDA.B wRandomVal                     ;0B873F|A51F    |00001F;
+          CODE_0B873F: LDA.B r_RandomVal                    ;0B873F|A51F    |00001F;
                        AND.B #$03                           ;0B8741|2903    |      ;
                        CLC                                  ;0B8743|18      |      ;
                        ADC.W $0645,X                        ;0B8744|7D4506  |0B0645;
@@ -1090,7 +1090,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0B80A1                    ;0B879C|4CA180  |0B80A1;
  
  
-          CODE_0B879F: LDA.B wGameStateLoopCounter          ;0B879F|A51A    |00001A;
+          CODE_0B879F: LDA.B r_GameStateLoopCounter         ;0B879F|A51A    |00001A;
                        AND.B #$01                           ;0B87A1|2901    |      ;
                        BNE CODE_0B87AD                      ;0B87A3|D008    |0B87AD;
                        LDA.W $0470,X                        ;0B87A5|BD7004  |0B0470;
@@ -1118,7 +1118,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDY.B #$0A                           ;0B87C6|A00A    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B87C8|20A6B7  |0BB7A6;
                        BNE CODE_0B87DC                      ;0B87CB|D00F    |0B87DC;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B87CD|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B87CD|A66C    |00006C;
                        db $20                               ;0B87CF|        |      ;
                        dw UNREACH_0FFEC8                    ;0B87D0|        |0FFEC8;
                        LDA.B #$01                           ;0B87D2|A901    |      ;
@@ -1126,7 +1126,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.B #$16                           ;0B87D7|A916    |      ;
                        STA.W $05C1,X                        ;0B87D9|9DC105  |0B05C1;
  
-          CODE_0B87DC: LDX.B wCurrEntityIdxBeingProcessed   ;0B87DC|A66C    |00006C;
+          CODE_0B87DC: LDX.B r_CurrEntityIdxBeingProcessed  ;0B87DC|A66C    |00006C;
                        RTS                                  ;0B87DE|60      |      ;
  
  
@@ -1140,7 +1140,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        TAY                                  ;0B87EE|A8      |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B87EF|20A6B7  |0BB7A6;
                        BEQ CODE_0B87DC                      ;0B87F2|F0E8    |0B87DC;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B87F4|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B87F4|A66C    |00006C;
                        LDA.W $0606,X                        ;0B87F6|BD0606  |0B0606;
                        STA.W $05C1,X                        ;0B87F9|9DC105  |0B05C1;
                        RTS                                  ;0B87FC|60      |      ;
@@ -1166,7 +1166,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BNE CODE_0B8870                      ;0B881B|D053    |0B8870;
                        LDY.B #$00                           ;0B881D|A000    |      ;
                        SEC                                  ;0B881F|38      |      ;
-                       LDA.B wFloodHight                    ;0B8820|A5CA    |0000CA;
+                       LDA.B r_FloodHight                   ;0B8820|A5CA    |0000CA;
                        SBC.W $041C                          ;0B8822|ED1C04  |0B041C;
                        BCS CODE_0B882B                      ;0B8825|B004    |0B882B;
                        EOR.B #$FF                           ;0B8827|49FF    |      ;
@@ -1194,7 +1194,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B8851|        |      ;
                        dw UNREACH_0FFC1E                    ;0B8852|        |0FFC1E;
                        BNE CODE_0B8876                      ;0B8854|D020    |0B8876;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8856|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8856|A66C    |00006C;
                        LDA.B #$22                           ;0B8858|A922    |      ;
                        db $20                               ;0B885A|        |      ;
                        dw CODE_0FE25F                       ;0B885B|        |0FE25F;
@@ -1212,7 +1212,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B8875|60      |      ;
  
  
-          CODE_0B8876: LDX.B wCurrEntityIdxBeingProcessed   ;0B8876|A66C    |00006C;
+          CODE_0B8876: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8876|A66C    |00006C;
                        JSR.W CODE_0BB584                    ;0B8878|2084B5  |0BB584;
                        STA.W $054E,X                        ;0B887B|9D4E05  |0B054E;
                        RTS                                  ;0B887E|60      |      ;
@@ -1231,11 +1231,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        SEC                                  ;0B8894|38      |      ;
                        LDA.W $041C,X                        ;0B8895|BD1C04  |0B041C;
                        SBC.B #$10                           ;0B8898|E910    |      ;
-                       CMP.B wFloodHight                    ;0B889A|C5CA    |0000CA;
+                       CMP.B r_FloodHight                   ;0B889A|C5CA    |0000CA;
                        BCC CODE_0B88A6                      ;0B889C|9008    |0B88A6;
                        INC.W $05C1,X                        ;0B889E|FEC105  |0B05C1;
                        JSR.W CODE_0B992B                    ;0B88A1|202B99  |0B992B;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B88A4|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B88A4|A66C    |00006C;
  
           CODE_0B88A6: RTS                                  ;0B88A6|60      |      ;
  
@@ -1255,7 +1255,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B88BC: SEC                                  ;0B88BC|38      |      ;
                        LDA.W $041C,X                        ;0B88BD|BD1C04  |0B041C;
                        SBC.B #$10                           ;0B88C0|E910    |      ;
-                       CMP.B wFloodHight                    ;0B88C2|C5CA    |0000CA;
+                       CMP.B r_FloodHight                   ;0B88C2|C5CA    |0000CA;
                        BCC CODE_0B88A6                      ;0B88C4|90E0    |0B88A6;
                        JSR.W CODE_0B992B                    ;0B88C6|202B99  |0B992B;
                        JMP.W CODE_0B84B2                    ;0B88C9|4CB284  |0B84B2;
@@ -1274,11 +1274,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CMP.B #$03                           ;0B88E3|C903    |      ;
                        BNE CODE_0B88FD                      ;0B88E5|D016    |0B88FD;
                        LDY.B #$00                           ;0B88E7|A000    |      ;
-                       LDA.B wCurrRoomGroupStage            ;0B88E9|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0B88E9|A532    |000032;
                        CMP.B #$08                           ;0B88EB|C908    |      ;
                        BNE CODE_0B88F5                      ;0B88ED|D006    |0B88F5;
                        INY                                  ;0B88EF|C8      |      ;
-                       LDA.B wCurrRoomSectionBlock          ;0B88F0|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0B88F0|A533    |000033;
                        BNE CODE_0B88F5                      ;0B88F2|D001    |0B88F5;
                        INY                                  ;0B88F4|C8      |      ;
  
@@ -1289,7 +1289,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B88FD: LDY.B #$06                           ;0B88FD|A006    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B88FF|20A6B7  |0BB7A6;
                        BEQ CODE_0B8913                      ;0B8902|F00F    |0B8913;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8904|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8904|A66C    |00006C;
                        JMP.W CODE_0B88B3                    ;0B8906|4CB388  |0B88B3;
  
  
@@ -1302,7 +1302,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0B8914: LDY.B #$00                           ;0B8914|A000    |      ;
-                       LDA.B wCurrRoomGroupStage            ;0B8916|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0B8916|A532    |000032;
                        CMP.B #$08                           ;0B8918|C908    |      ;
                        BEQ CODE_0B891D                      ;0B891A|F001    |0B891D;
                        INY                                  ;0B891C|C8      |      ;
@@ -1327,11 +1327,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B893A: LDY.B #$01                           ;0B893A|A001    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B893C|20A6B7  |0BB7A6;
                        BNE CODE_0B8957                      ;0B893F|D016    |0B8957;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8941|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8941|A66C    |00006C;
                        LDY.B #$06                           ;0B8943|A006    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B8945|20A6B7  |0BB7A6;
                        BNE CODE_0B8957                      ;0B8948|D00D    |0B8957;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B894A|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B894A|A66C    |00006C;
                        INC.W $05C1,X                        ;0B894C|FEC105  |0B05C1;
                        db $20                               ;0B894F|        |      ;
                        dw UNREACH_0FFEC8                    ;0B8950|        |0FFEC8;
@@ -1351,7 +1351,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B8969: LDA.W $05EF,X                        ;0B8969|BDEF05  |0B05EF;
                        CMP.B #$02                           ;0B896C|C902    |      ;
                        BNE CODE_0B897D                      ;0B896E|D00D    |0B897D;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8970|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8970|A66C    |00006C;
                        DEC.W $0606,X                        ;0B8972|DE0606  |0B0606;
                        BNE CODE_0B897D                      ;0B8975|D006    |0B897D;
                        INC.W $05C1,X                        ;0B8977|FEC105  |0B05C1;
@@ -1368,7 +1368,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        TAY                                  ;0B8988|A8      |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B8989|20A6B7  |0BB7A6;
                        BEQ CODE_0B89A5                      ;0B898C|F017    |0B89A5;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B898E|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B898E|A66C    |00006C;
                        db $20                               ;0B8990|        |      ;
                        dw UNREACH_0FFEC8                    ;0B8991|        |0FFEC8;
                        JSR.W CODE_0B81F8                    ;0B8993|20F881  |0B81F8;
@@ -1380,17 +1380,17 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B89A4|60      |      ;
  
  
-          CODE_0B89A5: LDX.B wCurrEntityIdxBeingProcessed   ;0B89A5|A66C    |00006C;
+          CODE_0B89A5: LDX.B r_CurrEntityIdxBeingProcessed  ;0B89A5|A66C    |00006C;
                        LDA.B #$14                           ;0B89A7|A914    |      ;
                        JMP.W CODE_0B807F                    ;0B89A9|4C7F80  |0B807F;
  
  
           CODE_0B89AC: JSR.W CODE_0B81EC                    ;0B89AC|20EC81  |0B81EC;
-                       LDA.B wGameStateLoopCounter          ;0B89AF|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0B89AF|A51A    |00001A;
                        ADC.W $0438,X                        ;0B89B1|7D3804  |0B0438;
                        AND.B #$07                           ;0B89B4|2907    |      ;
                        STA.B $00                            ;0B89B6|8500    |000000;
-                       LDA.B wCurrRoomSectionBlock          ;0B89B8|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0B89B8|A533    |000033;
                        BEQ CODE_0B89BE                      ;0B89BA|F002    |0B89BE;
                        LDA.B #$01                           ;0B89BC|A901    |      ;
  
@@ -1421,14 +1421,14 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
          DATA8_0B89F5: db $00,$08,$10                       ;0B89F5|        |      ;
  
          DATA8_0B89F8: db $FE,$C1,$05                       ;0B89F8|        |      ;
-                       LDA.B wGameStateLoopCounter          ;0B89FB|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0B89FB|A51A    |00001A;
                        ADC.W $0438                          ;0B89FD|6D3804  |0B0438;
                        AND.B #$07                           ;0B8A00|2907    |      ;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0B8A02|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0B8A02|8510    |000010;
                        LDY.B #$01                           ;0B8A04|A001    |      ;
                        LDA.B ($02),Y                        ;0B8A06|B102    |000002;
                        CLC                                  ;0B8A08|18      |      ;
-                       ADC.B wCurrDrawnEntityCachedAttr     ;0B8A09|6510    |000010;
+                       ADC.B r_CurrDrawnEntityCachedAttr    ;0B8A09|6510    |000010;
                        TAY                                  ;0B8A0B|A8      |      ;
                        LDA.W DATA8_0B8A16,Y                 ;0B8A0C|B9168A  |0B8A16;
                        ADC.W $0438                          ;0B8A0F|6D3804  |0B0438;
@@ -1484,7 +1484,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        DEC.W $061D,X                        ;0B8A6A|DE1D06  |0B061D;
                        BEQ CODE_0B8A61                      ;0B8A6D|F0F2    |0B8A61;
                        LDY.B #$01                           ;0B8A6F|A001    |      ;
-                       LDA.B wCurrRoomGroupStage            ;0B8A71|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0B8A71|A532    |000032;
                        CMP.B #$09                           ;0B8A73|C909    |      ;
                        BCC CODE_0B8A79                      ;0B8A75|9002    |0B8A79;
                        LDY.B #$02                           ;0B8A77|A002    |      ;
@@ -1512,7 +1512,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ADC.W $041C,X                        ;0B8AA0|7D1C04  |0B041C;
                        STA.B $02                            ;0B8AA3|8502    |000002;
                        LDA.W DATA8_0B8ACF,Y                 ;0B8AA5|B9CF8A  |0B8ACF;
-                       STA.B wCurrRoomSectionPlayerPosAndScreenAddr;0B8AA8|850A    |00000A;
+                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0B8AA8|850A    |00000A;
                        LDA.B #$58                           ;0B8AAA|A958    |      ;
                        STA.B $07                            ;0B8AAC|8507    |000007;
                        LDA.B #$40                           ;0B8AAE|A940    |      ;
@@ -1520,7 +1520,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        TYA                                  ;0B8AB2|98      |      ;
                        AND.B #$01                           ;0B8AB3|2901    |      ;
                        EOR.B #$01                           ;0B8AB5|4901    |      ;
-                       LDY.B wCurrRoomGroupStage            ;0B8AB7|A432    |000032;
+                       LDY.B r_CurrRoomGroupStage           ;0B8AB7|A432    |000032;
                        CPY.B #$09                           ;0B8AB9|C009    |      ;
                        BCC CODE_0B8AC0                      ;0B8ABB|9003    |0B8AC0;
                        CLC                                  ;0B8ABD|18      |      ;
@@ -1568,11 +1568,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W $0470,X                        ;0B8B05|BD7004  |0B0470;
                        ORA.B #$60                           ;0B8B08|0960    |      ;
                        STA.B $03                            ;0B8B0A|8503    |000003;
-                       STX.B wCurrNumToVramQueue            ;0B8B0C|8608    |000008;
+                       STX.B r_CurrNumToVramQueue           ;0B8B0C|8608    |000008;
                        JSR.W CODE_0B8B5A                    ;0B8B0E|205A8B  |0B8B5A;
                        BNE CODE_0B8B4C                      ;0B8B11|D039    |0B8B4C;
                        STX.B $09                            ;0B8B13|8609    |000009;
-                       LDX.B wCurrNumToVramQueue            ;0B8B15|A608    |000008;
+                       LDX.B r_CurrNumToVramQueue           ;0B8B15|A608    |000008;
                        JSR.W CODE_0B819E                    ;0B8B17|209E81  |0B819E;
                        JSR.W CODE_0B81EF                    ;0B8B1A|20EF81  |0B81EF;
                        LDX.B $09                            ;0B8B1D|A609    |000009;
@@ -1588,7 +1588,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $054E,X                        ;0B8B34|9D4E05  |0B054E;
                        LDA.B #$69                           ;0B8B37|A969    |      ;
                        STA.W $05EF,X                        ;0B8B39|9DEF05  |0B05EF;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8B3C|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8B3C|A66C    |00006C;
                        LDA.B #$72                           ;0B8B3E|A972    |      ;
                        STA.W $0400,X                        ;0B8B40|9D0004  |0B0400;
                        LDA.B #$10                           ;0B8B43|A910    |      ;
@@ -1597,7 +1597,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B8B4B|60      |      ;
  
  
-          CODE_0B8B4C: LDX.B wCurrEntityIdxBeingProcessed   ;0B8B4C|A66C    |00006C;
+          CODE_0B8B4C: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8B4C|A66C    |00006C;
                        RTS                                  ;0B8B4E|60      |      ;
  
  
@@ -1639,11 +1639,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $061D,X                        ;0B8B88|9D1D06  |0B061D;
                        INC.W $05C1,X                        ;0B8B8B|FEC105  |0B05C1;
  
-          CODE_0B8B8E: LDX.B wCurrEntityIdxBeingProcessed   ;0B8B8E|A66C    |00006C;
+          CODE_0B8B8E: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8B8E|A66C    |00006C;
                        RTS                                  ;0B8B90|60      |      ;
  
  
-          CODE_0B8B91: LDA.B wRoomOrientation               ;0B8B91|A568    |000068;
+          CODE_0B8B91: LDA.B r_RoomOrientation              ;0B8B91|A568    |000068;
                        BMI CODE_0B8B9E                      ;0B8B93|3009    |0B8B9E;
  
           CODE_0B8B95: LDA.W $041C,X                        ;0B8B95|BD1C04  |0B041C;
@@ -1654,10 +1654,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0B8B9E: CLC                                  ;0B8B9E|18      |      ;
                        LDA.W $041C,X                        ;0B8B9F|BD1C04  |0B041C;
-                       ADC.B wCurrScrollOffsetIntoRoomScreen;0B8BA2|6556    |000056;
+                       ADC.B r_CurrScrollOffsetIntoRoomScreen;0B8BA2|6556    |000056;
                        AND.B #$F0                           ;0B8BA4|29F0    |      ;
                        SEC                                  ;0B8BA6|38      |      ;
-                       SBC.B wCurrScrollOffsetIntoRoomScreen;0B8BA7|E556    |000056;
+                       SBC.B r_CurrScrollOffsetIntoRoomScreen;0B8BA7|E556    |000056;
                        CLC                                  ;0B8BA9|18      |      ;
                        ADC.B #$03                           ;0B8BAA|6903    |      ;
                        STA.W $041C,X                        ;0B8BAC|9D1C04  |0B041C;
@@ -1714,7 +1714,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $05EF,X                        ;0B8C09|9DEF05  |0B05EF;
                        STA.W $05C1,X                        ;0B8C0C|9DC105  |0B05C1;
                        TXA                                  ;0B8C0F|8A      |      ;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8C10|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8C10|A66C    |00006C;
                        STA.W $061D,X                        ;0B8C12|9D1D06  |0B061D;
                        LDA.B #$08                           ;0B8C15|A908    |      ;
                        LDY.B #$0C                           ;0B8C17|A00C    |      ;
@@ -1722,7 +1722,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0B81B9                    ;0B8C1C|4CB981  |0B81B9;
  
  
-          CODE_0B8C1F: LDX.B wCurrEntityIdxBeingProcessed   ;0B8C1F|A66C    |00006C;
+          CODE_0B8C1F: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8C1F|A66C    |00006C;
                        RTS                                  ;0B8C21|60      |      ;
  
  
@@ -1740,7 +1740,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $0537,X                        ;0B8C3B|9D3705  |0B0537;
                        LDA.B #$50                           ;0B8C3E|A950    |      ;
                        STA.W $0606,X                        ;0B8C40|9D0606  |0B0606;
-                       STX.B wCurrNumToVramQueue            ;0B8C43|8608    |000008;
+                       STX.B r_CurrNumToVramQueue           ;0B8C43|8608    |000008;
                        LDA.W $061D,X                        ;0B8C45|BD1D06  |0B061D;
                        TAX                                  ;0B8C48|AA      |      ;
                        LDA.B #$57                           ;0B8C49|A957    |      ;
@@ -1749,9 +1749,9 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $05C1,X                        ;0B8C50|9DC105  |0B05C1;
                        LDA.B #$68                           ;0B8C53|A968    |      ;
                        STA.W $054E,X                        ;0B8C55|9D4E05  |0B054E;
-                       LDA.B wCurrNumToVramQueue            ;0B8C58|A508    |000008;
+                       LDA.B r_CurrNumToVramQueue           ;0B8C58|A508    |000008;
                        STA.W $0606,X                        ;0B8C5A|9D0606  |0B0606;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8C5D|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8C5D|A66C    |00006C;
  
           CODE_0B8C5F: RTS                                  ;0B8C5F|60      |      ;
  
@@ -1784,27 +1784,27 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $054E,X                        ;0B8C8E|9D4E05  |0B054E;
                        STA.W $05EF,X                        ;0B8C91|9DEF05  |0B05EF;
                        STA.W $0400,X                        ;0B8C94|9D0004  |0B0400;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8C97|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8C97|A66C    |00006C;
                        RTS                                  ;0B8C99|60      |      ;
  
  
           CODE_0B8C9A: LDA.W $0606,X                        ;0B8C9A|BD0606  |0B0606;
                        TAX                                  ;0B8C9D|AA      |      ;
                        LDA.W $0438,X                        ;0B8C9E|BD3804  |0B0438;
-                       STA.B wCurrNumToVramQueue            ;0B8CA1|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0B8CA1|8508    |000008;
                        LDA.W $0470,X                        ;0B8CA3|BD7004  |0B0470;
                        ORA.B #$30                           ;0B8CA6|0930    |      ;
                        AND.B #$BB                           ;0B8CA8|29BB    |      ;
                        STA.B $09                            ;0B8CAA|8509    |000009;
                        LDA.B #$30                           ;0B8CAC|A930    |      ;
-                       STA.B wCollisionPointYinScreen       ;0B8CAE|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0B8CAE|8511    |000011;
                        JSR.W CODE_0B80C1                    ;0B8CB0|20C180  |0B80C1;
                        LSR A                                ;0B8CB3|4A      |      ;
                        LSR A                                ;0B8CB4|4A      |      ;
                        LSR A                                ;0B8CB5|4A      |      ;
                        LSR A                                ;0B8CB6|4A      |      ;
                        TAY                                  ;0B8CB7|A8      |      ;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8CB8|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8CB8|A66C    |00006C;
                        LDA.W DATA8_0B8CDB,Y                 ;0B8CBA|B9DB8C  |0B8CDB;
                        STA.W $0400,X                        ;0B8CBD|9D0004  |0B0400;
                        LDA.B #$08                           ;0B8CC0|A908    |      ;
@@ -1813,7 +1813,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $04A8,X                        ;0B8CC7|9DA804  |0B04A8;
                        LDA.W DATA8_0B8CE5,Y                 ;0B8CCA|B9E58C  |0B8CE5;
                        STA.W $041C,X                        ;0B8CCD|9D1C04  |0B041C;
-                       LDA.B wCurrNumToVramQueue            ;0B8CD0|A508    |000008;
+                       LDA.B r_CurrNumToVramQueue           ;0B8CD0|A508    |000008;
                        STA.W $0438,X                        ;0B8CD2|9D3804  |0B0438;
                        LDA.B $09                            ;0B8CD5|A509    |000009;
                        STA.W $0470,X                        ;0B8CD7|9D7004  |0B0470;
@@ -1836,13 +1836,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B8CFE|        |      ;
                        dw UNREACH_0FFC16                    ;0B8CFF|        |0FFC16;
                        BNE CODE_0B8D0D                      ;0B8D01|D00A    |0B8D0D;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8D03|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8D03|A66C    |00006C;
                        DEC.W $0606,X                        ;0B8D05|DE0606  |0B0606;
                        BNE CODE_0B8CF4                      ;0B8D08|D0EA    |0B8CF4;
                        JMP.W CODE_0B84B2                    ;0B8D0A|4CB284  |0B84B2;
  
  
-          CODE_0B8D0D: LDX.B wCurrEntityIdxBeingProcessed   ;0B8D0D|A66C    |00006C;
+          CODE_0B8D0D: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8D0D|A66C    |00006C;
                        LDY.W $0606,X                        ;0B8D0F|BC0606  |0B0606;
                        LDA.W DATA8_0B8D1F,Y                 ;0B8D12|B91F8D  |0B8D1F;
                        STA.W $041C,X                        ;0B8D15|9D1C04  |0B041C;
@@ -1883,11 +1883,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        dw UNREACH_0FFC16                    ;0B8D53|        |0FFC16;
                        BEQ CODE_0B8D5C                      ;0B8D55|F005    |0B8D5C;
  
-          CODE_0B8D57: LDX.B wCurrEntityIdxBeingProcessed   ;0B8D57|A66C    |00006C;
+          CODE_0B8D57: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8D57|A66C    |00006C;
                        JMP.W CODE_0B84B2                    ;0B8D59|4CB284  |0B84B2;
  
  
-          CODE_0B8D5C: LDX.B wCurrEntityIdxBeingProcessed   ;0B8D5C|A66C    |00006C;
+          CODE_0B8D5C: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8D5C|A66C    |00006C;
                        SEC                                  ;0B8D5E|38      |      ;
                        LDA.W $041C,X                        ;0B8D5F|BD1C04  |0B041C;
                        SBC.B #$08                           ;0B8D62|E908    |      ;
@@ -1923,7 +1923,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B8D91|        |      ;
                        dw UNREACH_0FFC1E                    ;0B8D92|        |0FFC1E;
                        BNE CODE_0B8D57                      ;0B8D94|D0C1    |0B8D57;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8D96|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8D96|A66C    |00006C;
                        INC.W $05C1,X                        ;0B8D98|FEC105  |0B05C1;
                        RTS                                  ;0B8D9B|60      |      ;
  
@@ -1932,7 +1932,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDY.B #$01                           ;0B8D9E|A001    |      ;
                        JSR.W DATA8_0B8293                   ;0B8DA0|209382  |0B8293;
                        INC.W $05C1,X                        ;0B8DA3|FEC105  |0B05C1;
-                       LDA.B wCurrRoomSectionBlock          ;0B8DA6|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0B8DA6|A533    |000033;
                        BEQ CODE_0B8DBE                      ;0B8DA8|F014    |0B8DBE;
                        CMP.B #$01                           ;0B8DAA|C901    |      ;
                        BEQ CODE_0B8DBA                      ;0B8DAC|F00C    |0B8DBA;
@@ -1940,13 +1940,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BEQ CODE_0B8DBA                      ;0B8DB0|F008    |0B8DBA;
                        CMP.B #$03                           ;0B8DB2|C903    |      ;
                        BEQ CODE_0B8DC4                      ;0B8DB4|F00E    |0B8DC4;
-                       LDA.B wCurrRoomIdx                   ;0B8DB6|A534    |000034;
+                       LDA.B r_CurrRoomIdx                  ;0B8DB6|A534    |000034;
                        BNE CODE_0B8DC4                      ;0B8DB8|D00A    |0B8DC4;
  
           CODE_0B8DBA: LDA.B #$00                           ;0B8DBA|A900    |      ;
                        BEQ CODE_0B8DC6                      ;0B8DBC|F008    |0B8DC6;
  
-          CODE_0B8DBE: LDA.B wCurrRoomIdx                   ;0B8DBE|A534    |000034;
+          CODE_0B8DBE: LDA.B r_CurrRoomIdx                  ;0B8DBE|A534    |000034;
                        CMP.B #$02                           ;0B8DC0|C902    |      ;
                        BNE CODE_0B8DBA                      ;0B8DC2|D0F6    |0B8DBA;
  
@@ -1977,17 +1977,17 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $0470,X                        ;0B8DF2|9D7004  |0B0470;
                        LDA.B $00                            ;0B8DF5|A500    |000000;
                        STA.W $054E,X                        ;0B8DF7|9D4E05  |0B054E;
-                       LDA.B wCurrRoomSectionPlayerPosAndScreenAddr;0B8DFA|A50A    |00000A;
+                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0B8DFA|A50A    |00000A;
                        STA.W $04A8,X                        ;0B8DFC|9DA804  |0B04A8;
                        JSR.W CODE_0B9FC9                    ;0B8DFF|20C99F  |0B9FC9;
                        LDA.B $07                            ;0B8E02|A507    |000007;
                        STA.W $05EF,X                        ;0B8E04|9DEF05  |0B05EF;
-                       STX.B wCurrNumToVramQueue            ;0B8E07|8608    |000008;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B8E09|A66C    |00006C;
+                       STX.B r_CurrNumToVramQueue           ;0B8E07|8608    |000008;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B8E09|A66C    |00006C;
                        RTS                                  ;0B8E0B|60      |      ;
  
  
-          CODE_0B8E0C: LDX.B wCurrEntityIdxBeingProcessed   ;0B8E0C|A66C    |00006C;
+          CODE_0B8E0C: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8E0C|A66C    |00006C;
                        LDA.B #$00                           ;0B8E0E|A900    |      ;
                        RTS                                  ;0B8E10|60      |      ;
  
@@ -1997,7 +1997,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        dw CODE_0FFEB9                       ;0B8E15|        |0FFEB9;
                        BNE CODE_0B8E0C                      ;0B8E17|D0F3    |0B8E0C;
                        LDA.B #$00                           ;0B8E19|A900    |      ;
-                       STA.B wCurrRoomSectionPlayerPosAndScreenAddr;0B8E1B|850A    |00000A;
+                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0B8E1B|850A    |00000A;
                        JMP.W DATA8_0B8DCF                   ;0B8E1D|4CCF8D  |0B8DCF;
  
  
@@ -2060,7 +2060,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W $04A8,X                        ;0B8E87|BDA804  |0B04A8;
                        EOR.W DATA8_0B8EB4,Y                 ;0B8E8A|59B48E  |0B8EB4;
  
-          CODE_0B8E8D: STA.B wCurrRoomSectionPlayerPosAndScreenAddr;0B8E8D|850A    |00000A;
+          CODE_0B8E8D: STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0B8E8D|850A    |00000A;
                        CLC                                  ;0B8E8F|18      |      ;
                        TYA                                  ;0B8E90|98      |      ;
                        ASL A                                ;0B8E91|0A      |      ;
@@ -2127,7 +2127,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0B8F34: INC.W $05C1,X                        ;0B8F34|FEC105  |0B05C1;
                        LDA.B #$04                           ;0B8F37|A904    |      ;
-                       STA.B wCurrNumToVramQueue            ;0B8F39|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0B8F39|8508    |000008;
                        LDA.W $0438,X                        ;0B8F3B|BD3804  |0B0438;
                        STA.B $00                            ;0B8F3E|8500    |000000;
                        LDA.W $041C,X                        ;0B8F40|BD1C04  |0B041C;
@@ -2151,7 +2151,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $0438,X                        ;0B8F67|9D3804  |0B0438;
                        LDA.B $01                            ;0B8F6A|A501    |000001;
                        STA.W $041C,X                        ;0B8F6C|9D1C04  |0B041C;
-                       LDY.B wCurrNumToVramQueue            ;0B8F6F|A408    |000008;
+                       LDY.B r_CurrNumToVramQueue           ;0B8F6F|A408    |000008;
                        LDA.W DATA8_0B8F92,Y                 ;0B8F71|B9928F  |0B8F92;
                        STA.W $04F2,X                        ;0B8F74|9DF204  |0B04F2;
                        LDA.W DATA8_0B8F97,Y                 ;0B8F77|B9978F  |0B8F97;
@@ -2161,10 +2161,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W DATA8_0B8F9C,Y                 ;0B8F82|B99C8F  |0B8F9C;
                        STA.W $0537,X                        ;0B8F85|9D3705  |0B0537;
                        JSR.W CODE_0B9FC9                    ;0B8F88|20C99F  |0B9FC9;
-                       DEC.B wCurrNumToVramQueue            ;0B8F8B|C608    |000008;
+                       DEC.B r_CurrNumToVramQueue           ;0B8F8B|C608    |000008;
                        BNE CODE_0B8F4E                      ;0B8F8D|D0BF    |0B8F4E;
  
-          CODE_0B8F8F: LDX.B wCurrEntityIdxBeingProcessed   ;0B8F8F|A66C    |00006C;
+          CODE_0B8F8F: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8F8F|A66C    |00006C;
                        RTS                                  ;0B8F91|60      |      ;
  
  
@@ -2205,7 +2205,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0B8FC3                    ;0B8FE1|4CC38F  |0B8FC3;
  
  
-          CODE_0B8FE4: LDX.B wCurrEntityIdxBeingProcessed   ;0B8FE4|A66C    |00006C;
+          CODE_0B8FE4: LDX.B r_CurrEntityIdxBeingProcessed  ;0B8FE4|A66C    |00006C;
                        RTS                                  ;0B8FE6|60      |      ;
  
  
@@ -2224,25 +2224,25 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BEQ CODE_0B9022                      ;0B8FFC|F024    |0B9022;
                        CMP.B #$04                           ;0B8FFE|C904    |      ;
                        BEQ CODE_0B9022                      ;0B9000|F020    |0B9022;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9002|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9002|A66C    |00006C;
                        JSR.W CODE_0B93B0                    ;0B9004|20B093  |0B93B0;
                        LDY.B #$08                           ;0B9007|A008    |      ;
                        db $20                               ;0B9009|        |      ;
                        dw UNREACH_0FFC1E                    ;0B900A|        |0FFC1E;
                        BNE CODE_0B9022                      ;0B900C|D014    |0B9022;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B900E|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B900E|A66C    |00006C;
                        JSR.W CODE_0B93B0                    ;0B9010|20B093  |0B93B0;
                        LDY.B #$F8                           ;0B9013|A0F8    |      ;
                        db $20                               ;0B9015|        |      ;
                        dw UNREACH_0FFC1E                    ;0B9016|        |0FFC1E;
                        BNE CODE_0B9022                      ;0B9018|D008    |0B9022;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B901A|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B901A|A66C    |00006C;
                        DEC.W $061D,X                        ;0B901C|DE1D06  |0B061D;
                        BEQ CODE_0B903C                      ;0B901F|F01B    |0B903C;
                        RTS                                  ;0B9021|60      |      ;
  
  
-          CODE_0B9022: LDX.B wCurrEntityIdxBeingProcessed   ;0B9022|A66C    |00006C;
+          CODE_0B9022: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9022|A66C    |00006C;
                        JMP.W CODE_0B804B                    ;0B9024|4C4B80  |0B804B;
  
  
@@ -2298,10 +2298,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B9083|        |      ;
                        dw CODE_0FFEB9                       ;0B9084|        |0FFEB9;
                        BNE CODE_0B90A9                      ;0B9086|D021    |0B90A9;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9088|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9088|A66C    |00006C;
                        JSR.W CODE_0B81EF                    ;0B908A|20EF81  |0B81EF;
                        JSR.W CODE_0B819E                    ;0B908D|209E81  |0B819E;
-                       LDA.B wGameStateLoopCounter          ;0B9090|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0B9090|A51A    |00001A;
                        ADC.W $0438,X                        ;0B9092|7D3804  |0B0438;
                        AND.B #$01                           ;0B9095|2901    |      ;
                        TAY                                  ;0B9097|A8      |      ;
@@ -2344,8 +2344,8 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BEQ CODE_0B90F6                      ;0B90D4|F020    |0B90F6;
                        LDY.B $00                            ;0B90D6|A400    |000000;
                        LDA.W $0438,Y                        ;0B90D8|B93804  |0B0438;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0B90DB|8510    |000010;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B90DD|A66C    |00006C;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0B90DB|8510    |000010;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B90DD|A66C    |00006C;
                        JSR.W CODE_0B80CB                    ;0B90DF|20CB80  |0B80CB;
                        CMP.B #$04                           ;0B90E2|C904    |      ;
                        BCS CODE_0B90F5                      ;0B90E4|B00F    |0B90F5;
@@ -2354,7 +2354,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDY.B $00                            ;0B90EB|A400    |000000;
                        STA.W $0400,Y                        ;0B90ED|990004  |0B0400;
                        STA.W $054E,Y                        ;0B90F0|994E05  |0B054E;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B90F3|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B90F3|A66C    |00006C;
  
           CODE_0B90F5: RTS                                  ;0B90F5|60      |      ;
  
@@ -2373,7 +2373,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDY.B #$07                           ;0B9108|A007    |      ;
  
           CODE_0B910A: JSR.W CODE_0B8E11                    ;0B910A|20118E  |0B8E11;
-                       LDA.B wCurrNumToVramQueue            ;0B910D|A508    |000008;
+                       LDA.B r_CurrNumToVramQueue           ;0B910D|A508    |000008;
                        AND.B #$0F                           ;0B910F|290F    |      ;
                        ORA.B #$80                           ;0B9111|0980    |      ;
                        STA.B $09                            ;0B9113|8509    |000009;
@@ -2420,13 +2420,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W $05EF,X                        ;0B915D|BDEF05  |0B05EF;
                        CMP.B #$29                           ;0B9160|C929    |      ;
                        BNE CODE_0B9178                      ;0B9162|D014    |0B9178;
-                       LDA.B wCurrRoomGroupStage            ;0B9164|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0B9164|A532    |000032;
                        CMP.B #$09                           ;0B9166|C909    |      ;
                        BNE CODE_0B9178                      ;0B9168|D00E    |0B9178;
-                       LDA.B wCurrScrollRoomScreen          ;0B916A|A557    |000057;
+                       LDA.B r_CurrScrollRoomScreen         ;0B916A|A557    |000057;
                        BNE CODE_0B9178                      ;0B916C|D00A    |0B9178;
                        CLC                                  ;0B916E|18      |      ;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0B916F|A556    |000056;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0B916F|A556    |000056;
                        ADC.W $0438,X                        ;0B9171|7D3804  |0B0438;
                        CMP.B #$70                           ;0B9174|C970    |      ;
                        BCC CODE_0B917F                      ;0B9176|9007    |0B917F;
@@ -2435,11 +2435,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W getCollisionTileValUsingOffsetPresets;0B917A|20A6B7  |0BB7A6;
                        BEQ CODE_0B9184                      ;0B917D|F005    |0B9184;
  
-          CODE_0B917F: LDX.B wCurrEntityIdxBeingProcessed   ;0B917F|A66C    |00006C;
+          CODE_0B917F: LDX.B r_CurrEntityIdxBeingProcessed  ;0B917F|A66C    |00006C;
                        JMP.W CODE_0B895E                    ;0B9181|4C5E89  |0B895E;
  
  
-          CODE_0B9184: LDX.B wCurrEntityIdxBeingProcessed   ;0B9184|A66C    |00006C;
+          CODE_0B9184: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9184|A66C    |00006C;
                        DEC.W $0606,X                        ;0B9186|DE0606  |0B0606;
                        BNE CODE_0B9191                      ;0B9189|D006    |0B9191;
                        JSR.W CODE_0B819E                    ;0B918B|209E81  |0B819E;
@@ -2467,11 +2467,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B91AB: LDY.B #$05                           ;0B91AB|A005    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B91AD|20A6B7  |0BB7A6;
                        BEQ CODE_0B917F                      ;0B91B0|F0CD    |0B917F;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B91B2|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B91B2|A66C    |00006C;
                        LDY.B #$00                           ;0B91B4|A000    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B91B6|20A6B7  |0BB7A6;
                        BNE CODE_0B917F                      ;0B91B9|D0C4    |0B917F;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B91BB|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B91BB|A66C    |00006C;
                        DEC.W $0606,X                        ;0B91BD|DE0606  |0B0606;
                        BNE CODE_0B91E2                      ;0B91C0|D020    |0B91E2;
                        LDA.B #$40                           ;0B91C2|A940    |      ;
@@ -2498,7 +2498,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDY.B #$0B                           ;0B91F0|A00B    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B91F2|20A6B7  |0BB7A6;
                        BEQ CODE_0B924D                      ;0B91F5|F056    |0B924D;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B91F7|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B91F7|A66C    |00006C;
                        LDY.W $04A8,X                        ;0B91F9|BCA804  |0B04A8;
                        CLC                                  ;0B91FC|18      |      ;
                        LDA.W $041C,X                        ;0B91FD|BD1C04  |0B041C;
@@ -2517,14 +2517,14 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ADC.W DATA8_0B9252,Y                 ;0B921B|795292  |0B9252;
                        AND.B #$01                           ;0B921E|2901    |      ;
                        ORA.B $09                            ;0B9220|0509    |000009;
-                       STA.B wCurrRoomSectionPlayerPosAndScreenAddr;0B9222|850A    |00000A;
+                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0B9222|850A    |00000A;
                        JSR.W CODE_0B80E3                    ;0B9224|20E380  |0B80E3;
                        BNE CODE_0B924D                      ;0B9227|D024    |0B924D;
                        LDA.B $00                            ;0B9229|A500    |000000;
                        STA.W $0438,X                        ;0B922B|9D3804  |0B0438;
                        LDA.B $01                            ;0B922E|A501    |000001;
                        STA.W $041C,X                        ;0B9230|9D1C04  |0B041C;
-                       LDA.B wCurrRoomSectionPlayerPosAndScreenAddr;0B9233|A50A    |00000A;
+                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0B9233|A50A    |00000A;
                        STA.W $0470,X                        ;0B9235|9D7004  |0B0470;
                        LDA.B #$00                           ;0B9238|A900    |      ;
                        STA.W $05C1,X                        ;0B923A|9DC105  |0B05C1;
@@ -2536,7 +2536,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B924A|        |      ;
                        dw UNREACH_0FFEC8                    ;0B924B|        |0FFEC8;
  
-          CODE_0B924D: LDX.B wCurrEntityIdxBeingProcessed   ;0B924D|A66C    |00006C;
+          CODE_0B924D: LDX.B r_CurrEntityIdxBeingProcessed  ;0B924D|A66C    |00006C;
                        RTS                                  ;0B924F|60      |      ;
  
  
@@ -2557,7 +2557,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B9265|        |      ;
                        dw UNREACH_0FFC1E                    ;0B9266|        |0FFC1E;
                        BEQ DATA8_0B9254                     ;0B9268|F0EA    |0B9254;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B926A|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B926A|A66C    |00006C;
                        JSR.W CODE_0B93B0                    ;0B926C|20B093  |0B93B0;
                        LDY.B #$10                           ;0B926F|A010    |      ;
                        db $20                               ;0B9271|        |      ;
@@ -2565,7 +2565,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BEQ CODE_0B92D6                      ;0B9274|F060    |0B92D6;
                        CMP.B #$04                           ;0B9276|C904    |      ;
                        BEQ CODE_0B92D6                      ;0B9278|F05C    |0B92D6;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B927A|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B927A|A66C    |00006C;
                        JSR.W CODE_0B93B0                    ;0B927C|20B093  |0B93B0;
                        LDY.B #$08                           ;0B927F|A008    |      ;
                        db $20                               ;0B9281|        |      ;
@@ -2586,13 +2586,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B929D|        |      ;
                        dw UNREACH_0FFC1E                    ;0B929E|        |0FFC1E;
                        BEQ CODE_0B92DB                      ;0B92A0|F039    |0B92DB;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B92A2|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B92A2|A66C    |00006C;
                        JSR.W CODE_0B93BA                    ;0B92A4|20BA93  |0B93BA;
                        LDY.B #$08                           ;0B92A7|A008    |      ;
                        db $20                               ;0B92A9|        |      ;
                        dw UNREACH_0FFC1E                    ;0B92AA|        |0FFC1E;
                        BEQ CODE_0B92BC                      ;0B92AC|F00E    |0B92BC;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B92AE|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B92AE|A66C    |00006C;
                        JSR.W CODE_0B93BA                    ;0B92B0|20BA93  |0B93BA;
                        LDY.B #$F8                           ;0B92B3|A0F8    |      ;
                        db $20                               ;0B92B5|        |      ;
@@ -2600,7 +2600,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BNE CODE_0B92D6                      ;0B92B8|D01C    |0B92D6;
                        BEQ CODE_0B92DB                      ;0B92BA|F01F    |0B92DB;
  
-          CODE_0B92BC: LDX.B wCurrEntityIdxBeingProcessed   ;0B92BC|A66C    |00006C;
+          CODE_0B92BC: LDX.B r_CurrEntityIdxBeingProcessed  ;0B92BC|A66C    |00006C;
                        DEC.W $061D,X                        ;0B92BE|DE1D06  |0B061D;
                        BEQ CODE_0B92D0                      ;0B92C1|F00D    |0B92D0;
  
@@ -2618,11 +2618,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B92D5|60      |      ;
  
  
-          CODE_0B92D6: LDX.B wCurrEntityIdxBeingProcessed   ;0B92D6|A66C    |00006C;
+          CODE_0B92D6: LDX.B r_CurrEntityIdxBeingProcessed  ;0B92D6|A66C    |00006C;
                        JMP.W CODE_0B804B                    ;0B92D8|4C4B80  |0B804B;
  
  
-          CODE_0B92DB: LDX.B wCurrEntityIdxBeingProcessed   ;0B92DB|A66C    |00006C;
+          CODE_0B92DB: LDX.B r_CurrEntityIdxBeingProcessed  ;0B92DB|A66C    |00006C;
                        INC.W $05C1,X                        ;0B92DD|FEC105  |0B05C1;
                        LDA.B #$01                           ;0B92E0|A901    |      ;
                        LDY.W $04F2,X                        ;0B92E2|BCF204  |0B04F2;
@@ -2657,11 +2657,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0B9320|        |      ;
                        dw UNREACH_0FFC1E                    ;0B9321|        |0FFC1E;
                        BEQ CODE_0B9341                      ;0B9323|F01C    |0B9341;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9325|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9325|A66C    |00006C;
                        LDY.B #$06                           ;0B9327|A006    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B9329|20A6B7  |0BB7A6;
                        BEQ CODE_0B9342                      ;0B932C|F014    |0B9342;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B932E|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B932E|A66C    |00006C;
                        db $20                               ;0B9330|        |      ;
                        dw UNREACH_0FFEC8                    ;0B9331|        |0FFEC8;
                        INC.W $05C1,X                        ;0B9333|FEC105  |0B05C1;
@@ -2673,7 +2673,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B9341: RTS                                  ;0B9341|60      |      ;
  
  
-          CODE_0B9342: LDX.B wCurrEntityIdxBeingProcessed   ;0B9342|A66C    |00006C;
+          CODE_0B9342: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9342|A66C    |00006C;
                        db $20                               ;0B9344|        |      ;
                        dw UNREACH_0FFEC8                    ;0B9345|        |0FFEC8;
                        LDA.B #$01                           ;0B9347|A901    |      ;
@@ -2772,7 +2772,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LSR A                                ;0B93EC|4A      |      ;
                        LSR A                                ;0B93ED|4A      |      ;
                        LSR A                                ;0B93EE|4A      |      ;
-                       ADC.B wRandomVal                     ;0B93EF|651F    |00001F;
+                       ADC.B r_RandomVal                    ;0B93EF|651F    |00001F;
                        AND.B #$07                           ;0B93F1|2907    |      ;
                        TAY                                  ;0B93F3|A8      |      ;
                        LDA.W DATA8_0B93FB,Y                 ;0B93F4|B9FB93  |0B93FB;
@@ -2805,7 +2805,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        DEC.W $0633,X                        ;0B942B|DE3306  |0B0633;
                        BNE CODE_0B9438                      ;0B942E|D008    |0B9438;
  
-          CODE_0B9430: LDX.B wCurrEntityIdxBeingProcessed   ;0B9430|A66C    |00006C;
+          CODE_0B9430: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9430|A66C    |00006C;
                        JSR.W CODE_0B81BC                    ;0B9432|20BC81  |0B81BC;
                        INC.W $05C1,X                        ;0B9435|FEC105  |0B05C1;
  
@@ -2895,7 +2895,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        TAX                                  ;0B94D7|AA      |      ;
                        LDA.B #$00                           ;0B94D8|A900    |      ;
                        STA.W $07C8,X                        ;0B94DA|9DC807  |0B07C8;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B94DD|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B94DD|A66C    |00006C;
                        JMP.W CODE_0B84B2                    ;0B94DF|4CB284  |0B84B2;
  
  
@@ -2968,12 +2968,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B954E: LDY.B #$04                           ;0B954E|A004    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B9550|20A6B7  |0BB7A6;
                        BEQ CODE_0B955D                      ;0B9553|F008    |0B955D;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9555|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9555|A66C    |00006C;
                        INC.W $0633,X                        ;0B9557|FE3306  |0B0633;
                        JMP.W DATA8_0B95AE                   ;0B955A|4CAE95  |0B95AE;
  
  
-          CODE_0B955D: LDX.B wCurrEntityIdxBeingProcessed   ;0B955D|A66C    |00006C;
+          CODE_0B955D: LDX.B r_CurrEntityIdxBeingProcessed  ;0B955D|A66C    |00006C;
                        LDA.B #$14                           ;0B955F|A914    |      ;
                        JSR.W CODE_0B80A1                    ;0B9561|20A180  |0B80A1;
                        LDA.W $0520,X                        ;0B9564|BD2005  |0B0520;
@@ -3040,7 +3040,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.B ($02),Y                        ;0B95CE|B102    |000002;
                        STA.W $061D,X                        ;0B95D0|9D1D06  |0B061D;
                        TXA                                  ;0B95D3|8A      |      ;
-                       ADC.B wGameStateLoopCounter          ;0B95D4|651A    |00001A;
+                       ADC.B r_GameStateLoopCounter         ;0B95D4|651A    |00001A;
                        AND.B #$07                           ;0B95D6|2907    |      ;
                        TAY                                  ;0B95D8|A8      |      ;
                        LDA.W DATA8_0B95FB,Y                 ;0B95D9|B9FB95  |0B95FB;
@@ -3080,10 +3080,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0B84B2                    ;0B9631|4CB284  |0B84B2;
  
  
-          CODE_0B9634: LDA.B wGameStateLoopCounter          ;0B9634|A51A    |00001A;
+          CODE_0B9634: LDA.B r_GameStateLoopCounter         ;0B9634|A51A    |00001A;
                        STA.W $0509,X                        ;0B9636|9D0905  |0B0509;
                        TXA                                  ;0B9639|8A      |      ;
-                       ADC.B wGameStateLoopCounter          ;0B963A|651A    |00001A;
+                       ADC.B r_GameStateLoopCounter         ;0B963A|651A    |00001A;
                        AND.B #$07                           ;0B963C|2907    |      ;
                        JSR.W CODE_0B807F                    ;0B963E|207F80  |0B807F;
                        JMP.W CODE_0B84B8                    ;0B9641|4CB884  |0B84B8;
@@ -3099,7 +3099,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W CODE_0B80D5                    ;0B9654|20D580  |0B80D5;
                        CMP.B #$40                           ;0B9657|C940    |      ;
                        BCS CODE_0B9667                      ;0B9659|B00C    |0B9667;
-                       LDA.B wRandomVal                     ;0B965B|A51F    |00001F;
+                       LDA.B r_RandomVal                    ;0B965B|A51F    |00001F;
                        AND.B #$03                           ;0B965D|2903    |      ;
                        TAY                                  ;0B965F|A8      |      ;
                        LDA.W CODE_0B9673,Y                  ;0B9660|B97396  |0B9673;
@@ -3107,7 +3107,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B9666|60      |      ;
  
  
-          CODE_0B9667: LDA.B wRandomVal                     ;0B9667|A51F    |00001F;
+          CODE_0B9667: LDA.B r_RandomVal                    ;0B9667|A51F    |00001F;
                        AND.B #$03                           ;0B9669|2903    |      ;
                        TAY                                  ;0B966B|A8      |      ;
                        LDA.W DATA8_0B9677,Y                 ;0B966C|B97796  |0B9677;
@@ -3127,7 +3127,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0B975C                    ;0B9683|4C5C97  |0B975C;
  
  
-          CODE_0B9686: LDA.B wGameStateLoopCounter          ;0B9686|A51A    |00001A;
+          CODE_0B9686: LDA.B r_GameStateLoopCounter         ;0B9686|A51A    |00001A;
                        AND.B #$03                           ;0B9688|2903    |      ;
                        TAY                                  ;0B968A|A8      |      ;
                        LDA.W CODE_0B9694,Y                  ;0B968B|B99496  |0B9694;
@@ -3165,7 +3165,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W CODE_0B80D5                    ;0B96CD|20D580  |0B80D5;
                        CMP.B #$20                           ;0B96D0|C920    |      ;
                        BCC CODE_0B9709                      ;0B96D2|9035    |0B9709;
-                       LDA.B wRandomVal                     ;0B96D4|A51F    |00001F;
+                       LDA.B r_RandomVal                    ;0B96D4|A51F    |00001F;
                        AND.B #$03                           ;0B96D6|2903    |      ;
                        ASL A                                ;0B96D8|0A      |      ;
                        TAY                                  ;0B96D9|A8      |      ;
@@ -3194,7 +3194,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B9708: RTS                                  ;0B9708|60      |      ;
  
  
-          CODE_0B9709: LDA.B wRandomVal                     ;0B9709|A51F    |00001F;
+          CODE_0B9709: LDA.B r_RandomVal                    ;0B9709|A51F    |00001F;
                        AND.B #$03                           ;0B970B|2903    |      ;
                        ASL A                                ;0B970D|0A      |      ;
                        TAY                                  ;0B970E|A8      |      ;
@@ -3276,7 +3276,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B9789: INC.W $05C1,X                        ;0B9789|FEC105  |0B05C1;
                        LDY.B #$01                           ;0B978C|A001    |      ;
                        LDA.B ($02),Y                        ;0B978E|B102    |000002;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0B9790|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0B9790|8510    |000010;
                        LDA.W $0438                          ;0B9792|AD3804  |0B0438;
                        STA.B $04                            ;0B9795|8504    |000004;
                        LDA.W $041C                          ;0B9797|AD1C04  |0B041C;
@@ -3288,7 +3288,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B97A1: STA.B $00                            ;0B97A1|8500    |000000;
                        TAY                                  ;0B97A3|A8      |      ;
                        LDA.W DATA8_0B97E0,Y                 ;0B97A4|B9E097  |0B97E0;
-                       LDY.B wCurrDrawnEntityCachedAttr     ;0B97A7|A410    |000010;
+                       LDY.B r_CurrDrawnEntityCachedAttr    ;0B97A7|A410    |000010;
  
           CODE_0B97A9: CLC                                  ;0B97A9|18      |      ;
                        ADC.W DATA8_0B9800,Y                 ;0B97AA|790098  |0B9800;
@@ -3315,7 +3315,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        BEQ CODE_0B97DD                      ;0B97D8|F003    |0B97DD;
                        JSR.W CODE_0B805D                    ;0B97DA|205D80  |0B805D;
  
-          CODE_0B97DD: LDX.B wCurrEntityIdxBeingProcessed   ;0B97DD|A66C    |00006C;
+          CODE_0B97DD: LDX.B r_CurrEntityIdxBeingProcessed  ;0B97DD|A66C    |00006C;
                        RTS                                  ;0B97DF|60      |      ;
  
  
@@ -3391,7 +3391,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CMP.B #$30                           ;0B98CE|C930    |      ;
                        BCC CODE_0B98BE                      ;0B98D0|90EC    |0B98BE;
  
-          CODE_0B98D2: LDA.B wCurrRoomIdx                   ;0B98D2|A534    |000034;
+          CODE_0B98D2: LDA.B r_CurrRoomIdx                  ;0B98D2|A534    |000034;
                        BNE CODE_0B98DA                      ;0B98D4|D004    |0B98DA;
                        LDY.B #$00                           ;0B98D6|A000    |      ;
                        BEQ CODE_0B98DF                      ;0B98D8|F005    |0B98DF;
@@ -3469,7 +3469,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0B9956                    ;0B9965|4C5699  |0B9956;
  
  
-          CODE_0B9968: LDX.B wCurrEntityIdxBeingProcessed   ;0B9968|A66C    |00006C;
+          CODE_0B9968: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9968|A66C    |00006C;
                        RTS                                  ;0B996A|60      |      ;
  
  
@@ -3479,7 +3479,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $041C,X                        ;0B9972|9D1C04  |0B041C;
                        LDA.B #$68                           ;0B9975|A968    |      ;
                        STA.W $054E,X                        ;0B9977|9D4E05  |0B054E;
-                       LDA.B wDoubleCurrRoomIdx             ;0B997A|A50E    |00000E;
+                       LDA.B r_DoubleCurrRoomIdx            ;0B997A|A50E    |00000E;
                        STA.W $0470,X                        ;0B997C|9D7004  |0B0470;
                        LDA.B #$00                           ;0B997F|A900    |      ;
                        STA.W $05C1,X                        ;0B9981|9DC105  |0B05C1;
@@ -3494,15 +3494,15 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W $0470,X                        ;0B9993|BD7004  |0B0470;
                        AND.B #$FB                           ;0B9996|29FB    |      ;
                        ORA.B #$60                           ;0B9998|0960    |      ;
-                       STA.B wDoubleCurrRoomIdx             ;0B999A|850E    |00000E;
+                       STA.B r_DoubleCurrRoomIdx            ;0B999A|850E    |00000E;
                        RTS                                  ;0B999C|60      |      ;
  
  
-          CODE_0B999D: LDX.B wCurrEntityIdxBeingProcessed   ;0B999D|A66C    |00006C;
+          CODE_0B999D: LDX.B r_CurrEntityIdxBeingProcessed  ;0B999D|A66C    |00006C;
                        LDY.B #$06                           ;0B999F|A006    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B99A1|20A6B7  |0BB7A6;
                        BNE CODE_0B99B4                      ;0B99A4|D00E    |0B99B4;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B99A6|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B99A6|A66C    |00006C;
                        db $20                               ;0B99A8|        |      ;
                        dw UNREACH_0FFEC8                    ;0B99A9|        |0FFEC8;
                        LDA.B #$01                           ;0B99AB|A901    |      ;
@@ -3512,11 +3512,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0B99B4: JSR.W CODE_0B8B91                    ;0B99B4|20918B  |0B8B91;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B99B7|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B99B7|A66C    |00006C;
                        LDY.B #$08                           ;0B99B9|A008    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B99BB|20A6B7  |0BB7A6;
                        BEQ CODE_0B99EE                      ;0B99BE|F02E    |0B99EE;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B99C0|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B99C0|A66C    |00006C;
                        LDY.B #$0C                           ;0B99C2|A00C    |      ;
                        JSR.W getCollisionTileValUsingOffsetPresets;0B99C4|20A6B7  |0BB7A6;
                        BNE CODE_0B99EE                      ;0B99C7|D025    |0B99EE;
@@ -3526,7 +3526,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W CODE_0B9A0E                    ;0B99D0|200E9A  |0B9A0E;
                        BNE CODE_0B9A09                      ;0B99D3|D034    |0B9A09;
  
-          CODE_0B99D5: LDX.B wCurrEntityIdxBeingProcessed   ;0B99D5|A66C    |00006C;
+          CODE_0B99D5: LDX.B r_CurrEntityIdxBeingProcessed  ;0B99D5|A66C    |00006C;
                        DEC.W $0606,X                        ;0B99D7|DE0606  |0B0606;
                        BEQ CODE_0B99EE                      ;0B99DA|F012    |0B99EE;
                        LDY.W $0438,X                        ;0B99DC|BC3804  |0B0438;
@@ -3542,12 +3542,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0B99ED|60      |      ;
  
  
-          CODE_0B99EE: LDX.B wCurrEntityIdxBeingProcessed   ;0B99EE|A66C    |00006C;
+          CODE_0B99EE: LDX.B r_CurrEntityIdxBeingProcessed  ;0B99EE|A66C    |00006C;
                        LDA.W $04A8,X                        ;0B99F0|BDA804  |0B04A8;
                        EOR.B #$01                           ;0B99F3|4901    |      ;
                        STA.W $04A8,X                        ;0B99F5|9DA804  |0B04A8;
                        JSR.W CODE_0B804B                    ;0B99F8|204B80  |0B804B;
-                       LDA.B wGameStateLoopCounter          ;0B99FB|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0B99FB|A51A    |00001A;
                        ADC.W $0438                          ;0B99FD|6D3804  |0B0438;
                        AND.B #$03                           ;0B9A00|2903    |      ;
                        TAY                                  ;0B9A02|A8      |      ;
@@ -3558,7 +3558,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0B9A0A: LDA.B #$D1                           ;0B9A0A|A9D1    |      ;
-                       STA.B [wBossSpawner],Y               ;0B9A0C|97C3    |0000C3;
+                       STA.B [r_BossSpawner],Y              ;0B9A0C|97C3    |0000C3;
  
           CODE_0B9A0E: JSR.W CODE_0B80D5                    ;0B9A0E|20D580  |0B80D5;
                        CMP.B #$08                           ;0B9A11|C908    |      ;
@@ -3586,7 +3586,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0B9A39: JSR.W CODE_0B9DC5                    ;0B9A39|20C59D  |0B9DC5;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9A3C|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9A3C|A66C    |00006C;
                        RTS                                  ;0B9A3E|60      |      ;
  
  
@@ -3639,12 +3639,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $0438,Y                        ;0B9A9B|993804  |0B0438;
                        LDA.W $0470,X                        ;0B9A9E|BD7004  |0B0470;
                        AND.B #$BE                           ;0B9AA1|29BE    |      ;
-                       STA.B wCurrNumToVramQueue            ;0B9AA3|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0B9AA3|8508    |000008;
                        LDA.W $0470,X                        ;0B9AA5|BD7004  |0B0470;
                        AND.B #$01                           ;0B9AA8|2901    |      ;
                        ADC.B $09                            ;0B9AAA|6509    |000009;
                        AND.B #$01                           ;0B9AAC|2901    |      ;
-                       ORA.B wCurrNumToVramQueue            ;0B9AAE|0508    |000008;
+                       ORA.B r_CurrNumToVramQueue           ;0B9AAE|0508    |000008;
                        STA.W $0470,Y                        ;0B9AB0|997004  |0B0470;
                        LDA.B $00                            ;0B9AB3|A500    |000000;
                        STA.W $04A8,Y                        ;0B9AB5|99A804  |0B04A8;
@@ -3667,14 +3667,14 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $067B,Y                        ;0B9AE3|997B06  |0B067B;
                        LDA.B #$20                           ;0B9AE6|A920    |      ;
                        STA.W $0657,Y                        ;0B9AE8|995706  |0B0657;
-                       STY.B wCollisionPointYinScreen       ;0B9AEB|8411    |000011;
+                       STY.B r_CollisionPointYinScreen      ;0B9AEB|8411    |000011;
                        LDA.B #$42                           ;0B9AED|A942    |      ;
-                       LDY.B wChrBankSpr_0800               ;0B9AEF|A448    |000048;
+                       LDY.B r_ChrBankSpr_0800              ;0B9AEF|A448    |000048;
                        CPY.B #$14                           ;0B9AF1|C014    |      ;
                        BNE CODE_0B9AF7                      ;0B9AF3|D002    |0B9AF7;
                        LDA.B #$50                           ;0B9AF5|A950    |      ;
  
-          CODE_0B9AF7: LDY.B wCollisionPointYinScreen       ;0B9AF7|A411    |000011;
+          CODE_0B9AF7: LDY.B r_CollisionPointYinScreen      ;0B9AF7|A411    |000011;
                        STA.W $0400,Y                        ;0B9AF9|990004  |0B0400;
                        INC.W $061D,X                        ;0B9AFC|FE1D06  |0B061D;
                        JMP.W CODE_0B9A6A                    ;0B9AFF|4C6A9A  |0B9A6A;
@@ -3706,7 +3706,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        INX                                  ;0B9B34|E8      |      ;
                        CPX.B #$08                           ;0B9B35|E008    |      ;
                        BCC CODE_0B9B2F                      ;0B9B37|90F6    |0B9B2F;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9B39|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9B39|A66C    |00006C;
                        RTS                                  ;0B9B3B|60      |      ;
  
  
@@ -3745,7 +3745,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W CODE_0B9BF8                    ;0B9B77|20F89B  |0B9BF8;
                        JSR.W CODE_0B9DE9                    ;0B9B7A|20E99D  |0B9DE9;
                        JSR.W CODE_0B9DC5                    ;0B9B7D|20C59D  |0B9DC5;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9B80|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9B80|A66C    |00006C;
                        RTS                                  ;0B9B82|60      |      ;
  
  
@@ -3793,7 +3793,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0B9BCB: INX                                  ;0B9BCB|E8      |      ;
                        CPX.B #$09                           ;0B9BCC|E009    |      ;
                        BCC CODE_0B9B85                      ;0B9BCE|90B5    |0B9B85;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9BD0|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9BD0|A66C    |00006C;
                        RTS                                  ;0B9BD2|60      |      ;
  
  
@@ -3821,9 +3821,9 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0B9BF8: LDA.B #$01                           ;0B9BF8|A901    |      ;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0B9BFA|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0B9BFA|8510    |000010;
  
-          CODE_0B9BFC: LDX.B wCurrDrawnEntityCachedAttr     ;0B9BFC|A610    |000010;
+          CODE_0B9BFC: LDX.B r_CurrDrawnEntityCachedAttr    ;0B9BFC|A610    |000010;
                        CPX.B #$07                           ;0B9BFE|E007    |      ;
                        BEQ CODE_0B9C23                      ;0B9C00|F021    |0B9C23;
                        LDA.W $0438,X                        ;0B9C02|BD3804  |0B0438;
@@ -3837,7 +3837,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ADC.B $05                            ;0B9C16|6505    |000005;
                        STA.W $041C,X                        ;0B9C18|9D1C04  |0B041C;
                        JSR.W CODE_0B9C89                    ;0B9C1B|20899C  |0B9C89;
-                       INC.B wCurrDrawnEntityCachedAttr     ;0B9C1E|E610    |000010;
+                       INC.B r_CurrDrawnEntityCachedAttr    ;0B9C1E|E610    |000010;
                        JMP.W CODE_0B9BFC                    ;0B9C20|4CFC9B  |0B9BFC;
  
  
@@ -3855,7 +3855,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W CODE_0B9D8B                    ;0B9C3C|208B9D  |0B9D8B;
                        LDA.B $05                            ;0B9C3F|A505    |000005;
                        STA.W $041C,X                        ;0B9C41|9D1C04  |0B041C;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9C44|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9C44|A66C    |00006C;
                        RTS                                  ;0B9C46|60      |      ;
  
  
@@ -3883,7 +3883,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W DATA8_0B9CA8,Y                 ;0B9C92|B9A89C  |0B9CA8;
                        STA.B $0B                            ;0B9C95|850B    |00000B;
                        LDA.B #$00                           ;0B9C97|A900    |      ;
-                       LDY.B wChrBankSpr_0800               ;0B9C99|A448    |000048;
+                       LDY.B r_ChrBankSpr_0800              ;0B9C99|A448    |000048;
                        CPY.B #$14                           ;0B9C9B|C014    |      ;
                        BNE CODE_0B9CA1                      ;0B9C9D|D002    |0B9CA1;
                        LDA.B #$0E                           ;0B9C9F|A90E    |      ;
@@ -3912,7 +3912,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $01,$01                           ;0B9CE6|        |      ;
  
           CODE_0B9CE8: LDX.B #$01                           ;0B9CE8|A201    |      ;
-                       LDA.B wGameStateLoopCounter          ;0B9CEA|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0B9CEA|A51A    |00001A;
                        AND.B #$01                           ;0B9CEC|2901    |      ;
                        TAY                                  ;0B9CEE|A8      |      ;
  
@@ -3931,7 +3931,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0B9D0C: LDX.W $4EA3                          ;0B9D0C|AEA34E  |0B4EA3;
-                       EOR.B wCurrInstrumentDataAddr,S      ;0B9D0F|43E0    |0000E0;
+                       EOR.B r_CurrInstrumentDataAddr,S     ;0B9D0F|43E0    |0000E0;
                        db $08                               ;0B9D11|        |      ;
                        BEQ CODE_0B9D1E                      ;0B9D12|F00A    |0B9D1E;
                        TXA                                  ;0B9D14|8A      |      ;
@@ -4091,7 +4091,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ORA.B $09                            ;0B9E52|0509    |000009;
                        STA.W $0470,X                        ;0B9E54|9D7004  |0B0470;
                        LDA.B #$01                           ;0B9E57|A901    |      ;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0B9E59|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0B9E59|8510    |000010;
                        LDA.W DATA8_0B9E75,Y                 ;0B9E5B|B9759E  |0B9E75;
                        JSR.W CODE_0B97A1                    ;0B9E5E|20A197  |0B97A1;
  
@@ -4101,7 +4101,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $07EF                          ;0B9E68|8DEF07  |0B07EF;
                        LDA.B #$80                           ;0B9E6B|A980    |      ;
                        STA.W $07EE                          ;0B9E6D|8DEE07  |0B07EE;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9E70|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9E70|A66C    |00006C;
                        RTS                                  ;0B9E72|60      |      ;
  
  
@@ -4179,13 +4179,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ADC.B #$04                           ;0B9F30|6904    |      ;
                        JSR.W DATA8_0B9F9B                   ;0B9F32|209B9F  |0B9F9B;
                        BEQ CODE_0B9F7B                      ;0B9F35|F044    |0B9F7B;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9F37|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9F37|A66C    |00006C;
                        JSR.W CODE_0B9F8E                    ;0B9F39|208E9F  |0B9F8E;
                        ADC.B #$04                           ;0B9F3C|6904    |      ;
                        JMP.W CODE_0B9F84                    ;0B9F3E|4C849F  |0B9F84;
  
  
-          CODE_0B9F41: LDX.B wCurrEntityIdxBeingProcessed   ;0B9F41|A66C    |00006C;
+          CODE_0B9F41: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9F41|A66C    |00006C;
                        INC.W $05C1,X                        ;0B9F43|FEC105  |0B05C1;
                        JMP.W CODE_0B9F81                    ;0B9F46|4C819F  |0B9F81;
  
@@ -4202,12 +4202,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ADC.B #$04                           ;0B9F64|6904    |      ;
                        JSR.W DATA8_0B9F9B                   ;0B9F66|209B9F  |0B9F9B;
                        BEQ CODE_0B9F7B                      ;0B9F69|F010    |0B9F7B;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0B9F6B|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0B9F6B|A66C    |00006C;
                        JSR.W CODE_0B9F8E                    ;0B9F6D|208E9F  |0B9F8E;
                        ADC.B #$04                           ;0B9F70|6904    |      ;
                        JSR.W CODE_0B9F84                    ;0B9F72|20849F  |0B9F84;
  
-          CODE_0B9F75: LDX.B wCurrEntityIdxBeingProcessed   ;0B9F75|A66C    |00006C;
+          CODE_0B9F75: LDX.B r_CurrEntityIdxBeingProcessed  ;0B9F75|A66C    |00006C;
                        DEC.W $05C1,X                        ;0B9F77|DEC105  |0B05C1;
                        RTS                                  ;0B9F7A|60      |      ;
  
@@ -4247,7 +4247,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0B9FC9: LDA.W $07F6                          ;0B9FC9|ADF607  |0B07F6;
                        BNE CODE_0B9FE3                      ;0B9FCC|D015    |0B9FE3;
-                       LDA.B wCurrRoomGroupStage            ;0B9FCE|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0B9FCE|A532    |000032;
                        LDY.B #$00                           ;0B9FD0|A000    |      ;
                        CMP.B #$03                           ;0B9FD2|C903    |      ;
                        BCC CODE_0B9FDC                      ;0B9FD4|9006    |0B9FDC;
@@ -4307,7 +4307,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0BA054                    ;0BA036|4C54A0  |0BA054;
  
  
-          CODE_0BA039: ORA.B (wPPUCtrl,X)                   ;0BA039|01FF    |0000FF;
+          CODE_0BA039: ORA.B (r_PPUCtrl,X)                  ;0BA039|01FF    |0000FF;
  
           CODE_0BA03B: LDA.B #$18                           ;0BA03B|A918    |      ;
                        JSR.W CODE_0B807F                    ;0BA03D|207F80  |0B807F;
@@ -4343,7 +4343,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
          DATA8_0BA077: db $20                               ;0BA077|        |      ;
                        dw UNREACH_0FFC1E                    ;0BA078|        |0FFC1E;
                        BEQ CODE_0BA08A                      ;0BA07A|F00E    |0BA08A;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BA07C|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BA07C|A66C    |00006C;
                        db $20                               ;0BA07E|        |      ;
                        dw UNREACH_0FFEC8                    ;0BA07F|        |0FFEC8;
                        LDA.B #$A0                           ;0BA081|A9A0    |      ;
@@ -4356,7 +4356,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BA08A: JSR.W CODE_0B8113                    ;0BA08A|201381  |0B8113;
                        BCC CODE_0BA089                      ;0BA08D|90FA    |0BA089;
                        LDA.W $041C,X                        ;0BA08F|BD1C04  |0B041C;
-                       CMP.B wFloodHight                    ;0BA092|C5CA    |0000CA;
+                       CMP.B r_FloodHight                   ;0BA092|C5CA    |0000CA;
                        BCC CODE_0BA089                      ;0BA094|90F3    |0BA089;
                        LDA.W $054E,X                        ;0BA096|BD4E05  |0B054E;
                        CMP.B #$AE                           ;0BA099|C9AE    |      ;
@@ -4389,13 +4389,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0BA0C6|        |      ;
                        dw UNREACH_0FFC1E                    ;0BA0C7|        |0FFC1E;
                        BNE CODE_0BA0D3                      ;0BA0C9|D008    |0BA0D3;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BA0CB|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BA0CB|A66C    |00006C;
                        LDA.B #$01                           ;0BA0CD|A901    |      ;
                        STA.W $05C1,X                        ;0BA0CF|9DC105  |0B05C1;
                        RTS                                  ;0BA0D2|60      |      ;
  
  
-          CODE_0BA0D3: LDX.B wCurrEntityIdxBeingProcessed   ;0BA0D3|A66C    |00006C;
+          CODE_0BA0D3: LDX.B r_CurrEntityIdxBeingProcessed  ;0BA0D3|A66C    |00006C;
                        JMP.W CODE_0B8120                    ;0BA0D5|4C2081  |0B8120;
  
  
@@ -4482,7 +4482,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        TAY                                  ;0BA167|A8      |      ;
                        LDA.W DATA8_0BA171,Y                 ;0BA168|B971A1  |0BA171;
  
-          CODE_0BA16B: LDY.B wCurrCharacterIdx              ;0BA16B|A43B    |00003B;
+          CODE_0BA16B: LDY.B r_CurrCharacterIdx             ;0BA16B|A43B    |00003B;
                        STA.W $0085,Y                        ;0BA16D|998500  |0B0085;
                        RTS                                  ;0BA170|60      |      ;
  
@@ -4492,7 +4492,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0BA17B: LDA.B #$00                           ;0BA17B|A900    |      ;
                        STA.B $9C                            ;0BA17D|859C    |00009C;
-                       LDY.B wCurrCharacterIdx              ;0BA17F|A43B    |00003B;
+                       LDY.B r_CurrCharacterIdx             ;0BA17F|A43B    |00003B;
                        STA.W $0087,Y                        ;0BA181|998700  |0B0087;
                        LDA.B #$1C                           ;0BA184|A91C    |      ;
                        db $4C                               ;0BA186|        |      ;
@@ -4504,8 +4504,8 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        dw CODE_0FE25F                       ;0BA18C|        |0FE25F;
                        LDA.B #$01                           ;0BA18E|A901    |      ;
  
-          CODE_0BA190: STA.B wPowerUpDrop                   ;0BA190|85B7    |0000B7;
-                       LDY.B wCurrCharacterIdx              ;0BA192|A43B    |00003B;
+          CODE_0BA190: STA.B r_PowerUpDrop                  ;0BA190|85B7    |0000B7;
+                       LDY.B r_CurrCharacterIdx             ;0BA192|A43B    |00003B;
                        SEC                                  ;0BA194|38      |      ;
                        LDA.W $054E,X                        ;0BA195|BD4E05  |0B054E;
                        SBC.B #$9C                           ;0BA198|E99C    |      ;
@@ -4521,8 +4521,8 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0BA1AB|        |      ;
                        dw CODE_0FE25F                       ;0BA1AC|        |0FE25F;
                        LDA.B #$B4                           ;0BA1AE|A9B4    |      ;
-                       STA.B wPotionTimer                   ;0BA1B0|85AD    |0000AD;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BA1B2|A66C    |00006C;
+                       STA.B r_PotionTimer                  ;0BA1B0|85AD    |0000AD;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BA1B2|A66C    |00006C;
                        RTS                                  ;0BA1B4|60      |      ;
  
  
@@ -4555,8 +4555,8 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CPX.B #$0D                           ;0BA1E4|E00D    |      ;
                        BCC CODE_0BA1BC                      ;0BA1E6|90D4    |0BA1BC;
                        LDA.B #$20                           ;0BA1E8|A920    |      ;
-                       STA.B wRosseryFlashTimer             ;0BA1EA|85B2    |0000B2;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BA1EC|A66C    |00006C;
+                       STA.B r_RosseryFlashTimer            ;0BA1EA|85B2    |0000B2;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BA1EC|A66C    |00006C;
                        RTS                                  ;0BA1EE|60      |      ;
  
  
@@ -4576,7 +4576,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.B $01                            ;0BA207|8501    |000001;
                        db $20                               ;0BA209|        |      ;
                        dw UNREACH_0FE777                    ;0BA20A|        |0FE777;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BA20C|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BA20C|A66C    |00006C;
                        RTS                                  ;0BA20E|60      |      ;
  
  
@@ -4591,7 +4591,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0BA225|        |      ;
                        dw UNREACH_0FE748                    ;0BA226|        |0FE748;
  
-          CODE_0BA228: LDX.B wCurrEntityIdxBeingProcessed   ;0BA228|A66C    |00006C;
+          CODE_0BA228: LDX.B r_CurrEntityIdxBeingProcessed  ;0BA228|A66C    |00006C;
                        RTS                                  ;0BA22A|60      |      ;
  
  
@@ -4605,7 +4605,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W CODE_0BA240,Y                  ;0BA237|B940A2  |0BA240;
                        db $20                               ;0BA23A|        |      ;
                        dw UNREACH_0FE760                    ;0BA23B|        |0FE760;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BA23D|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BA23D|A66C    |00006C;
                        RTS                                  ;0BA23F|60      |      ;
  
  
@@ -4614,7 +4614,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BA242: LDA.B #$1C                           ;0BA242|A91C    |      ;
                        db $20                               ;0BA244|        |      ;
                        dw CODE_0FE25F                       ;0BA245|        |0FE25F;
-                       LDY.B wCurrCharacterIdx              ;0BA247|A43B    |00003B;
+                       LDY.B r_CurrCharacterIdx             ;0BA247|A43B    |00003B;
                        LDA.W $0085,Y                        ;0BA249|B98500  |0B0085;
                        CMP.B #$0B                           ;0BA24C|C90B    |      ;
                        BEQ CODE_0BA264                      ;0BA24E|F014    |0BA264;
@@ -4626,7 +4626,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BA258: SEC                                  ;0BA258|38      |      ;
                        LDA.W $054E,X                        ;0BA259|BD4E05  |0B054E;
                        SBC.B #$AE                           ;0BA25C|E9AE    |      ;
-                       LDY.B wCurrCharacterIdx              ;0BA25E|A43B    |00003B;
+                       LDY.B r_CurrCharacterIdx             ;0BA25E|A43B    |00003B;
                        STA.W $0087,Y                        ;0BA260|998700  |0B0087;
                        RTS                                  ;0BA263|60      |      ;
  
@@ -4645,15 +4645,15 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        db $20                               ;0BA27B|        |      ;
                        dw jumpFromStackYXpreserved          ;0BA27C|        |0FE86D;
                        STX.B $A2                            ;0BA27E|86A2    |0000A2;
-                       LDY.B wFrameCounter,X                ;0BA280|B4A3    |0000A3;
-                       LDY.B wFrameCounter,X                ;0BA282|B4A3    |0000A3;
+                       LDY.B r_FrameCounter,X               ;0BA280|B4A3    |0000A3;
+                       LDY.B r_FrameCounter,X               ;0BA282|B4A3    |0000A3;
                        BCS CODE_0BA228                      ;0BA284|B0A2    |0BA228;
                        LDY.B #$00                           ;0BA286|A000    |      ;
-                       LDA.B wTrevorWhipLevel               ;0BA288|A58E    |00008E;
+                       LDA.B r_TrevorWhipLevel              ;0BA288|A58E    |00008E;
                        BEQ CODE_0BA2A5                      ;0BA28A|F019    |0BA2A5;
                        CMP.B #$02                           ;0BA28C|C902    |      ;
                        BEQ CODE_0BA2AB                      ;0BA28E|F01B    |0BA2AB;
-                       LDA.B wNumHearts                     ;0BA290|A584    |000084;
+                       LDA.B r_NumHearts                    ;0BA290|A584    |000084;
                        CMP.B #$08                           ;0BA292|C908    |      ;
                        BCC CODE_0BA2AB                      ;0BA294|9015    |0BA2AB;
                        INY                                  ;0BA296|C8      |      ;
@@ -4666,7 +4666,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0BA2A4|60      |      ;
  
  
-          CODE_0BA2A5: LDA.B wNumHearts                     ;0BA2A5|A584    |000084;
+          CODE_0BA2A5: LDA.B r_NumHearts                    ;0BA2A5|A584    |000084;
                        CMP.B #$04                           ;0BA2A7|C904    |      ;
                        BCS CODE_0BA297                      ;0BA2A9|B0EC    |0BA297;
  
@@ -4674,11 +4674,11 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
          DATA8_0BA2AE: db $9D,$9E,$A0,$00                   ;0BA2AE|        |      ;
-                       LDA.B wPartnerWeaponLevel            ;0BA2B2|A58F    |00008F;
+                       LDA.B r_PartnerWeaponLevel           ;0BA2B2|A58F    |00008F;
                        BEQ CODE_0BA2CF                      ;0BA2B4|F019    |0BA2CF;
                        CMP.B #$02                           ;0BA2B6|C902    |      ;
                        BEQ CODE_0BA2AB                      ;0BA2B8|F0F1    |0BA2AB;
-                       LDA.B wNumHearts                     ;0BA2BA|A584    |000084;
+                       LDA.B r_NumHearts                    ;0BA2BA|A584    |000084;
                        CMP.B #$08                           ;0BA2BC|C908    |      ;
                        BCC CODE_0BA2AB                      ;0BA2BE|90EB    |0BA2AB;
                        INY                                  ;0BA2C0|C8      |      ;
@@ -4691,7 +4691,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0BA2CE|60      |      ;
  
  
-          CODE_0BA2CF: LDA.B wNumHearts                     ;0BA2CF|A584    |000084;
+          CODE_0BA2CF: LDA.B r_NumHearts                    ;0BA2CF|A584    |000084;
                        CMP.B #$04                           ;0BA2D1|C904    |      ;
                        BCS CODE_0BA2C1                      ;0BA2D3|B0EC    |0BA2C1;
                        JMP.W CODE_0BA3B4                    ;0BA2D5|4CB4A3  |0BA3B4;
@@ -4772,10 +4772,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
          PTR16_0BA353: dw CODE_0B97A9                       ;0BA353|        |0B97A9;
                        dw DATA8_0B984C                      ;0BA355|        |0B984C;
-                       LDA.B wPotionTimer,S                 ;0BA357|A3AD    |0000AD;
+                       LDA.B r_PotionTimer,S                ;0BA357|A3AD    |0000AD;
                        db $4E,$05                           ;0BA359|        |      ;
                        BEQ CODE_0BA36C                      ;0BA35B|F00F    |0BA36C;
-                       LDA.B wCurrSubweaponPartner          ;0BA35D|A586    |000086;
+                       LDA.B r_CurrSubweaponPartner         ;0BA35D|A586    |000086;
                        CMP.B #$09                           ;0BA35F|C909    |      ;
                        BNE CODE_0BA366                      ;0BA361|D003    |0BA366;
  
@@ -4806,16 +4806,16 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
          DATA8_0BA394: db $A9,$98,$D0,$00                   ;0BA394|        |      ;
  
-          CODE_0BA398: STA.B wCurrDrawnEntityCachedAttr     ;0BA398|8510    |000010;
-                       LDY.B wCurrCharacterIdx              ;0BA39A|A43B    |00003B;
+          CODE_0BA398: STA.B r_CurrDrawnEntityCachedAttr    ;0BA398|8510    |000010;
+                       LDY.B r_CurrCharacterIdx             ;0BA39A|A43B    |00003B;
                        SEC                                  ;0BA39C|38      |      ;
                        SBC.B #$93                           ;0BA39D|E993    |      ;
                        TAY                                  ;0BA39F|A8      |      ;
                        LDA.W DATA8_0BA171,Y                 ;0BA3A0|B971A1  |0BA171;
-                       LDY.B wCurrCharacterIdx              ;0BA3A3|A43B    |00003B;
+                       LDY.B r_CurrCharacterIdx             ;0BA3A3|A43B    |00003B;
                        CMP.W $0085,Y                        ;0BA3A5|D98500  |0B0085;
                        BEQ CODE_0BA363                      ;0BA3A8|F0B9    |0BA363;
-                       LDA.B wCurrDrawnEntityCachedAttr     ;0BA3AA|A510    |000010;
+                       LDA.B r_CurrDrawnEntityCachedAttr    ;0BA3AA|A510    |000010;
  
           CODE_0BA3AC: STA.W $054E,X                        ;0BA3AC|9D4E05  |0B054E;
                        RTS                                  ;0BA3AF|60      |      ;
@@ -4839,7 +4839,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W $054E                          ;0BA3CB|AD4E05  |0B054E;
                        AND.B #$01                           ;0BA3CE|2901    |      ;
                        BNE CODE_0BA3C3                      ;0BA3D0|D0F1    |0BA3C3;
-                       LDY.B wCurrCharacterIdx              ;0BA3D2|A43B    |00003B;
+                       LDY.B r_CurrCharacterIdx             ;0BA3D2|A43B    |00003B;
                        LDA.W $0087,Y                        ;0BA3D4|B98700  |0B0087;
                        CMP.W DATA8_0BA3E6,Y                 ;0BA3D7|D9E6A3  |0BA3E6;
                        BCS CODE_0BA3C3                      ;0BA3DA|B0E7    |0BA3C3;
@@ -4853,7 +4853,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
          DATA8_0BA3E6: db $02,$02                           ;0BA3E6|        |      ;
  
-          CODE_0BA3E8: LDY.B wCurrCharacterIdx              ;0BA3E8|A43B    |00003B;
+          CODE_0BA3E8: LDY.B r_CurrCharacterIdx             ;0BA3E8|A43B    |00003B;
                        LDA.W $0085,Y                        ;0BA3EA|B98500  |0B0085;
                        BEQ CODE_0BA3F5                      ;0BA3ED|F006    |0BA3F5;
                        LDA.W $054E,Y                        ;0BA3EF|B94E05  |0B054E;
@@ -4913,10 +4913,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        STA.W $05D8,X                        ;0BA47A|9DD805  |0B05D8;
                        LDA.W DATA8_0BA4C0,Y                 ;0BA47D|B9C0A4  |0BA4C0;
                        STA.W $0645,X                        ;0BA480|9D4506  |0B0645;
-                       LDA.B wCurrRoomGroupStage            ;0BA483|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0BA483|A532    |000032;
                        CMP.B #$02                           ;0BA485|C902    |      ;
                        BNE CODE_0BA4A8                      ;0BA487|D01F    |0BA4A8;
-                       LDA.B wCurrRoomSectionBlock          ;0BA489|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0BA489|A533    |000033;
                        CMP.B #$04                           ;0BA48B|C904    |      ;
                        BNE CODE_0BA4A8                      ;0BA48D|D019    |0BA4A8;
                        LDA.W $0438,X                        ;0BA48F|BD3804  |0B0438;
@@ -5012,17 +5012,17 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0BA523|60      |      ;
  
  
-          CODE_0BA524: LDA.B wRandomVal                     ;0BA524|A51F    |00001F;
+          CODE_0BA524: LDA.B r_RandomVal                    ;0BA524|A51F    |00001F;
                        BNE CODE_0BA52A                      ;0BA526|D002    |0BA52A;
                        LDA.B #$65                           ;0BA528|A965    |      ;
  
           CODE_0BA52A: ASL A                                ;0BA52A|0A      |      ;
                        STA.B $00                            ;0BA52B|8500    |000000;
-                       LDA.B wRandomVal                     ;0BA52D|A51F    |00001F;
+                       LDA.B r_RandomVal                    ;0BA52D|A51F    |00001F;
                        LSR A                                ;0BA52F|4A      |      ;
                        CLC                                  ;0BA530|18      |      ;
                        ADC.B $00                            ;0BA531|6500    |000000;
-                       STA.B wRandomVal                     ;0BA533|851F    |00001F;
+                       STA.B r_RandomVal                    ;0BA533|851F    |00001F;
                        AND.B #$0F                           ;0BA535|290F    |      ;
                        RTS                                  ;0BA537|60      |      ;
  
@@ -5763,7 +5763,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BB10E: RTS                                  ;0BB10E|60      |      ;
  
  
-          CODE_0BB10F: LDA.B wHurtInvincibilityEffect       ;0BB10F|A581    |000081;
+          CODE_0BB10F: LDA.B r_HurtInvincibilityEffect      ;0BB10F|A581    |000081;
                        CMP.B #$01                           ;0BB111|C901    |      ;
                        BEQ CODE_0BB132                      ;0BB113|F01D    |0BB132;
                        JSR.W CODE_0BB84C                    ;0BB115|204CB8  |0BB84C;
@@ -5778,7 +5778,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ASL A                                ;0BB128|0A      |      ;
                        TAY                                  ;0BB129|A8      |      ;
                        LDA.W DATA8_0BB0DD,Y                 ;0BB12A|B9DDB0  |0BB0DD;
-                       STA.B wHurtInvincibilityEffect       ;0BB12D|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0BB12D|8581    |000081;
                        JMP.W CODE_0BB250                    ;0BB12F|4C50B2  |0BB250;
  
  
@@ -5797,7 +5797,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0BB148: LDA.B #$0C                           ;0BB148|A90C    |      ;
  
-          CODE_0BB14A: STA.B wHurtInvincibilityEffect       ;0BB14A|8581    |000081;
+          CODE_0BB14A: STA.B r_HurtInvincibilityEffect      ;0BB14A|8581    |000081;
  
           CODE_0BB14C: JMP.W CODE_0BB250                    ;0BB14C|4C50B2  |0BB250;
  
@@ -5851,12 +5851,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CMP.B #$88                           ;0BB19B|C988    |      ;
                        BNE CODE_0BB1AB                      ;0BB19D|D00C    |0BB1AB;
  
-          CODE_0BB19F: LDY.B wDelayElevators                ;0BB19F|A4AF    |0000AF;
+          CODE_0BB19F: LDY.B r_DelayElevators               ;0BB19F|A4AF    |0000AF;
                        BEQ CODE_0BB1AB                      ;0BB1A1|F008    |0BB1AB;
-                       CPX.B wPlatformIDFrozenEnemy         ;0BB1A3|E4B8    |0000B8;
+                       CPX.B r_PlatformIDFrozenEnemy        ;0BB1A3|E4B8    |0000B8;
                        BEQ CODE_0BB132                      ;0BB1A5|F08B    |0BB132;
                        LDA.B #$00                           ;0BB1A7|A900    |      ;
-                       STA.B wDelayElevators                ;0BB1A9|85AF    |0000AF;
+                       STA.B r_DelayElevators               ;0BB1A9|85AF    |0000AF;
  
           CODE_0BB1AB: CMP.B #$7D                           ;0BB1AB|C97D    |      ;
                        BEQ CODE_0BB156                      ;0BB1AD|F0A7    |0BB156;
@@ -5870,7 +5870,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        TAY                                  ;0BB1BB|A8      |      ;
                        LDA.W DATA8_0BB0DC,Y                 ;0BB1BC|B9DCB0  |0BB0DC;
  
-          CODE_0BB1BF: STA.B wHurtInvincibilityEffect       ;0BB1BF|8581    |000081;
+          CODE_0BB1BF: STA.B r_HurtInvincibilityEffect      ;0BB1BF|8581    |000081;
                        LDA.B #$10                           ;0BB1C1|A910    |      ;
                        STA.W $0669,X                        ;0BB1C3|9D6906  |0B0669;
                        JMP.W CODE_0BB250                    ;0BB1C6|4C50B2  |0BB250;
@@ -5882,7 +5882,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0BB1CF: LDA.B #$00                           ;0BB1CF|A900    |      ;
-                       STA.B wCogProximity                  ;0BB1D1|8593    |000093;
+                       STA.B r_CogProximity                 ;0BB1D1|8593    |000093;
                        JMP.W CODE_0BB8EE                    ;0BB1D3|4CEEB8  |0BB8EE;
  
  
@@ -5894,16 +5894,16 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0BB1E3: LDA.B #$01                           ;0BB1E3|A901    |      ;
-                       STA.B wHurtInvincibilityEffect       ;0BB1E5|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0BB1E5|8581    |000081;
                        BNE CODE_0BB250                      ;0BB1E7|D067    |0BB250;
  
-          CODE_0BB1E9: LDA.B wHurtInvincibilityEffect       ;0BB1E9|A581    |000081;
+          CODE_0BB1E9: LDA.B r_HurtInvincibilityEffect      ;0BB1E9|A581    |000081;
                        CMP.B #$01                           ;0BB1EB|C901    |      ;
                        BEQ CODE_0BB25F                      ;0BB1ED|F070    |0BB25F;
                        JSR.W CODE_0BB377                    ;0BB1EF|2077B3  |0BB377;
                        BCS CODE_0BB25F                      ;0BB1F2|B06B    |0BB25F;
                        LDA.B #$02                           ;0BB1F4|A902    |      ;
-                       STA.B wHurtInvincibilityEffect       ;0BB1F6|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0BB1F6|8581    |000081;
                        BNE CODE_0BB250                      ;0BB1F8|D056    |0BB250;
  
           CODE_0BB1FA: RTS                                  ;0BB1FA|60      |      ;
@@ -5925,7 +5925,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CMP.B #$71                           ;0BB21A|C971    |      ;
                        BCC CODE_0BB1FA                      ;0BB21C|90DC    |0BB1FA;
  
-          CODE_0BB21E: LDA.B wHurtInvincibilityEffect       ;0BB21E|A581    |000081;
+          CODE_0BB21E: LDA.B r_HurtInvincibilityEffect      ;0BB21E|A581    |000081;
                        AND.B #$F0                           ;0BB220|29F0    |      ;
                        BNE CODE_0BB25F                      ;0BB222|D03B    |0BB25F;
                        LDA.W $054E,X                        ;0BB224|BD4E05  |0B054E;
@@ -5937,12 +5937,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BB22E: LDA.W $0470,X                        ;0BB22E|BD7004  |0B0470;
                        AND.B #$02                           ;0BB231|2902    |      ;
                        BNE CODE_0BB1D6                      ;0BB233|D0A1    |0BB1D6;
-                       LDA.B wHurtInvincibilityFrames       ;0BB235|A580    |000080;
+                       LDA.B r_HurtInvincibilityFrames      ;0BB235|A580    |000080;
                        BNE CODE_0BB25F                      ;0BB237|D026    |0BB25F;
                        JSR.W CODE_0BB377                    ;0BB239|2077B3  |0BB377;
                        BCS CODE_0BB25F                      ;0BB23C|B021    |0BB25F;
                        LDA.W $0657,X                        ;0BB23E|BD5706  |0B0657;
-                       STA.B wHurtInvincibilityEffect       ;0BB241|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0BB241|8581    |000081;
                        LDA.W $054E,X                        ;0BB243|BD4E05  |0B054E;
                        CMP.B #$49                           ;0BB246|C949    |      ;
                        BNE CODE_0BB250                      ;0BB248|D006    |0BB250;
@@ -5950,14 +5950,14 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        dw UNREACH_0FFEC8                    ;0BB24B|        |0FFEC8;
                        JSR.W DATA8_0BB581                   ;0BB24D|2081B5  |0BB581;
  
-          CODE_0BB250: STX.B wConveyorRelated               ;0BB250|8691    |000091;
+          CODE_0BB250: STX.B r_ConveyorRelated              ;0BB250|8691    |000091;
                        LDY.B #$00                           ;0BB252|A000    |      ;
                        LDA.W $0438,X                        ;0BB254|BD3804  |0B0438;
                        CMP.W $0438                          ;0BB257|CD3804  |0B0438;
                        BCS CODE_0BB25D                      ;0BB25A|B001    |0BB25D;
                        INY                                  ;0BB25C|C8      |      ;
  
-          CODE_0BB25D: STY.B wKnockBackDirrection           ;0BB25D|8490    |000090;
+          CODE_0BB25D: STY.B r_KnockBackDirrection          ;0BB25D|8490    |000090;
  
           CODE_0BB25F: LDA.W $054E,X                        ;0BB25F|BD4E05  |0B054E;
                        CMP.B #$16                           ;0BB262|C916    |      ;
@@ -6008,10 +6008,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        AND.B #$F0                           ;0BB2C9|29F0    |      ;
                        JSR.W CODE_0BB30B                    ;0BB2CB|200BB3  |0BB30B;
                        AND.B #$F0                           ;0BB2CE|29F0    |      ;
-                       STA.B wCollisionPointAbsoluteXInRoom ;0BB2D0|8513    |000013;
+                       STA.B r_CollisionPointAbsoluteXInRoom;0BB2D0|8513    |000013;
                        LDA.W $0606,Y                        ;0BB2D2|B90606  |0B0606;
                        AND.B #$0F                           ;0BB2D5|290F    |      ;
-                       ORA.B wCollisionPointAbsoluteXInRoom ;0BB2D7|0513    |000013;
+                       ORA.B r_CollisionPointAbsoluteXInRoom;0BB2D7|0513    |000013;
                        STA.W $0669,X                        ;0BB2D9|9D6906  |0B0669;
                        JSR.W CODE_0BB33A                    ;0BB2DC|203AB3  |0BB33A;
                        JSR.W CODE_0BB31A                    ;0BB2DF|201AB3  |0BB31A;
@@ -6104,7 +6104,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JMP.W CODE_0BB354                    ;0BB374|4C54B3  |0BB354;
  
  
-          CODE_0BB377: LDY.B wPlayerHight                   ;0BB377|A482    |000082;
+          CODE_0BB377: LDY.B r_PlayerHight                  ;0BB377|A482    |000082;
                        LDA.W DATA8_0BBB43,Y                 ;0BB379|B943BB  |0BBB43;
                        STA.B $00                            ;0BB37C|8500    |000000;
                        LDA.W DATA8_0BBB4C,Y                 ;0BB37E|B94CBB  |0BBB4C;
@@ -6117,7 +6117,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CMP.B #$EE                           ;0BB390|C9EE    |      ;
                        BCS CODE_0BB3D4                      ;0BB392|B040    |0BB3D4;
  
-          CODE_0BB394: LDA.B wBossSpecialHitbox             ;0BB394|A5BA    |0000BA;
+          CODE_0BB394: LDA.B r_BossSpecialHitbox            ;0BB394|A5BA    |0000BA;
                        BEQ CODE_0BB3A0                      ;0BB396|F008    |0BB3A0;
                        db $20                               ;0BB398|        |      ;
                        dw UNREACH_0FE611                    ;0BB399|        |0FE611;
@@ -6138,7 +6138,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        ADC.B $01                            ;0BB3B6|6501    |000001;
                        STA.B $03                            ;0BB3B8|8503    |000003;
                        LDY.B #$00                           ;0BB3BA|A000    |      ;
-                       LDA.B wPlayerHight                   ;0BB3BC|A582    |000082;
+                       LDA.B r_PlayerHight                  ;0BB3BC|A582    |000082;
                        CMP.B #$04                           ;0BB3BE|C904    |      ;
                        BCC CODE_0BB3C3                      ;0BB3C0|9001    |0BB3C3;
                        INY                                  ;0BB3C2|C8      |      ;
@@ -6146,7 +6146,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BB3C3: CLC                                  ;0BB3C3|18      |      ;
                        LDA.W DATA8_0BB3D2,Y                 ;0BB3C4|B9D2B3  |0BB3D2;
                        ADC.W $041C                          ;0BB3C7|6D1C04  |0B041C;
-                       STA.B wCollisionPointYinScreen       ;0BB3CA|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0BB3CA|8511    |000011;
                        JSR.W CODE_0B80C1                    ;0BB3CC|20C180  |0B80C1;
                        CMP.B $03                            ;0BB3CF|C503    |000003;
  
@@ -6173,7 +6173,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W DATA8_0BBB84,Y                 ;0BB3ED|B984BB  |0BBB84;
                        CLC                                  ;0BB3F0|18      |      ;
                        ADC.W $0438,X                        ;0BB3F1|7D3804  |0B0438;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0BB3F4|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0BB3F4|8510    |000010;
                        JSR.W CODE_0BB745                    ;0BB3F6|2045B7  |0BB745;
                        CMP.B $02                            ;0BB3F9|C502    |000002;
                        BCS CODE_0BB3D1                      ;0BB3FB|B0D4    |0BB3D1;
@@ -6186,9 +6186,9 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W DATA8_0BBB96,Y                 ;0BB409|B996BB  |0BBB96;
                        CLC                                  ;0BB40C|18      |      ;
                        ADC.W $041C,X                        ;0BB40D|7D1C04  |0B041C;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0BB410|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0BB410|8510    |000010;
                        LDY.B #$00                           ;0BB412|A000    |      ;
-                       LDA.B wPlayerHight                   ;0BB414|A582    |000082;
+                       LDA.B r_PlayerHight                  ;0BB414|A582    |000082;
                        CMP.B #$04                           ;0BB416|C904    |      ;
                        BCC CODE_0BB41B                      ;0BB418|9001    |0BB41B;
                        INY                                  ;0BB41A|C8      |      ;
@@ -6196,7 +6196,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BB41B: CLC                                  ;0BB41B|18      |      ;
                        LDA.W DATA8_0BB3D2,Y                 ;0BB41C|B9D2B3  |0BB3D2;
                        ADC.W $041C                          ;0BB41F|6D1C04  |0B041C;
-                       STA.B wCollisionPointYinScreen       ;0BB422|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0BB422|8511    |000011;
                        JSR.W CODE_0BB739                    ;0BB424|2039B7  |0BB739;
                        CMP.B $03                            ;0BB427|C503    |000003;
                        RTS                                  ;0BB429|60      |      ;
@@ -6218,14 +6218,14 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CLC                                  ;0BB445|18      |      ;
                        LDA.W DATA8_0BBB5F,Y                 ;0BB446|B95FBB  |0BBB5F;
                        ADC.W $0438                          ;0BB449|6D3804  |0B0438;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0BB44C|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0BB44C|8510    |000010;
                        CLC                                  ;0BB44E|18      |      ;
-                       LDY.B wPlayerHight                   ;0BB44F|A482    |000082;
+                       LDY.B r_PlayerHight                  ;0BB44F|A482    |000082;
                        LDA.W $042F                          ;0BB451|AD2F04  |0B042F;
                        ADC.W DATA8_0BBB69,Y                 ;0BB454|7969BB  |0BBB69;
-                       STA.B wCollisionPointYinScreen       ;0BB457|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0BB457|8511    |000011;
  
-          CODE_0BB459: LDA.B wBossSpecialHitbox             ;0BB459|A5BA    |0000BA;
+          CODE_0BB459: LDA.B r_BossSpecialHitbox            ;0BB459|A5BA    |0000BA;
                        BEQ CODE_0BB465                      ;0BB45B|F008    |0BB465;
                        db $20                               ;0BB45D|        |      ;
                        dw UNREACH_0FE611                    ;0BB45E|        |0FE611;
@@ -6263,10 +6263,10 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BB497: STA.B $01                            ;0BB497|8501    |000001;
                        LDX.B $9E                            ;0BB499|A69E    |00009E;
                        LDA.W $0438,X                        ;0BB49B|BD3804  |0B0438;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0BB49E|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0BB49E|8510    |000010;
                        LDA.W $041C,X                        ;0BB4A0|BD1C04  |0B041C;
-                       STA.B wCollisionPointYinScreen       ;0BB4A3|8511    |000011;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BB4A5|A66C    |00006C;
+                       STA.B r_CollisionPointYinScreen      ;0BB4A3|8511    |000011;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BB4A5|A66C    |00006C;
                        JMP.W CODE_0BB459                    ;0BB4A7|4C59B4  |0BB459;
  
  
@@ -6389,7 +6389,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        dw UNREACH_0FE7DC                    ;0BB577|        |0FE7DC;
                        BCS CODE_0BB593                      ;0BB579|B018    |0BB593;
  
-          CODE_0BB57B: LDA.B wGameStateLoopCounter          ;0BB57B|A51A    |00001A;
+          CODE_0BB57B: LDA.B r_GameStateLoopCounter         ;0BB57B|A51A    |00001A;
                        AND.B #$07                           ;0BB57D|2907    |      ;
                        BEQ CODE_0BB59C                      ;0BB57F|F01B    |0BB59C;
  
@@ -6413,15 +6413,15 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        RTS                                  ;0BB59B|60      |      ;
  
  
-          CODE_0BB59C: INC.B wSubweaponKillCount            ;0BB59C|E6CE    |0000CE;
-                       LDA.B wSubweaponKillCount            ;0BB59E|A5CE    |0000CE;
+          CODE_0BB59C: INC.B r_SubweaponKillCount           ;0BB59C|E6CE    |0000CE;
+                       LDA.B r_SubweaponKillCount           ;0BB59E|A5CE    |0000CE;
                        CMP.B #$05                           ;0BB5A0|C905    |      ;
                        BCS CODE_0BB5A7                      ;0BB5A2|B003    |0BB5A7;
                        JMP.W CODE_0BB5CE                    ;0BB5A4|4CCEB5  |0BB5CE;
  
  
           CODE_0BB5A7: LDA.B #$00                           ;0BB5A7|A900    |      ;
-                       STA.B wSubweaponKillCount            ;0BB5A9|85CE    |0000CE;
+                       STA.B r_SubweaponKillCount           ;0BB5A9|85CE    |0000CE;
                        db $20                               ;0BB5AB|        |      ;
                        dw UNREACH_0FE7AB                    ;0BB5AC|        |0FE7AB;
                        LDA.W $054E,X                        ;0BB5AE|BD4E05  |0B054E;
@@ -6438,7 +6438,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        JSR.W CODE_0BB584                    ;0BB5C0|2084B5  |0BB584;
                        STA.W $054E,X                        ;0BB5C3|9D4E05  |0B054E;
                        STA.W $05EF,X                        ;0BB5C6|9DEF05  |0B05EF;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BB5C9|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BB5C9|A66C    |00006C;
                        JMP.W DATA8_0BB56F                   ;0BB5CB|4C6FB5  |0BB56F;
  
  
@@ -6491,8 +6491,8 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.B $01                            ;0BB629|A501    |000001;
                        STA.W $041C,X                        ;0BB62B|9D1C04  |0B041C;
                        LDA.B #$08                           ;0BB62E|A908    |      ;
-                       STA.B wWhipSparkTimer                ;0BB630|858C    |00008C;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BB632|A66C    |00006C;
+                       STA.B r_WhipSparkTimer               ;0BB630|858C    |00008C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BB632|A66C    |00006C;
  
           CODE_0BB634: RTS                                  ;0BB634|60      |      ;
  
@@ -6517,12 +6517,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0BB64C: LDY.W $054E,X                        ;0BB64C|BC4E05  |0B054E;
                        JSR.W CODE_0B80B3                    ;0BB64F|20B380  |0B80B3;
-                       STA.B wDoubleCurrRoomIdx             ;0BB652|850E    |00000E;
+                       STA.B r_DoubleCurrRoomIdx            ;0BB652|850E    |00000E;
                        LDA.W DATA8_0BBBC8,Y                 ;0BB654|B9C8BB  |0BBBC8;
-                       LDY.B wPlayerHight                   ;0BB657|A482    |000082;
+                       LDY.B r_PlayerHight                  ;0BB657|A482    |000082;
                        CLC                                  ;0BB659|18      |      ;
                        ADC.W DATA8_0BBB43,Y                 ;0BB65A|7943BB  |0BBB43;
-                       CMP.B wDoubleCurrRoomIdx             ;0BB65D|C50E    |00000E;
+                       CMP.B r_DoubleCurrRoomIdx            ;0BB65D|C50E    |00000E;
                        BCC CODE_0BB635                      ;0BB65F|90D4    |0BB635;
                        BCS CODE_0BB66E                      ;0BB661|B00B    |0BB66E;
  
@@ -6531,16 +6531,16 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        CMP.W DATA8_0BBBC8,Y                 ;0BB669|D9C8BB  |0BBBC8;
                        BCS CODE_0BB68A                      ;0BB66C|B01C    |0BB68A;
  
-          CODE_0BB66E: LDY.B wPlayerHight                   ;0BB66E|A482    |000082;
+          CODE_0BB66E: LDY.B r_PlayerHight                  ;0BB66E|A482    |000082;
                        LDA.W DATA8_0BB68B,Y                 ;0BB670|B98BB6  |0BB68B;
                        CLC                                  ;0BB673|18      |      ;
                        ADC.W $041C                          ;0BB674|6D1C04  |0B041C;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0BB677|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0BB677|8510    |000010;
                        LDY.W $054E,X                        ;0BB679|BC4E05  |0B054E;
                        SEC                                  ;0BB67C|38      |      ;
                        LDA.W $041C,X                        ;0BB67D|BD1C04  |0B041C;
                        SBC.W DATA8_0BBC60,Y                 ;0BB680|F960BC  |0BBC60;
-                       STA.B wCollisionPointYinScreen       ;0BB683|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0BB683|8511    |000011;
                        JSR.W CODE_0BB739                    ;0BB685|2039B7  |0BB739;
                        CMP.B #$0C                           ;0BB688|C90C    |      ;
  
@@ -6553,23 +6553,23 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        SBC.B #$08                           ;0BB698|E908    |      ;
                        LSR A                                ;0BB69A|4A      |      ;
                        TAY                                  ;0BB69B|A8      |      ;
-                       STA.B wCoreLoadingFuncAddr           ;0BB69C|8516    |000016;
+                       STA.B r_CoreLoadingFuncAddr          ;0BB69C|8516    |000016;
                        JSR.W CODE_0B80B3                    ;0BB69E|20B380  |0B80B3;
                        CMP.W DATA8_0BB6C8,Y                 ;0BB6A1|D9C8B6  |0BB6C8;
                        BCS CODE_0BB6C7                      ;0BB6A4|B021    |0BB6C7;
                        STA.B $17                            ;0BB6A6|8517    |000017;
                        CLC                                  ;0BB6A8|18      |      ;
-                       LDY.B wPlayerHight                   ;0BB6A9|A482    |000082;
+                       LDY.B r_PlayerHight                  ;0BB6A9|A482    |000082;
                        LDA.W DATA8_0BB6DA,Y                 ;0BB6AB|B9DAB6  |0BB6DA;
                        ADC.W $041C                          ;0BB6AE|6D1C04  |0B041C;
-                       STA.B wCurrDrawnEntityCachedAttr     ;0BB6B1|8510    |000010;
+                       STA.B r_CurrDrawnEntityCachedAttr    ;0BB6B1|8510    |000010;
                        SEC                                  ;0BB6B3|38      |      ;
                        LDY.W $054E,X                        ;0BB6B4|BC4E05  |0B054E;
                        LDA.W $041C,X                        ;0BB6B7|BD1C04  |0B041C;
                        SBC.W DATA8_0BBC60,Y                 ;0BB6BA|F960BC  |0BBC60;
-                       STA.B wCollisionPointYinScreen       ;0BB6BD|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0BB6BD|8511    |000011;
                        JSR.W CODE_0BB739                    ;0BB6BF|2039B7  |0BB739;
-                       LDY.B wCoreLoadingFuncAddr           ;0BB6C2|A416    |000016;
+                       LDY.B r_CoreLoadingFuncAddr          ;0BB6C2|A416    |000016;
                        CMP.W DATA8_0BB6D1,Y                 ;0BB6C4|D9D1B6  |0BB6D1;
  
           CODE_0BB6C7: RTS                                  ;0BB6C7|60      |      ;
@@ -6618,7 +6618,7 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
           CODE_0BB71D: INX                                  ;0BB71D|E8      |      ;
                        CPX.B #$09                           ;0BB71E|E009    |      ;
                        BCC CODE_0BB713                      ;0BB720|90F1    |0BB713;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BB722|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BB722|A66C    |00006C;
                        RTS                                  ;0BB724|60      |      ;
  
  
@@ -6629,13 +6629,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
                        LDA.W $061D,X                        ;0BB72F|BD1D06  |0B061D;
                        TAX                                  ;0BB732|AA      |      ;
                        JSR.W CODE_0BB700                    ;0BB733|2000B7  |0BB700;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BB736|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BB736|A66C    |00006C;
                        RTS                                  ;0BB738|60      |      ;
  
  
           CODE_0BB739: SEC                                  ;0BB739|38      |      ;
-                       LDA.B wCollisionPointYinScreen       ;0BB73A|A511    |000011;
-                       SBC.B wCurrDrawnEntityCachedAttr     ;0BB73C|E510    |000010;
+                       LDA.B r_CollisionPointYinScreen      ;0BB73A|A511    |000011;
+                       SBC.B r_CurrDrawnEntityCachedAttr    ;0BB73C|E510    |000010;
                        BCS CODE_0BB744                      ;0BB73E|B004    |0BB744;
  
           CODE_0BB740: EOR.B #$FF                           ;0BB740|49FF    |      ;
@@ -6645,12 +6645,12 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
  
           CODE_0BB745: SEC                                  ;0BB745|38      |      ;
-                       LDA.B wCurrDrawnEntityCachedAttr     ;0BB746|A510    |000010;
+                       LDA.B r_CurrDrawnEntityCachedAttr    ;0BB746|A510    |000010;
                        SBC.W $0438                          ;0BB748|ED3804  |0B0438;
                        BCS CODE_0BB744                      ;0BB74B|B0F7    |0BB744;
                        BCC CODE_0BB740                      ;0BB74D|90F1    |0BB740;
                        SEC                                  ;0BB74F|38      |      ;
-                       LDA.B wCurrDrawnEntityCachedAttr     ;0BB750|A510    |000010;
+                       LDA.B r_CurrDrawnEntityCachedAttr    ;0BB750|A510    |000010;
                        SBC.W $041C                          ;0BB752|ED1C04  |0B041C;
                        BCS CODE_0BB744                      ;0BB755|B0ED    |0BB744;
                        BCC CODE_0BB740                      ;0BB757|90E7    |0BB740;
@@ -6665,22 +6665,22 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0BB763: SEC                                  ;0BB763|38      |      ;
                        LDA.W $0438,X                        ;0BB764|BD3804  |0B0438;
-                       SBC.B wDoubleCurrGroup               ;0BB767|E50C    |00000C;
+                       SBC.B r_DoubleCurrGroup              ;0BB767|E50C    |00000C;
                        JSR.W CODE_0B80B6                    ;0BB769|20B680  |0B80B6;
                        CMP.B $02                            ;0BB76C|C502    |000002;
                        BCS CODE_0BB7A5                      ;0BB76E|B035    |0BB7A5;
                        LDY.B #$00                           ;0BB770|A000    |      ;
-                       LDA.B wPlayerHight                   ;0BB772|A582    |000082;
+                       LDA.B r_PlayerHight                  ;0BB772|A582    |000082;
                        CMP.B #$04                           ;0BB774|C904    |      ;
                        BCC CODE_0BB779                      ;0BB776|9001    |0BB779;
                        INY                                  ;0BB778|C8      |      ;
  
           CODE_0BB779: LDA.W DATA8_0BB3D2,Y                 ;0BB779|B9D2B3  |0BB3D2;
                        ADC.W $041C                          ;0BB77C|6D1C04  |0B041C;
-                       STA.B wCollisionPointYinScreen       ;0BB77F|8511    |000011;
+                       STA.B r_CollisionPointYinScreen      ;0BB77F|8511    |000011;
                        SEC                                  ;0BB781|38      |      ;
                        LDA.W $041C,X                        ;0BB782|BD1C04  |0B041C;
-                       SBC.B wDoubleCurrSection             ;0BB785|E50D    |00000D;
+                       SBC.B r_DoubleCurrSection            ;0BB785|E50D    |00000D;
                        JSR.W CODE_0B80C4                    ;0BB787|20C480  |0B80C4;
                        CMP.B $03                            ;0BB78A|C503    |000003;
                        RTS                                  ;0BB78C|60      |      ;
@@ -6688,13 +6688,13 @@ difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|    
  
           CODE_0BB78D: SEC                                  ;0BB78D|38      |      ;
                        LDA.W $0438,X                        ;0BB78E|BD3804  |0B0438;
-                       SBC.B wDoubleCurrGroup               ;0BB791|E50C    |00000C;
+                       SBC.B r_DoubleCurrGroup              ;0BB791|E50C    |00000C;
                        JSR.W CODE_0B80CE                    ;0BB793|20CE80  |0B80CE;
                        CMP.B $02                            ;0BB796|C502    |000002;
                        BCS CODE_0BB7A5                      ;0BB798|B00B    |0BB7A5;
                        SEC                                  ;0BB79A|38      |      ;
                        LDA.W $041C,X                        ;0BB79B|BD1C04  |0B041C;
-                       SBC.B wDoubleCurrSection             ;0BB79E|E50D    |00000D;
+                       SBC.B r_DoubleCurrSection            ;0BB79E|E50D    |00000D;
                        JSR.W CODE_0B80C4                    ;0BB7A0|20C480  |0B80C4;
                        CMP.B $03                            ;0BB7A3|C503    |000003;
  
@@ -6755,7 +6755,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BB81C: ASL.W $1210                          ;0BB81C|0E1012  |0B1210;
                        TRB.B $1E                            ;0BB81F|141E    |00001E;
-                       BIT.B wPPUCtrl                       ;0BB821|24FF    |0000FF;
+                       BIT.B r_PPUCtrl                      ;0BB821|24FF    |0000FF;
  
           CODE_0BB823: STA.B $00                            ;0BB823|8500    |000000;
                        STX.B $04                            ;0BB825|8604    |000004;
@@ -6783,7 +6783,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        RTS                                  ;0BB84B|60      |      ;
  
  
-          CODE_0BB84C: LDY.B wPlayerHight                   ;0BB84C|A482    |000082;
+          CODE_0BB84C: LDY.B r_PlayerHight                  ;0BB84C|A482    |000082;
                        LDA.W DATA8_0BBB43,Y                 ;0BB84E|B943BB  |0BBB43;
                        STA.B $00                            ;0BB851|8500    |000000;
                        LDY.W $054E,X                        ;0BB853|BC4E05  |0B054E;
@@ -6794,7 +6794,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        JSR.W CODE_0B80B3                    ;0BB85E|20B380  |0B80B3;
                        CMP.B $02                            ;0BB861|C502    |000002;
                        BCS CODE_0BB887                      ;0BB863|B022    |0BB887;
-                       LDY.B wPlayerHight                   ;0BB865|A482    |000082;
+                       LDY.B r_PlayerHight                  ;0BB865|A482    |000082;
                        LDA.W $041C                          ;0BB867|AD1C04  |0B041C;
                        SEC                                  ;0BB86A|38      |      ;
                        SBC.W DATA8_0BB9BB,Y                 ;0BB86B|F9BBB9  |0BB9BB;
@@ -6815,7 +6815,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
           CODE_0BB887: RTS                                  ;0BB887|60      |      ;
  
  
-          CODE_0BB888: LDY.B wPlayerHight                   ;0BB888|A482    |000082;
+          CODE_0BB888: LDY.B r_PlayerHight                  ;0BB888|A482    |000082;
                        LDA.W DATA8_0BB9B2,Y                 ;0BB88A|B9B2B9  |0BB9B2;
                        CLC                                  ;0BB88D|18      |      ;
                        ADC.W $041C                          ;0BB88E|6D1C04  |0B041C;
@@ -6846,7 +6846,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
           CODE_0BB8BA: CMP.B #$08                           ;0BB8BA|C908    |      ;
                        BCS CODE_0BB8DD                      ;0BB8BC|B01F    |0BB8DD;
                        STY.B $02                            ;0BB8BE|8402    |000002;
-                       STX.B wCogID                         ;0BB8C0|8694    |000094;
+                       STX.B r_CogID                        ;0BB8C0|8694    |000094;
                        LDA.W $0565,X                        ;0BB8C2|BD6505  |0B0565;
                        BMI CODE_0BB8DE                      ;0BB8C5|3017    |0BB8DE;
                        CMP.B #$20                           ;0BB8C7|C920    |      ;
@@ -6863,7 +6863,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BB8D9: LDA.B #$02                           ;0BB8D9|A902    |      ;
  
-          CODE_0BB8DB: STA.B wCogProximity                  ;0BB8DB|8593    |000093;
+          CODE_0BB8DB: STA.B r_CogProximity                 ;0BB8DB|8593    |000093;
  
           CODE_0BB8DD: RTS                                  ;0BB8DD|60      |      ;
  
@@ -6878,15 +6878,15 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        BEQ CODE_0BB8D9                      ;0BB8EA|F0ED    |0BB8D9;
                        BNE CODE_0BB8D5                      ;0BB8EC|D0E7    |0BB8D5;
  
-          CODE_0BB8EE: LDA.B wDelayElevators                ;0BB8EE|A5AF    |0000AF;
+          CODE_0BB8EE: LDA.B r_DelayElevators               ;0BB8EE|A5AF    |0000AF;
                        BEQ CODE_0BB8F6                      ;0BB8F0|F004    |0BB8F6;
-                       CPX.B wCogwheelIDbackup              ;0BB8F2|E4D2    |0000D2;
+                       CPX.B r_CogwheelIDbackup             ;0BB8F2|E4D2    |0000D2;
                        BEQ CODE_0BB8DD                      ;0BB8F4|F0E7    |0BB8DD;
  
-          CODE_0BB8F6: LDA.B wHurtInvincibilityEffect       ;0BB8F6|A581    |000081;
+          CODE_0BB8F6: LDA.B r_HurtInvincibilityEffect      ;0BB8F6|A581    |000081;
                        CMP.B #$06                           ;0BB8F8|C906    |      ;
                        BEQ CODE_0BB8DD                      ;0BB8FA|F0E1    |0BB8DD;
-                       LDY.B wPlayerHight                   ;0BB8FC|A482    |000082;
+                       LDY.B r_PlayerHight                  ;0BB8FC|A482    |000082;
                        LDA.W DATA8_0BB9B2,Y                 ;0BB8FE|B9B2B9  |0BB9B2;
                        CLC                                  ;0BB901|18      |      ;
                        ADC.W $041C                          ;0BB902|6D1C04  |0B041C;
@@ -6910,10 +6910,10 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BB925: CMP.B #$40                           ;0BB925|C940    |      ;
                        BCS CODE_0BB8DD                      ;0BB927|B0B4    |0BB8DD;
-                       STA.B wKnockBackDirrection           ;0BB929|8590    |000090;
+                       STA.B r_KnockBackDirrection          ;0BB929|8590    |000090;
                        TYA                                  ;0BB92B|98      |      ;
-                       ORA.B wKnockBackDirrection           ;0BB92C|0590    |000090;
-                       STA.B wKnockBackDirrection           ;0BB92E|8590    |000090;
+                       ORA.B r_KnockBackDirrection          ;0BB92C|0590    |000090;
+                       STA.B r_KnockBackDirrection          ;0BB92E|8590    |000090;
                        AND.B #$7F                           ;0BB930|297F    |      ;
                        TAY                                  ;0BB932|A8      |      ;
                        LDA.W $041C,X                        ;0BB933|BD1C04  |0B041C;
@@ -6931,7 +6931,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        CMP.B #$04                           ;0BB949|C904    |      ;
                        BCS CODE_0BB9AB                      ;0BB94B|B05E    |0BB9AB;
  
-          CODE_0BB94D: STA.B wConveyorRelated               ;0BB94D|8591    |000091;
+          CODE_0BB94D: STA.B r_ConveyorRelated              ;0BB94D|8591    |000091;
                        LDA.B #$01                           ;0BB94F|A901    |      ;
                        JMP.W CODE_0BB99F                    ;0BB951|4C9FB9  |0BB99F;
  
@@ -6957,10 +6957,10 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BB973: CMP.B #$20                           ;0BB973|C920    |      ;
                        BCS CODE_0BB9AB                      ;0BB975|B034    |0BB9AB;
-                       STA.B wKnockBackDirrection           ;0BB977|8590    |000090;
+                       STA.B r_KnockBackDirrection          ;0BB977|8590    |000090;
                        TYA                                  ;0BB979|98      |      ;
-                       ORA.B wKnockBackDirrection           ;0BB97A|0590    |000090;
-                       STA.B wKnockBackDirrection           ;0BB97C|8590    |000090;
+                       ORA.B r_KnockBackDirrection          ;0BB97A|0590    |000090;
+                       STA.B r_KnockBackDirrection          ;0BB97C|8590    |000090;
                        AND.B #$7F                           ;0BB97E|297F    |      ;
                        TAY                                  ;0BB980|A8      |      ;
                        LDA.W $041C,X                        ;0BB981|BD1C04  |0B041C;
@@ -6978,15 +6978,15 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        CMP.B #$04                           ;0BB997|C904    |      ;
                        BCS CODE_0BB9AB                      ;0BB999|B010    |0BB9AB;
  
-          CODE_0BB99B: STA.B wConveyorRelated               ;0BB99B|8591    |000091;
+          CODE_0BB99B: STA.B r_ConveyorRelated              ;0BB99B|8591    |000091;
                        LDA.B #$00                           ;0BB99D|A900    |      ;
  
-          CODE_0BB99F: STA.B wCogSize                       ;0BB99F|8595    |000095;
-                       STX.B wCogwheelID                    ;0BB9A1|86D4    |0000D4;
+          CODE_0BB99F: STA.B r_CogSize                      ;0BB99F|8595    |000095;
+                       STX.B r_CogwheelID                   ;0BB9A1|86D4    |0000D4;
                        LDA.B #$06                           ;0BB9A3|A906    |      ;
-                       STA.B wHurtInvincibilityEffect       ;0BB9A5|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0BB9A5|8581    |000081;
                        LDA.B #$00                           ;0BB9A7|A900    |      ;
-                       STA.B wDelayElevators                ;0BB9A9|85AF    |0000AF;
+                       STA.B r_DelayElevators               ;0BB9A9|85AF    |0000AF;
  
           CODE_0BB9AB: RTS                                  ;0BB9AB|60      |      ;
  
@@ -7002,7 +7002,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        db $02,$00,$02,$04                   ;0BB9C0|        |      ;
  
           CODE_0BB9C4: INY                                  ;0BB9C4|C8      |      ;
-                       STY.B wRoomSectionChrBanksDataOffset ;0BB9C5|840F    |00000F;
+                       STY.B r_RoomSectionChrBanksDataOffset;0BB9C5|840F    |00000F;
                        LDA.W $0565,X                        ;0BB9C7|BD6505  |0B0565;
                        SEC                                  ;0BB9CA|38      |      ;
                        SBC.B #$40                           ;0BB9CB|E940    |      ;
@@ -7019,7 +7019,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        LDA.W $0565,X                        ;0BB9D8|BD6505  |0B0565;
                        CMP.B #$40                           ;0BB9DB|C940    |      ;
                        BCS CODE_0BB9C4                      ;0BB9DD|B0E5    |0BB9C4;
-                       STY.B wRoomSectionChrBanksDataOffset ;0BB9DF|840F    |00000F;
+                       STY.B r_RoomSectionChrBanksDataOffset;0BB9DF|840F    |00000F;
                        LDA.B #$40                           ;0BB9E1|A940    |      ;
                        SEC                                  ;0BB9E3|38      |      ;
                        SBC.W $0565,X                        ;0BB9E4|FD6505  |0B0565;
@@ -7042,11 +7042,11 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BBA03: CMP.W DATA8_0BBB22,Y                 ;0BBA03|D922BB  |0BBB22;
                        BCS CODE_0BB9D5                      ;0BBA06|B0CD    |0BB9D5;
-                       STA.B wCurrRoomSectionPlayerPosAndScreenAddr;0BBA08|850A    |00000A;
+                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0BBA08|850A    |00000A;
                        STX.B $0B                            ;0BBA0A|860B    |00000B;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BBA0C|A66C    |00006C;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BBA0C|A66C    |00006C;
                        LDA.W $041C,X                        ;0BBA0E|BD1C04  |0B041C;
-                       LDX.B wRoomSectionChrBanksDataOffset ;0BBA11|A60F    |00000F;
+                       LDX.B r_RoomSectionChrBanksDataOffset;0BBA11|A60F    |00000F;
                        BEQ CODE_0BBA1B                      ;0BBA13|F006    |0BBA1B;
                        SEC                                  ;0BBA15|38      |      ;
                        SBC.W DATA8_0BBB01,Y                 ;0BBA16|F901BB  |0BBB01;
@@ -7057,15 +7057,15 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BBA1F: SEC                                  ;0BBA1F|38      |      ;
                        SBC.B #$10                           ;0BBA20|E910    |      ;
-                       STA.B wDoubleCurrGroup               ;0BBA22|850C    |00000C;
+                       STA.B r_DoubleCurrGroup              ;0BBA22|850C    |00000C;
                        LDY.B $07                            ;0BBA24|A407    |000007;
                        LDA.W UNREACH_0FFDC2,Y               ;0BBA26|B9C2FD  |0FFDC2;
                        TAX                                  ;0BBA29|AA      |      ;
                        LDY.B #$00                           ;0BBA2A|A000    |      ;
-                       LDA.B wCurrRoomSectionPlayerPosAndScreenAddr;0BBA2C|A50A    |00000A;
+                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0BBA2C|A50A    |00000A;
                        JSR.W CODE_0BB823                    ;0BBA2E|2023B8  |0BB823;
-                       LDX.B wCurrEntityIdxBeingProcessed   ;0BBA31|A66C    |00006C;
-                       LDA.B wRoomSectionChrBanksDataOffset ;0BBA33|A50F    |00000F;
+                       LDX.B r_CurrEntityIdxBeingProcessed  ;0BBA31|A66C    |00006C;
+                       LDA.B r_RoomSectionChrBanksDataOffset;0BBA33|A50F    |00000F;
                        BEQ CODE_0BBA3D                      ;0BBA35|F006    |0BBA3D;
                        LDA.B $0B                            ;0BBA37|A50B    |00000B;
                        BEQ CODE_0BBA41                      ;0BBA39|F006    |0BBA41;
@@ -7074,16 +7074,16 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
           CODE_0BBA3D: LDA.B $0B                            ;0BBA3D|A50B    |00000B;
                        BEQ CODE_0BBA48                      ;0BBA3F|F007    |0BBA48;
  
-          CODE_0BBA41: LDA.B wDoubleCurrGroup               ;0BBA41|A50C    |00000C;
+          CODE_0BBA41: LDA.B r_DoubleCurrGroup              ;0BBA41|A50C    |00000C;
                        SEC                                  ;0BBA43|38      |      ;
                        SBC.B $01                            ;0BBA44|E501    |000001;
                        BNE CODE_0BBA4D                      ;0BBA46|D005    |0BBA4D;
  
-          CODE_0BBA48: LDA.B wDoubleCurrGroup               ;0BBA48|A50C    |00000C;
+          CODE_0BBA48: LDA.B r_DoubleCurrGroup              ;0BBA48|A50C    |00000C;
                        CLC                                  ;0BBA4A|18      |      ;
                        ADC.B $01                            ;0BBA4B|6501    |000001;
  
-          CODE_0BBA4D: STA.B wDoubleCurrGroup               ;0BBA4D|850C    |00000C;
+          CODE_0BBA4D: STA.B r_DoubleCurrGroup              ;0BBA4D|850C    |00000C;
                        SEC                                  ;0BBA4F|38      |      ;
                        SBC.W $041C                          ;0BBA50|ED1C04  |0B041C;
                        BCS CODE_0BBA5B                      ;0BBA53|B006    |0BBA5B;
@@ -7094,14 +7094,14 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
           CODE_0BBA5B: CMP.B #$08                           ;0BBA5B|C908    |      ;
                        BCS CODE_0BBA7D                      ;0BBA5D|B01E    |0BBA7D;
  
-          CODE_0BBA5F: STA.B wConveyorRelated               ;0BBA5F|8591    |000091;
+          CODE_0BBA5F: STA.B r_ConveyorRelated              ;0BBA5F|8591    |000091;
                        LDA.B $07                            ;0BBA61|A507    |000007;
                        LDY.W $0565,X                        ;0BBA63|BC6505  |0B0565;
                        CPY.B #$40                           ;0BBA66|C040    |      ;
                        BCC CODE_0BBA6C                      ;0BBA68|9002    |0BBA6C;
                        ORA.B #$80                           ;0BBA6A|0980    |      ;
  
-          CODE_0BBA6C: STA.B wKnockBackDirrection           ;0BBA6C|8590    |000090;
+          CODE_0BBA6C: STA.B r_KnockBackDirrection          ;0BBA6C|8590    |000090;
                        LDA.B #$01                           ;0BBA6E|A901    |      ;
                        LDY.B $0B                            ;0BBA70|A40B    |00000B;
                        BNE CODE_0BBA76                      ;0BBA72|D002    |0BBA76;
@@ -7109,7 +7109,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BBA76: STA.W $0645,X                        ;0BBA76|9D4506  |0B0645;
                        LDA.B #$05                           ;0BBA79|A905    |      ;
-                       STA.B wHurtInvincibilityEffect       ;0BBA7B|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0BBA7B|8581    |000081;
  
           CODE_0BBA7D: RTS                                  ;0BBA7D|60      |      ;
  
@@ -7271,7 +7271,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
           CODE_0BBCF8: RTS                                  ;0BBCF8|60      |      ;
  
-                       LDA.B wStopWatchActive               ;0BBCF9|A5AB    |0000AB;
+                       LDA.B r_StopWatchActive              ;0BBCF9|A5AB    |0000AB;
                        BEQ CODE_0BBD02                      ;0BBCFB|F005    |0BBD02;
                        db $20                               ;0BBCFD|        |      ;
                        dw UNREACH_0FE7B6                    ;0BBCFE|        |0FE7B6;

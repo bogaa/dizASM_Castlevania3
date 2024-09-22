@@ -3,25 +3,25 @@
  
               bank_9c: db $9C                               ;0E8000|        |      ; NES PRG 38000
  
-          CODE_0E8001: LDA.B wCogSize                       ;0E8001|A595    |000095;
+          CODE_0E8001: LDA.B r_CogSize                      ;0E8001|A595    |000095;
                        ASL A                                ;0E8003|0A      |      ;
                        ASL A                                ;0E8004|0A      |      ;
                        TAY                                  ;0E8005|A8      |      ;
                        LDA.W PTR16_0E8846,Y                 ;0E8006|B94688  |0E8846;
-                       STA.B wCurrNumToVramQueue            ;0E8009|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0E8009|8508    |000008;
                        LDA.W PTR16_0E8847,Y                 ;0E800B|B94788  |0E8847;
                        STA.B $09                            ;0E800E|8509    |000009;
                        LDA.W PTR16_0E8848,Y                 ;0E8010|B94888  |0E8848;
-                       STA.B wCurrRoomSectionPlayerPosAndScreenAddr;0E8013|850A    |00000A;
+                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0E8013|850A    |00000A;
                        LDA.W PTR16_0E8849,Y                 ;0E8015|B94988  |0E8849;
                        STA.B $0B                            ;0E8018|850B    |00000B;
-                       LDA.B wKnockBackDirrection           ;0E801A|A590    |000090;
+                       LDA.B r_KnockBackDirrection          ;0E801A|A590    |000090;
                        BPL CODE_0E8035                      ;0E801C|1017    |0E8035;
                        AND.B #$7F                           ;0E801E|297F    |      ;
                        TAY                                  ;0E8020|A8      |      ;
                        LDA.W $0509                          ;0E8021|AD0905  |0E0509;
                        SEC                                  ;0E8024|38      |      ;
-                       SBC.B (wCurrNumToVramQueue),Y        ;0E8025|F108    |000008;
+                       SBC.B (r_CurrNumToVramQueue),Y       ;0E8025|F108    |000008;
                        STA.W $0509                          ;0E8027|8D0905  |0E0509;
                        LDA.W $04F2                          ;0E802A|ADF204  |0E04F2;
                        SBC.B #$00                           ;0E802D|E900    |      ;
@@ -32,7 +32,7 @@
           CODE_0E8035: TAY                                  ;0E8035|A8      |      ;
                        LDA.W $0509                          ;0E8036|AD0905  |0E0509;
                        CLC                                  ;0E8039|18      |      ;
-                       ADC.B (wCurrNumToVramQueue),Y        ;0E803A|7108    |000008;
+                       ADC.B (r_CurrNumToVramQueue),Y       ;0E803A|7108    |000008;
                        STA.W $0509                          ;0E803C|8D0905  |0E0509;
                        LDA.W $04F2                          ;0E803F|ADF204  |0E04F2;
                        ADC.B #$00                           ;0E8042|6900    |      ;
@@ -42,7 +42,7 @@
                        BCS CODE_0E805D                      ;0E8049|B012    |0E805D;
                        LDA.W $0537                          ;0E804B|AD3705  |0E0537;
                        CLC                                  ;0E804E|18      |      ;
-                       ADC.B (wCurrRoomSectionPlayerPosAndScreenAddr),Y;0E804F|710A    |00000A;
+                       ADC.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0E804F|710A    |00000A;
                        STA.W $0537                          ;0E8051|8D3705  |0E0537;
                        LDA.W $0520                          ;0E8054|AD2005  |0E0520;
                        ADC.B #$00                           ;0E8057|6900    |      ;
@@ -65,7 +65,7 @@
                        RTS                                  ;0E8076|60      |      ;
  
  
-          CODE_0E8077: LDA.B wKnockBackDirrection           ;0E8077|A590    |000090;
+          CODE_0E8077: LDA.B r_KnockBackDirrection          ;0E8077|A590    |000090;
                        BMI CODE_0E8091                      ;0E8079|3016    |0E8091;
                        TAY                                  ;0E807B|A8      |      ;
                        LDA.W $0509                          ;0E807C|AD0905  |0E0509;
@@ -98,8 +98,8 @@
                        RTS                                  ;0E80B8|60      |      ;
  
  
-          CODE_0E80B9: LDA.B wCurrScrollOffsetIntoRoomScreen;0E80B9|A556    |000056;
-                       ORA.B wCurrScrollRoomScreen          ;0E80BB|0557    |000057;
+          CODE_0E80B9: LDA.B r_CurrScrollOffsetIntoRoomScreen;0E80B9|A556    |000056;
+                       ORA.B r_CurrScrollRoomScreen         ;0E80BB|0557    |000057;
                        BNE CODE_0E80D8                      ;0E80BD|D019    |0E80D8;
                        LDA.W $0438                          ;0E80BF|AD3804  |0E0438;
                        CMP.B #$40                           ;0E80C2|C940    |      ;
@@ -113,18 +113,18 @@
           CODE_0E80D0: CMP.B #$08                           ;0E80D0|C908    |      ;
                        BCS CODE_0E80D8                      ;0E80D2|B004    |0E80D8;
                        LDA.B #$0E                           ;0E80D4|A90E    |      ;
-                       STA.B wHurtInvincibilityEffect       ;0E80D6|8581    |000081;
+                       STA.B r_HurtInvincibilityEffect      ;0E80D6|8581    |000081;
  
           CODE_0E80D8: RTS                                  ;0E80D8|60      |      ;
  
  
-          CODE_0E80D9: LDA.B wCurrRoomGroupStage            ;0E80D9|A532    |000032;
+          CODE_0E80D9: LDA.B r_CurrRoomGroupStage           ;0E80D9|A532    |000032;
                        CMP.B #$0E                           ;0E80DB|C90E    |      ;
                        BNE CODE_0E80EE                      ;0E80DD|D00F    |0E80EE;
-                       LDA.B wCurrRoomSectionBlock          ;0E80DF|A533    |000033;
+                       LDA.B r_CurrRoomSectionBlock         ;0E80DF|A533    |000033;
                        CMP.B #$01                           ;0E80E1|C901    |      ;
                        BNE CODE_0E80EE                      ;0E80E3|D009    |0E80EE;
-                       LDA.B wCurrRoomIdx                   ;0E80E5|A534    |000034;
+                       LDA.B r_CurrRoomIdx                  ;0E80E5|A534    |000034;
                        CMP.B #$01                           ;0E80E7|C901    |      ;
                        BNE CODE_0E80EE                      ;0E80E9|D003    |0E80EE;
                        JSR.W CODE_0E80B9                    ;0E80EB|20B980  |0E80B9;
@@ -142,27 +142,27 @@
  
           CODE_0E8101: LDA.W $054E                          ;0E8101|AD4E05  |0E054E;
  
-          CODE_0E8104: STA.B wPlayerHight                   ;0E8104|8582    |000082;
-                       LDA.B wDelayElevators                ;0E8106|A5AF    |0000AF;
+          CODE_0E8104: STA.B r_PlayerHight                  ;0E8104|8582    |000082;
+                       LDA.B r_DelayElevators               ;0E8106|A5AF    |0000AF;
                        BEQ CODE_0E810C                      ;0E8108|F002    |0E810C;
-                       DEC.B wDelayElevators                ;0E810A|C6AF    |0000AF;
+                       DEC.B r_DelayElevators               ;0E810A|C6AF    |0000AF;
  
-          CODE_0E810C: LDA.B wDeathDelay                    ;0E810C|A5BF    |0000BF;
+          CODE_0E810C: LDA.B r_DeathDelay                   ;0E810C|A5BF    |0000BF;
                        BNE CODE_0E812B                      ;0E810E|D01B    |0E812B;
-                       LDA.B wHurtInvincibilityFrames       ;0E8110|A580    |000080;
+                       LDA.B r_HurtInvincibilityFrames      ;0E8110|A580    |000080;
                        BEQ CODE_0E811E                      ;0E8112|F00A    |0E811E;
-                       DEC.B wHurtInvincibilityFrames       ;0E8114|C680    |000080;
+                       DEC.B r_HurtInvincibilityFrames      ;0E8114|C680    |000080;
                        LDY.B #$80                           ;0E8116|A080    |      ;
-                       LDA.B wGameStateLoopCounter          ;0E8118|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0E8118|A51A    |00001A;
                        AND.B #$01                           ;0E811A|2901    |      ;
                        BEQ CODE_0E8120                      ;0E811C|F002    |0E8120;
  
           CODE_0E811E: LDY.B #$00                           ;0E811E|A000    |      ;
  
           CODE_0E8120: STY.W $0470                          ;0E8120|8C7004  |0E0470;
-                       LDA.B wPowerUpDrop                   ;0E8123|A5B7    |0000B7;
+                       LDA.B r_PowerUpDrop                  ;0E8123|A5B7    |0000B7;
                        BNE CODE_0E8139                      ;0E8125|D012    |0E8139;
-                       LDA.B wHurtInvincibilityEffect       ;0E8127|A581    |000081;
+                       LDA.B r_HurtInvincibilityEffect      ;0E8127|A581    |000081;
                        BNE CODE_0E812C                      ;0E8129|D001    |0E812C;
  
           CODE_0E812B: RTS                                  ;0E812B|60      |      ;
@@ -178,16 +178,16 @@
  
  
           CODE_0E8139: LDA.B #$00                           ;0E8139|A900    |      ;
-                       STA.B wPowerUpDrop                   ;0E813B|85B7    |0000B7;
-                       LDA.B wInGameSubstate                ;0E813D|A52A    |00002A;
+                       STA.B r_PowerUpDrop                  ;0E813B|85B7    |0000B7;
+                       LDA.B r_InGameSubstate               ;0E813D|A52A    |00002A;
                        STA.B $9F                            ;0E813F|859F    |00009F;
                        LDA.B #$19                           ;0E8141|A919    |      ;
-                       STA.B wInGameSubstate                ;0E8143|852A    |00002A;
+                       STA.B r_InGameSubstate               ;0E8143|852A    |00002A;
                        LDA.W $0565                          ;0E8145|AD6505  |0E0565;
                        ORA.B #$80                           ;0E8148|0980    |      ;
                        STA.W $0565                          ;0E814A|8D6505  |0E0565;
                        LDA.B #$2C                           ;0E814D|A92C    |      ;
-                       STA.B wGenericStateTimer             ;0E814F|8530    |000030;
+                       STA.B r_GenericStateTimer            ;0E814F|8530    |000030;
                        PLA                                  ;0E8151|68      |      ;
                        PLA                                  ;0E8152|68      |      ;
  
@@ -199,10 +199,10 @@
                        db $20                               ;0E8158|        |      ;
                        dw UNREACH_0FFCDD                    ;0E8159|        |0FFCDD;
                        BEQ CODE_0E8172                      ;0E815B|F015    |0E8172;
-                       LDA.B wCurrRoomGroupStage            ;0E815D|A532    |000032;
+                       LDA.B r_CurrRoomGroupStage           ;0E815D|A532    |000032;
                        CMP.B #$01                           ;0E815F|C901    |      ;
                        BEQ CODE_0E8167                      ;0E8161|F004    |0E8167;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E8163|A556    |000056;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8163|A556    |000056;
                        BNE CODE_0E8172                      ;0E8165|D00B    |0E8172;
  
           CODE_0E8167: LDA.W $0565                          ;0E8167|AD6505  |0E0565;
@@ -224,9 +224,9 @@
                        STA.W $041C                          ;0E8183|8D1C04  |0E041C;
  
           CODE_0E8186: LDA.B #$18                           ;0E8186|A918    |      ;
-                       STA.B wInGameSubstate                ;0E8188|852A    |00002A;
+                       STA.B r_InGameSubstate               ;0E8188|852A    |00002A;
                        LDA.B #$00                           ;0E818A|A900    |      ;
-                       STA.B wMenuOptionIdxSelected         ;0E818C|856B    |00006B;
+                       STA.B r_MenuOptionIdxSelected        ;0E818C|856B    |00006B;
                        RTS                                  ;0E818E|60      |      ;
  
  
@@ -241,19 +241,19 @@
  
  
           CODE_0E81A2: NOP                                  ;0E81A2|EA      |      ;
-                       LDA.B wHurtInvincibilityFrames       ;0E81A3|A580    |000080;
-                       ORA.B wPotionTimer                   ;0E81A5|05AD    |0000AD;
+                       LDA.B r_HurtInvincibilityFrames      ;0E81A3|A580    |000080;
+                       ORA.B r_PotionTimer                  ;0E81A5|05AD    |0000AD;
                        BNE CODE_0E812B                      ;0E81A7|D082    |0E812B;
                        LDA.W $054E                          ;0E81A9|AD4E05  |0E054E;
                        ASL A                                ;0E81AC|0A      |      ;
                        TAY                                  ;0E81AD|A8      |      ;
                        LDA.W DATA8_0E8298,Y                 ;0E81AE|B99882  |0E8298;
-                       STA.B wCurrNumToVramQueue            ;0E81B1|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0E81B1|8508    |000008;
                        LDA.W DATA8_0E8299,Y                 ;0E81B3|B99982  |0E8299;
                        STA.B $09                            ;0E81B6|8509    |000009;
                        LDY.B #$00                           ;0E81B8|A000    |      ;
  
-          CODE_0E81BA: LDA.B (wCurrNumToVramQueue),Y        ;0E81BA|B108    |000008;
+          CODE_0E81BA: LDA.B (r_CurrNumToVramQueue),Y       ;0E81BA|B108    |000008;
                        BMI CODE_0E8208                      ;0E81BC|304A    |0E8208;
                        CMP.W $0565                          ;0E81BE|CD6505  |0E0565;
                        BEQ CODE_0E81C7                      ;0E81C1|F004    |0E81C7;
@@ -262,7 +262,7 @@
                        BNE CODE_0E81BA                      ;0E81C5|D0F3    |0E81BA;
  
           CODE_0E81C7: INY                                  ;0E81C7|C8      |      ;
-                       LDA.B (wCurrNumToVramQueue),Y        ;0E81C8|B108    |000008;
+                       LDA.B (r_CurrNumToVramQueue),Y       ;0E81C8|B108    |000008;
                        BEQ CODE_0E8153                      ;0E81CA|F087    |0E8153;
                        JSR.W CODE_0E8263                    ;0E81CC|206382  |0E8263;
                        BEQ CODE_0E820B                      ;0E81CF|F03A    |0E820B;
@@ -280,7 +280,7 @@
                        LDA.B #$01                           ;0E81ED|A901    |      ;
                        STA.W $0602                          ;0E81EF|8D0206  |0E0602;
                        LDA.B #$78                           ;0E81F2|A978    |      ;
-                       STA.B wHurtInvincibilityFrames       ;0E81F4|8580    |000080;
+                       STA.B r_HurtInvincibilityFrames      ;0E81F4|8580    |000080;
                        LDA.B #$26                           ;0E81F6|A926    |      ;
                        STA.W $0565                          ;0E81F8|8D6505  |0E0565;
                        RTS                                  ;0E81FB|60      |      ;
@@ -308,7 +308,7 @@
                        LDA.B #$00                           ;0E8227|A900    |      ;
                        STA.W $0602                          ;0E8229|8D0206  |0E0602;
                        LDA.B #$78                           ;0E822C|A978    |      ;
-                       STA.B wHurtInvincibilityFrames       ;0E822E|8580    |000080;
+                       STA.B r_HurtInvincibilityFrames      ;0E822E|8580    |000080;
                        LDA.B #$26                           ;0E8230|A926    |      ;
                        STA.W $0565                          ;0E8232|8D6505  |0E0565;
                        LDA.B #$10                           ;0E8235|A910    |      ;
@@ -317,7 +317,7 @@
                        STA.W $0520                          ;0E823C|8D2005  |0E0520;
                        LDA.B #$00                           ;0E823F|A900    |      ;
                        STA.W $0537                          ;0E8241|8D3705  |0E0537;
-                       LDA.B wKnockBackDirrection           ;0E8244|A590    |000090;
+                       LDA.B r_KnockBackDirrection          ;0E8244|A590    |000090;
                        BEQ CODE_0E8253                      ;0E8246|F00B    |0E8253;
                        LDA.B #$01                           ;0E8248|A901    |      ;
                        STA.W $04A8                          ;0E824A|8DA804  |0E04A8;
@@ -339,10 +339,10 @@
                        ASL A                                ;0E8266|0A      |      ;
                        TAY                                  ;0E8267|A8      |      ;
                        LDA.W DATA8_0E82E4,Y                 ;0E8268|B9E482  |0E82E4;
-                       STA.B wCurrNumToVramQueue            ;0E826B|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0E826B|8508    |000008;
                        LDA.W DATA8_0E82E5,Y                 ;0E826D|B9E582  |0E82E5;
                        STA.B $09                            ;0E8270|8509    |000009;
-                       LDA.B wHurtInvincibilityEffect       ;0E8272|A581    |000081;
+                       LDA.B r_HurtInvincibilityEffect      ;0E8272|A581    |000081;
                        LSR A                                ;0E8274|4A      |      ;
                        LSR A                                ;0E8275|4A      |      ;
                        LSR A                                ;0E8276|4A      |      ;
@@ -350,21 +350,21 @@
                        CMP.B #$0F                           ;0E8278|C90F    |      ;
                        BEQ CODE_0E828E                      ;0E827A|F012    |0E828E;
                        TAY                                  ;0E827C|A8      |      ;
-                       LDA.B (wCurrNumToVramQueue),Y        ;0E827D|B108    |000008;
+                       LDA.B (r_CurrNumToVramQueue),Y       ;0E827D|B108    |000008;
                        TAY                                  ;0E827F|A8      |      ;
-                       LDA.B wPlayerHealth                  ;0E8280|A53C    |00003C;
+                       LDA.B r_PlayerHealth                 ;0E8280|A53C    |00003C;
                        SEC                                  ;0E8282|38      |      ;
                        SBC.W DATA8_0E830C,Y                 ;0E8283|F90C83  |0E830C;
                        BCS CODE_0E828A                      ;0E8286|B002    |0E828A;
                        LDA.B #$00                           ;0E8288|A900    |      ;
  
-          CODE_0E828A: STA.B wPlayerHealth                  ;0E828A|853C    |00003C;
+          CODE_0E828A: STA.B r_PlayerHealth                 ;0E828A|853C    |00003C;
                        CLC                                  ;0E828C|18      |      ;
                        RTS                                  ;0E828D|60      |      ;
  
  
           CODE_0E828E: LDA.B #$00                           ;0E828E|A900    |      ;
-                       STA.B wPlayerHealth                  ;0E8290|853C    |00003C;
+                       STA.B r_PlayerHealth                 ;0E8290|853C    |00003C;
                        SEC                                  ;0E8292|38      |      ;
                        RTS                                  ;0E8293|60      |      ;
  
@@ -407,7 +407,7 @@
                        LDA.W $054E                          ;0E831C|AD4E05  |0E054E;
                        CMP.B #$03                           ;0E831F|C903    |      ;
                        BNE CODE_0E833C                      ;0E8321|D019    |0E833C;
-                       LDA.B wPlayerHealth                  ;0E8323|A53C    |00003C;
+                       LDA.B r_PlayerHealth                 ;0E8323|A53C    |00003C;
                        BEQ CODE_0E834D                      ;0E8325|F026    |0E834D;
                        LDY.B #$00                           ;0E8327|A000    |      ;
  
@@ -438,12 +438,12 @@
                        BPL CODE_0E8356                      ;0E8352|1002    |0E8356;
                        LDA.B #$F8                           ;0E8354|A9F8    |      ;
  
-          CODE_0E8356: STA.B wCurrNumToVramQueue            ;0E8356|8508    |000008;
+          CODE_0E8356: STA.B r_CurrNumToVramQueue           ;0E8356|8508    |000008;
                        LDX.B #$F0                           ;0E8358|A2F0    |      ;
                        db $20                               ;0E835A|        |      ;
                        dw UNREACH_0FFCDD                    ;0E835B|        |0FFCDD;
                        BNE CODE_0E8368                      ;0E835D|D009    |0E8368;
-                       LDA.B wCurrNumToVramQueue            ;0E835F|A508    |000008;
+                       LDA.B r_CurrNumToVramQueue           ;0E835F|A508    |000008;
                        LDX.B #$00                           ;0E8361|A200    |      ;
                        db $20                               ;0E8363|        |      ;
                        dw UNREACH_0FFCDD                    ;0E8364|        |0FFCDD;
@@ -462,11 +462,11 @@
  
  
           CODE_0E8379: LDA.B #$00                           ;0E8379|A900    |      ;
-                       STA.B wTimerDropClunk                ;0E837B|85B9    |0000B9;
+                       STA.B r_TimerDropClunk               ;0E837B|85B9    |0000B9;
                        LDA.W $054E                          ;0E837D|AD4E05  |0E054E;
                        CMP.B #$02                           ;0E8380|C902    |      ;
                        BNE CODE_0E8393                      ;0E8382|D00F    |0E8393;
-                       LDA.B wConveyaerRoomEffect           ;0E8384|A58B    |00008B;
+                       LDA.B r_ConveyaerRoomEffect          ;0E8384|A58B    |00008B;
                        CMP.B #$01                           ;0E8386|C901    |      ;
                        BEQ CODE_0E8393                      ;0E8388|F009    |0E8393;
                        LDA.W $041C                          ;0E838A|AD1C04  |0E041C;
@@ -474,23 +474,23 @@
                        ADC.B #$04                           ;0E838E|6904    |      ;
                        STA.W $041C                          ;0E8390|8D1C04  |0E041C;
  
-          CODE_0E8393: LDA.B wPlayerHealth                  ;0E8393|A53C    |00003C;
+          CODE_0E8393: LDA.B r_PlayerHealth                 ;0E8393|A53C    |00003C;
                        BEQ CODE_0E8398                      ;0E8395|F001    |0E8398;
                        RTS                                  ;0E8397|60      |      ;
  
  
-          CODE_0E8398: LDA.B wDeathDelay                    ;0E8398|A5BF    |0000BF;
+          CODE_0E8398: LDA.B r_DeathDelay                   ;0E8398|A5BF    |0000BF;
                        BNE CODE_0E83A9                      ;0E839A|D00D    |0E83A9;
                        LDA.B #$00                           ;0E839C|A900    |      ;
-                       STA.B wPlayerHealth                  ;0E839E|853C    |00003C;
+                       STA.B r_PlayerHealth                 ;0E839E|853C    |00003C;
                        LDA.B #$2E                           ;0E83A0|A92E    |      ;
                        STA.W $0565                          ;0E83A2|8D6505  |0E0565;
                        LDA.B #$80                           ;0E83A5|A980    |      ;
-                       STA.B wDeathDelay                    ;0E83A7|85BF    |0000BF;
+                       STA.B r_DeathDelay                   ;0E83A7|85BF    |0000BF;
  
           CODE_0E83A9: RTS                                  ;0E83A9|60      |      ;
  
-                       LDA.B wHurtInvincibilityFrames       ;0E83AA|A580    |000080;
+                       LDA.B r_HurtInvincibilityFrames      ;0E83AA|A580    |000080;
                        BNE CODE_0E83BD                      ;0E83AC|D00F    |0E83BD;
                        LDX.B #$F8                           ;0E83AE|A2F8    |      ;
                        LDA.B #$00                           ;0E83B0|A900    |      ;
@@ -509,7 +509,7 @@
                        SEC                                  ;0E83C2|38      |      ;
                        RTS                                  ;0E83C3|60      |      ;
  
-                       LDA.B wConveyaerRoomEffect           ;0E83C4|A58B    |00008B;
+                       LDA.B r_ConveyaerRoomEffect          ;0E83C4|A58B    |00008B;
                        CMP.B #$01                           ;0E83C6|C901    |      ;
                        BEQ CODE_0E83DD                      ;0E83C8|F013    |0E83DD;
                        CMP.B #$05                           ;0E83CA|C905    |      ;
@@ -531,7 +531,7 @@
  
          DATA8_0E83DF: db $20                               ;0E83DF|        |      ;
                        dw UNREACH_0FFBE8                    ;0E83E0|        |0FFBE8;
-                       LDX.B wCurrNumToVramQueue            ;0E83E2|A608    |000008;
+                       LDX.B r_CurrNumToVramQueue           ;0E83E2|A608    |000008;
                        LDA.B #$FB                           ;0E83E4|A9FB    |      ;
                        db $20                               ;0E83E6|        |      ;
                        dw UNREACH_0FFCDD                    ;0E83E7|        |0FFCDD;
@@ -547,10 +547,10 @@
                        RTS                                  ;0E83F3|60      |      ;
  
  
-          CODE_0E83F4: LDA.B wDeathDelay                    ;0E83F4|A5BF    |0000BF;
+          CODE_0E83F4: LDA.B r_DeathDelay                   ;0E83F4|A5BF    |0000BF;
                        BNE CODE_0E841C                      ;0E83F6|D024    |0E841C;
                        LDA.B #$00                           ;0E83F8|A900    |      ;
-                       STA.B wPlayerHealth                  ;0E83FA|853C    |00003C;
+                       STA.B r_PlayerHealth                 ;0E83FA|853C    |00003C;
                        JMP.W CODE_0E820B                    ;0E83FC|4C0B82  |0E820B;
  
                        db $20                               ;0E83FF|        |      ;
@@ -571,7 +571,7 @@
           CODE_0E8412: RTS                                  ;0E8412|60      |      ;
  
  
-          CODE_0E8413: LDA.B wHurtInvincibilityFrames       ;0E8413|A580    |000080;
+          CODE_0E8413: LDA.B r_HurtInvincibilityFrames      ;0E8413|A580    |000080;
                        BNE CODE_0E841C                      ;0E8415|D005    |0E841C;
                        JSR.W CODE_0E83F4                    ;0E8417|20F483  |0E83F4;
                        PLA                                  ;0E841A|68      |      ;
@@ -583,8 +583,8 @@
                        BNE CODE_0E8423                      ;0E841F|D002    |0E8423;
                        LDX.B #$10                           ;0E8421|A210    |      ;
  
-          CODE_0E8423: STX.B wCurrNumToVramQueue            ;0E8423|8608    |000008;
-                       LDA.B wConveyaerRoomEffect           ;0E8425|A58B    |00008B;
+          CODE_0E8423: STX.B r_CurrNumToVramQueue           ;0E8423|8608    |000008;
+                       LDA.B r_ConveyaerRoomEffect          ;0E8425|A58B    |00008B;
                        CMP.B #$01                           ;0E8427|C901    |      ;
                        BNE CODE_0E842E                      ;0E8429|D003    |0E842E;
                        JMP.W CODE_0E84E0                    ;0E842B|4CE084  |0E84E0;
@@ -620,7 +620,7 @@
                        BCS DATA8_0E83DF                     ;0E845D|B080    |0E83DF;
                        BCC CODE_0E848C                      ;0E845F|902B    |0E848C;
  
-          CODE_0E8461: LDX.B wCurrNumToVramQueue            ;0E8461|A608    |000008;
+          CODE_0E8461: LDX.B r_CurrNumToVramQueue           ;0E8461|A608    |000008;
                        LDA.B #$FB                           ;0E8463|A9FB    |      ;
                        db $20                               ;0E8465|        |      ;
                        dw UNREACH_0FFCDD                    ;0E8466|        |0FFCDD;
@@ -653,13 +653,13 @@
                        RTS                                  ;0E848F|60      |      ;
  
  
-          CODE_0E8490: LDA.B wInGameSubstate                ;0E8490|A52A    |00002A;
+          CODE_0E8490: LDA.B r_InGameSubstate               ;0E8490|A52A    |00002A;
                        CMP.B #$1B                           ;0E8492|C91B    |      ;
                        BNE CODE_0E849A                      ;0E8494|D004    |0E849A;
                        LDA.B #$00                           ;0E8496|A900    |      ;
                        BEQ CODE_0E84A6                      ;0E8498|F00C    |0E84A6;
  
-          CODE_0E849A: LDA.B wConveyaerRoomEffect           ;0E849A|A58B    |00008B;
+          CODE_0E849A: LDA.B r_ConveyaerRoomEffect          ;0E849A|A58B    |00008B;
                        CMP.B #$08                           ;0E849C|C908    |      ;
                        BNE CODE_0E84A4                      ;0E849E|D004    |0E84A4;
                        LDA.B #$09                           ;0E84A0|A909    |      ;
@@ -667,34 +667,34 @@
  
           CODE_0E84A4: LDA.B #$0B                           ;0E84A4|A90B    |      ;
  
-          CODE_0E84A6: STA.B wConveyaerRoomEffect           ;0E84A6|858B    |00008B;
+          CODE_0E84A6: STA.B r_ConveyaerRoomEffect          ;0E84A6|858B    |00008B;
                        SEC                                  ;0E84A8|38      |      ;
                        RTS                                  ;0E84A9|60      |      ;
  
  
-          CODE_0E84AA: LDA.B wInGameSubstate                ;0E84AA|A52A    |00002A;
+          CODE_0E84AA: LDA.B r_InGameSubstate               ;0E84AA|A52A    |00002A;
                        CMP.B #$1B                           ;0E84AC|C91B    |      ;
                        BNE CODE_0E84B4                      ;0E84AE|D004    |0E84B4;
                        LDA.B #$00                           ;0E84B0|A900    |      ;
                        BEQ CODE_0E84A6                      ;0E84B2|F0F2    |0E84A6;
  
-          CODE_0E84B4: LDA.B wConveyaerRoomEffect           ;0E84B4|A58B    |00008B;
+          CODE_0E84B4: LDA.B r_ConveyaerRoomEffect          ;0E84B4|A58B    |00008B;
                        CMP.B #$08                           ;0E84B6|C908    |      ;
                        BEQ CODE_0E84BE                      ;0E84B8|F004    |0E84BE;
                        LDA.B #$0A                           ;0E84BA|A90A    |      ;
-                       STA.B wConveyaerRoomEffect           ;0E84BC|858B    |00008B;
+                       STA.B r_ConveyaerRoomEffect          ;0E84BC|858B    |00008B;
  
           CODE_0E84BE: SEC                                  ;0E84BE|38      |      ;
                        RTS                                  ;0E84BF|60      |      ;
  
  
-          CODE_0E84C0: LDX.B wCurrNumToVramQueue            ;0E84C0|A608    |000008;
+          CODE_0E84C0: LDX.B r_CurrNumToVramQueue           ;0E84C0|A608    |000008;
                        LDA.B #$FB                           ;0E84C2|A9FB    |      ;
                        JSR.W DATA8_0E840B                   ;0E84C4|200B84  |0E840B;
                        BNE CODE_0E848C                      ;0E84C7|D0C3    |0E848C;
  
           CODE_0E84C9: LDA.B #$07                           ;0E84C9|A907    |      ;
-                       STA.B wConveyaerRoomEffect           ;0E84CB|858B    |00008B;
+                       STA.B r_ConveyaerRoomEffect          ;0E84CB|858B    |00008B;
                        LDA.W $04DB                          ;0E84CD|ADDB04  |0E04DB;
                        CLC                                  ;0E84D0|18      |      ;
                        ADC.B #$40                           ;0E84D1|6940    |      ;
@@ -706,17 +706,17 @@
                        RTS                                  ;0E84DF|60      |      ;
  
  
-          CODE_0E84E0: LDX.B wCurrNumToVramQueue            ;0E84E0|A608    |000008;
+          CODE_0E84E0: LDX.B r_CurrNumToVramQueue           ;0E84E0|A608    |000008;
                        LDA.B #$05                           ;0E84E2|A905    |      ;
                        db $20                               ;0E84E4|        |      ;
                        dw UNREACH_0FFCDD                    ;0E84E5|        |0FFCDD;
                        BNE CODE_0E84F9                      ;0E84E7|D010    |0E84F9;
-                       LDX.B wCurrNumToVramQueue            ;0E84E9|A608    |000008;
+                       LDX.B r_CurrNumToVramQueue           ;0E84E9|A608    |000008;
                        LDA.B #$FB                           ;0E84EB|A9FB    |      ;
                        db $20                               ;0E84ED|        |      ;
                        dw UNREACH_0FFCDD                    ;0E84EE|        |0FFCDD;
                        BNE CODE_0E84F9                      ;0E84F0|D007    |0E84F9;
-                       LDX.B wConveyorRelated               ;0E84F2|A691    |000091;
+                       LDX.B r_ConveyorRelated              ;0E84F2|A691    |000091;
                        db $20                               ;0E84F4|        |      ;
                        dw UNREACH_0FFE9C                    ;0E84F5|        |0FFE9C;
  
@@ -725,7 +725,7 @@
  
  
           CODE_0E84F9: LDA.B #$00                           ;0E84F9|A900    |      ;
-                       STA.B wConveyaerRoomEffect           ;0E84FB|858B    |00008B;
+                       STA.B r_ConveyaerRoomEffect          ;0E84FB|858B    |00008B;
                        JSR.W CODE_0E8A02                    ;0E84FD|20028A  |0E8A02;
                        LDY.W $054E                          ;0E8500|AC4E05  |0E054E;
                        CPY.B #$02                           ;0E8503|C002    |      ;
@@ -739,7 +739,7 @@
  
           CODE_0E8513: LDA.W $041C                          ;0E8513|AD1C04  |0E041C;
                        CLC                                  ;0E8516|18      |      ;
-                       ADC.B wConveyorRelated               ;0E8517|6591    |000091;
+                       ADC.B r_ConveyorRelated              ;0E8517|6591    |000091;
                        STA.W $041C                          ;0E8519|8D1C04  |0E041C;
                        SEC                                  ;0E851C|38      |      ;
                        RTS                                  ;0E851D|60      |      ;
@@ -747,7 +747,7 @@
  
           CODE_0E851E: LDA.W $041C                          ;0E851E|AD1C04  |0E041C;
                        CLC                                  ;0E8521|18      |      ;
-                       ADC.B wConveyorRelated               ;0E8522|6591    |000091;
+                       ADC.B r_ConveyorRelated              ;0E8522|6591    |000091;
                        STA.W $041C                          ;0E8524|8D1C04  |0E041C;
                        SEC                                  ;0E8527|38      |      ;
                        RTS                                  ;0E8528|60      |      ;
@@ -771,7 +771,7 @@
                        RTS                                  ;0E8544|60      |      ;
  
  
-          CODE_0E8545: LDA.B wCurrentRoomEffect             ;0E8545|A57D    |00007D;
+          CODE_0E8545: LDA.B r_CurrentRoomEffect            ;0E8545|A57D    |00007D;
                        AND.B #$0F                           ;0E8547|290F    |      ;
                        ASL A                                ;0E8549|0A      |      ;
                        TAY                                  ;0E854A|A8      |      ;
@@ -797,52 +797,52 @@
                        db $82,$B0,$01,$60                   ;0E8573|        |      ;
                        LDA.W $041C                          ;0E8577|AD1C04  |0E041C;
                        CLC                                  ;0E857A|18      |      ;
-                       ADC.B wViewSpeed                     ;0E857B|656E    |00006E;
+                       ADC.B r_ViewSpeed                    ;0E857B|656E    |00006E;
                        STA.W $041C                          ;0E857D|8D1C04  |0E041C;
-                       LDA.B wGrantCurrentYpos              ;0E8580|A5D3    |0000D3;
+                       LDA.B r_GrantCurrentYpos             ;0E8580|A5D3    |0000D3;
                        CLC                                  ;0E8582|18      |      ;
-                       ADC.B wViewSpeed                     ;0E8583|656E    |00006E;
-                       STA.B wGrantCurrentYpos              ;0E8585|85D3    |0000D3;
+                       ADC.B r_ViewSpeed                    ;0E8583|656E    |00006E;
+                       STA.B r_GrantCurrentYpos             ;0E8585|85D3    |0000D3;
                        RTS                                  ;0E8587|60      |      ;
  
-                       LDA.B wRoomOrientation               ;0E8588|A568    |000068;
+                       LDA.B r_RoomOrientation              ;0E8588|A568    |000068;
                        BMI CODE_0E85B7                      ;0E858A|302B    |0E85B7;
-                       LDA.B wCurrScrollRoomScreen          ;0E858C|A557    |000057;
+                       LDA.B r_CurrScrollRoomScreen         ;0E858C|A557    |000057;
                        BMI CODE_0E85A6                      ;0E858E|3016    |0E85A6;
-                       CMP.B wSizeCurrRoomNumScreens        ;0E8590|C571    |000071;
+                       CMP.B r_SizeCurrRoomNumScreens       ;0E8590|C571    |000071;
                        BEQ CODE_0E8595                      ;0E8592|F001    |0E8595;
                        RTS                                  ;0E8594|60      |      ;
  
  
-          CODE_0E8595: LDA.B wCurrScrollOffsetIntoRoomScreen;0E8595|A556    |000056;
+          CODE_0E8595: LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8595|A556    |000056;
                        CLC                                  ;0E8597|18      |      ;
                        ADC.W $0438                          ;0E8598|6D3804  |0E0438;
                        STA.W $0438                          ;0E859B|8D3804  |0E0438;
-                       LDA.B wSizeCurrRoomNumScreens        ;0E859E|A571    |000071;
-                       STA.B wCurrScrollRoomScreen          ;0E85A0|8557    |000057;
+                       LDA.B r_SizeCurrRoomNumScreens       ;0E859E|A571    |000071;
+                       STA.B r_CurrScrollRoomScreen         ;0E85A0|8557    |000057;
                        LDA.B #$00                           ;0E85A2|A900    |      ;
                        BEQ CODE_0E85B3                      ;0E85A4|F00D    |0E85B3;
  
-          CODE_0E85A6: LDA.B wCurrScrollOffsetIntoRoomScreen;0E85A6|A556    |000056;
+          CODE_0E85A6: LDA.B r_CurrScrollOffsetIntoRoomScreen;0E85A6|A556    |000056;
                        CLC                                  ;0E85A8|18      |      ;
                        ADC.W $0438                          ;0E85A9|6D3804  |0E0438;
                        STA.W $0438                          ;0E85AC|8D3804  |0E0438;
                        LDA.B #$00                           ;0E85AF|A900    |      ;
-                       STA.B wCurrScrollRoomScreen          ;0E85B1|8557    |000057;
+                       STA.B r_CurrScrollRoomScreen         ;0E85B1|8557    |000057;
  
-          CODE_0E85B3: STA.B wCurrScrollOffsetIntoRoomScreen;0E85B3|8556    |000056;
-                       STA.B wCurrScrollRoomScreenSub       ;0E85B5|8558    |000058;
+          CODE_0E85B3: STA.B r_CurrScrollOffsetIntoRoomScreen;0E85B3|8556    |000056;
+                       STA.B r_CurrScrollRoomScreenSub      ;0E85B5|8558    |000058;
  
           CODE_0E85B7: RTS                                  ;0E85B7|60      |      ;
  
                        LDA.B #$00                           ;0E85B8|A900    |      ;
-                       STA.B wCurrScrollRoomScreenSub       ;0E85BA|8558    |000058;
+                       STA.B r_CurrScrollRoomScreenSub      ;0E85BA|8558    |000058;
                        LDA.W $0565                          ;0E85BC|AD6505  |0E0565;
                        CMP.B #$16                           ;0E85BF|C916    |      ;
                        BNE CODE_0E8611                      ;0E85C1|D04E    |0E8611;
-                       LDA.B wRoomOrientation               ;0E85C3|A568    |000068;
+                       LDA.B r_RoomOrientation              ;0E85C3|A568    |000068;
                        BMI DATA8_0E8612                     ;0E85C5|304B    |0E8612;
-                       LDA.B wPrevRoomOrientation           ;0E85C7|A573    |000073;
+                       LDA.B r_PrevRoomOrientation          ;0E85C7|A573    |000073;
                        BMI DATA8_0E8616                     ;0E85C9|304B    |0E8616;
                        LDX.B #$00                           ;0E85CB|A200    |      ;
                        LDA.W $0520                          ;0E85CD|AD2005  |0E0520;
@@ -898,71 +898,71 @@
  
             data_yPos: db $00,$00,$04,$00                   ;0E8632|        |      ;
  
-          CODE_0E8636: LDA.B wCurrScrollOffsetIntoRoomScreen;0E8636|A556    |000056;
+          CODE_0E8636: LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8636|A556    |000056;
                        BEQ CODE_0E866F                      ;0E8638|F035    |0E866F;
                        CLC                                  ;0E863A|18      |      ;
                        ADC.W $0438                          ;0E863B|6D3804  |0E0438;
                        STA.W $0438                          ;0E863E|8D3804  |0E0438;
                        RTS                                  ;0E8641|60      |      ;
  
-                       LDA.B wRoomOrientation               ;0E8642|A568    |000068;
+                       LDA.B r_RoomOrientation              ;0E8642|A568    |000068;
                        BMI CODE_0E8636                      ;0E8644|30F0    |0E8636;
                        LDA.W $0438                          ;0E8646|AD3804  |0E0438;
                        BMI CODE_0E867A                      ;0E8649|302F    |0E867A;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E864B|A556    |000056;
-                       ORA.B wCurrScrollRoomScreen          ;0E864D|0557    |000057;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E864B|A556    |000056;
+                       ORA.B r_CurrScrollRoomScreen         ;0E864D|0557    |000057;
                        BEQ CODE_0E8679                      ;0E864F|F028    |0E8679;
                        LDA.B #$80                           ;0E8651|A980    |      ;
                        SEC                                  ;0E8653|38      |      ;
                        SBC.W $0438                          ;0E8654|ED3804  |0E0438;
-                       STA.B wCurrNumToVramQueue            ;0E8657|8508    |000008;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E8659|A556    |000056;
+                       STA.B r_CurrNumToVramQueue           ;0E8657|8508    |000008;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8659|A556    |000056;
                        SEC                                  ;0E865B|38      |      ;
-                       SBC.B wCurrNumToVramQueue            ;0E865C|E508    |000008;
+                       SBC.B r_CurrNumToVramQueue           ;0E865C|E508    |000008;
                        BCS CODE_0E8672                      ;0E865E|B012    |0E8672;
-                       LDY.B wCurrScrollRoomScreen          ;0E8660|A457    |000057;
+                       LDY.B r_CurrScrollRoomScreen         ;0E8660|A457    |000057;
                        DEY                                  ;0E8662|88      |      ;
                        BPL CODE_0E8670                      ;0E8663|100B    |0E8670;
                        CLC                                  ;0E8665|18      |      ;
                        ADC.B #$80                           ;0E8666|6980    |      ;
                        STA.W $0438                          ;0E8668|8D3804  |0E0438;
                        LDA.B #$00                           ;0E866B|A900    |      ;
-                       STA.B wCurrScrollOffsetIntoRoomScreen;0E866D|8556    |000056;
+                       STA.B r_CurrScrollOffsetIntoRoomScreen;0E866D|8556    |000056;
  
           CODE_0E866F: RTS                                  ;0E866F|60      |      ;
  
  
-          CODE_0E8670: STY.B wCurrScrollRoomScreen          ;0E8670|8457    |000057;
+          CODE_0E8670: STY.B r_CurrScrollRoomScreen         ;0E8670|8457    |000057;
  
-          CODE_0E8672: STA.B wCurrScrollOffsetIntoRoomScreen;0E8672|8556    |000056;
+          CODE_0E8672: STA.B r_CurrScrollOffsetIntoRoomScreen;0E8672|8556    |000056;
                        LDA.B #$80                           ;0E8674|A980    |      ;
                        STA.W $0438                          ;0E8676|8D3804  |0E0438;
  
           CODE_0E8679: RTS                                  ;0E8679|60      |      ;
  
  
-          CODE_0E867A: LDA.B wCurrScrollRoomScreen          ;0E867A|A557    |000057;
-                       CMP.B wSizeCurrRoomNumScreens        ;0E867C|C571    |000071;
+          CODE_0E867A: LDA.B r_CurrScrollRoomScreen         ;0E867A|A557    |000057;
+                       CMP.B r_SizeCurrRoomNumScreens       ;0E867C|C571    |000071;
                        BEQ CODE_0E8679                      ;0E867E|F0F9    |0E8679;
                        LDA.W $0438                          ;0E8680|AD3804  |0E0438;
                        SEC                                  ;0E8683|38      |      ;
                        SBC.B #$80                           ;0E8684|E980    |      ;
                        BEQ CODE_0E8679                      ;0E8686|F0F1    |0E8679;
-                       STA.B wCurrNumToVramQueue            ;0E8688|8508    |000008;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E868A|A556    |000056;
+                       STA.B r_CurrNumToVramQueue           ;0E8688|8508    |000008;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E868A|A556    |000056;
                        CLC                                  ;0E868C|18      |      ;
-                       ADC.B wCurrNumToVramQueue            ;0E868D|6508    |000008;
+                       ADC.B r_CurrNumToVramQueue           ;0E868D|6508    |000008;
                        BCC CODE_0E8672                      ;0E868F|90E1    |0E8672;
-                       LDY.B wCurrScrollRoomScreen          ;0E8691|A457    |000057;
+                       LDY.B r_CurrScrollRoomScreen         ;0E8691|A457    |000057;
                        INY                                  ;0E8693|C8      |      ;
-                       CPY.B wSizeCurrRoomNumScreens        ;0E8694|C471    |000071;
+                       CPY.B r_SizeCurrRoomNumScreens       ;0E8694|C471    |000071;
                        BNE CODE_0E8670                      ;0E8696|D0D8    |0E8670;
                        CLC                                  ;0E8698|18      |      ;
                        ADC.B #$80                           ;0E8699|6980    |      ;
                        STA.W $0438                          ;0E869B|8D3804  |0E0438;
-                       STY.B wCurrScrollRoomScreen          ;0E869E|8457    |000057;
+                       STY.B r_CurrScrollRoomScreen         ;0E869E|8457    |000057;
                        LDA.B #$00                           ;0E86A0|A900    |      ;
-                       STA.B wCurrScrollOffsetIntoRoomScreen;0E86A2|8556    |000056;
+                       STA.B r_CurrScrollOffsetIntoRoomScreen;0E86A2|8556    |000056;
                        RTS                                  ;0E86A4|60      |      ;
  
                        CLC                                  ;0E86A5|18      |      ;
@@ -974,18 +974,18 @@
                        RTS                                  ;0E86B4|60      |      ;
  
  
-          CODE_0E86B5: LDA.B wRoomOrientation               ;0E86B5|A568    |000068;
+          CODE_0E86B5: LDA.B r_RoomOrientation              ;0E86B5|A568    |000068;
                        AND.B #$01                           ;0E86B7|2901    |      ;
                        BEQ CODE_0E86C3                      ;0E86B9|F008    |0E86C3;
-                       LDA.B wCurrScrollRoomScreen          ;0E86BB|A557    |000057;
-                       ORA.B wCurrScrollOffsetIntoRoomScreen;0E86BD|0556    |000056;
+                       LDA.B r_CurrScrollRoomScreen         ;0E86BB|A557    |000057;
+                       ORA.B r_CurrScrollOffsetIntoRoomScreen;0E86BD|0556    |000056;
                        BEQ CODE_0E86D6                      ;0E86BF|F015    |0E86D6;
                        BNE CODE_0E86CF                      ;0E86C1|D00C    |0E86CF;
  
-          CODE_0E86C3: LDA.B wCurrScrollRoomScreen          ;0E86C3|A557    |000057;
-                       CMP.B wSizeCurrRoomNumScreens        ;0E86C5|C571    |000071;
+          CODE_0E86C3: LDA.B r_CurrScrollRoomScreen         ;0E86C3|A557    |000057;
+                       CMP.B r_SizeCurrRoomNumScreens       ;0E86C5|C571    |000071;
                        BNE CODE_0E86CF                      ;0E86C7|D006    |0E86CF;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E86C9|A556    |000056;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E86C9|A556    |000056;
                        CMP.B #$30                           ;0E86CB|C930    |      ;
                        BEQ CODE_0E86D6                      ;0E86CD|F007    |0E86D6;
  
@@ -999,38 +999,38 @@
                        BMI CODE_0E86FC                      ;0E86D9|3021    |0E86FC;
                        ORA.W $0537                          ;0E86DB|0D3705  |0E0537;
                        BEQ CODE_0E8711                      ;0E86DE|F031    |0E8711;
-                       LDA.B wRoomOrientation               ;0E86E0|A568    |000068;
+                       LDA.B r_RoomOrientation              ;0E86E0|A568    |000068;
                        AND.B #$01                           ;0E86E2|2901    |      ;
                        BEQ CODE_0E8716                      ;0E86E4|F030    |0E8716;
                        LDA.W $041C                          ;0E86E6|AD1C04  |0E041C;
                        BPL CODE_0E8716                      ;0E86E9|102B    |0E8716;
-                       LDA.B wSizeCurrRoomNumScreens        ;0E86EB|A571    |000071;
-                       CMP.B wCurrScrollRoomScreen          ;0E86ED|C557    |000057;
+                       LDA.B r_SizeCurrRoomNumScreens       ;0E86EB|A571    |000071;
+                       CMP.B r_CurrScrollRoomScreen         ;0E86ED|C557    |000057;
                        BNE CODE_0E86F7                      ;0E86EF|D006    |0E86F7;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E86F1|A556    |000056;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E86F1|A556    |000056;
                        CMP.B #$30                           ;0E86F3|C930    |      ;
                        BEQ CODE_0E8716                      ;0E86F5|F01F    |0E8716;
  
           CODE_0E86F7: LDA.B #$01                           ;0E86F7|A901    |      ;
-                       STA.B wScrollDirection               ;0E86F9|8565    |000065;
+                       STA.B r_ScrollDirection              ;0E86F9|8565    |000065;
                        RTS                                  ;0E86FB|60      |      ;
  
  
-          CODE_0E86FC: LDA.B wRoomOrientation               ;0E86FC|A568    |000068;
+          CODE_0E86FC: LDA.B r_RoomOrientation              ;0E86FC|A568    |000068;
                        AND.B #$01                           ;0E86FE|2901    |      ;
                        BNE CODE_0E8716                      ;0E8700|D014    |0E8716;
                        LDA.W $041C                          ;0E8702|AD1C04  |0E041C;
                        BMI CODE_0E8716                      ;0E8705|300F    |0E8716;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E8707|A556    |000056;
-                       ORA.B wCurrScrollRoomScreen          ;0E8709|0557    |000057;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8707|A556    |000056;
+                       ORA.B r_CurrScrollRoomScreen         ;0E8709|0557    |000057;
                        BEQ CODE_0E8716                      ;0E870B|F009    |0E8716;
                        LDA.B #$00                           ;0E870D|A900    |      ;
-                       STA.B wScrollDirection               ;0E870F|8565    |000065;
+                       STA.B r_ScrollDirection              ;0E870F|8565    |000065;
  
           CODE_0E8711: RTS                                  ;0E8711|60      |      ;
  
  
-          CODE_0E8712: LDA.B wRoomOrientation               ;0E8712|A568    |000068;
+          CODE_0E8712: LDA.B r_RoomOrientation              ;0E8712|A568    |000068;
                        BMI CODE_0E86D2                      ;0E8714|30BC    |0E86D2;
  
           CODE_0E8716: LDA.W $04DB                          ;0E8716|ADDB04  |0E04DB;
@@ -1045,35 +1045,35 @@
  
           CODE_0E872A: LDY.W $04F2                          ;0E872A|ACF204  |0E04F2;
                        BPL CODE_0E8734                      ;0E872D|1005    |0E8734;
-                       LDA.B wKnockBackDirrection           ;0E872F|A590    |000090;
+                       LDA.B r_KnockBackDirrection          ;0E872F|A590    |000090;
                        BEQ CODE_0E8740                      ;0E8731|F00D    |0E8740;
  
           CODE_0E8733: RTS                                  ;0E8733|60      |      ;
  
  
-          CODE_0E8734: LDA.B wKnockBackDirrection           ;0E8734|A590    |000090;
+          CODE_0E8734: LDA.B r_KnockBackDirrection          ;0E8734|A590    |000090;
                        BEQ CODE_0E8733                      ;0E8736|F0FB    |0E8733;
                        BNE CODE_0E8740                      ;0E8738|D006    |0E8740;
  
-          CODE_0E873A: LDA.B wConveyaerRoomEffect           ;0E873A|A58B    |00008B;
+          CODE_0E873A: LDA.B r_ConveyaerRoomEffect          ;0E873A|A58B    |00008B;
                        CMP.B #$02                           ;0E873C|C902    |      ;
                        BEQ CODE_0E872A                      ;0E873E|F0EA    |0E872A;
  
           CODE_0E8740: LDA.B $78                            ;0E8740|A578    |000078;
                        BNE CODE_0E8762                      ;0E8742|D01E    |0E8762;
-                       LDA.B wRoomOrientation               ;0E8744|A568    |000068;
+                       LDA.B r_RoomOrientation              ;0E8744|A568    |000068;
                        BMI CODE_0E8762                      ;0E8746|301A    |0E8762;
                        LDA.W $04F2                          ;0E8748|ADF204  |0E04F2;
                        BMI CODE_0E8782                      ;0E874B|3035    |0E8782;
                        ORA.W $0509                          ;0E874D|0D0905  |0E0509;
                        BEQ CODE_0E8781                      ;0E8750|F02F    |0E8781;
-                       LDA.B wSizeCurrRoomNumScreens        ;0E8752|A571    |000071;
-                       CMP.B wCurrScrollRoomScreen          ;0E8754|C557    |000057;
+                       LDA.B r_SizeCurrRoomNumScreens       ;0E8752|A571    |000071;
+                       CMP.B r_CurrScrollRoomScreen         ;0E8754|C557    |000057;
                        BEQ CODE_0E8762                      ;0E8756|F00A    |0E8762;
                        LDA.W $0438                          ;0E8758|AD3804  |0E0438;
                        BPL CODE_0E8762                      ;0E875B|1005    |0E8762;
                        LDA.B #$01                           ;0E875D|A901    |      ;
-                       STA.B wScrollDirection               ;0E875F|8565    |000065;
+                       STA.B r_ScrollDirection              ;0E875F|8565    |000065;
                        RTS                                  ;0E8761|60      |      ;
  
  
@@ -1084,7 +1084,7 @@
                        LDA.W $0438                          ;0E876C|AD3804  |0E0438;
                        ADC.W $04F2                          ;0E876F|6DF204  |0E04F2;
                        STA.W $0438                          ;0E8772|8D3804  |0E0438;
-                       LDY.B wRoomOrientation               ;0E8775|A468    |000068;
+                       LDY.B r_RoomOrientation              ;0E8775|A468    |000068;
                        BMI CODE_0E87A2                      ;0E8777|3029    |0E87A2;
                        CMP.B #$18                           ;0E8779|C918    |      ;
                        BCC CODE_0E8797                      ;0E877B|901A    |0E8797;
@@ -1094,16 +1094,16 @@
           CODE_0E8781: RTS                                  ;0E8781|60      |      ;
  
  
-          CODE_0E8782: LDA.B wHorizontalScrollLockBridge    ;0E8782|A5C8    |0000C8;
+          CODE_0E8782: LDA.B r_HorizontalScrollLockBridge   ;0E8782|A5C8    |0000C8;
                        BNE CODE_0E8762                      ;0E8784|D0DC    |0E8762;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E8786|A556    |000056;
-                       ORA.B wCurrScrollRoomScreen          ;0E8788|0557    |000057;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8786|A556    |000056;
+                       ORA.B r_CurrScrollRoomScreen         ;0E8788|0557    |000057;
                        BEQ CODE_0E8762                      ;0E878A|F0D6    |0E8762;
                        LDY.W $0438                          ;0E878C|AC3804  |0E0438;
                        DEY                                  ;0E878F|88      |      ;
                        BMI CODE_0E8762                      ;0E8790|30D0    |0E8762;
                        LDA.B #$00                           ;0E8792|A900    |      ;
-                       STA.B wScrollDirection               ;0E8794|8565    |000065;
+                       STA.B r_ScrollDirection              ;0E8794|8565    |000065;
                        RTS                                  ;0E8796|60      |      ;
  
  
@@ -1254,10 +1254,10 @@
                        db $47,$4D,$54,$5C,$64               ;0E8966|        |      ;
                        db $6D,$76,$80                       ;0E896B|        |      ;
  
-      subtractOneLife: LDA.B wCurrLivesLeft                 ;0E896E|A535    |000035;
+      subtractOneLife: LDA.B r_CurrLivesLeft                ;0E896E|A535    |000035;
                        AND.B #$0F                           ;0E8970|290F    |      ;
                        STA.B $01                            ;0E8972|8501    |000001;
-                       LDA.B wCurrLivesLeft                 ;0E8974|A535    |000035;
+                       LDA.B r_CurrLivesLeft                ;0E8974|A535    |000035;
                        AND.B #$F0                           ;0E8976|29F0    |      ;
                        STA.B $02                            ;0E8978|8502    |000002;
                        LDA.B $01                            ;0E897A|A501    |000001;
@@ -1275,11 +1275,11 @@
                        AND.B #$0F                           ;0E898F|290F    |      ;
  
           CODE_0E8991: ORA.B $02                            ;0E8991|0502    |000002;
-                       STA.B wCurrLivesLeft                 ;0E8993|8535    |000035;
+                       STA.B r_CurrLivesLeft                ;0E8993|8535    |000035;
                        RTS                                  ;0E8995|60      |      ;
  
  
-          CODE_0E8996: LDA.B wCurrTimeLeft                  ;0E8996|A57E    |00007E;
+          CODE_0E8996: LDA.B r_CurrTimeLeft                 ;0E8996|A57E    |00007E;
                        ORA.B $7F                            ;0E8998|057F    |00007F;
                        BNE CODE_0E89A3                      ;0E899A|D007    |0E89A3;
                        JSR.W CODE_0E8398                    ;0E899C|209883  |0E8398;
@@ -1287,10 +1287,10 @@
                        RTS                                  ;0E89A2|60      |      ;
  
  
-          CODE_0E89A3: LDA.B wCurrTimeLeft                  ;0E89A3|A57E    |00007E;
+          CODE_0E89A3: LDA.B r_CurrTimeLeft                 ;0E89A3|A57E    |00007E;
                        AND.B #$0F                           ;0E89A5|290F    |      ;
                        STA.B $01                            ;0E89A7|8501    |000001;
-                       LDA.B wCurrTimeLeft                  ;0E89A9|A57E    |00007E;
+                       LDA.B r_CurrTimeLeft                 ;0E89A9|A57E    |00007E;
                        AND.B #$F0                           ;0E89AB|29F0    |      ;
                        STA.B $02                            ;0E89AD|8502    |000002;
                        LDA.B $7F                            ;0E89AF|A57F    |00007F;
@@ -1303,7 +1303,7 @@
                        LDA.B $01                            ;0E89BE|A501    |000001;
                        AND.B #$0F                           ;0E89C0|290F    |      ;
                        ORA.B $02                            ;0E89C2|0502    |000002;
-                       STA.B wCurrTimeLeft                  ;0E89C4|857E    |00007E;
+                       STA.B r_CurrTimeLeft                 ;0E89C4|857E    |00007E;
                        LDA.B $03                            ;0E89C6|A503    |000003;
                        AND.B #$0F                           ;0E89C8|290F    |      ;
                        ORA.B $04                            ;0E89CA|0504    |000004;
@@ -1346,7 +1346,7 @@
                        RTS                                  ;0E8A01|60      |      ;
  
  
-          CODE_0E8A02: LDA.B wRoomOrientation               ;0E8A02|A568    |000068;
+          CODE_0E8A02: LDA.B r_RoomOrientation              ;0E8A02|A568    |000068;
                        BMI CODE_0E8A0F                      ;0E8A04|3009    |0E8A0F;
                        LDA.W $041C                          ;0E8A06|AD1C04  |0E041C;
                        AND.B #$F0                           ;0E8A09|29F0    |      ;
@@ -1356,10 +1356,10 @@
  
           CODE_0E8A0F: CLC                                  ;0E8A0F|18      |      ;
                        LDA.W $041C                          ;0E8A10|AD1C04  |0E041C;
-                       ADC.B wCurrScrollOffsetIntoRoomScreen;0E8A13|6556    |000056;
+                       ADC.B r_CurrScrollOffsetIntoRoomScreen;0E8A13|6556    |000056;
                        AND.B #$F0                           ;0E8A15|29F0    |      ;
                        SEC                                  ;0E8A17|38      |      ;
-                       SBC.B wCurrScrollOffsetIntoRoomScreen;0E8A18|E556    |000056;
+                       SBC.B r_CurrScrollOffsetIntoRoomScreen;0E8A18|E556    |000056;
                        CLC                                  ;0E8A1A|18      |      ;
                        ADC.B #$03                           ;0E8A1B|6903    |      ;
                        STA.W $041C                          ;0E8A1D|8D1C04  |0E041C;
@@ -1369,30 +1369,30 @@
  
             IRQ_stuff: LDA.B $7F                            ;0E8A21|A57F    |00007F; ??
                        BNE CODE_0E8A36                      ;0E8A23|D011    |0E8A36;
-                       LDA.B wCurrTimeLeft                  ;0E8A25|A57E    |00007E;
+                       LDA.B r_CurrTimeLeft                 ;0E8A25|A57E    |00007E;
                        CMP.B #$20                           ;0E8A27|C920    |      ;
                        BCS CODE_0E8A36                      ;0E8A29|B00B    |0E8A36;
-                       LDA.B wGameStateLoopCounter          ;0E8A2B|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0E8A2B|A51A    |00001A;
                        AND.B #$3F                           ;0E8A2D|293F    |      ;
                        BNE CODE_0E8A36                      ;0E8A2F|D005    |0E8A36;
                        LDA.B #$49                           ;0E8A31|A949    |      ;
                        db $20                               ;0E8A33|        |      ;
                        dw CODE_0FE25F                       ;0E8A34|        |0FE25F;
  
-          CODE_0E8A36: LDA.B wGameStateLoopCounter          ;0E8A36|A51A    |00001A;
+          CODE_0E8A36: LDA.B r_GameStateLoopCounter         ;0E8A36|A51A    |00001A;
                        AND.B #$3F                           ;0E8A38|293F    |      ;
                        BNE CODE_0E8A3F                      ;0E8A3A|D003    |0E8A3F;
                        JSR.W CODE_0E8996                    ;0E8A3C|209689  |0E8996;
  
-          CODE_0E8A3F: LDA.B wStopWatchActive               ;0E8A3F|A5AB    |0000AB;
+          CODE_0E8A3F: LDA.B r_StopWatchActive              ;0E8A3F|A5AB    |0000AB;
                        BEQ CODE_0E8A59                      ;0E8A41|F016    |0E8A59;
-                       DEC.B wStopWatchTimer                ;0E8A43|C6AC    |0000AC;
+                       DEC.B r_StopWatchTimer               ;0E8A43|C6AC    |0000AC;
                        BNE CODE_0E8A4E                      ;0E8A45|D007    |0E8A4E;
                        LDA.B #$00                           ;0E8A47|A900    |      ;
-                       STA.B wStopWatchActive               ;0E8A49|85AB    |0000AB;
+                       STA.B r_StopWatchActive              ;0E8A49|85AB    |0000AB;
                        STA.W $06C9                          ;0E8A4B|8DC906  |0E06C9;
  
-          CODE_0E8A4E: LDA.B wStopWatchTimer                ;0E8A4E|A5AC    |0000AC;
+          CODE_0E8A4E: LDA.B r_StopWatchTimer               ;0E8A4E|A5AC    |0000AC;
                        AND.B #$3F                           ;0E8A50|293F    |      ;
                        BNE CODE_0E8A59                      ;0E8A52|D005    |0E8A59;
                        LDA.B #$3C                           ;0E8A54|A93C    |      ;
@@ -1403,14 +1403,14 @@
                        LDA.W $0565                          ;0E8A5C|AD6505  |0E0565;
                        BMI CODE_0E8A20                      ;0E8A5F|30BF    |0E8A20;
                        JSR.W CODE_0E80D9                    ;0E8A61|20D980  |0E80D9;
-                       LDA.B wConveyaerRoomEffect           ;0E8A64|A58B    |00008B;
-                       STA.B wPreviousConveyanceBackup88    ;0E8A66|85CF    |0000CF;
-                       LDA.B wHurtInvincibilityEffect       ;0E8A68|A581    |000081;
+                       LDA.B r_ConveyaerRoomEffect          ;0E8A64|A58B    |00008B;
+                       STA.B r_PreviousConveyanceBackup88   ;0E8A66|85CF    |0000CF;
+                       LDA.B r_HurtInvincibilityEffect      ;0E8A68|A581    |000081;
                        AND.B #$0F                           ;0E8A6A|290F    |      ;
-                       STA.B wConveyaerRoomEffect           ;0E8A6C|858B    |00008B;
+                       STA.B r_ConveyaerRoomEffect          ;0E8A6C|858B    |00008B;
                        LDA.B #$00                           ;0E8A6E|A900    |      ;
-                       STA.B wHurtInvincibilityEffect       ;0E8A70|8581    |000081;
-                       LDA.B wRoomOrientation               ;0E8A72|A568    |000068;
+                       STA.B r_HurtInvincibilityEffect      ;0E8A70|8581    |000081;
+                       LDA.B r_RoomOrientation              ;0E8A72|A568    |000068;
                        BPL CODE_0E8A8D                      ;0E8A74|1017    |0E8A8D;
                        AND.B #$01                           ;0E8A76|2901    |      ;
                        BNE CODE_0E8A7E                      ;0E8A78|D004    |0E8A7E;
@@ -1419,17 +1419,17 @@
  
           CODE_0E8A7E: CLC                                  ;0E8A7E|18      |      ;
                        LDA.B #$30                           ;0E8A7F|A930    |      ;
-                       ADC.B wCurrScrollOffsetIntoRoomScreen;0E8A81|6556    |000056;
+                       ADC.B r_CurrScrollOffsetIntoRoomScreen;0E8A81|6556    |000056;
                        AND.B #$F0                           ;0E8A83|29F0    |      ;
                        SEC                                  ;0E8A85|38      |      ;
-                       SBC.B wCurrScrollOffsetIntoRoomScreen;0E8A86|E556    |000056;
+                       SBC.B r_CurrScrollOffsetIntoRoomScreen;0E8A86|E556    |000056;
                        CLC                                  ;0E8A88|18      |      ;
                        ADC.B #$03                           ;0E8A89|6903    |      ;
  
-          CODE_0E8A8B: STA.B wHighestTileToCheckForCollisionsInVertRoom;0E8A8B|85D0    |0000D0;
+          CODE_0E8A8B: STA.B r_HighestTileToCheckForCollisionsInVertRoom;0E8A8B|85D0    |0000D0;
  
           CODE_0E8A8D: LDA.B #$02                           ;0E8A8D|A902    |      ;
-                       STA.B wScrollDirection               ;0E8A8F|8565    |000065;
+                       STA.B r_ScrollDirection              ;0E8A8F|8565    |000065;
                        LDY.W $054E                          ;0E8A91|AC4E05  |0E054E;
                        BEQ CODE_0E8AA2                      ;0E8A94|F00C    |0E8AA2;
                        DEY                                  ;0E8A96|88      |      ;
@@ -1474,7 +1474,7 @@
  
  
        charSpecGroups: db $00,$02,$04,$06                   ;0E8ADA|        |      ;
-                       LDA.B wDeathDelay                    ;0E8ADE|A5BF    |0000BF;
+                       LDA.B r_DeathDelay                   ;0E8ADE|A5BF    |0000BF;
                        AND.B #$7F                           ;0E8AE0|297F    |      ;
                        db $20                               ;0E8AE2|        |      ;
                        dw jumpFromStackYXpreserved          ;0E8AE3|        |0FE86D;
@@ -1485,11 +1485,11 @@
           CODE_0E8AEB: LDY.B #$00                           ;0E8AEB|A000    |      ;
                        STY.W $0593                          ;0E8AED|8C9305  |0E0593;
                        STY.W $0413                          ;0E8AF0|8C1304  |0E0413;
-                       STY.B wHurtInvincibilityFrames       ;0E8AF3|8480    |000080;
+                       STY.B r_HurtInvincibilityFrames      ;0E8AF3|8480    |000080;
                        STY.W $0470                          ;0E8AF5|8C7004  |0E0470;
                        INY                                  ;0E8AF8|C8      |      ;
                        STY.W $057C                          ;0E8AF9|8C7C05  |0E057C;
-                       INC.B wDeathDelay                    ;0E8AFC|E6BF    |0000BF;
+                       INC.B r_DeathDelay                   ;0E8AFC|E6BF    |0000BF;
                        RTS                                  ;0E8AFE|60      |      ;
  
  
@@ -1507,7 +1507,7 @@
                        dw UNREACH_0FE5CE                    ;0E8B10|        |0FE5CE;
                        LDA.B #$64                           ;0E8B12|A964    |      ;
                        STA.W $05D4                          ;0E8B14|8DD405  |0E05D4;
-                       INC.B wDeathDelay                    ;0E8B17|E6BF    |0000BF;
+                       INC.B r_DeathDelay                   ;0E8B17|E6BF    |0000BF;
                        RTS                                  ;0E8B19|60      |      ;
  
  
@@ -1545,12 +1545,12 @@
  
          DATA8_0E8B4F: db $06,$F9,$0A,$FC,$04               ;0E8B4F|        |      ;
                        db $FF,$04,$FC                       ;0E8B54|        |      ;
-                       LDA.B wDeathDelay                    ;0E8B57|A5BF    |0000BF;
+                       LDA.B r_DeathDelay                   ;0E8B57|A5BF    |0000BF;
                        AND.B #$7F                           ;0E8B59|297F    |      ;
                        TAY                                  ;0E8B5B|A8      |      ;
                        BNE CODE_0E8B8F                      ;0E8B5C|D031    |0E8B8F;
                        LDA.W $041C                          ;0E8B5E|AD1C04  |0E041C;
-                       LDY.B wRoomOrientation               ;0E8B61|A468    |000068;
+                       LDY.B r_RoomOrientation              ;0E8B61|A468    |000068;
                        BMI CODE_0E8B6B                      ;0E8B63|3006    |0E8B6B;
                        CMP.B #$E0                           ;0E8B65|C9E0    |      ;
                        BCC CODE_0E8B71                      ;0E8B67|9008    |0E8B71;
@@ -1574,7 +1574,7 @@
           CODE_0E8B89: JMP.W CODE_0E8712                    ;0E8B89|4C1287  |0E8712;
  
  
-          CODE_0E8B8C: INC.B wDeathDelay                    ;0E8B8C|E6BF    |0000BF;
+          CODE_0E8B8C: INC.B r_DeathDelay                   ;0E8B8C|E6BF    |0000BF;
                        RTS                                  ;0E8B8E|60      |      ;
  
  
@@ -1589,7 +1589,7 @@
                        dw CODE_0FE25F                       ;0E8B9F|        |0FE25F;
                        db $20                               ;0E8BA1|        |      ;
                        dw UNREACH_0FE5CE                    ;0E8BA2|        |0FE5CE;
-                       INC.B wDeathDelay                    ;0E8BA4|E6BF    |0000BF;
+                       INC.B r_DeathDelay                   ;0E8BA4|E6BF    |0000BF;
                        RTS                                  ;0E8BA6|60      |      ;
  
  
@@ -1599,9 +1599,9 @@
  
  
           CODE_0E8BAD: LDA.B #$05                           ;0E8BAD|A905    |      ;
-                       STA.B wGameState                     ;0E8BAF|8518    |000018;
+                       STA.B r_GameState                    ;0E8BAF|8518    |000018;
                        LDA.B #$00                           ;0E8BB1|A900    |      ;
-                       STA.B wGameSubstate                  ;0E8BB3|8519    |000019;
+                       STA.B r_GameSubstate                 ;0E8BB3|8519    |000019;
                        LDA.W $0565                          ;0E8BB5|AD6505  |0E0565;
                        ORA.B #$80                           ;0E8BB8|0980    |      ;
                        STA.W $0565                          ;0E8BBA|8D6505  |0E0565;
@@ -1609,16 +1609,16 @@
  
                        dw UNREACH_0FE5CA                    ;0E8BBE|        |0FE5CA;
  
-          CODE_0E8BC0: LDA.B wDeathDelay                    ;0E8BC0|A5BF    |0000BF;
+          CODE_0E8BC0: LDA.B r_DeathDelay                   ;0E8BC0|A5BF    |0000BF;
                        BEQ CODE_0E8BC5                      ;0E8BC2|F001    |0E8BC5;
  
           CODE_0E8BC4: RTS                                  ;0E8BC4|60      |      ;
  
  
-          CODE_0E8BC5: LDA.B wInGameSubstate                ;0E8BC5|A52A    |00002A;
+          CODE_0E8BC5: LDA.B r_InGameSubstate               ;0E8BC5|A52A    |00002A;
                        CMP.B #$10                           ;0E8BC7|C910    |      ;
                        BEQ CODE_0E8BC4                      ;0E8BC9|F0F9    |0E8BC4;
-                       LDA.B wCurrentRoomEffect             ;0E8BCB|A57D    |00007D;
+                       LDA.B r_CurrentRoomEffect            ;0E8BCB|A57D    |00007D;
                        AND.B #$F0                           ;0E8BCD|29F0    |      ;
                        CMP.B #$50                           ;0E8BCF|C950    |      ;
                        BEQ CODE_0E8BFC                      ;0E8BD1|F029    |0E8BFC;
@@ -1628,7 +1628,7 @@
                        BEQ CODE_0E8BFC                      ;0E8BD9|F021    |0E8BFC;
  
           CODE_0E8BDB: LDA.W $041C                          ;0E8BDB|AD1C04  |0E041C;
-                       LDY.B wRoomOrientation               ;0E8BDE|A468    |000068;
+                       LDY.B r_RoomOrientation              ;0E8BDE|A468    |000068;
                        BPL CODE_0E8BF4                      ;0E8BE0|1012    |0E8BF4;
                        CMP.B #$E0                           ;0E8BE2|C9E0    |      ;
                        BCS CODE_0E8BF1                      ;0E8BE4|B00B    |0E8BF1;
@@ -1650,16 +1650,16 @@
           CODE_0E8BFB: RTS                                  ;0E8BFB|60      |      ;
  
  
-          CODE_0E8BFC: LDA.B wCurrentRoomEffect             ;0E8BFC|A57D    |00007D;
+          CODE_0E8BFC: LDA.B r_CurrentRoomEffect            ;0E8BFC|A57D    |00007D;
                        AND.B #$0F                           ;0E8BFE|290F    |      ;
                        TAY                                  ;0E8C00|A8      |      ;
                        LDA.W yPos_data01,Y                  ;0E8C01|B9568C  |0E8C56;
                        CMP.W $041C                          ;0E8C04|CD1C04  |0E041C;
                        BCS CODE_0E8BFB                      ;0E8C07|B0F2    |0E8BFB;
-                       LDA.B wPlayerHight                   ;0E8C09|A582    |000082;
+                       LDA.B r_PlayerHight                  ;0E8C09|A582    |000082;
                        CMP.B #$08                           ;0E8C0B|C908    |      ;
                        BNE UNREACH_0E8C18                   ;0E8C0D|D009    |0E8C18;
-                       LDA.B wGameStateLoopCounter          ;0E8C0F|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0E8C0F|A51A    |00001A;
                        AND.B #$03                           ;0E8C11|2903    |      ;
                        BNE CODE_0E8BDB                      ;0E8C13|D0C6    |0E8BDB;
                        JMP.W CODE_0E8C58                    ;0E8C15|4C588C  |0E8C58;
@@ -1686,17 +1686,17 @@
           CODE_0E8C58: LDA.B #$23                           ;0E8C58|A923    |      ;
                        db $20                               ;0E8C5A|        |      ;
                        dw CODE_0FE25F                       ;0E8C5B|        |0FE25F;
-                       LDA.B wGameStateLoopCounter          ;0E8C5D|A51A    |00001A;
+                       LDA.B r_GameStateLoopCounter         ;0E8C5D|A51A    |00001A;
                        AND.B #$03                           ;0E8C5F|2903    |      ;
                        STA.B $00                            ;0E8C61|8500    |000000;
                        ASL A                                ;0E8C63|0A      |      ;
                        CLC                                  ;0E8C64|18      |      ;
                        ADC.B $00                            ;0E8C65|6500    |000000;
                        TAY                                  ;0E8C67|A8      |      ;
-                       STA.B wRoomSectionChrBanksDataOffset ;0E8C68|850F    |00000F;
+                       STA.B r_RoomSectionChrBanksDataOffset;0E8C68|850F    |00000F;
                        LDX.B #$14                           ;0E8C6A|A214    |      ;
  
-          CODE_0E8C6C: LDY.B wRoomSectionChrBanksDataOffset ;0E8C6C|A40F    |00000F;
+          CODE_0E8C6C: LDY.B r_RoomSectionChrBanksDataOffset;0E8C6C|A40F    |00000F;
                        LDA.W DATA8_0E8CBD,Y                 ;0E8C6E|B9BD8C  |0E8CBD;
                        ASL A                                ;0E8C71|0A      |      ;
                        STA.B $00                            ;0E8C72|8500    |000000;
@@ -1727,7 +1727,7 @@
                        LDA.B #$00                           ;0E8CAD|A900    |      ;
                        STA.W $0470,X                        ;0E8CAF|9D7004  |0E0470;
                        STA.W $0565,X                        ;0E8CB2|9D6505  |0E0565;
-                       INC.B wRoomSectionChrBanksDataOffset ;0E8CB5|E60F    |00000F;
+                       INC.B r_RoomSectionChrBanksDataOffset;0E8CB5|E60F    |00000F;
                        INX                                  ;0E8CB7|E8      |      ;
                        CPX.B #$17                           ;0E8CB8|E017    |      ;
                        BNE CODE_0E8C6C                      ;0E8CBA|D0B0    |0E8C6C;
@@ -1767,16 +1767,16 @@
                        STA.W $0537                          ;0E8D06|8D3705  |0E0537;
  
           CODE_0E8D09: LDA.B #$80                           ;0E8D09|A980    |      ;
-                       STA.B wDeathDelay                    ;0E8D0B|85BF    |0000BF;
+                       STA.B r_DeathDelay                   ;0E8D0B|85BF    |0000BF;
                        LDA.B #$2C                           ;0E8D0D|A92C    |      ;
                        STA.W $0565                          ;0E8D0F|8D6505  |0E0565;
                        RTS                                  ;0E8D12|60      |      ;
  
  
-          CODE_0E8D13: LDA.B wInGameSubstate                ;0E8D13|A52A    |00002A;
+          CODE_0E8D13: LDA.B r_InGameSubstate               ;0E8D13|A52A    |00002A;
                        CMP.B #$1B                           ;0E8D15|C91B    |      ;
                        BEQ CODE_0E8D89                      ;0E8D17|F070    |0E8D89;
-                       LDA.B wCurrentRoomEffect             ;0E8D19|A57D    |00007D;
+                       LDA.B r_CurrentRoomEffect            ;0E8D19|A57D    |00007D;
                        CMP.B #$30                           ;0E8D1B|C930    |      ;
                        BEQ CODE_0E8D37                      ;0E8D1D|F018    |0E8D37;
                        CMP.B #$31                           ;0E8D1F|C931    |      ;
@@ -1785,7 +1785,7 @@
                        BEQ CODE_0E8D29                      ;0E8D25|F002    |0E8D29;
                        BNE CODE_0E8D8E                      ;0E8D27|D065    |0E8D8E;
  
-          CODE_0E8D29: LDA.B wGameStateLoopCounter          ;0E8D29|A51A    |00001A;
+          CODE_0E8D29: LDA.B r_GameStateLoopCounter         ;0E8D29|A51A    |00001A;
                        AND.B #$0F                           ;0E8D2B|290F    |      ;
                        BNE CODE_0E8D8E                      ;0E8D2D|D05F    |0E8D8E;
                        LDA.B #$20                           ;0E8D2F|A920    |      ;
@@ -1794,16 +1794,16 @@
                        JMP.W CODE_0E8D8E                    ;0E8D34|4C8E8D  |0E8D8E;
  
  
-          CODE_0E8D37: LDA.B wGameStateLoopCounter          ;0E8D37|A51A    |00001A;
+          CODE_0E8D37: LDA.B r_GameStateLoopCounter         ;0E8D37|A51A    |00001A;
                        AND.B #$0F                           ;0E8D39|290F    |      ;
                        BNE CODE_0E8D7B                      ;0E8D3B|D03E    |0E8D7B;
-                       LDA.B wCurrScrollOffsetIntoRoomScreen;0E8D3D|A556    |000056;
+                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0E8D3D|A556    |000056;
                        ADC.W $0438                          ;0E8D3F|6D3804  |0E0438;
                        STA.B $00                            ;0E8D42|8500    |000000;
-                       LDA.B wCurrScrollRoomScreen          ;0E8D44|A557    |000057;
+                       LDA.B r_CurrScrollRoomScreen         ;0E8D44|A557    |000057;
                        ADC.B #$00                           ;0E8D46|6900    |      ;
                        STA.B $01                            ;0E8D48|8501    |000001;
-                       LDA.B wCurrentRoomEffect             ;0E8D4A|A57D    |00007D;
+                       LDA.B r_CurrentRoomEffect            ;0E8D4A|A57D    |00007D;
                        AND.B #$0F                           ;0E8D4C|290F    |      ;
                        ASL A                                ;0E8D4E|0A      |      ;
                        TAY                                  ;0E8D4F|A8      |      ;
@@ -1834,9 +1834,9 @@
                        db $20                               ;0E8D78|        |      ;
                        dw CODE_0FE25F                       ;0E8D79|        |0FE25F;
  
-          CODE_0E8D7B: LDA.B wDeathDelay                    ;0E8D7B|A5BF    |0000BF;
+          CODE_0E8D7B: LDA.B r_DeathDelay                   ;0E8D7B|A5BF    |0000BF;
                        BMI CODE_0E8D89                      ;0E8D7D|300A    |0E8D89;
-                       LDA.B wConveyaerRoomEffect           ;0E8D7F|A58B    |00008B;
+                       LDA.B r_ConveyaerRoomEffect          ;0E8D7F|A58B    |00008B;
                        CMP.B #$08                           ;0E8D81|C908    |      ;
                        BEQ CODE_0E8D8F                      ;0E8D83|F00A    |0E8D8F;
                        CMP.B #$09                           ;0E8D85|C909    |      ;
@@ -1852,12 +1852,12 @@
                        ASL A                                ;0E8D92|0A      |      ;
                        TAY                                  ;0E8D93|A8      |      ;
                        LDA.W DATA8_0E8DE3,Y                 ;0E8D94|B9E38D  |0E8DE3;
-                       STA.B wCurrNumToVramQueue            ;0E8D97|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0E8D97|8508    |000008;
                        LDA.W DATA8_0E8DE4,Y                 ;0E8D99|B9E48D  |0E8DE4;
                        STA.B $09                            ;0E8D9C|8509    |000009;
                        LDY.B #$00                           ;0E8D9E|A000    |      ;
  
-          CODE_0E8DA0: LDA.B (wCurrNumToVramQueue),Y        ;0E8DA0|B108    |000008;
+          CODE_0E8DA0: LDA.B (r_CurrNumToVramQueue),Y       ;0E8DA0|B108    |000008;
                        CMP.B #$FF                           ;0E8DA2|C9FF    |      ;
                        BEQ CODE_0E8D8E                      ;0E8DA4|F0E8    |0E8D8E;
                        INY                                  ;0E8DA6|C8      |      ;
@@ -1871,13 +1871,13 @@
                        BEQ CODE_0E8DDA                      ;0E8DB3|F025    |0E8DDA;
                        LDA.W $0438                          ;0E8DB5|AD3804  |0E0438;
                        CLC                                  ;0E8DB8|18      |      ;
-                       ADC.B (wCurrNumToVramQueue),Y        ;0E8DB9|7108    |000008;
+                       ADC.B (r_CurrNumToVramQueue),Y       ;0E8DB9|7108    |000008;
  
           CODE_0E8DBB: STA.W $0452                          ;0E8DBB|8D5204  |0E0452;
                        INY                                  ;0E8DBE|C8      |      ;
                        LDA.W $041C                          ;0E8DBF|AD1C04  |0E041C;
                        CLC                                  ;0E8DC2|18      |      ;
-                       ADC.B (wCurrNumToVramQueue),Y        ;0E8DC3|7108    |000008;
+                       ADC.B (r_CurrNumToVramQueue),Y       ;0E8DC3|7108    |000008;
                        CMP.B #$38                           ;0E8DC5|C938    |      ;
                        BCC CODE_0E8D89                      ;0E8DC7|90C0    |0E8D89;
                        STA.W $0436                          ;0E8DC9|8D3604  |0E0436;
@@ -1891,7 +1891,7 @@
  
           CODE_0E8DDA: LDA.W $0438                          ;0E8DDA|AD3804  |0E0438;
                        SEC                                  ;0E8DDD|38      |      ;
-                       SBC.B (wCurrNumToVramQueue),Y        ;0E8DDE|F108    |000008;
+                       SBC.B (r_CurrNumToVramQueue),Y       ;0E8DDE|F108    |000008;
                        JMP.W CODE_0E8DBB                    ;0E8DE0|4CBB8D  |0E8DBB;
  
  
@@ -1937,10 +1937,10 @@
                        SEC                                  ;0E8E83|38      |      ;
                        RTS                                  ;0E8E84|60      |      ;
  
-                       LDA.B wInGameSubstate                ;0E8E85|A52A    |00002A;
+                       LDA.B r_InGameSubstate               ;0E8E85|A52A    |00002A;
                        CMP.B #$1B                           ;0E8E87|C91B    |      ;
                        BEQ UNREACH_0E8EB5                   ;0E8E89|F02A    |0E8EB5;
-                       LDA.B wConveyaerRoomEffect           ;0E8E8B|A58B    |00008B;
+                       LDA.B r_ConveyaerRoomEffect          ;0E8E8B|A58B    |00008B;
                        CMP.B #$01                           ;0E8E8D|C901    |      ;
                        BEQ UNREACH_0E8EBA                   ;0E8E8F|F029    |0E8EBA;
                        CMP.B #$0C                           ;0E8E91|C90C    |      ;
@@ -2013,11 +2013,11 @@
                        db $7A,$8E,$A9,$FF,$A0               ;0E8F8C|        |      ;
                        db $80,$4C,$7A,$8E                   ;0E8F91|        |0E8FDF;
  
-          CODE_0E8F95: LDA.B wKnockBackDirrection           ;0E8F95|A590    |000090;
+          CODE_0E8F95: LDA.B r_KnockBackDirrection          ;0E8F95|A590    |000090;
                        AND.B #$7F                           ;0E8F97|297F    |      ;
                        STA.B $00                            ;0E8F99|8500    |000000;
                        TAY                                  ;0E8F9B|A8      |      ;
-                       LDA.B wKnockBackDirrection           ;0E8F9C|A590    |000090;
+                       LDA.B r_KnockBackDirrection          ;0E8F9C|A590    |000090;
                        BPL CODE_0E8FAD                      ;0E8F9E|100D    |0E8FAD;
                        LDA.W UNREACH_0FFD81,Y               ;0E8FA0|B981FD  |0FFD81;
                        STA.W $0537                          ;0E8FA3|8D3705  |0E0537;
@@ -2063,25 +2063,25 @@
                        db $09,$05,$8D,$20,$05               ;0E9019|        |      ;
                        db $8D,$37,$05,$38,$60               ;0E901E|        |0E0537;
  
-          CODE_0E9023: LDX.B wCogwheelID                    ;0E9023|A6D4    |0000D4;
-                       STX.B wCogwheelIDbackup              ;0E9025|86D2    |0000D2;
-                       LDA.B wCogSize                       ;0E9027|A595    |000095;
+          CODE_0E9023: LDX.B r_CogwheelID                   ;0E9023|A6D4    |0000D4;
+                       STX.B r_CogwheelIDbackup             ;0E9025|86D2    |0000D2;
+                       LDA.B r_CogSize                      ;0E9027|A595    |000095;
                        ASL A                                ;0E9029|0A      |      ;
                        TAY                                  ;0E902A|A8      |      ;
                        LDA.W PTR16_0E87E0,Y                 ;0E902B|B9E087  |0E87E0;
-                       STA.B wCurrNumToVramQueue            ;0E902E|8508    |000008;
+                       STA.B r_CurrNumToVramQueue           ;0E902E|8508    |000008;
                        LDA.W PTR16_0E87E1,Y                 ;0E9030|B9E187  |0E87E1;
                        STA.B $09                            ;0E9033|8509    |000009;
-                       LDY.B wCogProximity                  ;0E9035|A493    |000093;
+                       LDY.B r_CogProximity                 ;0E9035|A493    |000093;
                        DEY                                  ;0E9037|88      |      ;
                        BEQ UNREACH_0E9071                   ;0E9038|F037    |0E9071;
                        DEY                                  ;0E903A|88      |      ;
                        BEQ UNREACH_0E9089                   ;0E903B|F04C    |0E9089;
-                       LDA.B wKnockBackDirrection           ;0E903D|A590    |000090;
+                       LDA.B r_KnockBackDirrection          ;0E903D|A590    |000090;
                        AND.B #$7F                           ;0E903F|297F    |      ;
                        STA.B $00                            ;0E9041|8500    |000000;
                        TAY                                  ;0E9043|A8      |      ;
-                       LDA.B (wCurrNumToVramQueue),Y        ;0E9044|B108    |000008;
+                       LDA.B (r_CurrNumToVramQueue),Y       ;0E9044|B108    |000008;
                        STA.W $0509                          ;0E9046|8D0905  |0E0509;
                        LDA.B #$00                           ;0E9049|A900    |      ;
                        STA.W $04F2                          ;0E904B|8DF204  |0E04F2;
@@ -2089,16 +2089,16 @@
                        SEC                                  ;0E9050|38      |      ;
                        SBC.B $00                            ;0E9051|E500    |000000;
                        TAY                                  ;0E9053|A8      |      ;
-                       LDA.B wKnockBackDirrection           ;0E9054|A590    |000090;
+                       LDA.B r_KnockBackDirrection          ;0E9054|A590    |000090;
                        BMI CODE_0E9061                      ;0E9056|3009    |0E9061;
-                       LDA.B (wCurrNumToVramQueue),Y        ;0E9058|B108    |000008;
+                       LDA.B (r_CurrNumToVramQueue),Y       ;0E9058|B108    |000008;
                        STA.W $0537                          ;0E905A|8D3705  |0E0537;
                        LDA.B #$00                           ;0E905D|A900    |      ;
                        BEQ CODE_0E906B                      ;0E905F|F00A    |0E906B;
  
           CODE_0E9061: LDA.B #$00                           ;0E9061|A900    |      ;
                        SEC                                  ;0E9063|38      |      ;
-                       SBC.B (wCurrNumToVramQueue),Y        ;0E9064|F108    |000008;
+                       SBC.B (r_CurrNumToVramQueue),Y       ;0E9064|F108    |000008;
                        STA.W $0537                          ;0E9066|8D3705  |0E0537;
                        LDA.B #$FF                           ;0E9069|A9FF    |      ;
  
@@ -2179,7 +2179,7 @@
                        RTS                                  ;0E9168|60      |      ;
  
  
-          CODE_0E9169: LDY.B wPlayerHight                   ;0E9169|A482    |000082;
+          CODE_0E9169: LDY.B r_PlayerHight                  ;0E9169|A482    |000082;
  
           CODE_0E916B: STY.B $01                            ;0E916B|8401    |000001;
                        LDA.W DATA8_0E9186,Y                 ;0E916D|B98691  |0E9186;
@@ -2202,7 +2202,7 @@
  
          DATA8_0E9186: db $F0,$F0,$F4,$F0,$0F               ;0E9186|        |      ;
                        db $0F,$0B,$0F                       ;0E918B|        |      ;
-                       LDA.B wConveyaerRoomEffect           ;0E918E|A58B    |00008B;
+                       LDA.B r_ConveyaerRoomEffect          ;0E918E|A58B    |00008B;
                        BNE CODE_0E9193                      ;0E9190|D001    |0E9193;
  
           CODE_0E9192: RTS                                  ;0E9192|60      |      ;
@@ -2316,9 +2316,9 @@
                        STA.W $0537                          ;0E9338|8D3705  |0E0537;
                        STA.W $0520                          ;0E933B|8D2005  |0E0520;
                        BEQ CODE_0E932A                      ;0E933E|F0EA    |0E932A;
-                       LDX.B wCogwheelID                    ;0E9340|A6D4    |0000D4;
-                       STX.B wCogwheelIDbackup              ;0E9342|86D2    |0000D2;
-                       LDY.B wCogProximity                  ;0E9344|A493    |000093;
+                       LDX.B r_CogwheelID                   ;0E9340|A6D4    |0000D4;
+                       STX.B r_CogwheelIDbackup             ;0E9342|86D2    |0000D2;
+                       LDY.B r_CogProximity                 ;0E9344|A493    |000093;
                        DEY                                  ;0E9346|88      |      ;
                        BEQ CODE_0E9363                      ;0E9347|F01A    |0E9363;
                        DEY                                  ;0E9349|88      |      ;
@@ -2334,7 +2334,7 @@
                        JMP.W CODE_0E8712                    ;0E9360|4C1287  |0E8712;
  
  
-          CODE_0E9363: LDX.B wCogID                         ;0E9363|A694    |000094;
+          CODE_0E9363: LDX.B r_CogID                        ;0E9363|A694    |000094;
                        LDA.W $04F2,X                        ;0E9365|BDF204  |0E04F2;
                        STA.W $04F2                          ;0E9368|8DF204  |0E04F2;
                        LDA.W $0520,X                        ;0E936B|BD2005  |0E0520;
@@ -3399,14 +3399,14 @@
                        db $60                               ;0EA64E|        |      ;
  
  
-          CODE_0EA64F: LDA.B wPlayerHealth                  ;0EA64F|A53C    |00003C;
+          CODE_0EA64F: LDA.B r_PlayerHealth                 ;0EA64F|A53C    |00003C;
                        BEQ CODE_0EA674                      ;0EA651|F021    |0EA674;
-                       LDA.B wNumHearts                     ;0EA653|A584    |000084;
+                       LDA.B r_NumHearts                    ;0EA653|A584    |000084;
                        BEQ CODE_0EA674                      ;0EA655|F01D    |0EA674;
-                       LDA.B wJoy1NewButtonsPressed         ;0EA657|A526    |000026;
+                       LDA.B r_Joy1NewButtonsPressed        ;0EA657|A526    |000026;
                        AND.B #$80                           ;0EA659|2980    |      ;
                        BEQ CODE_0EA674                      ;0EA65B|F017    |0EA674;
-                       LDA.B wJoy1ButtonsPressed            ;0EA65D|A528    |000028;
+                       LDA.B r_Joy1ButtonsPressed           ;0EA65D|A528    |000028;
                        AND.B #$04                           ;0EA65F|2904    |      ;
                        BEQ CODE_0EA674                      ;0EA661|F011    |0EA674;
                        LDY.B #$00                           ;0EA663|A000    |      ;
@@ -3446,7 +3446,7 @@
                        BNE CODE_0EA6A9                      ;0EA6B4|D0F3    |0EA6A9;
  
           CODE_0EA6B6: LDA.B #$08                           ;0EA6B6|A908    |      ;
-                       STA.B wPlayerHight                   ;0EA6B8|8582    |000082;
+                       STA.B r_PlayerHight                  ;0EA6B8|8582    |000082;
  
           CODE_0EA6BA: RTS                                  ;0EA6BA|60      |      ;
  
