@@ -36,7 +36,7 @@
                        RTS                                  ;018037|60      |      ;
  
  
-        orbCollect_03: LDA.B r_CurrRoomGroupStage           ;018038|A532    |000032;
+        orbCollect_03: LDA.B r_stage                        ;018038|A532    |000032;
                        CMP.B #$0E                           ;01803A|C90E    |      ;
                        BNE CODE_018042                      ;01803C|D004    |018042;
                        LDA.B #$D0                           ;01803E|A9D0    |      ;
@@ -46,7 +46,7 @@
                        JMP.W CODE_018034                    ;018045|4C3480  |018034;
  
  
-        orbCollect_0d: LDY.B r_CurrRoomGroupStage           ;018048|A432    |000032;
+        orbCollect_0d: LDY.B r_stage                        ;018048|A432    |000032;
                        LDA.W DATA8_018078,Y                 ;01804A|B97880  |018078;
                        STA.B $00                            ;01804D|8500    |000000;
                        LDX.B #$01                           ;01804F|A201    |      ;
@@ -77,8 +77,8 @@
                        STA.W $07F3                          ;018082|8DF307  |0107F3;
                        BNE CODE_0180A6                      ;018085|D01F    |0180A6;
  
-        orbCollect_05: LDA.B r_CurrTimeLeft                 ;018087|A57E    |00007E;
-                       ORA.B $7F                            ;018089|057F    |00007F;
+        orbCollect_05: LDA.B r_lvlTimerLo                   ;018087|A57E    |00007E;
+                       ORA.B r_lvlTimerHi                   ;018089|057F    |00007F;
                        BEQ CODE_01809D                      ;01808B|F010    |01809D;
                        db $20                               ;01808D|        |      ;
                        dw UNREACH_0FE656                    ;01808E|        |0FE656;
@@ -121,17 +121,17 @@
  
         orbCollect_07: LDA.W $07F3                          ;0180C3|ADF307  |0107F3;
                        BNE CODE_018099                      ;0180C6|D0D1    |018099;
-                       LDA.B r_NumHearts                    ;0180C8|A584    |000084;
+                       LDA.B r_hearts                       ;0180C8|A584    |000084;
                        BEQ CODE_0180A1                      ;0180CA|F0D5    |0180A1;
-                       DEC.B r_NumHearts                    ;0180CC|C684    |000084;
-                       LDA.B r_NumHearts                    ;0180CE|A584    |000084;
+                       DEC.B r_hearts                       ;0180CC|C684    |000084;
+                       LDA.B r_hearts                       ;0180CE|A584    |000084;
                        AND.B #$0F                           ;0180D0|290F    |      ;
                        CMP.B #$0A                           ;0180D2|C90A    |      ;
                        BCC CODE_0180DE                      ;0180D4|9008    |0180DE;
-                       LDA.B r_NumHearts                    ;0180D6|A584    |000084;
+                       LDA.B r_hearts                       ;0180D6|A584    |000084;
                        AND.B #$F0                           ;0180D8|29F0    |      ;
                        ORA.B #$09                           ;0180DA|0909    |      ;
-                       STA.B r_NumHearts                    ;0180DC|8584    |000084;
+                       STA.B r_hearts                       ;0180DC|8584    |000084;
  
           CODE_0180DE: JSR.W CODE_018093                    ;0180DE|209380  |018093;
                        LDA.B #$20                           ;0180E1|A920    |      ;
@@ -140,7 +140,7 @@
                        JMP.W DATA8_0183BE                   ;0180E7|4CBE83  |0183BE;
  
  
-        orbCollect_09: LDA.B r_PlayerHealth                 ;0180EA|A53C    |00003C;
+        orbCollect_09: LDA.B r_HUD_healthPlayer             ;0180EA|A53C    |00003C;
                        CMP.B #$40                           ;0180EC|C940    |      ;
                        BEQ CODE_0180F5                      ;0180EE|F005    |0180F5;
                        LDA.B #$2C                           ;0180F0|A92C    |      ;
@@ -152,35 +152,35 @@
  
         orbCollect_0a: LDA.W $07F3                          ;0180F8|ADF307  |0107F3;
                        BNE CODE_018099                      ;0180FB|D09C    |018099;
-                       LDA.B r_PlayerHealth                 ;0180FD|A53C    |00003C;
+                       LDA.B r_HUD_healthPlayer             ;0180FD|A53C    |00003C;
                        CLC                                  ;0180FF|18      |      ;
                        ADC.B #$04                           ;018100|6904    |      ;
                        CMP.B #$40                           ;018102|C940    |      ;
                        BCS CODE_01810F                      ;018104|B009    |01810F;
-                       STA.B r_PlayerHealth                 ;018106|853C    |00003C;
+                       STA.B r_HUD_healthPlayer             ;018106|853C    |00003C;
                        LDA.B #$00                           ;018108|A900    |      ;
                        STA.B $00                            ;01810A|8500    |000000;
                        JMP.W CODE_0183C1                    ;01810C|4CC183  |0183C1;
  
  
           CODE_01810F: LDA.B #$40                           ;01810F|A940    |      ;
-                       STA.B r_PlayerHealth                 ;018111|853C    |00003C;
+                       STA.B r_HUD_healthPlayer             ;018111|853C    |00003C;
                        JMP.W CODE_0180A1                    ;018113|4CA180  |0180A1;
  
  
-progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |000032;
+progressionEventSelecter: LDA.B r_stage                        ;018116|A532    |000032;
                        CMP.B #$01                           ;018118|C901    |      ;
                        BNE CODE_01811E                      ;01811A|D002    |01811E;
                        STA.B r_GrantDefeated                ;01811C|852F    |00002F;
  
-          CODE_01811E: LDY.B r_CurrRoomGroupStage           ;01811E|A432    |000032;
+          CODE_01811E: LDY.B r_stage                        ;01811E|A432    |000032;
                        LDA.W DATA8_018171,Y                 ;018120|B97181  |018171;
                        BEQ CODE_01815F                      ;018123|F03A    |01815F;
                        CMP.B #$02                           ;018125|C902    |      ;
                        BEQ CODE_01814C                      ;018127|F023    |01814C;
                        CPY.B #$01                           ;018129|C001    |      ;
                        BNE CODE_018133                      ;01812B|D006    |018133;
-                       LDA.B r_CurrRoomSectionBlock         ;01812D|A533    |000033;
+                       LDA.B r_blockLevel                   ;01812D|A533    |000033;
                        CMP.B #$05                           ;01812F|C905    |      ;
                        BEQ CODE_018168                      ;018131|F035    |018168;
  
@@ -189,17 +189,17 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        db $20                               ;018138|        |      ;
                        dw UNREACH_0FE593                    ;018139|        |0FE593;
                        BCS CODE_01815F                      ;01813B|B022    |01815F;
-                       LDY.B r_CurrRoomGroupStage           ;01813D|A432    |000032;
+                       LDY.B r_stage                        ;01813D|A432    |000032;
                        CPY.B #$07                           ;01813F|C007    |      ;
                        BNE CODE_018149                      ;018141|D006    |018149;
-                       LDA.B r_CurrRoomSectionBlock         ;018143|A533    |000033;
+                       LDA.B r_blockLevel                   ;018143|A533    |000033;
                        CMP.B #$06                           ;018145|C906    |      ;
                        BEQ CODE_01815F                      ;018147|F016    |01815F;
  
           CODE_018149: JMP.W CODE_0180A6                    ;018149|4CA680  |0180A6;
  
  
-          CODE_01814C: LDA.B r_CurrRoomGroupStage           ;01814C|A532    |000032;
+          CODE_01814C: LDA.B r_stage                        ;01814C|A532    |000032;
                        CMP.B #$0E                           ;01814E|C90E    |      ;
                        BNE CODE_018156                      ;018150|D004    |018156;
                        LDA.B #$0C                           ;018152|A90C    |      ; initiate ending sequance
@@ -207,23 +207,23 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
  
           CODE_018156: LDA.B #$08                           ;018156|A908    |      ; initiate map sequance
  
-          CODE_018158: STA.B r_GameState                    ;018158|8518    |000018;
+          CODE_018158: STA.B r_gameState                    ;018158|8518    |000018;
                        LDA.B #$00                           ;01815A|A900    |      ;
-                       STA.B r_GameSubstate                 ;01815C|8519    |000019;
+                       STA.B r_gameSubstate                 ;01815C|8519    |000019;
                        RTS                                  ;01815E|60      |      ;
  
  
           CODE_01815F: LDA.B #$1E                           ;01815F|A91E    |      ;
-                       STA.B r_InGameSubstate               ;018161|852A    |00002A;
+                       STA.B r_gameLoadState                ;018161|852A    |00002A;
                        LDA.B #$00                           ;018163|A900    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;018165|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;018165|856B    |00006B;
                        RTS                                  ;018167|60      |      ;
  
  
           CODE_018168: LDA.B #$18                           ;018168|A918    |      ;
-                       STA.B r_InGameSubstate               ;01816A|852A    |00002A;
+                       STA.B r_gameLoadState                ;01816A|852A    |00002A;
                        LDA.B #$02                           ;01816C|A902    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;01816E|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;01816E|856B    |00006B;
                        RTS                                  ;018170|60      |      ;
  
  
@@ -243,7 +243,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
  
           CODE_01819B: LDA.W $054E,X                        ;01819B|BD4E05  |01054E;
                        BEQ CODE_0181BA                      ;01819E|F01A    |0181BA;
-                       LDY.B r_CurrRoomGroupStage           ;0181A0|A432    |000032;
+                       LDY.B r_stage                        ;0181A0|A432    |000032;
                        CPY.B #$02                           ;0181A2|C002    |      ;
                        BNE CODE_0181AC                      ;0181A4|D006    |0181AC;
                        JSR.W CODE_01966F                    ;0181A6|206F96  |01966F;
@@ -296,7 +296,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        JMP.W CODE_018263                    ;01820A|4C6382  |018263;
  
  
-          CODE_01820D: LDY.B r_PartnerIdx                   ;01820D|A43A    |00003A;
+          CODE_01820D: LDY.B r_partner                      ;01820D|A43A    |00003A;
                        CPY.B #$FF                           ;01820F|C0FF    |      ;
                        BEQ CODE_018263                      ;018211|F050    |018263;
                        LDA.W $054E                          ;018213|AD4E05  |01054E;
@@ -309,10 +309,10 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
           CODE_01821E: STA.W $0606,X                        ;01821E|9D0606  |010606;
                        LDY.W $054E                          ;018221|AC4E05  |01054E;
                        BNE CODE_01822A                      ;018224|D004    |01822A;
-                       LDY.B r_PartnerIdx                   ;018226|A43A    |00003A;
+                       LDY.B r_partner                      ;018226|A43A    |00003A;
                        BNE CODE_01822C                      ;018228|D002    |01822C;
  
-          CODE_01822A: LDY.B r_UsableChars                  ;01822A|A439    |000039;
+          CODE_01822A: LDY.B r_039                          ;01822A|A439    |000039;
  
           CODE_01822C: LDA.W DATA8_018286,Y                 ;01822C|B98682  |018286;
                        STA.W $0400,X                        ;01822F|9D0004  |010400;
@@ -326,7 +326,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        JMP.W CODE_018263                    ;018242|4C6382  |018263;
  
  
-          CODE_018245: LDA.B r_CurrRoomGroupStage           ;018245|A532    |000032;
+          CODE_018245: LDA.B r_stage                        ;018245|A532    |000032;
                        CMP.B #$02                           ;018247|C902    |      ;
                        BNE CODE_018263                      ;018249|D018    |018263;
                        LDA.B #$06                           ;01824B|A906    |      ;
@@ -376,7 +376,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        dw orbCollect_01                     ;01829C|        |01838A;
                        dw CODE_018393                       ;01829E|        |018393;
  
-          CODE_0182A0: LDA.B r_CurrRoomGroupStage           ;0182A0|A532    |000032;
+          CODE_0182A0: LDA.B r_stage                        ;0182A0|A532    |000032;
                        CMP.B #$02                           ;0182A2|C902    |      ;
                        BNE CODE_0182A7                      ;0182A4|D001    |0182A7;
                        RTS                                  ;0182A6|60      |      ;
@@ -388,7 +388,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        RTS                                  ;0182AF|60      |      ;
  
  
-          CODE_0182B0: LDY.B r_CurrRoomGroupStage           ;0182B0|A432    |000032;
+          CODE_0182B0: LDY.B r_stage                        ;0182B0|A432    |000032;
                        LDA.W DATA8_0182BB,Y                 ;0182B2|B9BB82  |0182BB;
                        STA.W $07EF                          ;0182B5|8DEF07  |0107EF;
                        JMP.W CODE_0182C3                    ;0182B8|4CC382  |0182C3;
@@ -407,14 +407,14 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
           CODE_0182CC: LDA.B $B4                            ;0182CC|A5B4    |0000B4;
                        CMP.B #$FF                           ;0182CE|C9FF    |      ;
                        BEQ CODE_01830A                      ;0182D0|F038    |01830A;
-                       LDA.B r_VramQueueNextIdxToFill       ;0182D2|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0182D2|A51D    |00001D;
                        PHA                                  ;0182D4|48      |      ;
                        JSR.W CODE_01831E                    ;0182D5|201E83  |01831E;
                        LDA.W $07EC                          ;0182D8|ADEC07  |0107EC;
                        CMP.B #$02                           ;0182DB|C902    |      ;
                        BCS CODE_0182F3                      ;0182DD|B014    |0182F3;
                        PLA                                  ;0182DF|68      |      ;
-                       STA.B r_015                          ;0182E0|8515    |000015;
+                       STA.B r_15                           ;0182E0|8515    |000015;
                        LDY.B #$00                           ;0182E2|A000    |      ;
  
           CODE_0182E4: LDA.W PTR16_01831A,Y                 ;0182E4|B91A83  |01831A;
@@ -427,12 +427,12 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        dw titleScreenThunderMain            ;0182F1|        |0FE62F;
  
           CODE_0182F3: PLA                                  ;0182F3|68      |      ;
-                       STA.B r_015                          ;0182F4|8515    |000015;
+                       STA.B r_15                           ;0182F4|8515    |000015;
                        PHA                                  ;0182F6|48      |      ;
                        LDY.B #$02                           ;0182F7|A002    |      ;
                        JSR.W CODE_0182E4                    ;0182F9|20E482  |0182E4;
                        PLA                                  ;0182FC|68      |      ;
-                       STA.B r_015                          ;0182FD|8515    |000015;
+                       STA.B r_15                           ;0182FD|8515    |000015;
                        LDA.B $B4                            ;0182FF|A5B4    |0000B4;
                        CMP.B #$05                           ;018301|C905    |      ;
                        BNE CODE_018309                      ;018303|D004    |018309;
@@ -467,7 +467,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
  
          PTR16_018332: dw DATA8_01852C                      ;018332|        |01852C;
  
-          CODE_018334: LDA.B r_VramQueueNextIdxToFill       ;018334|A51D    |00001D;
+          CODE_018334: LDA.B r_sceneDrawQueue               ;018334|A51D    |00001D;
                        SEC                                  ;018336|38      |      ;
                        SBC.B #$19                           ;018337|E919    |      ;
                        TAX                                  ;018339|AA      |      ;
@@ -528,13 +528,13 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
  
  
           CODE_018393: LDA.B #$1D                           ;018393|A91D    |      ;
-                       STA.B r_ChrBankSpr_0c00              ;018395|8549    |000049;
+                       STA.B r_CHR_BankSpr_0c00             ;018395|8549    |000049;
                        db $20                               ;018397|        |      ;
                        dw CODE_0FE33C                       ;018398|        |0FE33C;
                        LDA.B #$41                           ;01839A|A941    |      ;
-                       STA.B r_ChrBankBG_0000               ;01839C|854A    |00004A;
+                       STA.B r_CHR_BankBG_0000              ;01839C|854A    |00004A;
                        LDA.B #$6F                           ;01839E|A96F    |      ;
-                       STA.B r_ChrBankBG_0c00               ;0183A0|854D    |00004D;
+                       STA.B r_CHR_BankBG_0c00              ;0183A0|854D    |00004D;
                        db $20                               ;0183A2|        |      ;
                        dw CODE_0FE35D                       ;0183A3|        |0FE35D;
                        JSR.W UNREACH_019181                 ;0183A5|208191  |019181;
@@ -542,9 +542,9 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        STA.W $07ED                          ;0183AA|8DED07  |0107ED;
                        INC.W $07EC                          ;0183AD|EEEC07  |0107EC;
                        LDA.B #$00                           ;0183B0|A900    |      ;
-                       STA.B r_FrameStartChrBankOverrideIdx ;0183B2|8572    |000072;
+                       STA.B r_HUD_CHR_overwrite            ;0183B2|8572    |000072;
                        LDA.B #$80                           ;0183B4|A980    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;0183B6|853F    |00003F;
+                       STA.B r_IRQFuncIdx                   ;0183B6|853F    |00003F;
                        LDA.B #$6B                           ;0183B8|A96B    |      ;
                        db $20                               ;0183BA|        |      ;
                        dw CODE_0FE25F                       ;0183BB|        |0FE25F;
@@ -1052,7 +1052,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
  
  
           CODE_018979: STA.B $04                            ;018979|8504    |000004;
-                       LDX.B r_VramQueueNextIdxToFill       ;01897B|A61D    |00001D;
+                       LDX.B r_sceneDrawQueue               ;01897B|A61D    |00001D;
                        LDA.B #$01                           ;01897D|A901    |      ;
                        JSR.W CODE_018A21                    ;01897F|20218A  |018A21;
                        LDA.W $07F2                          ;018982|ADF207  |0107F2;
@@ -1090,7 +1090,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
           CODE_0189BA: JSR.W CODE_018A21                    ;0189BA|20218A  |018A21;
                        LDA.B #$FF                           ;0189BD|A9FF    |      ;
                        JSR.W CODE_018A21                    ;0189BF|20218A  |018A21;
-                       STX.B r_VramQueueNextIdxToFill       ;0189C2|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;0189C2|861D    |00001D;
                        LDA.B $04                            ;0189C4|A504    |000004;
                        CMP.B #$40                           ;0189C6|C940    |      ;
                        BCC CODE_018A10                      ;0189C8|9046    |018A10;
@@ -1130,7 +1130,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        JSR.W CODE_018A21                    ;018A06|20218A  |018A21;
                        LDA.B #$FF                           ;018A09|A9FF    |      ;
                        JSR.W CODE_018A21                    ;018A0B|20218A  |018A21;
-                       STX.B r_VramQueueNextIdxToFill       ;018A0E|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;018A0E|861D    |00001D;
  
           CODE_018A10: INC.W $07F1                          ;018A10|EEF107  |0107F1;
                        CLC                                  ;018A13|18      |      ;
@@ -1714,7 +1714,7 @@ progressionEventSelecter: LDA.B r_CurrRoomGroupStage           ;018116|A532    |
                        db $93,$8D,$07,$20,$E6               ;019258|        |00008D;
                        db $07,$A5,$07,$C9,$38               ;01925D|        |0000A5;
                        db $D0,$E9,$60                       ;019262|        |01924D;
-                       LDY.B r_CurrRoomGroupStage           ;019265|A432    |000032;
+                       LDY.B r_stage                        ;019265|A432    |000032;
                        LDA.W getHelperScreenUpdatesIndex,Y  ;019267|B99692  |019296;
                        TAY                                  ;01926A|A8      |      ;
  
@@ -1769,19 +1769,19 @@ getHelperSymphaUpdates: dw $8402                             ;0192B1|        |  
                        ASL A                                ;0192E5|0A      |      ;
                        TAY                                  ;0192E6|A8      |      ;
                        LDA.W UNREACH_019423,Y               ;0192E7|B92394  |019423;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0192EA|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0192EA|8510    |000010;
                        LDA.W UNREACH_019424,Y               ;0192EC|B92494  |019424;
-                       STA.B r_CollisionPointYinScreen      ;0192EF|8511    |000011;
+                       STA.B r_collisionPointYinScreen      ;0192EF|8511    |000011;
                        LDY.W $07F3                          ;0192F1|ACF307  |0107F3;
                        LDA.W UNREACH_01941C,Y               ;0192F4|B91C94  |01941C;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0192F7|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0192F7|850A    |00000A;
                        LDY.B #$00                           ;0192F9|A000    |      ;
-                       LDX.B r_VramQueueNextIdxToFill       ;0192FB|A61D    |00001D;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0192FD|A50A    |00000A;
+                       LDX.B r_sceneDrawQueue               ;0192FB|A61D    |00001D;
+                       LDA.B r_temp_Xpos                    ;0192FD|A50A    |00000A;
                        AND.B #$0F                           ;0192FF|290F    |      ;
                        LSR A                                ;019301|4A      |      ;
                        STA.B $09                            ;019302|8509    |000009;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;019304|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;019304|A50A    |00000A;
                        AND.B #$E0                           ;019306|29E0    |      ;
                        LSR A                                ;019308|4A      |      ;
                        LSR A                                ;019309|4A      |      ;
@@ -1791,19 +1791,19 @@ getHelperSymphaUpdates: dw $8402                             ;0192B1|        |  
                        STA.B $09                            ;01930F|8509    |000009;
                        LDA.B $17                            ;019311|A517    |000017;
                        ORA.B #$03                           ;019313|0903    |      ;
-                       STA.B r_CurrNumToVramQueue           ;019315|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;019315|8508    |000008;
                        LDA.B #$0A                           ;019317|A90A    |      ;
                        JSR.W CODE_018A21                    ;019319|20218A  |018A21;
                        LDA.B $09                            ;01931C|A509    |000009;
                        JSR.W CODE_018A21                    ;01931E|20218A  |018A21;
-                       LDA.B r_CurrNumToVramQueue           ;019321|A508    |000008;
+                       LDA.B r_pointerQueue_VRAM            ;019321|A508    |000008;
                        JSR.W CODE_018A21                    ;019323|20218A  |018A21;
                        LDA.B $06                            ;019326|A506    |000006;
                        JSR.W CODE_018A21                    ;019328|20218A  |018A21;
-                       STX.B r_015                          ;01932B|8615    |000015;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;01932D|A50A    |00000A;
+                       STX.B r_15                           ;01932B|8615    |000015;
+                       LDA.B r_temp_Xpos                    ;01932D|A50A    |00000A;
                        STA.B $0B                            ;01932F|850B    |00000B;
-                       LDA.B (r_CurrDrawnEntityCachedAttr),Y;019331|B110    |000010;
+                       LDA.B (r_currOAM_Attr),Y             ;019331|B110    |000010;
                        CMP.B #$FE                           ;019333|C9FE    |      ;
                        BNE UNREACH_01933A                   ;019335|D003    |01933A;
                        JMP.W CODE_0193D3                    ;019337|4CD393  |0193D3;
@@ -1841,7 +1841,7 @@ getHelperSymphaUpdates: dw $8402                             ;0192B1|        |  
                        db $18,$69,$10,$85,$0A               ;0193CB|        |      ;
                        db $4C,$FD,$92                       ;0193D0|        |0192FD;
  
-          CODE_0193D3: STX.B r_VramQueueNextIdxToFill       ;0193D3|861D    |00001D;
+          CODE_0193D3: STX.B r_sceneDrawQueue               ;0193D3|861D    |00001D;
                        RTS                                  ;0193D5|60      |      ;
  
                        db $84,$0E,$A5,$10,$48               ;0193D6|        |00000E;
@@ -2362,8 +2362,8 @@ getHelperSymphaUpdates: dw $8402                             ;0192B1|        |  
                        db $20,$0F,$0F,$36,$15               ;019D8D|        |010F0F;
                        db $FF                               ;019D92|        |A61686;
  
-symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |000016;
-                       LDX.B r_VramQueueNextIdxToFill       ;019D95|A61D    |00001D;
+symphaScreenUpdateStatue: STX.B r_coreLoadingFuncAddr          ;019D93|8616    |000016;
+                       LDX.B r_sceneDrawQueue               ;019D95|A61D    |00001D;
                        LDY.B #$00                           ;019D97|A000    |      ;
  
           CODE_019D99: LDA.W screenClearUpdate00,Y          ;019D99|B9AA9D  |019DAA;
@@ -2372,8 +2372,8 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        INX                                  ;019DA0|E8      |      ;
                        CPY.B #$0A                           ;019DA1|C00A    |      ;
                        BNE CODE_019D99                      ;019DA3|D0F4    |019D99;
-                       STX.B r_VramQueueNextIdxToFill       ;019DA5|861D    |00001D;
-                       LDX.B r_CoreLoadingFuncAddr          ;019DA7|A616    |000016;
+                       STX.B r_sceneDrawQueue               ;019DA5|861D    |00001D;
+                       LDX.B r_coreLoadingFuncAddr          ;019DA7|A616    |000016;
                        RTS                                  ;019DA9|60      |      ;
  
  
@@ -2533,7 +2533,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
        chrAnimRoutine: DEC.W $0781                          ;019F8D|CE8107  |010781;
                        BNE CODE_019FB8                      ;019F90|D026    |019FB8;
-                       LDA.B r_CurrentRoomEffect            ;019F92|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;019F92|A57D    |00007D;
                        AND.B #$0F                           ;019F94|290F    |      ;
                        ASL A                                ;019F96|0A      |      ;
                        TAY                                  ;019F97|A8      |      ;
@@ -2550,7 +2550,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
           CODE_019FAD: LDA.B (r_IRQFuncAddr),Y              ;019FAD|B144    |000044;
                        CMP.B #$FF                           ;019FAF|C9FF    |      ;
                        BEQ resetCHRanim                     ;019FB1|F006    |019FB9;
-                       STA.B r_ChrBankBG_0400               ;019FB3|854B    |00004B;
+                       STA.B r_CHR_BankBG_0400              ;019FB3|854B    |00004B;
                        STY.W $0780                          ;019FB5|8C8007  |010780;
  
           CODE_019FB8: RTS                                  ;019FB8|60      |      ;
@@ -2628,16 +2628,16 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
           CODE_01A097: LDX.B #$03                           ;01A097|A203    |      ;
                        db $20                               ;01A099|        |      ;
                        dw wait50cycles                      ;01A09A|        |0FE001;
-                       LDA.B $75                            ;01A09C|A575    |000075;
+                       LDA.B r_075                          ;01A09C|A575    |000075;
                        AND.B #$01                           ;01A09E|2901    |      ;
                        STA.B r_IRQFuncAddr                  ;01A0A0|8544    |000044;
-                       LDA.B r_GameplayScrollXRoom          ;01A0A2|A570    |000070;
+                       LDA.B r_scrollStartOffsetHi          ;01A0A2|A570    |000070;
                        AND.B #$01                           ;01A0A4|2901    |      ;
                        EOR.B r_IRQFuncAddr                  ;01A0A6|4544    |000044;
                        ORA.B #$B0                           ;01A0A8|09B0    |      ;
                        TAX                                  ;01A0AA|AA      |      ;
                        LDA.W $2002                          ;01A0AB|AD0220  |012002;
-                       LDA.B r_GameplayScrollXWithinRoom    ;01A0AE|A56F    |00006F;
+                       LDA.B r_scrollStartOffsetLo          ;01A0AE|A56F    |00006F;
                        STA.W $2005                          ;01A0B0|8D0520  |012005;
                        LDA.B #$00                           ;01A0B3|A900    |      ;
                        STA.W $2005                          ;01A0B5|8D0520  |012005;
@@ -2649,11 +2649,11 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        JSR.W CODE_019FCB                    ;01A0BF|20CB9F  |019FCB;
                        db $20                               ;01A0C2|        |      ;
                        dw CODE_0FE36D                       ;01A0C3|        |0FE36D;
-                       LDA.B r_CurrentRoomEffect            ;01A0C5|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;01A0C5|A57D    |00007D;
                        AND.B #$F0                           ;01A0C7|29F0    |      ;
                        CMP.B #$40                           ;01A0C9|C940    |      ;
                        BEQ CODE_01A0D7                      ;01A0CB|F00A    |01A0D7;
-                       LDA.B r_LoadCHRbeforeSwap            ;01A0CD|A5B0    |0000B0;
+                       LDA.B r_defaultCHR                   ;01A0CD|A5B0    |0000B0;
                        BEQ DATA8_01A0D4                     ;01A0CF|F003    |01A0D4;
                        db $20                               ;01A0D1|        |      ;
                        dw CODE_0FE33C                       ;01A0D2|        |0FE33C;
@@ -2667,11 +2667,11 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
  
           CODE_01A0DD: LDY.W $0780                          ;01A0DD|AC8007  |010780;
-                       LDA.B r_GameplayScrollXWithinRoom    ;01A0E0|A56F    |00006F;
+                       LDA.B r_scrollStartOffsetLo          ;01A0E0|A56F    |00006F;
                        CLC                                  ;01A0E2|18      |      ;
                        ADC.W $0783,Y                        ;01A0E3|798307  |010783;
                        STA.B $D5                            ;01A0E6|85D5    |0000D5;
-                       LDA.B r_GameplayScrollXRoom          ;01A0E8|A570    |000070;
+                       LDA.B r_scrollStartOffsetHi          ;01A0E8|A570    |000070;
                        ADC.B #$00                           ;01A0EA|6900    |      ;
                        STA.B $D6                            ;01A0EC|85D6    |0000D6;
                        RTS                                  ;01A0EE|60      |      ;
@@ -2685,7 +2685,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        dw CODE_0FE36D                       ;01A0FC|        |0FE36D;
                        LDA.B $89                            ;01A0FE|A589    |000089;
                        STA.W $5203                          ;01A100|8D0352  |015203;
-                       LDA.B r_CurrentRoomEffect            ;01A103|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;01A103|A57D    |00007D;
                        AND.B #$0F                           ;01A105|290F    |      ;
                        TAY                                  ;01A107|A8      |      ;
                        LDA.W DATA8_01A11D,Y                 ;01A108|B91DA1  |01A11D;
@@ -2694,7 +2694,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        LDA.B #$04                           ;01A111|A904    |      ;
                        CLC                                  ;01A113|18      |      ;
                        ADC.B $89                            ;01A114|6589    |000089;
-                       STA.B r_BaseIRQScanlineCmpVal        ;01A116|8543    |000043;
+                       STA.B r_IRQScanlineCmpVal            ;01A116|8543    |000043;
                        INC.B r_IRQFuncDrawIdx               ;01A118|E66D    |00006D;
                        db $4C                               ;01A11A|        |      ;
  
@@ -3171,14 +3171,14 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        LDA.B #$01                           ;01A83E|A901    |      ;
                        STA.W $0793                          ;01A840|8D9307  |010793;
                        LDA.B #$7F                           ;01A843|A97F    |      ;
-                       STA.B r_ChrBankBG_0000               ;01A845|854A    |00004A;
-                       STA.B r_ChrBankBG_0400               ;01A847|854B    |00004B;
-                       STA.B r_ChrBankBG_0800               ;01A849|854C    |00004C;
-                       STA.B r_ChrBankBG_0c00               ;01A84B|854D    |00004D;
+                       STA.B r_CHR_BankBG_0000              ;01A845|854A    |00004A;
+                       STA.B r_CHR_BankBG_0400              ;01A847|854B    |00004B;
+                       STA.B r_CHR_BankBG_0800              ;01A849|854C    |00004C;
+                       STA.B r_CHR_BankBG_0c00              ;01A84B|854D    |00004D;
                        LDA.B #$00                           ;01A84D|A900    |      ;
-                       STA.B r_ChrBankSpr_0000              ;01A84F|8546    |000046;
+                       STA.B r_CHR_BankSpr_0000             ;01A84F|8546    |000046;
                        LDA.B #$01                           ;01A851|A901    |      ;
-                       STA.B r_ChrBankSpr_0400              ;01A853|8547    |000047;
+                       STA.B r_CHR_BankSpr_0400             ;01A853|8547    |000047;
                        db $20                               ;01A855|        |      ;
                        dw CODE_0FE33C                       ;01A856|        |0FE33C;
                        JSR.W CODE_01AB73                    ;01A858|2073AB  |01AB73;
@@ -3192,7 +3192,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        LDX.B #$00                           ;01A868|A200    |      ;
                        JSR.W UNREACH_01AC7C                 ;01A86A|207CAC  |01AC7C;
                        LDA.B #$55                           ;01A86D|A955    |      ;
-                       STA.B r_NametableMapping             ;01A86F|8525    |000025;
+                       STA.B r_updateNametable              ;01A86F|8525    |000025;
                        LDA.B r_PPUCtrl                      ;01A871|A5FF    |0000FF;
                        ORA.B #$02                           ;01A873|0902    |      ;
                        STA.B r_PPUCtrl                      ;01A875|85FF    |0000FF;
@@ -3273,7 +3273,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        BCC CODE_01A91A                      ;01A8FF|9019    |01A91A;
                        JSR.W UNREACH_01A794                 ;01A901|2094A7  |01A794;
                        LDA.B #$21                           ;01A904|A921    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;01A906|853F    |00003F;
+                       STA.B r_IRQFuncIdx                   ;01A906|853F    |00003F;
                        LDA.B #$01                           ;01A908|A901    |      ;
                        STA.W $078F                          ;01A90A|8D8F07  |01078F;
                        LDA.B #$80                           ;01A90D|A980    |      ;
@@ -3288,9 +3288,9 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
    generalLoadTable08: JSR.W UNREACH_01AD34                 ;01A91B|2034AD  |01AD34;
                        LDA.B #$00                           ;01A91E|A900    |      ;
-                       STA.B r_CurrNumToVramQueue           ;01A920|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;01A920|8508    |000008;
                        JSR.W UNREACH_01A798                 ;01A922|2098A7  |01A798;
-                       LDA.B r_CurrNumToVramQueue           ;01A925|A508    |000008;
+                       LDA.B r_pointerQueue_VRAM            ;01A925|A508    |000008;
                        CMP.B #$09                           ;01A927|C909    |      ;
                        BCS CODE_01A92F                      ;01A929|B004    |01A92F;
                        JSR.W generalLoadTable09             ;01A92B|2045A9  |01A945;
@@ -3299,9 +3299,9 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
           CODE_01A92F: JSR.W UNREACH_01AE88                 ;01A92F|2088AE  |01AE88;
                        LDA.B #$1E                           ;01A932|A91E    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;01A934|853F    |00003F;
+                       STA.B r_IRQFuncIdx                   ;01A934|853F    |00003F;
                        LDA.B #$80                           ;01A936|A980    |      ;
-                       STA.B r_BaseIRQStatus                ;01A938|8540    |000040;
+                       STA.B r_IRQStatus                    ;01A938|8540    |000040;
                        LDA.B #$01                           ;01A93A|A901    |      ;
                        STA.W $078F                          ;01A93C|8D8F07  |01078F;
                        INC.W $07EC                          ;01A93F|EEEC07  |0107EC;
@@ -3361,7 +3361,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
                        STA.W $07EF                          ;01A9A6|8DEF07  |0107EF;
                        STA.W $07F0                          ;01A9A9|8DF007  |0107F0;
                        LDA.B #$7B                           ;01A9AC|A97B    |      ;
-                       STA.B r_ChrBankSpr_0c00              ;01A9AE|8549    |000049;
+                       STA.B r_CHR_BankSpr_0c00             ;01A9AE|8549    |000049;
                        db $20                               ;01A9B0|        |      ;
                        dw CODE_0FE33C                       ;01A9B1|        |0FE33C;
                        LDA.B #$0C                           ;01A9B3|A90C    |      ;
@@ -3378,7 +3378,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
  
    generalLoadTable0e: JSR.W UNREACH_01AD34                 ;01A9CE|2034AD  |01AD34;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;01A9D1|A510    |000010;
+                       LDA.B r_currOAM_Attr                 ;01A9D1|A510    |000010;
                        BNE CODE_01A9D6                      ;01A9D3|D001    |01A9D6;
                        RTS                                  ;01A9D5|60      |      ;
  
@@ -3552,7 +3552,7 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
  
    generalLoadTable1b: LDA.B #$55                           ;01AAFC|A955    |      ;
-                       STA.B r_NametableMapping             ;01AAFE|8525    |000025;
+                       STA.B r_updateNametable              ;01AAFE|8525    |000025;
                        LDA.B #$80                           ;01AB00|A980    |      ;
                        STA.W $07ED                          ;01AB02|8DED07  |0107ED;
                        LDA.B #$00                           ;01AB05|A900    |      ;
@@ -3597,20 +3597,20 @@ symphaScreenUpdateStatue: STX.B r_CoreLoadingFuncAddr          ;019D93|8616    |
  
  
    generalLoadTable1f: LDA.B #$00                           ;01AB52|A900    |      ;
-                       STA.B r_CoreLoadingFuncAddr          ;01AB54|8516    |000016;
+                       STA.B r_coreLoadingFuncAddr          ;01AB54|8516    |000016;
                        JSR.W UNREACH_01AD34                 ;01AB56|2034AD  |01AD34;
-                       LDA.B r_CoreLoadingFuncAddr          ;01AB59|A516    |000016;
+                       LDA.B r_coreLoadingFuncAddr          ;01AB59|A516    |000016;
                        BEQ CODE_01AB5E                      ;01AB5B|F001    |01AB5E;
                        RTS                                  ;01AB5D|60      |      ;
  
  
           CODE_01AB5E: LDA.B #$44                           ;01AB5E|A944    |      ;
-                       STA.B r_NametableMapping             ;01AB60|8525    |000025;
+                       STA.B r_updateNametable              ;01AB60|8525    |000025;
                        JMP.W endGenerelLoad                 ;01AB62|4C9BA8  |01A89B;
  
  
    generalLoadTable20: LDA.B #$00                           ;01AB65|A900    |      ;
-                       STA.B r_GameSubstate                 ;01AB67|8519    |000019;
+                       STA.B r_gameSubstate                 ;01AB67|8519    |000019;
                        LDA.B r_PPUCtrl                      ;01AB69|A5FF    |0000FF;
                        AND.B #$F0                           ;01AB6B|29F0    |      ;
                        STA.B r_PPUCtrl                      ;01AB6D|85FF    |0000FF;

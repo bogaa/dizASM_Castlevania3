@@ -269,7 +269,7 @@
                        BNE CODE_03853F                      ;03851C|D021    |03853F;
                        LDA.W $061D,X                        ;03851E|BD1D06  |03061D;
                        BNE CODE_03853E                      ;038521|D01B    |03853E;
-                       LDY.B r_CurrRoomGroupStage           ;038523|A432    |000032;
+                       LDY.B r_stage                        ;038523|A432    |000032;
                        CPY.B #$03                           ;038525|C003    |      ;
                        BEQ CODE_038534                      ;038527|F00B    |038534;
                        LDA.B #$30                           ;038529|A930    |      ;
@@ -292,7 +292,7 @@
                        BEQ UNREACH_038558                   ;038542|F014    |038558;
                        CMP.B #$01                           ;038544|C901    |      ;
                        BEQ UNREACH_03855B                   ;038546|F013    |03855B;
-                       LDA.B r_CurrRoomGroupStage           ;038548|A532    |000032;
+                       LDA.B r_stage                        ;038548|A532    |000032;
                        CMP.B #$03                           ;03854A|C903    |      ;
                        BEQ UNREACH_03855E                   ;03854C|F010    |03855E;
                        LDA.W $07EE                          ;03854E|ADEE07  |0307EE;

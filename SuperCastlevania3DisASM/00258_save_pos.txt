@@ -1322,7 +1322,7 @@ AD0F
 +L0F
 .D0F
 +T0F
-+H0F
++H
 .D0F
 .D0F
 +D0F
@@ -1335,47 +1335,47 @@ AD0F
 .D0F
 +D0F
 .D0F
-+D0F
++D
 .D0F
 .D0F
 +D0F
 +D0F
-+D0F
-.D0F
-.D0F
-+D0F
-+D0F
-.D0F
-+D0F
-+D0F
-.D0F
-.D0F
-+D0F
++D
 .D0F
 .D0F
 +D0F
 +D0F
 .D0F
-+D0F
++D
++D
+.D0F
+.D0F
++D
 .D0F
 .D0F
 +D0F
 +D0F
 .D0F
-.D0F
-+D0F
-.D0F
-.D0F
-+D0F
++D
 .D0F
 .D0F
 +D0F
++D
+.D0F
+.D0F
++D
+.D0F
+.D0F
++D
+.D0F
+.D0F
++D
 .j0F
 +L0F
 .D0F
 +D0F
 .D0F
-+D0F
++D
 .D0F
 .D0F
 +X0F
@@ -1384,7 +1384,6 @@ Ej0F
 r 11 ED0F
 EL0F
 r 16 ED0F
-r 18 AD0F
-r 15 UD0F
-UT0F
-r 13 UD0F
+r 33 AD0F
+AT0F
+r 13 AD0F

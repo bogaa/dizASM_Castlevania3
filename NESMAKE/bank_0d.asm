@@ -3,23 +3,23 @@
  
               bank_9a: db $9A                               ;0D8000|        |      ; PRG 34000
  
-        mainSpriteOAM: LDA.B r_GameState                    ;0D8001|A518    |000025;
+        mainSpriteOAM: LDA.B r_gameState                    ;0D8001|A518    |000025;
                        CMP.B #$0C                           ;0D8003|C90C    |      ;
                        BNE CODE_0D800A                      ;0D8005|D003    |0D800A;
                        JMP.W CODE_0D8188                    ;0D8007|4C8881  |0D8188;
  
  
           CODE_0D800A: LDA.B #$00                           ;0D800A|A900    |      ;
-                       STA.B r_CollisionPointXvalDiv32-$D   ;0D800C|8505    |000012;
+                       STA.B r_collisionPointXvalDiv32-$D   ;0D800C|8505    |000012;
                        LDA.B #$40                           ;0D800E|A940    |      ;
-                       STA.B r_CollisionPointAbsoluteXRoom-$D;0D8010|8507    |000014;
-                       LDA.B r_CurrFrameStartingOamOffset   ;0D8012|A520    |00002D;
+                       STA.B r_collisionPointAbsoluteXRoom-$D;0D8010|8507    |000014;
+                       LDA.B r_spriteOffsetOAM              ;0D8012|A520    |00002D;
                        CLC                                  ;0D8014|18      |      ;
                        ADC.B #$44                           ;0D8015|6944    |      ;
-                       STA.B r_CurrFrameStartingOamOffset   ;0D8017|8520    |00002D;
-                       STA.B r_CollisionPointYinScreen-$D   ;0D8019|8504    |000011;
+                       STA.B r_spriteOffsetOAM              ;0D8017|8520    |00002D;
+                       STA.B r_collisionPointYinScreen-$D   ;0D8019|8504    |000011;
  
-          CODE_0D801B: LDX.B r_CollisionPointXvalDiv32-$D   ;0D801B|A605    |000012;
+          CODE_0D801B: LDX.B r_collisionPointXvalDiv32-$D   ;0D801B|A605    |000012;
                        CPX.B #$1C                           ;0D801D|E01C    |      ;
                        BCS CODE_0D8041                      ;0D801F|B020    |0D8041;
                        LDA.W $0400,X                        ;0D8021|BD0004  |0D0400;
@@ -27,18 +27,18 @@
                        LDA.W $0470,X                        ;0D8026|BD7004  |0D0470;
                        BMI CODE_0D803D                      ;0D8029|3012    |0D803D;
                        LDA.W $0454,X                        ;0D802B|BD5404  |0D0454;
-                       STA.B r_DoubleCurrSection-$D         ;0D802E|8500    |00000D;
+                       STA.B r_tempCurrSection-$D           ;0D802E|8500    |00000D;
                        LDA.W $041C,X                        ;0D8030|BD1C04  |0D041C;
-                       STA.B r_DoubleCurrRoomIdx-$D         ;0D8033|8501    |00000E;
+                       STA.B r_tempCurrRoomIdx-$D           ;0D8033|8501    |00000E;
                        LDA.W $0438,X                        ;0D8035|BD3804  |0D0438;
-                       STA.B r_RoomSectionChrBanksDataOffset-$D;0D8038|8502    |00000F;
+                       STA.B r_roomSectionChrBanksDataOffset-$D;0D8038|8502    |00000F;
                        JSR.W CODE_0D8079                    ;0D803A|207980  |0D8079;
  
-          CODE_0D803D: INC.B r_CollisionPointXvalDiv32-$D   ;0D803D|E605    |000012;
+          CODE_0D803D: INC.B r_collisionPointXvalDiv32-$D   ;0D803D|E605    |000012;
                        BNE CODE_0D801B                      ;0D803F|D0DA    |0D801B;
  
-          CODE_0D8041: LDX.B r_CollisionPointYinScreen-$D   ;0D8041|A604    |000011;
-                       LDY.B r_CollisionPointAbsoluteXRoom-$D;0D8043|A407    |000014;
+          CODE_0D8041: LDX.B r_collisionPointYinScreen-$D   ;0D8041|A604    |000011;
+                       LDY.B r_collisionPointAbsoluteXRoom-$D;0D8043|A407    |000014;
  
           CODE_0D8045: LDA.B #$F4                           ;0D8045|A9F4    |      ;
                        STA.W $0200,X                        ;0D8047|9D0002  |0D0200;
@@ -59,16 +59,16 @@
                        BCC CODE_0D80A7                      ;0D805B|904A    |0D80A7;
  
           CODE_0D805D: CLC                                  ;0D805D|18      |      ;
-                       ADC.B r_DoubleCurrRoomIdx-$D         ;0D805E|6501    |00000E;
+                       ADC.B r_tempCurrRoomIdx-$D           ;0D805E|6501    |00000E;
                        STA.W $0200,X                        ;0D8060|9D0002  |0D0200;
                        INY                                  ;0D8063|C8      |      ;
-                       LDA.B r_LoadCHRbeforeSwap            ;0D8064|A5B0    |0000BD;
+                       LDA.B r_defaultCHR                   ;0D8064|A5B0    |0000BD;
                        BNE CODE_0D8053                      ;0D8066|D0EB    |0D8053;
  
-          CODE_0D8068: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8068|B10A    |000017;
+          CODE_0D8068: LDA.B (r_temp_Xpos),Y                ;0D8068|B10A    |000017;
  
           CODE_0D806A: STA.W $0201,X                        ;0D806A|9D0102  |0D0201;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;0D806D|A510    |00001D;
+                       LDA.B r_currOAM_Attr                 ;0D806D|A510    |00001D;
                        JMP.W CODE_0D80CA                    ;0D806F|4CCA80  |0D80CA;
  
  
@@ -76,56 +76,56 @@
                        db $B0,$3D                           ;0D8077|        |0D80B6;
  
           CODE_0D8079: LDY.W $048C,X                        ;0D8079|BC8C04  |0D048C;
-                       STY.B r_RoomSectionChrBanksDataOffset;0D807C|840F    |00001C;
+                       STY.B r_roomSectionChrBanksDataOffset;0D807C|840F    |00001C;
                        LDA.W mainSpriteAssem,Y              ;0D807E|B93E82  |0D823E;
-                       STA.B r_CurrNumToVramQueue           ;0D8081|8508    |000015;
+                       STA.B r_pointerQueue_VRAM            ;0D8081|8508    |000015;
                        LDA.W PTR16_0D823F,Y                 ;0D8083|B93F82  |0D823F;
-                       STA.B r_CoreLoadingFuncAddr-$D       ;0D8086|8509    |000016;
+                       STA.B r_coreLoadingFuncAddr-$D       ;0D8086|8509    |000016;
                        LDY.W $0400,X                        ;0D8088|BC0004  |0D0400;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;0D808B|B108    |000015;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0D808D|850A    |000017;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;0D808B|B108    |000015;
+                       STA.B r_temp_Xpos                    ;0D808D|850A    |000017;
                        INY                                  ;0D808F|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;0D8090|B108    |000015;
-                       STA.B r_GameState-$D                 ;0D8092|850B    |000018;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;0D8090|B108    |000015;
+                       STA.B r_gameState-$D                 ;0D8092|850B    |000018;
                        LDY.B #$00                           ;0D8094|A000    |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8096|B10A    |000017;
-                       STA.B r_CurrDrawnEntityCachedAttr-$D ;0D8098|8503    |000010;
+                       LDA.B (r_temp_Xpos),Y                ;0D8096|B10A    |000017;
+                       STA.B r_currOAM_Attr-$D              ;0D8098|8503    |000010;
                        LDA.W $04A8,X                        ;0D809A|BDA804  |0D04A8;
                        BEQ CODE_0D80F9                      ;0D809D|F05A    |0D80F9;
-                       LDX.B r_CollisionPointYinScreen-$D   ;0D809F|A604    |000011;
+                       LDX.B r_collisionPointYinScreen-$D   ;0D809F|A604    |000011;
  
           CODE_0D80A1: INY                                  ;0D80A1|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D80A2|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D80A2|B10A    |000017;
                        BPL CODE_0D805A                      ;0D80A4|10B4    |0D805A;
                        SEC                                  ;0D80A6|38      |      ;
  
           CODE_0D80A7: ROR A                                ;0D80A7|6A      |      ;
                        BCS CODE_0D805D                      ;0D80A8|B0B3    |0D805D;
-                       ADC.B r_DoubleCurrRoomIdx-$D         ;0D80AA|6501    |00000E;
+                       ADC.B r_tempCurrRoomIdx-$D           ;0D80AA|6501    |00000E;
                        STA.W $0200,X                        ;0D80AC|9D0002  |0D0200;
                        INY                                  ;0D80AF|C8      |      ;
-                       LDA.B r_LoadCHRbeforeSwap            ;0D80B0|A5B0    |0000BD;
+                       LDA.B r_defaultCHR                   ;0D80B0|A5B0    |0000BD;
                        BNE UNREACH_0D8072                   ;0D80B2|D0BE    |0D8072;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D80B4|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D80B4|B10A    |000017;
                        STA.W $0201,X                        ;0D80B6|9D0102  |0D0201;
                        INY                                  ;0D80B9|C8      |      ;
-                       LDA.B r_DoubleCurrSection-$D         ;0D80BA|A500    |00000D;
+                       LDA.B r_tempCurrSection-$D           ;0D80BA|A500    |00000D;
                        BEQ CODE_0D80C6                      ;0D80BC|F008    |0D80C6;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D80BE|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D80BE|B10A    |000017;
                        AND.B #$FC                           ;0D80C0|29FC    |      ;
-                       ORA.B r_DoubleCurrSection-$D         ;0D80C2|0500    |00000D;
+                       ORA.B r_tempCurrSection-$D           ;0D80C2|0500    |00000D;
                        BNE CODE_0D80C8                      ;0D80C4|D002    |0D80C8;
  
-          CODE_0D80C6: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D80C6|B10A    |000017;
+          CODE_0D80C6: LDA.B (r_temp_Xpos),Y                ;0D80C6|B10A    |000017;
  
-          CODE_0D80C8: STA.B r_CurrDrawnEntityCachedAttr    ;0D80C8|8510    |00001D;
+          CODE_0D80C8: STA.B r_currOAM_Attr                 ;0D80C8|8510    |00001D;
  
           CODE_0D80CA: STA.W $0202,X                        ;0D80CA|9D0202  |0D0202;
                        INY                                  ;0D80CD|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D80CE|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D80CE|B10A    |000017;
                        BMI CODE_0D80EA                      ;0D80D0|3018    |0D80EA;
                        CLC                                  ;0D80D2|18      |      ;
-                       ADC.B r_RoomSectionChrBanksDataOffset-$D;0D80D3|6502    |00000F;
+                       ADC.B r_roomSectionChrBanksDataOffset-$D;0D80D3|6502    |00000F;
                        BCS CODE_0D80EF                      ;0D80D5|B018    |0D80EF;
  
           CODE_0D80D7: STA.W $0203,X                        ;0D80D7|9D0302  |0D0203;
@@ -134,16 +134,16 @@
                        CLC                                  ;0D80DB|18      |      ;
                        ADC.B #$C4                           ;0D80DC|69C4    |      ;
                        TAX                                  ;0D80DE|AA      |      ;
-                       DEC.B r_CollisionPointAbsoluteXRoom-$D;0D80DF|C607    |000014;
+                       DEC.B r_collisionPointAbsoluteXRoom-$D;0D80DF|C607    |000014;
                        BEQ CODE_0D80F6                      ;0D80E1|F013    |0D80F6;
-                       DEC.B r_CurrDrawnEntityCachedAttr-$D ;0D80E3|C603    |000010;
+                       DEC.B r_currOAM_Attr-$D              ;0D80E3|C603    |000010;
                        BNE CODE_0D80A1                      ;0D80E5|D0BA    |0D80A1;
-                       STX.B r_CollisionPointYinScreen-$D   ;0D80E7|8604    |000011;
+                       STX.B r_collisionPointYinScreen-$D   ;0D80E7|8604    |000011;
                        RTS                                  ;0D80E9|60      |      ;
  
  
           CODE_0D80EA: CLC                                  ;0D80EA|18      |      ;
-                       ADC.B r_RoomSectionChrBanksDataOffset-$D;0D80EB|6502    |00000F;
+                       ADC.B r_roomSectionChrBanksDataOffset-$D;0D80EB|6502    |00000F;
                        BCS CODE_0D80D7                      ;0D80ED|B0E8    |0D80D7;
  
           CODE_0D80EF: LDA.B #$F4                           ;0D80EF|A9F4    |      ;
@@ -155,45 +155,45 @@
                        RTS                                  ;0D80F8|60      |      ;
  
  
-          CODE_0D80F9: LDX.B r_CollisionPointYinScreen-$D   ;0D80F9|A604    |000011;
+          CODE_0D80F9: LDX.B r_collisionPointYinScreen-$D   ;0D80F9|A604    |000011;
  
           CODE_0D80FB: INY                                  ;0D80FB|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D80FC|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D80FC|B10A    |000017;
                        BPL CODE_0D815C                      ;0D80FE|105C    |0D815C;
                        SEC                                  ;0D8100|38      |      ;
  
           CODE_0D8101: ROR A                                ;0D8101|6A      |      ;
                        BCS CODE_0D815F                      ;0D8102|B05B    |0D815F;
-                       ADC.B r_DoubleCurrRoomIdx-$D         ;0D8104|6501    |00000E;
+                       ADC.B r_tempCurrRoomIdx-$D           ;0D8104|6501    |00000E;
                        STA.W $0200,X                        ;0D8106|9D0002  |0D0200;
                        INY                                  ;0D8109|C8      |      ;
-                       LDA.B r_LoadCHRbeforeSwap            ;0D810A|A5B0    |0000BD;
+                       LDA.B r_defaultCHR                   ;0D810A|A5B0    |0000BD;
                        BNE CODE_0D8155                      ;0D810C|D047    |0D8155;
  
-          CODE_0D810E: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D810E|B10A    |000017;
+          CODE_0D810E: LDA.B (r_temp_Xpos),Y                ;0D810E|B10A    |000017;
  
           CODE_0D8110: STA.W $0201,X                        ;0D8110|9D0102  |0D0201;
                        INY                                  ;0D8113|C8      |      ;
-                       LDA.B r_DoubleCurrSection-$D         ;0D8114|A500    |00000D;
+                       LDA.B r_tempCurrSection-$D           ;0D8114|A500    |00000D;
                        BEQ CODE_0D8120                      ;0D8116|F008    |0D8120;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8118|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D8118|B10A    |000017;
                        AND.B #$FC                           ;0D811A|29FC    |      ;
-                       ORA.B r_DoubleCurrSection-$D         ;0D811C|0500    |00000D;
+                       ORA.B r_tempCurrSection-$D           ;0D811C|0500    |00000D;
                        BNE CODE_0D8122                      ;0D811E|D002    |0D8122;
  
-          CODE_0D8120: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8120|B10A    |000017;
+          CODE_0D8120: LDA.B (r_temp_Xpos),Y                ;0D8120|B10A    |000017;
  
           CODE_0D8122: EOR.B #$40                           ;0D8122|4940    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0D8124|8510    |00001D;
+                       STA.B r_currOAM_Attr                 ;0D8124|8510    |00001D;
  
           CODE_0D8126: STA.W $0202,X                        ;0D8126|9D0202  |0D0202;
                        INY                                  ;0D8129|C8      |      ;
                        LDA.B #$F8                           ;0D812A|A9F8    |      ;
                        SEC                                  ;0D812C|38      |      ;
-                       SBC.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D812D|F10A    |000017;
+                       SBC.B (r_temp_Xpos),Y                ;0D812D|F10A    |000017;
                        BMI CODE_0D8149                      ;0D812F|3018    |0D8149;
                        CLC                                  ;0D8131|18      |      ;
-                       ADC.B r_RoomSectionChrBanksDataOffset-$D;0D8132|6502    |00000F;
+                       ADC.B r_roomSectionChrBanksDataOffset-$D;0D8132|6502    |00000F;
                        BCS CODE_0D814E                      ;0D8134|B018    |0D814E;
  
           CODE_0D8136: STA.W $0203,X                        ;0D8136|9D0302  |0D0203;
@@ -202,16 +202,16 @@
                        CLC                                  ;0D813A|18      |      ;
                        ADC.B #$C4                           ;0D813B|69C4    |      ;
                        TAX                                  ;0D813D|AA      |      ;
-                       DEC.B r_CollisionPointAbsoluteXRoom-$D;0D813E|C607    |000014;
+                       DEC.B r_collisionPointAbsoluteXRoom-$D;0D813E|C607    |000014;
                        BEQ CODE_0D80F6                      ;0D8140|F0B4    |0D80F6;
-                       DEC.B r_CurrDrawnEntityCachedAttr-$D ;0D8142|C603    |000010;
+                       DEC.B r_currOAM_Attr-$D              ;0D8142|C603    |000010;
                        BNE CODE_0D80FB                      ;0D8144|D0B5    |0D80FB;
-                       STX.B r_CollisionPointYinScreen-$D   ;0D8146|8604    |000011;
+                       STX.B r_collisionPointYinScreen-$D   ;0D8146|8604    |000011;
                        RTS                                  ;0D8148|60      |      ;
  
  
           CODE_0D8149: CLC                                  ;0D8149|18      |      ;
-                       ADC.B r_RoomSectionChrBanksDataOffset-$D;0D814A|6502    |00000F;
+                       ADC.B r_roomSectionChrBanksDataOffset-$D;0D814A|6502    |00000F;
                        BCS CODE_0D8136                      ;0D814C|B0E8    |0D8136;
  
           CODE_0D814E: LDA.B #$F4                           ;0D814E|A9F4    |      ;
@@ -226,16 +226,16 @@
                        BCC CODE_0D8101                      ;0D815D|90A2    |0D8101;
  
           CODE_0D815F: CLC                                  ;0D815F|18      |      ;
-                       ADC.B r_DoubleCurrRoomIdx-$D         ;0D8160|6501    |00000E;
+                       ADC.B r_tempCurrRoomIdx-$D           ;0D8160|6501    |00000E;
                        STA.W $0200,X                        ;0D8162|9D0002  |0D0200;
                        INY                                  ;0D8165|C8      |      ;
-                       LDA.B r_LoadCHRbeforeSwap            ;0D8166|A5B0    |0000BD;
+                       LDA.B r_defaultCHR                   ;0D8166|A5B0    |0000BD;
                        BNE CODE_0D8174                      ;0D8168|D00A    |0D8174;
  
-          CODE_0D816A: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D816A|B10A    |000017;
+          CODE_0D816A: LDA.B (r_temp_Xpos),Y                ;0D816A|B10A    |000017;
  
           CODE_0D816C: STA.W $0201,X                        ;0D816C|9D0102  |0D0201;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;0D816F|A510    |00001D;
+                       LDA.B r_currOAM_Attr                 ;0D816F|A510    |00001D;
                        JMP.W CODE_0D8126                    ;0D8171|4C2681  |0D8126;
  
  
@@ -243,10 +243,10 @@
                        BCC CODE_0D816A                      ;0D8177|90F1    |0D816A;
                        BCS CODE_0D816C                      ;0D8179|B0F1    |0D816C;
  
-          CODE_0D817B: LDA.B r_RoomSectionChrBanksDataOffset;0D817B|A50F    |00001C;
+          CODE_0D817B: LDA.B r_roomSectionChrBanksDataOffset;0D817B|A50F    |00001C;
                        CMP.B #$16                           ;0D817D|C916    |      ;
                        BCC CODE_0D8187                      ;0D817F|9006    |0D8187;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8181|B10A    |000017;
+                       LDA.B (r_temp_Xpos),Y                ;0D8181|B10A    |000017;
                        CLC                                  ;0D8183|18      |      ;
                        ADC.B #$80                           ;0D8184|6980    |      ;
                        SEC                                  ;0D8186|38      |      ;
@@ -297,30 +297,30 @@
                        ADC.B $01                            ;0D81CC|6501    |000001;
                        STA.W $0200,X                        ;0D81CE|9D0002  |0D0200;
                        INY                                  ;0D81D1|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D81D2|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;0D81D2|B10A    |00000A;
                        STA.W $0201,X                        ;0D81D4|9D0102  |0D0201;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;0D81D7|A510    |000010;
+                       LDA.B r_currOAM_Attr                 ;0D81D7|A510    |000010;
                        JMP.W CODE_0D8222                    ;0D81D9|4C2282  |0D8222;
  
  
           CODE_0D81DC: LDY.W $048C,X                        ;0D81DC|BC8C04  |0D048C;
                        LDA.W mainSpriteAssem,Y              ;0D81DF|B93E82  |0D823E;
-                       STA.B r_CurrNumToVramQueue           ;0D81E2|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;0D81E2|8508    |000008;
                        LDA.W PTR16_0D823F,Y                 ;0D81E4|B93F82  |0D823F;
                        STA.B $09                            ;0D81E7|8509    |000009;
                        LDY.W $0400,X                        ;0D81E9|BC0004  |0D0400;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;0D81EC|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0D81EE|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;0D81EC|B108    |000008;
+                       STA.B r_temp_Xpos                    ;0D81EE|850A    |00000A;
                        INY                                  ;0D81F0|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;0D81F1|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;0D81F1|B108    |000008;
                        STA.B $0B                            ;0D81F3|850B    |00000B;
                        LDY.B #$00                           ;0D81F5|A000    |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D81F7|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;0D81F7|B10A    |00000A;
                        STA.B $03                            ;0D81F9|8503    |000003;
                        LDX.B $04                            ;0D81FB|A604    |000004;
                        INY                                  ;0D81FD|C8      |      ;
  
-          CODE_0D81FE: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D81FE|B10A    |00000A;
+          CODE_0D81FE: LDA.B (r_temp_Xpos),Y                ;0D81FE|B10A    |00000A;
                        BPL CODE_0D81C8                      ;0D8200|10C6    |0D81C8;
                        SEC                                  ;0D8202|38      |      ;
  
@@ -329,23 +329,23 @@
                        ADC.B $01                            ;0D8206|6501    |000001;
                        STA.W $0200,X                        ;0D8208|9D0002  |0D0200;
                        INY                                  ;0D820B|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D820C|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;0D820C|B10A    |00000A;
                        STA.W $0201,X                        ;0D820E|9D0102  |0D0201;
                        INY                                  ;0D8211|C8      |      ;
                        LDA.B $00                            ;0D8212|A500    |000000;
                        BEQ CODE_0D821E                      ;0D8214|F008    |0D821E;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8216|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;0D8216|B10A    |00000A;
                        AND.B #$FC                           ;0D8218|29FC    |      ;
                        ORA.B $00                            ;0D821A|0500    |000000;
                        BNE CODE_0D8220                      ;0D821C|D002    |0D8220;
  
-          CODE_0D821E: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D821E|B10A    |00000A;
+          CODE_0D821E: LDA.B (r_temp_Xpos),Y                ;0D821E|B10A    |00000A;
  
-          CODE_0D8220: STA.B r_CurrDrawnEntityCachedAttr    ;0D8220|8510    |000010;
+          CODE_0D8220: STA.B r_currOAM_Attr                 ;0D8220|8510    |000010;
  
           CODE_0D8222: STA.W $0202,X                        ;0D8222|9D0202  |0D0202;
                        INY                                  ;0D8225|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0D8226|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;0D8226|B10A    |00000A;
                        CLC                                  ;0D8228|18      |      ;
                        ADC.B $02                            ;0D8229|6502    |000002;
                        STA.W $0203,X                        ;0D822B|9D0302  |0D0203;
@@ -4695,7 +4695,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
           CODE_0DB77A: ADC.B #$0F                           ;0DB77A|690F    |      ;
  
           CODE_0DB77C: TAY                                  ;0DB77C|A8      |      ;
-                       LDA.B r_DoubleCurrRoomIdx            ;0DB77D|A50E    |00000E;
+                       LDA.B r_tempCurrRoomIdx              ;0DB77D|A50E    |00000E;
                        JMP.W CODE_0DB788                    ;0DB77F|4C88B7  |0DB788;
  
                        LDA.W $0438,X                        ;0DB782|BD3804  |0D0438;
@@ -4705,9 +4705,9 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        LSR A                                ;0DB78A|4A      |      ;
                        LSR A                                ;0DB78B|4A      |      ;
                        LSR A                                ;0DB78C|4A      |      ;
-                       STA.B r_CollisionPointXvalDiv32      ;0DB78D|8512    |000012;
+                       STA.B r_collisionPointXvalDiv32      ;0DB78D|8512    |000012;
                        TYA                                  ;0DB78F|98      |      ;
-                       LDY.B r_CurrScrollRoomScreen         ;0DB790|A457    |000057;
+                       LDY.B r_sceneScrollOffsetHi          ;0DB790|A457    |000057;
                        SEC                                  ;0DB792|38      |      ;
                        SBC.B #$30                           ;0DB793|E930    |      ;
                        BCS CODE_0DB79A                      ;0DB795|B003    |0DB79A;
@@ -4715,7 +4715,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        DEY                                  ;0DB799|88      |      ;
  
           CODE_0DB79A: CLC                                  ;0DB79A|18      |      ;
-                       ADC.B r_CurrScrollOffsetIntoRoomScreen;0DB79B|6556    |000056;
+                       ADC.B r_sceneScrollOffsetLo          ;0DB79B|6556    |000056;
                        BCS CODE_0DB7A3                      ;0DB79D|B004    |0DB7A3;
                        CMP.B #$F0                           ;0DB79F|C9F0    |      ;
                        BCC CODE_0DB7A6                      ;0DB7A1|9003    |0DB7A6;
@@ -4726,24 +4726,24 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
           CODE_0DB7A6: AND.B #$F0                           ;0DB7A6|29F0    |      ;
                        STA.B $00                            ;0DB7A8|8500    |000000;
                        STA.B $0B                            ;0DB7AA|850B    |00000B;
-                       STY.B r_RoomSectionChrBanksDataOffset;0DB7AC|840F    |00000F;
+                       STY.B r_roomSectionChrBanksDataOffset;0DB7AC|840F    |00000F;
                        LDA.B #$0A                           ;0DB7AE|A90A    |      ;
                        ASL.B $00                            ;0DB7B0|0600    |000000;
                        ROL A                                ;0DB7B2|2A      |      ;
                        ASL.B $00                            ;0DB7B3|0600    |000000;
                        ROL A                                ;0DB7B5|2A      |      ;
-                       STA.B r_CollisionPointAbsoluteXInRoom;0DB7B6|8513    |000013;
-                       LDA.B r_CollisionPointXvalDiv32      ;0DB7B8|A512    |000012;
+                       STA.B r_collisionPointAbsoluteXInRoom;0DB7B6|8513    |000013;
+                       LDA.B r_collisionPointXvalDiv32      ;0DB7B8|A512    |000012;
                        ORA.B $00                            ;0DB7BA|0500    |000000;
-                       STA.B r_CollisionPointXvalDiv32      ;0DB7BC|8512    |000012;
+                       STA.B r_collisionPointXvalDiv32      ;0DB7BC|8512    |000012;
  
           CODE_0DB7BE: RTS                                  ;0DB7BE|60      |      ;
  
                        STY.B $09                            ;0DB7BF|8409    |000009;
-                       LDA.B r_RoomOrientation              ;0DB7C1|A568    |000068;
+                       LDA.B r_roomOrientation              ;0DB7C1|A568    |000068;
                        BPL UNREACH_0DB7FB                   ;0DB7C3|1036    |0DB7FB;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;0DB7C5|A510    |000010;
-                       STA.B r_DoubleCurrRoomIdx            ;0DB7C7|850E    |00000E;
+                       LDA.B r_currOAM_Attr                 ;0DB7C5|A510    |000010;
+                       STA.B r_tempCurrRoomIdx              ;0DB7C7|850E    |00000E;
                        JSR.W CODE_0DB765                    ;0DB7C9|2065B7  |0DB765;
                        JSR.W CODE_0DB8B8                    ;0DB7CC|20B8B8  |0DB8B8;
                        BNE CODE_0DB7BE                      ;0DB7CF|D0ED    |0DB7BE;
@@ -4805,18 +4805,18 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        db $9D,$54,$04,$60                   ;0DB8B4|        |0D0454;
  
           CODE_0DB8B8: LDY.B #$01                           ;0DB8B8|A001    |      ;
-                       LDA.B r_CurrRoomGroupStage           ;0DB8BA|A532    |000032;
+                       LDA.B r_stage                        ;0DB8BA|A532    |000032;
                        CMP.B #$07                           ;0DB8BC|C907    |      ;
                        BEQ CODE_0DB8CB                      ;0DB8BE|F00B    |0DB8CB;
                        CMP.B #$0A                           ;0DB8C0|C90A    |      ;
                        BNE CODE_0DB8CA                      ;0DB8C2|D006    |0DB8CA;
-                       LDA.B r_CurrRoomSectionBlock         ;0DB8C4|A533    |000033;
+                       LDA.B r_blockLevel                   ;0DB8C4|A533    |000033;
                        CMP.B #$01                           ;0DB8C6|C901    |      ;
                        BEQ CODE_0DB8CB                      ;0DB8C8|F001    |0DB8CB;
  
           CODE_0DB8CA: DEY                                  ;0DB8CA|88      |      ;
  
-          CODE_0DB8CB: LDA.B r_DoubleCurrRoomIdx            ;0DB8CB|A50E    |00000E;
+          CODE_0DB8CB: LDA.B r_tempCurrRoomIdx              ;0DB8CB|A50E    |00000E;
                        LSR A                                ;0DB8CD|4A      |      ;
                        LSR A                                ;0DB8CE|4A      |      ;
                        LSR A                                ;0DB8CF|4A      |      ;
@@ -4866,7 +4866,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        db $ED                               ;0DB981|        |0D9420;
  
           CODE_0DB982: JSR.W CODE_0DB994                    ;0DB982|2094B9  |0DB994;
-                       LDY.B r_CurrRoomSectionPlayerPosAndScreenAddr;0DB985|A40A    |00000A;
+                       LDY.B r_temp_Xpos                    ;0DB985|A40A    |00000A;
                        LDA.W DATA8_0DB990,Y                 ;0DB987|B990B9  |0DB990;
                        db $20                               ;0DB98A|        |      ;
                        dw CODE_0FED14                       ;0DB98B|        |0FED14;
@@ -4879,78 +4879,78 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
           CODE_0DB994: LDA.B #$01                           ;0DB994|A901    |      ;
                        db $20                               ;0DB996|        |      ;
                        dw CODE_0FED14                       ;0DB997|        |0FED14;
-                       LDA.B r_CollisionPointXvalDiv32      ;0DB999|A512    |000012;
+                       LDA.B r_collisionPointXvalDiv32      ;0DB999|A512    |000012;
                        db $20                               ;0DB99B|        |      ;
                        dw CODE_0FED14                       ;0DB99C|        |0FED14;
-                       LDA.B r_CollisionPointAbsoluteXInRoom;0DB99E|A513    |000013;
+                       LDA.B r_collisionPointAbsoluteXInRoom;0DB99E|A513    |000013;
                        db $4C                               ;0DB9A0|        |      ;
  
                        dw CODE_0FED14                       ;0DB9A1|        |0FED14;
  
-          CODE_0DB9A3: LDY.B r_CurrRoomSectionPlayerPosAndScreenAddr;0DB9A3|A40A    |00000A;
+          CODE_0DB9A3: LDY.B r_temp_Xpos                    ;0DB9A3|A40A    |00000A;
                        LDA.W DATA8_0DB9AE,Y                 ;0DB9A5|B9AEB9  |0DB9AE;
                        CLC                                  ;0DB9A8|18      |      ;
-                       ADC.B r_CollisionPointXvalDiv32      ;0DB9A9|6512    |000012;
-                       STA.B r_CollisionPointXvalDiv32      ;0DB9AB|8512    |000012;
+                       ADC.B r_collisionPointXvalDiv32      ;0DB9A9|6512    |000012;
+                       STA.B r_collisionPointXvalDiv32      ;0DB9AB|8512    |000012;
                        RTS                                  ;0DB9AD|60      |      ;
  
  
          DATA8_0DB9AE: db $00,$01,$21,$20                   ;0DB9AE|        |      ;
-                       LDA.B r_CollisionPointAbsoluteXInRoom;0DB9B2|A513    |000013;
+                       LDA.B r_collisionPointAbsoluteXInRoom;0DB9B2|A513    |000013;
                        AND.B #$F0                           ;0DB9B4|29F0    |      ;
-                       STA.B r_CollisionPointXvalDiv32      ;0DB9B6|8512    |000012;
-                       LDA.B r_CollisionPointAbsoluteXRoom  ;0DB9B8|A514    |000014;
-                       EOR.B $75                            ;0DB9BA|4575    |000075;
+                       STA.B r_collisionPointXvalDiv32      ;0DB9B6|8512    |000012;
+                       LDA.B r_collisionPointAbsoluteXRoom  ;0DB9B8|A514    |000014;
+                       EOR.B r_075                          ;0DB9BA|4575    |000075;
                        LSR A                                ;0DB9BC|4A      |      ;
                        LDA.B #$20                           ;0DB9BD|A920    |      ;
                        BCC CODE_0DB9C3                      ;0DB9BF|9002    |0DB9C3;
                        LDA.B #$24                           ;0DB9C1|A924    |      ;
  
-          CODE_0DB9C3: STA.B r_CollisionPointAbsoluteXInRoom;0DB9C3|8513    |000013;
+          CODE_0DB9C3: STA.B r_collisionPointAbsoluteXInRoom;0DB9C3|8513    |000013;
                        LDA.W $041C                          ;0DB9C5|AD1C04  |0D041C;
                        LSR A                                ;0DB9C8|4A      |      ;
                        LSR A                                ;0DB9C9|4A      |      ;
                        LSR A                                ;0DB9CA|4A      |      ;
                        LSR A                                ;0DB9CB|4A      |      ;
-                       ROR.B r_CollisionPointXvalDiv32      ;0DB9CC|6612    |000012;
+                       ROR.B r_collisionPointXvalDiv32      ;0DB9CC|6612    |000012;
                        LSR A                                ;0DB9CE|4A      |      ;
-                       ROR.B r_CollisionPointXvalDiv32      ;0DB9CF|6612    |000012;
+                       ROR.B r_collisionPointXvalDiv32      ;0DB9CF|6612    |000012;
                        LSR A                                ;0DB9D1|4A      |      ;
-                       ROR.B r_CollisionPointXvalDiv32      ;0DB9D2|6612    |000012;
-                       ORA.B r_CollisionPointAbsoluteXInRoom;0DB9D4|0513    |000013;
-                       STA.B r_CollisionPointAbsoluteXInRoom;0DB9D6|8513    |000013;
+                       ROR.B r_collisionPointXvalDiv32      ;0DB9D2|6612    |000012;
+                       ORA.B r_collisionPointAbsoluteXInRoom;0DB9D4|0513    |000013;
+                       STA.B r_collisionPointAbsoluteXInRoom;0DB9D6|8513    |000013;
                        CLC                                  ;0DB9D8|18      |      ;
                        LDA.B #$40                           ;0DB9D9|A940    |      ;
-                       ADC.B r_CollisionPointXvalDiv32      ;0DB9DB|6512    |000012;
-                       STA.B r_CollisionPointXvalDiv32      ;0DB9DD|8512    |000012;
+                       ADC.B r_collisionPointXvalDiv32      ;0DB9DB|6512    |000012;
+                       STA.B r_collisionPointXvalDiv32      ;0DB9DD|8512    |000012;
                        BCC CODE_0DB9E3                      ;0DB9DF|9002    |0DB9E3;
-                       INC.B r_CollisionPointAbsoluteXInRoom;0DB9E1|E613    |000013;
+                       INC.B r_collisionPointAbsoluteXInRoom;0DB9E1|E613    |000013;
  
           CODE_0DB9E3: RTS                                  ;0DB9E3|60      |      ;
  
-                       LDA.B r_CollisionPointAbsoluteXInRoom;0DB9E4|A513    |000013;
+                       LDA.B r_collisionPointAbsoluteXInRoom;0DB9E4|A513    |000013;
                        AND.B #$FC                           ;0DB9E6|29FC    |      ;
                        ORA.B #$03                           ;0DB9E8|0903    |      ;
-                       STA.B r_015                          ;0DB9EA|8515    |000015;
-                       LDA.B r_CollisionPointAbsoluteXInRoom;0DB9EC|A513    |000013;
+                       STA.B r_15                           ;0DB9EA|8515    |000015;
+                       LDA.B r_collisionPointAbsoluteXInRoom;0DB9EC|A513    |000013;
                        AND.B #$03                           ;0DB9EE|2903    |      ;
                        ORA.B #$0C                           ;0DB9F0|090C    |      ;
-                       STA.B r_CollisionPointAbsoluteXRoom  ;0DB9F2|8514    |000014;
-                       LDA.B r_CollisionPointXvalDiv32      ;0DB9F4|A512    |000012;
+                       STA.B r_collisionPointAbsoluteXRoom  ;0DB9F2|8514    |000014;
+                       LDA.B r_collisionPointXvalDiv32      ;0DB9F4|A512    |000012;
                        ASL A                                ;0DB9F6|0A      |      ;
-                       ROL.B r_CollisionPointAbsoluteXRoom  ;0DB9F7|2614    |000014;
+                       ROL.B r_collisionPointAbsoluteXRoom  ;0DB9F7|2614    |000014;
                        ASL A                                ;0DB9F9|0A      |      ;
                        ASL A                                ;0DB9FA|0A      |      ;
                        ASL A                                ;0DB9FB|0A      |      ;
-                       ROL.B r_CollisionPointAbsoluteXRoom  ;0DB9FC|2614    |000014;
+                       ROL.B r_collisionPointAbsoluteXRoom  ;0DB9FC|2614    |000014;
                        ASL A                                ;0DB9FE|0A      |      ;
-                       ROL.B r_CollisionPointAbsoluteXRoom  ;0DB9FF|2614    |000014;
+                       ROL.B r_collisionPointAbsoluteXRoom  ;0DB9FF|2614    |000014;
                        ASL A                                ;0DBA01|0A      |      ;
-                       ROL.B r_CollisionPointAbsoluteXRoom  ;0DBA02|2614    |000014;
+                       ROL.B r_collisionPointAbsoluteXRoom  ;0DBA02|2614    |000014;
                        RTS                                  ;0DBA04|60      |      ;
  
  
-          CODE_0DBA05: LDA.B r_CollisionValIsForRightHalfOf32x16block;0DBA05|A5A5    |0000A5;
+          CODE_0DBA05: LDA.B r_collisionValIsForRightHalfOf32x16block;0DBA05|A5A5    |0000A5;
                        TAX                                  ;0DBA07|AA      |      ;
                        LDY.B $09                            ;0DBA08|A409    |000009;
                        LDA.W $06E0,Y                        ;0DBA0A|B9E006  |0D06E0;
@@ -4971,10 +4971,10 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        JSR.W CODE_0DBA52                    ;0DBA2B|2052BA  |0DBA52;
  
           CODE_0DBA2E: AND.W DATA8_0DBA4E,X                 ;0DBA2E|3D4EBA  |0DBA4E;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0DBA31|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0DBA31|850A    |00000A;
                        ORA.B $00                            ;0DBA33|0500    |000000;
                        STA.W $06E0,Y                        ;0DBA35|99E006  |0D06E0;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0DBA38|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0DBA38|A50A    |00000A;
                        CMP.B #$10                           ;0DBA3A|C910    |      ;
                        BCC CODE_0DBA42                      ;0DBA3C|9004    |0DBA42;
                        LSR A                                ;0DBA3E|4A      |      ;
@@ -4984,7 +4984,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
  
           CODE_0DBA42: SEC                                  ;0DBA42|38      |      ;
                        SBC.B #$0C                           ;0DBA43|E90C    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0DBA45|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0DBA45|850A    |00000A;
                        RTS                                  ;0DBA47|60      |      ;
  
  
@@ -5001,7 +5001,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
  
           CODE_0DBA52: PHA                                  ;0DBA52|48      |      ;
                        STY.B $02                            ;0DBA53|8402    |000002;
-                       LDA.B r_DoubleCurrRoomIdx            ;0DBA55|A50E    |00000E;
+                       LDA.B r_tempCurrRoomIdx              ;0DBA55|A50E    |00000E;
                        LSR A                                ;0DBA57|4A      |      ;
                        LSR A                                ;0DBA58|4A      |      ;
                        LSR A                                ;0DBA59|4A      |      ;
@@ -5052,7 +5052,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        ASL A                                ;0DBAEF|0A      |      ;
                        ASL A                                ;0DBAF0|0A      |      ;
                        STA.B $00                            ;0DBAF1|8500    |000000;
-                       LDA.B r_DoubleCurrRoomIdx            ;0DBAF3|A50E    |00000E;
+                       LDA.B r_tempCurrRoomIdx              ;0DBAF3|A50E    |00000E;
                        LSR A                                ;0DBAF5|4A      |      ;
                        LSR A                                ;0DBAF6|4A      |      ;
                        LSR A                                ;0DBAF7|4A      |      ;
@@ -5067,7 +5067,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        ROL A                                ;0DBB02|2A      |      ;
                        TAX                                  ;0DBB03|AA      |      ;
                        LDA.W DATA8_0DBBCA,Y                 ;0DBB04|B9CABB  |0DBBCA;
-                       STA.B r_DoubleCurrSection            ;0DBB07|850D    |00000D;
+                       STA.B r_tempCurrSection              ;0DBB07|850D    |00000D;
                        AND.W DATA8_0DBA4E,X                 ;0DBB09|3D4EBA  |0DBA4E;
                        CPX.B #$00                           ;0DBB0C|E000    |      ;
                        BNE CODE_0DBB14                      ;0DBB0E|D004    |0DBB14;
@@ -5078,7 +5078,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
  
           CODE_0DBB14: STA.B $00                            ;0DBB14|8500    |000000;
                        JSR.W CODE_0DBB91                    ;0DBB16|2091BB  |0DBB91;
-                       LDA.B r_CurrRoomGroupStage           ;0DBB19|A532    |000032;
+                       LDA.B r_stage                        ;0DBB19|A532    |000032;
                        ASL A                                ;0DBB1B|0A      |      ;
                        TAY                                  ;0DBB1C|A8      |      ;
                        LDA.W UNREACH_0DBCC2,Y               ;0DBB1D|B9C2BC  |0DBCC2;
@@ -5094,7 +5094,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        CLC                                  ;0DBB30|18      |      ;
                        LDA.B $00                            ;0DBB31|A500    |000000;
                        ADC.B $02                            ;0DBB33|6502    |000002;
-                       STA.B r_CoreLoadingFuncAddr          ;0DBB35|8516    |000016;
+                       STA.B r_coreLoadingFuncAddr          ;0DBB35|8516    |000016;
                        LDA.B $03                            ;0DBB37|A503    |000003;
                        ADC.B #$00                           ;0DBB39|6900    |      ;
                        STA.B $17                            ;0DBB3B|8517    |000017;
@@ -5105,7 +5105,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        SEC                                  ;0DBB41|38      |      ;
                        SBC.B #$20                           ;0DBB42|E920    |      ;
                        CLC                                  ;0DBB44|18      |      ;
-                       ADC.B r_CurrScrollOffsetIntoRoomScreen;0DBB45|6556    |000056;
+                       ADC.B r_sceneScrollOffsetLo          ;0DBB45|6556    |000056;
                        BCS CODE_0DBB4D                      ;0DBB47|B004    |0DBB4D;
                        CMP.B #$F0                           ;0DBB49|C9F0    |      ;
                        BCC CODE_0DBB50                      ;0DBB4B|9003    |0DBB50;
@@ -5114,22 +5114,22 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
                        SEC                                  ;0DBB4F|38      |      ;
  
           CODE_0DBB50: STA.B $0B                            ;0DBB50|850B    |00000B;
-                       LDA.B r_CurrScrollRoomScreen         ;0DBB52|A557    |000057;
+                       LDA.B r_sceneScrollOffsetHi          ;0DBB52|A557    |000057;
                        ADC.B #$00                           ;0DBB54|6900    |      ;
                        STA.B $07                            ;0DBB56|8507    |000007;
                        JMP.W CODE_0DBB5F                    ;0DBB58|4C5FBB  |0DBB5F;
  
  
-          CODE_0DBB5B: LDA.B r_RoomSectionChrBanksDataOffset;0DBB5B|A50F    |00000F;
+          CODE_0DBB5B: LDA.B r_roomSectionChrBanksDataOffset;0DBB5B|A50F    |00000F;
                        STA.B $07                            ;0DBB5D|8507    |000007;
  
           CODE_0DBB5F: LDA.B #$1F                           ;0DBB5F|A91F    |      ;
                        STA.B $02                            ;0DBB61|8502    |000002;
-                       LDA.B r_CurrRoomGroupStage           ;0DBB63|A532    |000032;
+                       LDA.B r_stage                        ;0DBB63|A532    |000032;
                        STA.B $04                            ;0DBB65|8504    |000004;
-                       LDA.B r_CurrRoomSectionBlock         ;0DBB67|A533    |000033;
+                       LDA.B r_blockLevel                   ;0DBB67|A533    |000033;
                        STA.B $05                            ;0DBB69|8505    |000005;
-                       LDA.B r_CurrRoomIdx                  ;0DBB6B|A534    |000034;
+                       LDA.B r_roomIdx                      ;0DBB6B|A534    |000034;
                        STA.B $06                            ;0DBB6D|8506    |000006;
                        LDA.B #$00                           ;0DBB6F|A900    |      ;
                        STA.B $03                            ;0DBB71|8503    |000003;
@@ -5159,7 +5159,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
  
  
           CODE_0DBB91: LDA.B $00                            ;0DBB91|A500    |000000;
-                       LDY.B r_CurrRoomGroupStage           ;0DBB93|A432    |000032;
+                       LDY.B r_stage                        ;0DBB93|A432    |000032;
                        CPY.B #$0A                           ;0DBB95|C00A    |      ;
                        BNE CODE_0DBBAA                      ;0DBB97|D011    |0DBBAA;
                        CMP.B #$0E                           ;0DBB99|C90E    |      ;
@@ -5176,7 +5176,7 @@ doorETCAssembPointer07: dw DATA8_0DAE99                      ;0DAD53|        |0D
  
           CODE_0DBBAA: CPY.B #$0B                           ;0DBBAA|C00B    |      ;
                        BNE CODE_0DBBC5                      ;0DBBAC|D017    |0DBBC5;
-                       LDY.B r_RoomSectionChrBanksDataOffset;0DBBAE|A40F    |00000F;
+                       LDY.B r_roomSectionChrBanksDataOffset;0DBBAE|A40F    |00000F;
                        BNE CODE_0DBBC5                      ;0DBBB0|D013    |0DBBC5;
                        SEC                                  ;0DBBB2|38      |      ;
                        SBC.B #$0D                           ;0DBBB3|E90D    |      ;

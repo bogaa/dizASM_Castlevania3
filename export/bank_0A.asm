@@ -5,35 +5,35 @@
               bank_94: db $94                               ;0A8000|        |      ; NES PRG 28000
  
           CODE_0A8001: CLC                                  ;0A8001|18      |      ;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A8002|A556    |000056;
+                       LDA.B r_sceneScrollOffsetLo          ;0A8002|A556    |000056;
                        ADC.B #$02                           ;0A8004|6902    |      ;
                        PHA                                  ;0A8006|48      |      ;
-                       LDA.B r_CurrScrollRoomScreen         ;0A8007|A557    |000057;
+                       LDA.B r_sceneScrollOffsetHi          ;0A8007|A557    |000057;
                        ADC.B #$00                           ;0A8009|6900    |      ;
-                       STA.B r_CurrRoomXQuarterSpawner      ;0A800B|8576    |000076;
+                       STA.B r_quarterSpawner_Xpos          ;0A800B|8576    |000076;
                        PLA                                  ;0A800D|68      |      ;
                        JMP.W CODE_0A8017                    ;0A800E|4C1780  |0A8017;
  
  
-          CODE_0A8011: LDA.B r_CurrScrollRoomScreen         ;0A8011|A557    |000057;
-                       STA.B r_CurrRoomXQuarterSpawner      ;0A8013|8576    |000076;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A8015|A556    |000056;
+          CODE_0A8011: LDA.B r_sceneScrollOffsetHi          ;0A8011|A557    |000057;
+                       STA.B r_quarterSpawner_Xpos          ;0A8013|8576    |000076;
+                       LDA.B r_sceneScrollOffsetLo          ;0A8015|A556    |000056;
  
           CODE_0A8017: ASL A                                ;0A8017|0A      |      ;
-                       ROL.B r_CurrRoomXQuarterSpawner      ;0A8018|2676    |000076;
+                       ROL.B r_quarterSpawner_Xpos          ;0A8018|2676    |000076;
                        ASL A                                ;0A801A|0A      |      ;
-                       ROL.B r_CurrRoomXQuarterSpawner      ;0A801B|2676    |000076;
+                       ROL.B r_quarterSpawner_Xpos          ;0A801B|2676    |000076;
                        RTS                                  ;0A801D|60      |      ;
  
  
-          CODE_0A801E: LDA.B r_CurrRoomGroupStage           ;0A801E|A532    |000032;
+          CODE_0A801E: LDA.B r_stage                        ;0A801E|A532    |000032;
                        ASL A                                ;0A8020|0A      |      ;
                        TAY                                  ;0A8021|A8      |      ;
                        LDA.W roomEntityDataAddresses,Y      ;0A8022|B97F93  |0A937F;
                        STA.B $06                            ;0A8025|8506    |000006;
                        LDA.W PTR16_0A9380,Y                 ;0A8027|B98093  |0A9380;
                        STA.B $07                            ;0A802A|8507    |000007;
-                       LDA.B r_CurrRoomSectionBlock         ;0A802C|A533    |000033;
+                       LDA.B r_blockLevel                   ;0A802C|A533    |000033;
                        ASL A                                ;0A802E|0A      |      ;
                        TAY                                  ;0A802F|A8      |      ;
                        LDA.B ($06),Y                        ;0A8030|B106    |000006;
@@ -41,11 +41,11 @@
                        INY                                  ;0A8034|C8      |      ;
                        LDA.B ($06),Y                        ;0A8035|B106    |000006;
                        STA.B $05                            ;0A8037|8505    |000005;
-                       LDA.B r_CurrRoomIdx                  ;0A8039|A534    |000034;
+                       LDA.B r_roomIdx                      ;0A8039|A534    |000034;
                        ASL A                                ;0A803B|0A      |      ;
                        TAY                                  ;0A803C|A8      |      ;
                        LDA.B ($04),Y                        ;0A803D|B104    |000004;
-                       STA.B r_CurrRoomEntityDataAddrSpawner;0A803F|8598    |000098;
+                       STA.B r_roomEntityDataAddrSpawner    ;0A803F|8598    |000098;
                        INY                                  ;0A8041|C8      |      ;
                        LDA.B ($04),Y                        ;0A8042|B104    |000004;
                        STA.B $99                            ;0A8044|8599    |000099;
@@ -61,108 +61,108 @@
                        JSR.W CODE_0A8011                    ;0A8052|201180  |0A8011;
                        JSR.W CODE_0A801E                    ;0A8055|201E80  |0A801E;
                        LDA.B #$06                           ;0A8058|A906    |      ;
-                       STA.B r_DoubleCurrGroup              ;0A805A|850C    |00000C;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A805C|A556    |000056;
+                       STA.B r_tempCurrGroup                ;0A805A|850C    |00000C;
+                       LDA.B r_sceneScrollOffsetLo          ;0A805C|A556    |000056;
                        AND.B #$3F                           ;0A805E|293F    |      ;
-                       STA.B r_CurrNumToVramQueue           ;0A8060|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;0A8060|8508    |000008;
                        LDA.B #$C0                           ;0A8062|A9C0    |      ;
                        SEC                                  ;0A8064|38      |      ;
-                       SBC.B r_CurrNumToVramQueue           ;0A8065|E508    |000008;
+                       SBC.B r_pointerQueue_VRAM            ;0A8065|E508    |000008;
                        STA.B $09                            ;0A8067|8509    |000009;
                        LDA.B #$01                           ;0A8069|A901    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A806B|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0A806B|850A    |00000A;
  
           CODE_0A806D: JSR.W CODE_0A80FC                    ;0A806D|20FC80  |0A80FC;
-                       INC.B r_CurrRoomXQuarterSpawner      ;0A8070|E676    |000076;
+                       INC.B r_quarterSpawner_Xpos          ;0A8070|E676    |000076;
                        LDA.B $09                            ;0A8072|A509    |000009;
                        CLC                                  ;0A8074|18      |      ;
                        ADC.B #$40                           ;0A8075|6940    |      ;
                        STA.B $09                            ;0A8077|8509    |000009;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8079|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A8079|A50A    |00000A;
                        ADC.B #$00                           ;0A807B|6900    |      ;
                        AND.B #$01                           ;0A807D|2901    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A807F|850A    |00000A;
-                       DEC.B r_DoubleCurrGroup              ;0A8081|C60C    |00000C;
+                       STA.B r_temp_Xpos                    ;0A807F|850A    |00000A;
+                       DEC.B r_tempCurrGroup                ;0A8081|C60C    |00000C;
                        BNE CODE_0A806D                      ;0A8083|D0E8    |0A806D;
                        LDA.B #$FF                           ;0A8085|A9FF    |      ;
-                       STA.B r_FirstSpawnerBlock            ;0A8087|8577    |000077;
+                       STA.B r_spawnerBlock                 ;0A8087|8577    |000077;
  
           CODE_0A8089: RTS                                  ;0A8089|60      |      ;
  
-                       LDY.B r_ViewSpeed                    ;0A808A|A46E    |00006E;
+                       LDY.B r_scrollSpd                    ;0A808A|A46E    |00006E;
                        BEQ CODE_0A8089                      ;0A808C|F0FB    |0A8089;
                        DEY                                  ;0A808E|88      |      ;
                        BEQ CODE_0A80B9                      ;0A808F|F028    |0A80B9;
                        DEY                                  ;0A8091|88      |      ;
                        BEQ CODE_0A80AA                      ;0A8092|F016    |0A80AA;
-                       LDY.B r_ViewSpeed                    ;0A8094|A46E    |00006E;
+                       LDY.B r_scrollSpd                    ;0A8094|A46E    |00006E;
                        CPY.B #$FF                           ;0A8096|C0FF    |      ;
                        BEQ CODE_0A80B9                      ;0A8098|F01F    |0A80B9;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A809A|A556    |000056;
+                       LDA.B r_sceneScrollOffsetLo          ;0A809A|A556    |000056;
                        AND.B #$3F                           ;0A809C|293F    |      ;
                        CMP.B #$3F                           ;0A809E|C93F    |      ;
                        BNE CODE_0A80B9                      ;0A80A0|D017    |0A80B9;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A80A2|A556    |000056;
+                       LDA.B r_sceneScrollOffsetLo          ;0A80A2|A556    |000056;
                        CLC                                  ;0A80A4|18      |      ;
                        ADC.B #$01                           ;0A80A5|6901    |      ;
                        JMP.W CODE_0A80C1                    ;0A80A7|4CC180  |0A80C1;
  
  
-          CODE_0A80AA: LDA.B r_CurrScrollOffsetIntoRoomScreen;0A80AA|A556    |000056;
+          CODE_0A80AA: LDA.B r_sceneScrollOffsetLo          ;0A80AA|A556    |000056;
                        AND.B #$3F                           ;0A80AC|293F    |      ;
                        CMP.B #$01                           ;0A80AE|C901    |      ;
                        BNE CODE_0A80B9                      ;0A80B0|D007    |0A80B9;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A80B2|A556    |000056;
+                       LDA.B r_sceneScrollOffsetLo          ;0A80B2|A556    |000056;
                        AND.B #$FE                           ;0A80B4|29FE    |      ;
                        JMP.W CODE_0A80C1                    ;0A80B6|4CC180  |0A80C1;
  
  
-          CODE_0A80B9: LDA.B r_CurrScrollOffsetIntoRoomScreen;0A80B9|A556    |000056;
+          CODE_0A80B9: LDA.B r_sceneScrollOffsetLo          ;0A80B9|A556    |000056;
                        AND.B #$3F                           ;0A80BB|293F    |      ;
                        BNE CODE_0A8089                      ;0A80BD|D0CA    |0A8089;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A80BF|A556    |000056;
+                       LDA.B r_sceneScrollOffsetLo          ;0A80BF|A556    |000056;
  
-          CODE_0A80C1: CMP.B r_FirstSpawnerBlock            ;0A80C1|C577    |000077;
+          CODE_0A80C1: CMP.B r_spawnerBlock                 ;0A80C1|C577    |000077;
                        BEQ CODE_0A8089                      ;0A80C3|F0C4    |0A8089;
-                       STA.B r_FirstSpawnerBlock            ;0A80C5|8577    |000077;
+                       STA.B r_spawnerBlock                 ;0A80C5|8577    |000077;
                        JSR.W CODE_0A8001                    ;0A80C7|200180  |0A8001;
                        LDA.B #$00                           ;0A80CA|A900    |      ;
                        LDY.B #$C0                           ;0A80CC|A0C0    |      ;
-                       LDX.B r_ScrollDirection              ;0A80CE|A665    |000065;
+                       LDX.B r_scrollDirection              ;0A80CE|A665    |000065;
                        BEQ CODE_0A80D6                      ;0A80D0|F004    |0A80D6;
                        LDA.B #$05                           ;0A80D2|A905    |      ;
                        LDY.B #$00                           ;0A80D4|A000    |      ;
  
           CODE_0A80D6: STY.B $09                            ;0A80D6|8409    |000009;
-                       STA.B r_CurrNumToVramQueue           ;0A80D8|8508    |000008;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A80DA|A556    |000056;
+                       STA.B r_pointerQueue_VRAM            ;0A80D8|8508    |000008;
+                       LDA.B r_sceneScrollOffsetLo          ;0A80DA|A556    |000056;
                        AND.B #$3F                           ;0A80DC|293F    |      ;
-                       STA.B r_DoubleCurrRoomIdx            ;0A80DE|850E    |00000E;
+                       STA.B r_tempCurrRoomIdx              ;0A80DE|850E    |00000E;
                        AND.B #$20                           ;0A80E0|2920    |      ;
                        BEQ CODE_0A80EA                      ;0A80E2|F006    |0A80EA;
-                       LDA.B r_DoubleCurrRoomIdx            ;0A80E4|A50E    |00000E;
+                       LDA.B r_tempCurrRoomIdx              ;0A80E4|A50E    |00000E;
                        ORA.B #$C0                           ;0A80E6|09C0    |      ;
                        BNE CODE_0A80EC                      ;0A80E8|D002    |0A80EC;
  
-          CODE_0A80EA: LDA.B r_DoubleCurrRoomIdx            ;0A80EA|A50E    |00000E;
+          CODE_0A80EA: LDA.B r_tempCurrRoomIdx              ;0A80EA|A50E    |00000E;
  
           CODE_0A80EC: CLC                                  ;0A80EC|18      |      ;
                        ADC.B $09                            ;0A80ED|6509    |000009;
                        STA.B $09                            ;0A80EF|8509    |000009;
-                       LDA.B r_CurrRoomXQuarterSpawner      ;0A80F1|A576    |000076;
+                       LDA.B r_quarterSpawner_Xpos          ;0A80F1|A576    |000076;
                        CLC                                  ;0A80F3|18      |      ;
-                       ADC.B r_CurrNumToVramQueue           ;0A80F4|6508    |000008;
-                       STA.B r_CurrRoomXQuarterSpawner      ;0A80F6|8576    |000076;
+                       ADC.B r_pointerQueue_VRAM            ;0A80F4|6508    |000008;
+                       STA.B r_quarterSpawner_Xpos          ;0A80F6|8576    |000076;
                        LDA.B #$01                           ;0A80F8|A901    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A80FA|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0A80FA|850A    |00000A;
  
-          CODE_0A80FC: LDY.B r_CurrRoomXQuarterSpawner      ;0A80FC|A476    |000076;
+          CODE_0A80FC: LDY.B r_quarterSpawner_Xpos          ;0A80FC|A476    |000076;
                        LDX.W DATA8_0A840C,Y                 ;0A80FE|BE0C84  |0A840C;
-                       LDA.B r_CurrRoomXQuarterSpawner      ;0A8101|A576    |000076;
+                       LDA.B r_quarterSpawner_Xpos          ;0A8101|A576    |000076;
                        ASL A                                ;0A8103|0A      |      ;
                        TAY                                  ;0A8104|A8      |      ;
                        STY.B $0B                            ;0A8105|840B    |00000B;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8107|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8107|B198    |000098;
                        ASL A                                ;0A8109|0A      |      ;
                        BCS CODE_0A811A                      ;0A810A|B00E    |0A811A;
  
@@ -196,7 +196,7 @@
                        CLC                                  ;0A813E|18      |      ;
                        ADC.B $09                            ;0A813F|6509    |000009;
                        STA.W $07DA,X                        ;0A8141|9DDA07  |0A07DA;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8144|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A8144|A50A    |00000A;
                        ADC.B #$00                           ;0A8146|6900    |      ;
                        AND.B #$01                           ;0A8148|2901    |      ;
                        STA.W $07E0,X                        ;0A814A|9DE007  |0A07E0;
@@ -238,7 +238,7 @@
                        BNE DATA8_0A81E6                     ;0A8186|D05E    |0A81E6;
                        LDY.B $0B                            ;0A8188|A40B    |00000B;
                        INY                                  ;0A818A|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A818B|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A818B|B198    |000098;
                        BEQ DATA8_0A81E6                     ;0A818D|F057    |0A81E6;
                        ASL A                                ;0A818F|0A      |      ;
                        BCS CODE_0A81A0                      ;0A8190|B00E    |0A81A0;
@@ -269,7 +269,7 @@
                        CLC                                  ;0A81BE|18      |      ;
                        ADC.B $09                            ;0A81BF|6509    |000009;
                        STA.W $0438,X                        ;0A81C1|9D3804  |0A0438;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A81C4|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A81C4|A50A    |00000A;
                        ADC.B #$00                           ;0A81C6|6900    |      ;
                        AND.B #$01                           ;0A81C8|2901    |      ;
                        STA.W $0470,X                        ;0A81CA|9D7004  |0A0470;
@@ -282,7 +282,7 @@
                        TAY                                  ;0A81D9|A8      |      ;
                        LDA.W DATA8_0A8325,Y                 ;0A81DA|B92583  |0A8325;
                        STA.W $05EF,X                        ;0A81DD|9DEF05  |0A05EF;
-                       LDA.B r_CurrRoomXQuarterSpawner      ;0A81E0|A576    |000076;
+                       LDA.B r_quarterSpawner_Xpos          ;0A81E0|A576    |000076;
                        STA.W $0645,X                        ;0A81E2|9D4506  |0A0645;
                        RTS                                  ;0A81E5|60      |      ;
  
@@ -304,21 +304,21 @@
  
           CODE_0A8201: JSR.W CODE_0A801E                    ;0A8201|201E80  |0A801E;
                        LDY.B $79                            ;0A8204|A479    |000079;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8206|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8206|B198    |000098;
                        CMP.B #$FF                           ;0A8208|C9FF    |      ;
                        BEQ CODE_0A825D                      ;0A820A|F051    |0A825D;
                        JSR.W CODE_0A831D                    ;0A820C|201D83  |0A831D;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A820F|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A820F|A50A    |00000A;
                        SEC                                  ;0A8211|38      |      ;
-                       SBC.B r_CurrScrollOffsetIntoRoomScreen;0A8212|E556    |000056;
+                       SBC.B r_sceneScrollOffsetLo          ;0A8212|E556    |000056;
                        STA.B $02                            ;0A8214|8502    |000002;
                        LDA.B $09                            ;0A8216|A509    |000009;
-                       SBC.B r_CurrScrollRoomScreen         ;0A8218|E557    |000057;
+                       SBC.B r_sceneScrollOffsetHi          ;0A8218|E557    |000057;
                        STA.B $03                            ;0A821A|8503    |000003;
                        BMI CODE_0A8253                      ;0A821C|3035    |0A8253;
                        SEC                                  ;0A821E|38      |      ;
                        LDA.B $09                            ;0A821F|A509    |000009;
-                       SBC.B r_CurrScrollRoomScreen         ;0A8221|E557    |000057;
+                       SBC.B r_sceneScrollOffsetHi          ;0A8221|E557    |000057;
                        BEQ CODE_0A8235                      ;0A8223|F010    |0A8235;
                        SEC                                  ;0A8225|38      |      ;
                        SBC.B #$01                           ;0A8226|E901    |      ;
@@ -338,7 +338,7 @@
                        LDA.B $02                            ;0A823F|A502    |000002;
                        CLC                                  ;0A8241|18      |      ;
                        ADC.B #$37                           ;0A8242|6937    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8244|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0A8244|850A    |00000A;
                        CLC                                  ;0A8246|18      |      ;
                        LDA.B $7A                            ;0A8247|A57A    |00007A;
                        ADC.B #$07                           ;0A8249|6907    |      ;
@@ -359,11 +359,11 @@
  
           CODE_0A8261: RTS                                  ;0A8261|60      |      ;
  
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;0A8262|A556    |000056;
+                       LDA.B r_sceneScrollOffsetLo          ;0A8262|A556    |000056;
                        AND.B #$F0                           ;0A8264|29F0    |      ;
-                       CMP.B r_FirstSpawnerBlock            ;0A8266|C577    |000077;
+                       CMP.B r_spawnerBlock                 ;0A8266|C577    |000077;
                        BEQ CODE_0A8261                      ;0A8268|F0F7    |0A8261;
-                       STA.B r_FirstSpawnerBlock            ;0A826A|8577    |000077;
+                       STA.B r_spawnerBlock                 ;0A826A|8577    |000077;
                        JSR.W CODE_0A82D7                    ;0A826C|20D782  |0A82D7;
                        BCC CODE_0A8261                      ;0A826F|90F0    |0A8261;
  
@@ -372,23 +372,23 @@
                        ADC.B #$07                           ;0A8274|6907    |      ;
                        STA.B $79                            ;0A8276|8579    |000079;
                        INY                                  ;0A8278|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8279|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8279|B198    |000098;
                        BMI CODE_0A82A8                      ;0A827B|302B    |0A82A8;
                        JSR.W CODE_0A835B                    ;0A827D|205B83  |0A835B;
                        BNE CODE_0A82D6                      ;0A8280|D054    |0A82D6;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8282|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8282|B198    |000098;
                        STA.W $07C2,X                        ;0A8284|9DC207  |0A07C2;
                        INY                                  ;0A8287|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8288|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8288|B198    |000098;
                        STA.W $07DA,X                        ;0A828A|9DDA07  |0A07DA;
                        INY                                  ;0A828D|C8      |      ;
                        INY                                  ;0A828E|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A828F|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A828F|B198    |000098;
                        STA.W $07E6,X                        ;0A8291|9DE607  |0A07E6;
                        INY                                  ;0A8294|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8295|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8295|B198    |000098;
                        STA.W $07CE,X                        ;0A8297|9DCE07  |0A07CE;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A829A|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A829A|A50A    |00000A;
                        STA.W $07D4,X                        ;0A829C|9DD407  |0A07D4;
                        LDA.B #$00                           ;0A829F|A900    |      ;
                        STA.W $07E0,X                        ;0A82A1|9DE007  |0A07E0;
@@ -401,15 +401,15 @@
                        db $20                               ;0A82AD|        |      ;
                        dw CODE_0FFED7                       ;0A82AE|        |0FFED7;
                        STA.W $0470,X                        ;0A82B0|9D7004  |0A0470;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A82B3|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A82B3|B198    |000098;
                        STA.W $054E,X                        ;0A82B5|9D4E05  |0A054E;
                        INY                                  ;0A82B8|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A82B9|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A82B9|B198    |000098;
                        STA.W $0438,X                        ;0A82BB|9D3804  |0A0438;
                        INY                                  ;0A82BE|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A82BF|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A82BF|B198    |000098;
                        STA.W $05D8,X                        ;0A82C1|9DD805  |0A05D8;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A82C4|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A82C4|A50A    |00000A;
                        STA.W $041C,X                        ;0A82C6|9D1C04  |0A041C;
                        LDA.W $054E,X                        ;0A82C9|BD4E05  |0A054E;
                        SEC                                  ;0A82CC|38      |      ;
@@ -422,16 +422,16 @@
  
  
           CODE_0A82D7: LDY.B $79                            ;0A82D7|A479    |000079;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A82D9|B198    |000098;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A82D9|B198    |000098;
                        CMP.B #$FF                           ;0A82DB|C9FF    |      ;
                        BEQ CODE_0A82F1                      ;0A82DD|F012    |0A82F1;
                        JSR.W CODE_0A831D                    ;0A82DF|201D83  |0A831D;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A82E2|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;0A82E2|A50A    |00000A;
                        SEC                                  ;0A82E4|38      |      ;
-                       SBC.B r_CurrScrollOffsetIntoRoomScreen;0A82E5|E556    |000056;
+                       SBC.B r_sceneScrollOffsetLo          ;0A82E5|E556    |000056;
                        STA.B $02                            ;0A82E7|8502    |000002;
                        LDA.B $09                            ;0A82E9|A509    |000009;
-                       SBC.B r_CurrScrollRoomScreen         ;0A82EB|E557    |000057;
+                       SBC.B r_sceneScrollOffsetHi          ;0A82EB|E557    |000057;
                        STA.B $03                            ;0A82ED|8503    |000003;
                        BPL CODE_0A82F3                      ;0A82EF|1002    |0A82F3;
  
@@ -441,7 +441,7 @@
  
           CODE_0A82F3: SEC                                  ;0A82F3|38      |      ;
                        LDA.B $09                            ;0A82F4|A509    |000009;
-                       SBC.B r_CurrScrollRoomScreen         ;0A82F6|E557    |000057;
+                       SBC.B r_sceneScrollOffsetHi          ;0A82F6|E557    |000057;
                        BEQ CODE_0A830A                      ;0A82F8|F010    |0A830A;
                        SEC                                  ;0A82FA|38      |      ;
                        SBC.B #$01                           ;0A82FB|E901    |      ;
@@ -461,15 +461,15 @@
                        LDA.B $02                            ;0A8314|A502    |000002;
                        CLC                                  ;0A8316|18      |      ;
                        ADC.B #$37                           ;0A8317|6937    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8319|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0A8319|850A    |00000A;
                        SEC                                  ;0A831B|38      |      ;
                        RTS                                  ;0A831C|60      |      ;
  
  
           CODE_0A831D: STA.B $09                            ;0A831D|8509    |000009;
                        INY                                  ;0A831F|C8      |      ;
-                       LDA.B (r_CurrRoomEntityDataAddrSpawner),Y;0A8320|B198    |000098;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8322|850A    |00000A;
+                       LDA.B (r_roomEntityDataAddrSpawner),Y;0A8320|B198    |000098;
+                       STA.B r_temp_Xpos                    ;0A8322|850A    |00000A;
                        RTS                                  ;0A8324|60      |      ;
  
  
@@ -570,16 +570,16 @@
  
  
           CODE_0A83CD: LDY.B #$00                           ;0A83CD|A000    |      ;
-                       LDA.B r_ViewSpeed                    ;0A83CF|A56E    |00006E;
+                       LDA.B r_scrollSpd                    ;0A83CF|A56E    |00006E;
                        BPL CODE_0A83D4                      ;0A83D1|1001    |0A83D4;
                        DEY                                  ;0A83D3|88      |      ;
  
           CODE_0A83D4: STY.B $00                            ;0A83D4|8400    |000000;
-                       LDA.B r_RoomOrientation              ;0A83D6|A568    |000068;
+                       LDA.B r_roomOrientation              ;0A83D6|A568    |000068;
                        BMI CODE_0A83EE                      ;0A83D8|3014    |0A83EE;
                        SEC                                  ;0A83DA|38      |      ;
                        LDA.W $07DA,X                        ;0A83DB|BDDA07  |0A07DA;
-                       SBC.B r_ViewSpeed                    ;0A83DE|E56E    |00006E;
+                       SBC.B r_scrollSpd                    ;0A83DE|E56E    |00006E;
                        STA.W $07DA,X                        ;0A83E0|9DDA07  |0A07DA;
                        LDA.W $07E0,X                        ;0A83E3|BDE007  |0A07E0;
                        SBC.B $00                            ;0A83E6|E500    |000000;
@@ -590,7 +590,7 @@
  
           CODE_0A83EE: CLC                                  ;0A83EE|18      |      ;
                        LDA.W $07D4,X                        ;0A83EF|BDD407  |0A07D4;
-                       ADC.B r_ViewSpeed                    ;0A83F2|656E    |00006E;
+                       ADC.B r_scrollSpd                    ;0A83F2|656E    |00006E;
                        STA.W $07D4,X                        ;0A83F4|9DD407  |0A07D4;
                        LDA.W $07E0,X                        ;0A83F7|BDE007  |0A07E0;
                        ADC.B $00                            ;0A83FA|6500    |000000;
@@ -615,13 +615,13 @@
                        db $04,$05,$00,$01,$02               ;0A8434|        |      ;
                        db $03,$04,$05                       ;0A8439|        |      ;
  
-          CODE_0A843C: LDY.B r_CurrRoomXQuarterSpawner      ;0A843C|A476    |000076;
+          CODE_0A843C: LDY.B r_quarterSpawner_Xpos          ;0A843C|A476    |000076;
                        LDA.W DATA8_0A844D,Y                 ;0A843E|B94D84  |0A844D;
-                       STA.B r_RoomSectionChrBanksDataOffset;0A8441|850F    |00000F;
+                       STA.B r_roomSectionChrBanksDataOffset;0A8441|850F    |00000F;
                        LDA.W DATA8_0A846D,Y                 ;0A8443|B96D84  |0A846D;
                        TAY                                  ;0A8446|A8      |      ;
                        LDA.W $00F0,Y                        ;0A8447|B9F000  |0A00F0;
-                       AND.B r_RoomSectionChrBanksDataOffset;0A844A|250F    |00000F;
+                       AND.B r_roomSectionChrBanksDataOffset;0A844A|250F    |00000F;
                        RTS                                  ;0A844C|60      |      ;
  
  
@@ -643,13 +643,13 @@
                        db $03,$03,$03,$03,$03               ;0A8486|        |      ;
                        db $03,$03                           ;0A848B|        |      ;
  
-          CODE_0A848D: LDA.B r_CurrRoomGroupStage           ;0A848D|A532    |000032;
+          CODE_0A848D: LDA.B r_stage                        ;0A848D|A532    |000032;
                        CMP.B #$0E                           ;0A848F|C90E    |      ;
                        BNE CODE_0A849D                      ;0A8491|D00A    |0A849D;
-                       LDA.B r_CurrRoomSectionBlock         ;0A8493|A533    |000033;
+                       LDA.B r_blockLevel                   ;0A8493|A533    |000033;
                        CMP.B #$01                           ;0A8495|C901    |      ;
                        BNE CODE_0A849D                      ;0A8497|D004    |0A849D;
-                       LDA.B r_CurrRoomIdx                  ;0A8499|A534    |000034;
+                       LDA.B r_roomIdx                      ;0A8499|A534    |000034;
                        CMP.B #$01                           ;0A849B|C901    |      ;
  
           CODE_0A849D: RTS                                  ;0A849D|60      |      ;
@@ -685,7 +685,7 @@
                        RTS                                  ;0A84CF|60      |      ;
  
  
-          CODE_0A84D0: LDA.B r_PartnerIdx                   ;0A84D0|A53A    |00003A;
+          CODE_0A84D0: LDA.B r_partner                      ;0A84D0|A53A    |00003A;
                        CMP.B #$02                           ;0A84D2|C902    |      ;
                        BNE CODE_0A84BD                      ;0A84D4|D0E7    |0A84BD;
                        BEQ CODE_0A84C0                      ;0A84D6|F0E8    |0A84C0;
@@ -702,11 +702,11 @@
  
           CODE_0A84EC: LDA.W $07C2,X                        ;0A84EC|BDC207  |0A07C2;
                        BEQ CODE_0A84FF                      ;0A84EF|F00E    |0A84FF;
-                       STX.B r_CurrEntityIdxBeingProcessed  ;0A84F1|866C    |00006C;
-                       LDA.B r_RosseryFlashTimer            ;0A84F3|A5B2    |0000B2;
+                       STX.B r_entityID_processed           ;0A84F1|866C    |00006C;
+                       LDA.B r_rosseryFlashTimer            ;0A84F3|A5B2    |0000B2;
                        BNE CODE_0A84FC                      ;0A84F5|D005    |0A84FC;
                        JSR.W CODE_0A8505                    ;0A84F7|200585  |0A8505;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A84FA|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A84FA|A66C    |00006C;
  
           CODE_0A84FC: JSR.W CODE_0A83CD                    ;0A84FC|20CD83  |0A83CD;
  
@@ -835,7 +835,7 @@ zombieSlowRateSpawnerPointer: dw CODE_0A85DB                       ;0A85D7|     
  
           CODE_0A85DB: JSR.W CODE_0A85EB                    ;0A85DB|20EB85  |0A85EB;
  
-          CODE_0A85DE: LDX.B r_CurrEntityIdxBeingProcessed  ;0A85DE|A66C    |00006C;
+          CODE_0A85DE: LDX.B r_entityID_processed           ;0A85DE|A66C    |00006C;
                        INC.W $07C8,X                        ;0A85E0|FEC807  |0A07C8;
  
           CODE_0A85E3: RTS                                  ;0A85E3|60      |      ;
@@ -857,16 +857,16 @@ zombieSlowRateSpawnerPointer: dw CODE_0A85DB                       ;0A85D7|     
                        STA.B $01                            ;0A85FD|8501    |000001;
                        JSR.W CODE_0A8DDE                    ;0A85FF|20DE8D  |0A8DDE;
                        LDA.W $0438,X                        ;0A8602|BD3804  |0A0438;
-                       STA.B r_CurrNumToVramQueue           ;0A8605|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;0A8605|8508    |000008;
                        TXA                                  ;0A8607|8A      |      ;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8608|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8608|A66C    |00006C;
                        STA.W $07E6,X                        ;0A860A|9DE607  |0A07E6;
                        LDY.B #$A4                           ;0A860D|A0A4    |      ;
-                       LDA.B r_CurrNumToVramQueue           ;0A860F|A508    |000008;
+                       LDA.B r_pointerQueue_VRAM            ;0A860F|A508    |000008;
                        db $20                               ;0A8611|        |      ;
                        dw UNREACH_0FFC16                    ;0A8612|        |0FFC16;
                        BEQ CODE_0A8621                      ;0A8614|F00B    |0A8621;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8616|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8616|A66C    |00006C;
                        LDA.W $07E6,X                        ;0A8618|BDE607  |0A07E6;
                        TAX                                  ;0A861B|AA      |      ;
                        LDA.B #$90                           ;0A861C|A990    |      ;
@@ -874,7 +874,7 @@ zombieSlowRateSpawnerPointer: dw CODE_0A85DB                       ;0A85D7|     
  
           CODE_0A8621: LDA.B #$81                           ;0A8621|A981    |      ;
  
-          CODE_0A8623: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8623|A66C    |00006C;
+          CODE_0A8623: LDX.B r_entityID_processed           ;0A8623|A66C    |00006C;
                        STA.W $07CE,X                        ;0A8625|9DCE07  |0A07CE;
  
           CODE_0A8628: RTS                                  ;0A8628|60      |      ;
@@ -893,7 +893,7 @@ zombieSpawnFromGroundSpawnPointer: dw zombieGroundSpawn00               ;0A8629|
                        ORA.B #$20                           ;0A863E|0920    |      ;
                        STA.W $0470,X                        ;0A8640|9D7004  |0A0470;
  
-          CODE_0A8643: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8643|A66C    |00006C;
+          CODE_0A8643: LDX.B r_entityID_processed           ;0A8643|A66C    |00006C;
                        LDA.B #$81                           ;0A8645|A981    |      ;
                        STA.W $07CE,X                        ;0A8647|9DCE07  |0A07CE;
  
@@ -904,7 +904,7 @@ zombieSpawnFromGroundSpawnPointer: dw zombieGroundSpawn00               ;0A8629|
                        BNE CODE_0A8628                      ;0A864E|D0D8    |0A8628;
                        BEQ CODE_0A8630                      ;0A8650|F0DE    |0A8630;
  
-          CODE_0A8652: LSR.B r_CurrSubweaponPartner,X       ;0A8652|5686    |000086;
+          CODE_0A8652: LSR.B r_subweapPartner,X             ;0A8652|5686    |000086;
                        JML.L UNREACH_612086                 ;0A8654|5C862061|612086;
  
                        db $86                               ;0A8658|        |      ;
@@ -920,7 +920,7 @@ zombieSpawnFromGroundSpawnPointer: dw zombieGroundSpawn00               ;0A8629|
                        STA.B $00                            ;0A866F|8500    |000000;
                        JSR.W CODE_0A8DDE                    ;0A8671|20DE8D  |0A8DDE;
  
-          CODE_0A8674: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8674|A66C    |00006C;
+          CODE_0A8674: LDX.B r_entityID_processed           ;0A8674|A66C    |00006C;
                        LDA.B #$47                           ;0A8676|A947    |      ;
                        STA.W $07CE,X                        ;0A8678|9DCE07  |0A07CE;
                        RTS                                  ;0A867B|60      |      ;
@@ -952,7 +952,7 @@ zombieSpawnFromGroundSpawnPointer: dw zombieGroundSpawn00               ;0A8629|
  
           CODE_0A86A8: JSR.W CODE_0A8DDE                    ;0A86A8|20DE8D  |0A8DDE;
  
-          CODE_0A86AB: LDX.B r_CurrEntityIdxBeingProcessed  ;0A86AB|A66C    |00006C;
+          CODE_0A86AB: LDX.B r_entityID_processed           ;0A86AB|A66C    |00006C;
                        LDA.B #$41                           ;0A86AD|A941    |      ;
                        STA.W $07CE,X                        ;0A86AF|9DCE07  |0A07CE;
  
@@ -967,7 +967,7 @@ zombieSpawnFromGroundSpawnPointer: dw zombieGroundSpawn00               ;0A8629|
  
 fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A86C9;
                        dw fishManSpawn01                    ;0A86C1|        |0A86EF;
-                       LDA.B r_InGameSubstate               ;0A86C3|A52A    |00002A;
+                       LDA.B r_gameLoadState                ;0A86C3|A52A    |00002A;
                        CMP.B #$1B                           ;0A86C5|C91B    |      ;
                        BEQ CODE_0A86EE                      ;0A86C7|F025    |0A86EE;
  
@@ -977,7 +977,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        JSR.W CODE_0A8E54                    ;0A86D1|20548E  |0A8E54;
                        BNE CODE_0A86EE                      ;0A86D4|D018    |0A86EE;
                        TXA                                  ;0A86D6|8A      |      ;
-                       ADC.B r_GameStateLoopCounter         ;0A86D7|651A    |00001A;
+                       ADC.B r_gameStateLoopCounter         ;0A86D7|651A    |00001A;
                        ADC.W $0438                          ;0A86D9|6D3804  |0A0438;
                        AND.B #$01                           ;0A86DC|2901    |      ;
                        TAY                                  ;0A86DE|A8      |      ;
@@ -1025,7 +1025,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        JSR.W CODE_0A8D73                    ;0A8728|20738D  |0A8D73;
                        BNE CODE_0A8749                      ;0A872B|D01C    |0A8749;
                        LDY.W $04A8                          ;0A872D|ACA804  |0A04A8;
-                       LDA.B r_RandomVal                    ;0A8730|A51F    |00001F;
+                       LDA.B r_RNG                          ;0A8730|A51F    |00001F;
                        AND.B #$07                           ;0A8732|2907    |      ;
                        CLC                                  ;0A8734|18      |      ;
                        ADC.W PTR16_0A875A,Y                 ;0A8735|795A87  |0A875A;
@@ -1034,7 +1034,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        LDA.W CODE_0A874A,Y                  ;0A873A|B94A87  |0A874A;
                        ADC.W $0438                          ;0A873D|6D3804  |0A0438;
                        STA.B $00                            ;0A8740|8500    |000000;
-                       LDA.B r_FloodHight                   ;0A8742|A5CA    |0000CA;
+                       LDA.B r_floodHight                   ;0A8742|A5CA    |0000CA;
                        STA.B $01                            ;0A8744|8501    |000001;
                        JMP.W CODE_0A86E4                    ;0A8746|4CE486  |0A86E4;
  
@@ -1065,8 +1065,8 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
  
           CODE_0A876F: JSR.W CODE_0A85DE                    ;0A876F|20DE85  |0A85DE;
  
-          CODE_0A8772: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8772|A66C    |00006C;
-                       LDA.B r_GameStateLoopCounter         ;0A8774|A51A    |00001A;
+          CODE_0A8772: LDX.B r_entityID_processed           ;0A8772|A66C    |00006C;
+                       LDA.B r_gameStateLoopCounter         ;0A8774|A51A    |00001A;
                        ADC.W $0438,X                        ;0A8776|7D3804  |0A0438;
                        AND.B #$03                           ;0A8779|2903    |      ;
                        TAY                                  ;0A877B|A8      |      ;
@@ -1086,7 +1086,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        JSR.W CODE_0A8383                    ;0A878F|208383  |0A8383;
                        BNE CODE_0A8772                      ;0A8792|D0DE    |0A8772;
                        TXA                                  ;0A8794|8A      |      ;
-                       ADC.B r_GameStateLoopCounter         ;0A8795|651A    |00001A;
+                       ADC.B r_gameStateLoopCounter         ;0A8795|651A    |00001A;
                        ADC.W $0438                          ;0A8797|6D3804  |0A0438;
                        AND.B #$03                           ;0A879A|2903    |      ;
                        CLC                                  ;0A879C|18      |      ;
@@ -1107,7 +1107,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
          DATA8_0A87BA: db $00,$04                           ;0A87BA|        |      ;
  
          DATA8_0A87BC: db $C0,$87                           ;0A87BC|        |      ;
-                       DEC.B r_SubWeaponMultiplier          ;0A87BE|C687    |000087;
+                       DEC.B r_subweapMultiplier            ;0A87BE|C687    |000087;
                        JSR.W CODE_0A87CB                    ;0A87C0|20CB87  |0A87CB;
                        JMP.W CODE_0A85DE                    ;0A87C3|4CDE85  |0A85DE;
  
@@ -1118,7 +1118,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        JSR.W CODE_0A8D73                    ;0A87CE|20738D  |0A8D73;
                        BNE CODE_0A87EE                      ;0A87D1|D01B    |0A87EE;
                        TXA                                  ;0A87D3|8A      |      ;
-                       ADC.B r_GameStateLoopCounter         ;0A87D4|651A    |00001A;
+                       ADC.B r_gameStateLoopCounter         ;0A87D4|651A    |00001A;
                        ADC.W $0438                          ;0A87D6|6D3804  |0A0438;
                        AND.B #$07                           ;0A87D9|2907    |      ;
                        CLC                                  ;0A87DB|18      |      ;
@@ -1130,7 +1130,7 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        STA.B $00                            ;0A87E9|8500    |000000;
                        JSR.W CODE_0A8DDE                    ;0A87EB|20DE8D  |0A8DDE;
  
-          CODE_0A87EE: LDX.B r_CurrEntityIdxBeingProcessed  ;0A87EE|A66C    |00006C;
+          CODE_0A87EE: LDX.B r_entityID_processed           ;0A87EE|A66C    |00006C;
                        LDA.B #$47                           ;0A87F0|A947    |      ;
                        LDY.W $07F6                          ;0A87F2|ACF607  |0A07F6;
                        BEQ CODE_0A87F9                      ;0A87F5|F002    |0A87F9;
@@ -1179,19 +1179,19 @@ fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A
                        LDA.W CODE_0A8882,Y                  ;0A883F|B98288  |0A8882;
                        STA.B $00                            ;0A8842|8500    |000000;
                        LDA.B #$00                           ;0A8844|A900    |      ;
-                       LDY.B r_ViewSpeed                    ;0A8846|A46E    |00006E;
+                       LDY.B r_scrollSpd                    ;0A8846|A46E    |00006E;
                        BEQ CODE_0A8861                      ;0A8848|F017    |0A8861;
-                       LDY.B r_RoomOrientation              ;0A884A|A468    |000068;
+                       LDY.B r_roomOrientation              ;0A884A|A468    |000068;
                        BPL CODE_0A8861                      ;0A884C|1013    |0A8861;
-                       LDY.B r_ViewSpeed                    ;0A884E|A46E    |00006E;
+                       LDY.B r_scrollSpd                    ;0A884E|A46E    |00006E;
                        BPL CODE_0A8854                      ;0A8850|1002    |0A8854;
                        LDA.B #$04                           ;0A8852|A904    |      ;
  
           CODE_0A8854: CLC                                  ;0A8854|18      |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8855|850A    |00000A;
-                       LDA.B r_GameStateLoopCounter         ;0A8857|A51A    |00001A;
+                       STA.B r_temp_Xpos                    ;0A8855|850A    |00000A;
+                       LDA.B r_gameStateLoopCounter         ;0A8857|A51A    |00001A;
                        AND.B #$03                           ;0A8859|2903    |      ;
-                       ADC.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A885B|650A    |00000A;
+                       ADC.B r_temp_Xpos                    ;0A885B|650A    |00000A;
                        TAY                                  ;0A885D|A8      |      ;
                        LDA.W DATA8_0A886A,Y                 ;0A885E|B96A88  |0A886A;
  
@@ -1226,7 +1226,7 @@ medusaHeadSpawnPointer: dw medusaHeadSpawn00                 ;0A8878|        |0A
           CODE_0A8889: JSR.W CODE_0A8DE7                    ;0A8889|20E78D  |0A8DE7;
                        JSR.W CODE_0A8E54                    ;0A888C|20548E  |0A8E54;
                        BNE CODE_0A88B6                      ;0A888F|D025    |0A88B6;
-                       LDA.B r_CurrRoomGroupStage           ;0A8891|A532    |000032;
+                       LDA.B r_stage                        ;0A8891|A532    |000032;
                        CMP.B #$0A                           ;0A8893|C90A    |      ;
                        BNE CODE_0A88A4                      ;0A8895|D00D    |0A88A4;
                        LDA.W $041C                          ;0A8897|AD1C04  |0A041C;
@@ -1246,7 +1246,7 @@ medusaHeadSpawnPointer: dw medusaHeadSpawn00                 ;0A8878|        |0A
                        JSR.W CODE_0A88C4                    ;0A88B3|20C488  |0A88C4;
  
           CODE_0A88B6: LDA.B #$70                           ;0A88B6|A970    |      ;
-                       LDY.B r_CurrRoomGroupStage           ;0A88B8|A432    |000032;
+                       LDY.B r_stage                        ;0A88B8|A432    |000032;
                        CPY.B #$0A                           ;0A88BA|C00A    |      ;
                        BCS CODE_0A88C0                      ;0A88BC|B002    |0A88C0;
                        LDA.B #$A0                           ;0A88BE|A9A0    |      ;
@@ -1297,7 +1297,7 @@ medusaHeadSpawnPointer: dw medusaHeadSpawn00                 ;0A8878|        |0A
                        JSR.W CODE_0A8DDE                    ;0A890D|20DE8D  |0A8DDE;
  
           CODE_0A8910: LDA.B #$80                           ;0A8910|A980    |      ;
-                       LDY.B r_CurrRoomGroupStage           ;0A8912|A432    |000032;
+                       LDY.B r_stage                        ;0A8912|A432    |000032;
                        CPY.B #$0D                           ;0A8914|C00D    |      ;
                        BEQ CODE_0A891A                      ;0A8916|F002    |0A891A;
                        LDA.B #$FF                           ;0A8918|A9FF    |      ;
@@ -1380,7 +1380,7 @@ batFlyingSpawnPointer_0c: dw batFlyingSpawn00                  ;0A8970|        |
                        RTS                                  ;0A8991|60      |      ;
  
  
-          CODE_0A8992: LDA.B r_CurrRoomGroupStage           ;0A8992|A532    |000032;
+          CODE_0A8992: LDA.B r_stage                        ;0A8992|A532    |000032;
                        CMP.B #$01                           ;0A8994|C901    |      ;
                        BNE CODE_0A899E                      ;0A8996|D006    |0A899E;
                        JSR.W CODE_0A8EC3                    ;0A8998|20C38E  |0A8EC3;
@@ -1406,7 +1406,7 @@ batFlyingSpawnPointer_0c: dw batFlyingSpawn00                  ;0A8970|        |
  
           CODE_0A89B7: LDA.B #$00                           ;0A89B7|A900    |      ;
  
-          CODE_0A89B9: STA.B r_RoomSectionChrBanksDataOffset;0A89B9|850F    |00000F;
+          CODE_0A89B9: STA.B r_roomSectionChrBanksDataOffset;0A89B9|850F    |00000F;
                        LDY.B #$01                           ;0A89BB|A001    |      ;
                        LDA.W $0438                          ;0A89BD|AD3804  |0A0438;
                        CMP.B #$50                           ;0A89C0|C950    |      ;
@@ -1415,14 +1415,14 @@ batFlyingSpawnPointer_0c: dw batFlyingSpawn00                  ;0A8970|        |
           CODE_0A89C4: DEY                                  ;0A89C4|88      |      ;
                        CMP.B #$B0                           ;0A89C5|C9B0    |      ;
                        BCS CODE_0A89D9                      ;0A89C7|B010    |0A89D9;
-                       LDA.B r_RoomSectionChrBanksDataOffset;0A89C9|A50F    |00000F;
+                       LDA.B r_roomSectionChrBanksDataOffset;0A89C9|A50F    |00000F;
                        BNE CODE_0A89DA                      ;0A89CB|D00D    |0A89DA;
                        LDA.W $041C                          ;0A89CD|AD1C04  |0A041C;
                        LSR A                                ;0A89D0|4A      |      ;
                        LSR A                                ;0A89D1|4A      |      ;
                        LSR A                                ;0A89D2|4A      |      ;
                        LSR A                                ;0A89D3|4A      |      ;
-                       ADC.B r_RandomVal                    ;0A89D4|651F    |00001F;
+                       ADC.B r_RNG                          ;0A89D4|651F    |00001F;
                        AND.B #$01                           ;0A89D6|2901    |      ;
                        TAY                                  ;0A89D8|A8      |      ;
  
@@ -1430,7 +1430,7 @@ batFlyingSpawnPointer_0c: dw batFlyingSpawn00                  ;0A8970|        |
  
  
           CODE_0A89DA: LDY.B #$01                           ;0A89DA|A001    |      ;
-                       LDA.B r_GameStateLoopCounter         ;0A89DC|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;0A89DC|A51A    |00001A;
                        AND.B #$1F                           ;0A89DE|291F    |      ;
                        BNE CODE_0A89D9                      ;0A89E0|D0F7    |0A89D9;
                        LDY.B #$00                           ;0A89E2|A000    |      ;
@@ -1438,7 +1438,7 @@ batFlyingSpawnPointer_0c: dw batFlyingSpawn00                  ;0A8970|        |
  
  
           CODE_0A89E5: LDA.B #$00                           ;0A89E5|A900    |      ;
-                       STA.B r_RoomSectionChrBanksDataOffset;0A89E7|850F    |00000F;
+                       STA.B r_roomSectionChrBanksDataOffset;0A89E7|850F    |00000F;
                        LDY.B #$01                           ;0A89E9|A001    |      ;
                        LDA.W $0438                          ;0A89EB|AD3804  |0A0438;
                        CMP.B #$60                           ;0A89EE|C960    |      ;
@@ -1482,7 +1482,7 @@ wingedDeamonSpawnPointer: dw wingedDeamonSpawn00               ;0A8A13|        |
                        LDA.W $041C                          ;0A8A32|AD1C04  |0A041C;
                        CMP.B #$20                           ;0A8A35|C920    |      ;
                        BCC CODE_0A8AA1                      ;0A8A37|9068    |0A8AA1;
-                       LDY.B r_RoomOrientation              ;0A8A39|A468    |000068;
+                       LDY.B r_roomOrientation              ;0A8A39|A468    |000068;
                        BPL CODE_0A8A3F                      ;0A8A3B|1002    |0A8A3F;
                        SBC.B #$18                           ;0A8A3D|E918    |      ;
  
@@ -1526,7 +1526,7 @@ wingedDeamonSpawnPointer: dw wingedDeamonSpawn00               ;0A8A13|        |
                        BNE CODE_0A8A95                      ;0A8A7D|D016    |0A8A95;
                        JSR.W CODE_0A8DDE                    ;0A8A7F|20DE8D  |0A8DDE;
                        STX.B $09                            ;0A8A82|8609    |000009;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8A84|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8A84|A66C    |00006C;
                        CLC                                  ;0A8A86|18      |      ;
                        LDY.W $07E6,X                        ;0A8A87|BCE607  |0A07E6;
                        LDA.W DATA8_0A8AA2,Y                 ;0A8A8A|B9A28A  |0A8AA2;
@@ -1534,7 +1534,7 @@ wingedDeamonSpawnPointer: dw wingedDeamonSpawn00               ;0A8A13|        |
                        LDX.B $09                            ;0A8A90|A609    |000009;
                        STA.W $0438,X                        ;0A8A92|9D3804  |0A0438;
  
-          CODE_0A8A95: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8A95|A66C    |00006C;
+          CODE_0A8A95: LDX.B r_entityID_processed           ;0A8A95|A66C    |00006C;
                        DEC.W $07E6,X                        ;0A8A97|DEE607  |0A07E6;
                        BNE CODE_0A8A77                      ;0A8A9A|D0DB    |0A8A77;
                        LDA.B #$28                           ;0A8A9C|A928    |      ;
@@ -1636,10 +1636,10 @@ axeKnightSpawnerPointer: dw axeKnightSpawner00                ;0A8B2C|        |0
           CODE_0A8B4A: JMP.W CODE_0A8BCD                    ;0A8B4A|4CCD8B  |0A8BCD;
  
  
-          CODE_0A8B4D: EOR.B (r_ConveyaerRoomEffect,S),Y    ;0A8B4D|538B    |00008B;
+          CODE_0A8B4D: EOR.B (r_conveyaerRoomEffect,S),Y    ;0A8B4D|538B    |00008B;
                        SED                                  ;0A8B4F|F8      |      ;
                        PHB                                  ;0A8B50|8B      |      ;
-                       EOR.B [r_WhipSparkTimer],Y           ;0A8B51|578C    |00008C;
+                       EOR.B [r_whipSparkTimer],Y           ;0A8B51|578C    |00008C;
                        LDA.W $07E0,X                        ;0A8B53|BDE007  |0A07E0;
                        BNE CODE_0A8B60                      ;0A8B56|D008    |0A8B60;
                        JSR.W CODE_0A8DE7                    ;0A8B58|20E78D  |0A8DE7;
@@ -1663,12 +1663,12 @@ hunchbackSpawnPointer_0a: dw hunchbackSpawn00                  ;0A8B61|        |
                        LDA.B $03                            ;0A8B79|A503    |000003;
                        CMP.B #$63                           ;0A8B7B|C963    |      ;
                        BNE CODE_0A8BBE                      ;0A8B7D|D03F    |0A8BBE;
-                       LDA.B r_CurrRoomGroupStage           ;0A8B7F|A532    |000032;
+                       LDA.B r_stage                        ;0A8B7F|A532    |000032;
                        CMP.B #$0C                           ;0A8B81|C90C    |      ;
                        BEQ CODE_0A8BBE                      ;0A8B83|F039    |0A8BBE;
                        CMP.B #$01                           ;0A8B85|C901    |      ;
                        BNE CODE_0A8B8F                      ;0A8B87|D006    |0A8B8F;
-                       LDA.B r_CurrRoomIdx                  ;0A8B89|A534    |000034;
+                       LDA.B r_roomIdx                      ;0A8B89|A534    |000034;
                        CMP.B #$01                           ;0A8B8B|C901    |      ;
                        BEQ CODE_0A8BBE                      ;0A8B8D|F02F    |0A8BBE;
  
@@ -1707,7 +1707,7 @@ redSkelletonSpawnPointer_13: dw redSkelletonSpawn00               ;0A8BAB|      
                        JMP.W CODE_0A85DE                    ;0A8BCA|4CDE85  |0A85DE;
  
  
-          CODE_0A8BCD: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8BCD|A66C    |00006C;
+          CODE_0A8BCD: LDX.B r_entityID_processed           ;0A8BCD|A66C    |00006C;
                        LDA.B #$02                           ;0A8BCF|A902    |      ;
                        STA.W $07C8,X                        ;0A8BD1|9DC807  |0A07C8;
                        RTS                                  ;0A8BD4|60      |      ;
@@ -1716,11 +1716,11 @@ redSkelletonSpawnPointer_13: dw redSkelletonSpawn00               ;0A8BAB|      
           CODE_0A8BD5: LDA.W $0470,X                        ;0A8BD5|BD7004  |0A0470;
                        ORA.B #$04                           ;0A8BD8|0904    |      ;
                        STA.W $0470,X                        ;0A8BDA|9D7004  |0A0470;
-                       LDA.B r_CurrEntityIdxBeingProcessed  ;0A8BDD|A56C    |00006C;
+                       LDA.B r_entityID_processed           ;0A8BDD|A56C    |00006C;
                        STA.W $0645,X                        ;0A8BDF|9D4506  |0A0645;
                        TXA                                  ;0A8BE2|8A      |      ;
                        PHA                                  ;0A8BE3|48      |      ;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8BE4|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8BE4|A66C    |00006C;
                        ASL A                                ;0A8BE6|0A      |      ;
                        ASL A                                ;0A8BE7|0A      |      ;
                        ASL A                                ;0A8BE8|0A      |      ;
@@ -1763,7 +1763,7 @@ CrowAndEyeSpawnPointer_10: dw crowSpawn00                       ;0A8BF9|        
                        db $20                               ;0A8C28|        |      ;
                        dw UNREACH_0FE7EC                    ;0A8C29|        |0FE7EC;
                        TXA                                  ;0A8C2B|8A      |      ;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8C2C|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8C2C|A66C    |00006C;
                        STA.W $07E6,X                        ;0A8C2E|9DE607  |0A07E6;
                        INC.W $07C8,X                        ;0A8C31|FEC807  |0A07C8;
                        RTS                                  ;0A8C34|60      |      ;
@@ -1773,14 +1773,14 @@ CrowAndEyeSpawnPointer_10: dw crowSpawn00                       ;0A8BF9|        
                        TAX                                  ;0A8C38|AA      |      ;
                        LDA.W $054E,X                        ;0A8C39|BD4E05  |0A054E;
                        BNE CODE_0A8C49                      ;0A8C3C|D00B    |0A8C49;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8C3E|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8C3E|A66C    |00006C;
                        INC.W $07C8,X                        ;0A8C40|FEC807  |0A07C8;
                        LDA.B #$80                           ;0A8C43|A980    |      ;
                        STA.W $07CE,X                        ;0A8C45|9DCE07  |0A07CE;
                        RTS                                  ;0A8C48|60      |      ;
  
  
-          CODE_0A8C49: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8C49|A66C    |00006C;
+          CODE_0A8C49: LDX.B r_entityID_processed           ;0A8C49|A66C    |00006C;
  
           CODE_0A8C4B: RTS                                  ;0A8C4B|60      |      ;
  
@@ -1848,7 +1848,7 @@ bonePiller2ShotSpawne00: JSR.W CODE_0A8DE7                    ;0A8CA2|20E78D  |0
  
 batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0A8CB8;
                        dw emptySpawn01                      ;0A8CB4|        |0A8BF8;
-                       EOR.B [r_WhipSparkTimer],Y           ;0A8CB6|578C    |00008C;
+                       EOR.B [r_whipSparkTimer],Y           ;0A8CB6|578C    |00008C;
  
       batSleepSpawn00: JSR.W CODE_0A8DE7                    ;0A8CB8|20E78D  |0A8DE7;
                        LDA.W $07E0,X                        ;0A8CBB|BDE007  |0A07E0;
@@ -1859,7 +1859,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        JMP.W CODE_0A85DE                    ;0A8CC8|4CDE85  |0A85DE;
  
  
-          CODE_0A8CCB: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8CCB|A66C    |00006C;
+          CODE_0A8CCB: LDX.B r_entityID_processed           ;0A8CCB|A66C    |00006C;
                        LDA.B #$02                           ;0A8CCD|A902    |      ;
                        STA.W $07C8,X                        ;0A8CCF|9DC807  |0A07C8;
  
@@ -1920,11 +1920,11 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        JSR.W CODE_0A9332                    ;0A8D49|203293  |0A9332;
                        db $20                               ;0A8D4C|        |      ;
                        dw UNREACH_0FE7EC                    ;0A8D4D|        |0FE7EC;
-                       LDA.B r_CurrEntityIdxBeingProcessed  ;0A8D4F|A56C    |00006C;
+                       LDA.B r_entityID_processed           ;0A8D4F|A56C    |00006C;
                        STA.W $0645,X                        ;0A8D51|9D4506  |0A0645;
                        TXA                                  ;0A8D54|8A      |      ;
                        TAY                                  ;0A8D55|A8      |      ;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8D56|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8D56|A66C    |00006C;
                        LDA.W $07E6,X                        ;0A8D58|BDE607  |0A07E6;
                        STA.W $0633,Y                        ;0A8D5B|993306  |0A0633;
                        JMP.W CODE_0A85DE                    ;0A8D5E|4CDE85  |0A85DE;
@@ -1936,7 +1936,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
          DATA8_0A8D64: db $00,$FF                           ;0A8D64|        |      ;
  
-          CODE_0A8D66: LDA.B r_CurrScrollOffsetIntoRoomScreen;0A8D66|A556    |000056;
+          CODE_0A8D66: LDA.B r_sceneScrollOffsetLo          ;0A8D66|A556    |000056;
                        BNE CODE_0A8D72                      ;0A8D68|D008    |0A8D72;
                        LDA.W $07E0,X                        ;0A8D6A|BDE007  |0A07E0;
                        BNE CODE_0A8D72                      ;0A8D6D|D003    |0A8D72;
@@ -2051,12 +2051,12 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
           CODE_0A8E28: LDY.W $07F6                          ;0A8E28|ACF607  |0A07F6;
                        BEQ CODE_0A8E46                      ;0A8E2B|F019    |0A8E46;
-                       LDA.B r_CurrRoomGroupStage           ;0A8E2D|A532    |000032;
+                       LDA.B r_stage                        ;0A8E2D|A532    |000032;
                        CMP.B #$04                           ;0A8E2F|C904    |      ;
                        BEQ CODE_0A8E3F                      ;0A8E31|F00C    |0A8E3F;
                        CMP.B #$0D                           ;0A8E33|C90D    |      ;
                        BNE CODE_0A8E4C                      ;0A8E35|D015    |0A8E4C;
-                       LDA.B r_CurrRoomSectionBlock         ;0A8E37|A533    |000033;
+                       LDA.B r_blockLevel                   ;0A8E37|A533    |000033;
                        CMP.B #$01                           ;0A8E39|C901    |      ;
                        BNE CODE_0A8E4C                      ;0A8E3B|D00F    |0A8E4C;
                        BEQ CODE_0A8E46                      ;0A8E3D|F007    |0A8E46;
@@ -2065,7 +2065,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        CMP.B #$0C                           ;0A8E42|C90C    |      ;
                        BNE CODE_0A8E4C                      ;0A8E44|D006    |0A8E4C;
  
-          CODE_0A8E46: LDA.B r_GameStateLoopCounter         ;0A8E46|A51A    |00001A;
+          CODE_0A8E46: LDA.B r_gameStateLoopCounter         ;0A8E46|A51A    |00001A;
                        AND.B #$01                           ;0A8E48|2901    |      ;
                        BNE CODE_0A8E4F                      ;0A8E4A|D003    |0A8E4F;
  
@@ -2079,26 +2079,26 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
           CODE_0A8E54: LDA.B #$03                           ;0A8E54|A903    |      ;
  
-          CODE_0A8E56: STA.B r_DoubleCurrSection            ;0A8E56|850D    |00000D;
+          CODE_0A8E56: STA.B r_tempCurrSection              ;0A8E56|850D    |00000D;
                        LDA.B #$00                           ;0A8E58|A900    |      ;
-                       STA.B r_DoubleCurrRoomIdx            ;0A8E5A|850E    |00000E;
+                       STA.B r_tempCurrRoomIdx              ;0A8E5A|850E    |00000E;
                        LDA.B #$01                           ;0A8E5C|A901    |      ;
-                       STA.B r_DoubleCurrGroup              ;0A8E5E|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;0A8E5E|850C    |00000C;
                        LDA.B #$09                           ;0A8E60|A909    |      ;
                        STA.B $0B                            ;0A8E62|850B    |00000B;
  
-          CODE_0A8E64: LDX.B r_DoubleCurrGroup              ;0A8E64|A60C    |00000C;
+          CODE_0A8E64: LDX.B r_tempCurrGroup                ;0A8E64|A60C    |00000C;
  
           CODE_0A8E66: LDA.W $054E,X                        ;0A8E66|BD4E05  |0A054E;
                        CMP.B $03                            ;0A8E69|C503    |000003;
                        BNE CODE_0A8E6F                      ;0A8E6B|D002    |0A8E6F;
-                       INC.B r_DoubleCurrRoomIdx            ;0A8E6D|E60E    |00000E;
+                       INC.B r_tempCurrRoomIdx              ;0A8E6D|E60E    |00000E;
  
           CODE_0A8E6F: INX                                  ;0A8E6F|E8      |      ;
                        CPX.B $0B                            ;0A8E70|E40B    |00000B;
                        BCC CODE_0A8E66                      ;0A8E72|90F2    |0A8E66;
-                       LDA.B r_DoubleCurrRoomIdx            ;0A8E74|A50E    |00000E;
-                       CMP.B r_DoubleCurrSection            ;0A8E76|C50D    |00000D;
+                       LDA.B r_tempCurrRoomIdx              ;0A8E74|A50E    |00000E;
+                       CMP.B r_tempCurrSection              ;0A8E76|C50D    |00000D;
                        BCS CODE_0A8E86                      ;0A8E78|B00C    |0A8E86;
                        LDA.B $0B                            ;0A8E7A|A50B    |00000B;
                        CMP.B #$13                           ;0A8E7C|C913    |      ;
@@ -2115,37 +2115,37 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
  
           CODE_0A8E89: LDA.B #$0D                           ;0A8E89|A90D    |      ;
-                       STA.B r_DoubleCurrGroup              ;0A8E8B|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;0A8E8B|850C    |00000C;
                        LDA.B #$13                           ;0A8E8D|A913    |      ;
                        STA.B $0B                            ;0A8E8F|850B    |00000B;
                        LDA.B #$02                           ;0A8E91|A902    |      ;
-                       STA.B r_DoubleCurrSection            ;0A8E93|850D    |00000D;
+                       STA.B r_tempCurrSection              ;0A8E93|850D    |00000D;
                        LDA.B #$00                           ;0A8E95|A900    |      ;
-                       STA.B r_DoubleCurrRoomIdx            ;0A8E97|850E    |00000E;
+                       STA.B r_tempCurrRoomIdx              ;0A8E97|850E    |00000E;
                        JMP.W CODE_0A8E64                    ;0A8E99|4C648E  |0A8E64;
  
  
           CODE_0A8E9C: LDY.W $07C2,X                        ;0A8E9C|BCC207  |0A07C2;
                        LDA.W spawnerEntityObject_Idxes,Y    ;0A8E9F|B9DA92  |0A92DA;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8EA2|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;0A8EA2|850A    |00000A;
                        LDX.B #$01                           ;0A8EA4|A201    |      ;
  
           CODE_0A8EA6: LDA.W $054E,X                        ;0A8EA6|BD4E05  |0A054E;
-                       CMP.B r_CurrRoomSectionPlayerPosAndScreenAddr;0A8EA9|C50A    |00000A;
+                       CMP.B r_temp_Xpos                    ;0A8EA9|C50A    |00000A;
                        BNE CODE_0A8EB4                      ;0A8EAB|D007    |0A8EB4;
-                       LDA.B r_CurrEntityIdxBeingProcessed  ;0A8EAD|A56C    |00006C;
+                       LDA.B r_entityID_processed           ;0A8EAD|A56C    |00006C;
                        CMP.W $0645,X                        ;0A8EAF|DD4506  |0A0645;
                        BEQ CODE_0A8EBE                      ;0A8EB2|F00A    |0A8EBE;
  
           CODE_0A8EB4: INX                                  ;0A8EB4|E8      |      ;
                        CPX.B #$0D                           ;0A8EB5|E00D    |      ;
                        BCC CODE_0A8EA6                      ;0A8EB7|90ED    |0A8EA6;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A8EB9|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A8EB9|A66C    |00006C;
                        LDA.B #$00                           ;0A8EBB|A900    |      ;
                        RTS                                  ;0A8EBD|60      |      ;
  
  
-          CODE_0A8EBE: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8EBE|A66C    |00006C;
+          CODE_0A8EBE: LDX.B r_entityID_processed           ;0A8EBE|A66C    |00006C;
                        LDA.B #$01                           ;0A8EC0|A901    |      ;
  
           CODE_0A8EC2: RTS                                  ;0A8EC2|60      |      ;
@@ -2189,13 +2189,13 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        LDX.B #$01                           ;0A8EFE|A201    |      ;
                        JSR.W DATA8_0A8DFF                   ;0A8F00|20FF8D  |0A8DFF;
                        JSR.W CODE_0A9332                    ;0A8F03|203293  |0A9332;
-                       STA.B r_BossHealth                   ;0A8F06|853D    |00003D;
+                       STA.B r_HUD_healthBoss               ;0A8F06|853D    |00003D;
                        JSR.W lightningSpawn01               ;0A8F08|20168F  |0A8F16;
                        JSR.W DATA8_0A8F73                   ;0A8F0B|20738F  |0A8F73;
  
-          CODE_0A8F0E: LDX.B r_CurrEntityIdxBeingProcessed  ;0A8F0E|A66C    |00006C;
+          CODE_0A8F0E: LDX.B r_entityID_processed           ;0A8F0E|A66C    |00006C;
                        INC.W $07C8,X                        ;0A8F10|FEC807  |0A07C8;
-                       STX.B r_BossSpawner                  ;0A8F13|86C3    |0000C3;
+                       STX.B r_bossSpawner                  ;0A8F13|86C3    |0000C3;
  
       emptySpawnClose: RTS                                  ;0A8F15|60      |      ;
  
@@ -2205,9 +2205,9 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
           CODE_0A8F1B: DEY                                  ;0A8F1B|88      |      ;
                        LDA.W DATA8_0A8F55,Y                 ;0A8F1C|B9558F  |0A8F55;
-                       STA.B r_ChrBankSpr_0800              ;0A8F1F|8548    |000048;
+                       STA.B r_CHR_BankSpr_0800             ;0A8F1F|8548    |000048;
                        LDA.W DATA8_0A8F64,Y                 ;0A8F21|B9648F  |0A8F64;
-                       STA.B r_ChrBankSpr_0c00              ;0A8F24|8549    |000049;
+                       STA.B r_CHR_BankSpr_0c00             ;0A8F24|8549    |000049;
                        db $4C                               ;0A8F26|        |      ;
  
                        dw CODE_0FE33C                       ;0A8F27|        |0FE33C;
@@ -2232,10 +2232,10 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        RTS                                  ;0A8F44|60      |      ;
  
  
-          CODE_0A8F45: LDA.B r_CurrRoomGroupStage           ;0A8F45|A532    |000032;
+          CODE_0A8F45: LDA.B r_stage                        ;0A8F45|A532    |000032;
                        CMP.B #$01                           ;0A8F47|C901    |      ;
                        BNE CODE_0A8F53                      ;0A8F49|D008    |0A8F53;
-                       LDA.B r_CurrRoomSectionBlock         ;0A8F4B|A533    |000033;
+                       LDA.B r_blockLevel                   ;0A8F4B|A533    |000033;
                        CMP.B #$03                           ;0A8F4D|C903    |      ;
                        BNE CODE_0A8F53                      ;0A8F4F|D002    |0A8F53;
                        SEC                                  ;0A8F51|38      |      ;
@@ -2257,30 +2257,30 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
          DATA8_0A8F73: db $20,$32,$8F,$90,$2F               ;0A8F73|        |      ;
  
           CODE_0A8F78: LDA.W $054E,X                        ;0A8F78|BD4E05  |0A054E;
-                       STA.B r_BossObject                   ;0A8F7B|85C1    |0000C1;
-                       STX.B r_RoomSectionChrBanksDataOffset;0A8F7D|860F    |00000F;
+                       STA.B r_bossObject                   ;0A8F7B|85C1    |0000C1;
+                       STX.B r_roomSectionChrBanksDataOffset;0A8F7D|860F    |00000F;
                        db $20                               ;0A8F7F|        |      ;
                        dw UNREACH_0FE730                    ;0A8F80|        |0FE730;
-                       LDX.B r_RoomSectionChrBanksDataOffset;0A8F82|A60F    |00000F;
-                       LDA.B r_BossObject                   ;0A8F84|A5C1    |0000C1;
+                       LDX.B r_roomSectionChrBanksDataOffset;0A8F82|A60F    |00000F;
+                       LDA.B r_bossObject                   ;0A8F84|A5C1    |0000C1;
                        BEQ CODE_0A8FA0                      ;0A8F86|F018    |0A8FA0;
                        ASL A                                ;0A8F88|0A      |      ;
                        ASL A                                ;0A8F89|0A      |      ;
                        TAY                                  ;0A8F8A|A8      |      ;
-                       LDA.B r_VramQueueNextIdxToFill       ;0A8F8B|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0A8F8B|A51D    |00001D;
                        SEC                                  ;0A8F8D|38      |      ;
                        SBC.B #$11                           ;0A8F8E|E911    |      ;
                        TAX                                  ;0A8F90|AA      |      ;
                        LDA.B #$04                           ;0A8F91|A904    |      ;
-                       STA.B r_DoubleCurrRoomIdx            ;0A8F93|850E    |00000E;
+                       STA.B r_tempCurrRoomIdx              ;0A8F93|850E    |00000E;
  
           CODE_0A8F95: LDA.W DATA8_0A8FA8,Y                 ;0A8F95|B9A88F  |0A8FA8;
                        JSR.W CODE_0A8FA3                    ;0A8F98|20A38F  |0A8FA3;
                        INY                                  ;0A8F9B|C8      |      ;
-                       DEC.B r_DoubleCurrRoomIdx            ;0A8F9C|C60E    |00000E;
+                       DEC.B r_tempCurrRoomIdx              ;0A8F9C|C60E    |00000E;
                        BNE CODE_0A8F95                      ;0A8F9E|D0F5    |0A8F95;
  
-          CODE_0A8FA0: LDX.B r_RoomSectionChrBanksDataOffset;0A8FA0|A60F    |00000F;
+          CODE_0A8FA0: LDX.B r_roomSectionChrBanksDataOffset;0A8FA0|A60F    |00000F;
                        RTS                                  ;0A8FA2|60      |      ;
  
  
@@ -2330,18 +2330,18 @@ bossBoneDragonKingSpawnPointer: dw bossAlucardSpawner00              ;0A8FFC|   
  
  
  bossBoneDragonKing01: JSR.W CODE_0A8DE7                    ;0A901C|20E78D  |0A8DE7;
-                       LDA.B r_BossDragonKingHP             ;0A901F|A5BD    |0000BD;
-                       STA.B r_CoreLoadingFuncAddr          ;0A9021|8516    |000016;
+                       LDA.B r_bossDragonKingHP             ;0A901F|A5BD    |0000BD;
+                       STA.B r_coreLoadingFuncAddr          ;0A9021|8516    |000016;
                        LDA.B #$0C                           ;0A9023|A90C    |      ;
-                       STA.B r_015                          ;0A9025|8515    |000015;
-                       LDA.B r_CurrRoomSectionBlock         ;0A9027|A533    |000033;
+                       STA.B r_15                           ;0A9025|8515    |000015;
+                       LDA.B r_blockLevel                   ;0A9027|A533    |000033;
                        CMP.B #$02                           ;0A9029|C902    |      ;
                        BEQ CODE_0A9035                      ;0A902B|F008    |0A9035;
-                       LDA.B r_BossDragonMisc               ;0A902D|A5BE    |0000BE;
+                       LDA.B r_bossDragonMisc               ;0A902D|A5BE    |0000BE;
                        BNE CODE_0A9033                      ;0A902F|D002    |0A9033;
                        LDA.B #$01                           ;0A9031|A901    |      ;
  
-          CODE_0A9033: STA.B r_015                          ;0A9033|8515    |000015;
+          CODE_0A9033: STA.B r_15                           ;0A9033|8515    |000015;
  
           CODE_0A9035: LDX.B #$01                           ;0A9035|A201    |      ;
                        LDA.B #$80                           ;0A9037|A980    |      ;
@@ -2351,19 +2351,19 @@ bossBoneDragonKingSpawnPointer: dw bossAlucardSpawner00              ;0A8FFC|   
  
           CODE_0A9040: JSR.W DATA8_0A8DFF                   ;0A9040|20FF8D  |0A8DFF;
                        JSR.W CODE_0A9332                    ;0A9043|203293  |0A9332;
-                       STA.B r_BossHealth                   ;0A9046|853D    |00003D;
+                       STA.B r_HUD_healthBoss               ;0A9046|853D    |00003D;
                        LDA.B #$2D                           ;0A9048|A92D    |      ;
                        STA.B $03                            ;0A904A|8503    |000003;
                        LDA.B #$80                           ;0A904C|A980    |      ;
                        STA.B $02                            ;0A904E|8502    |000002;
-                       LDA.B r_CurrRoomSectionBlock         ;0A9050|A533    |000033;
+                       LDA.B r_blockLevel                   ;0A9050|A533    |000033;
                        CMP.B #$02                           ;0A9052|C902    |      ;
                        BEQ CODE_0A905D                      ;0A9054|F007    |0A905D;
-                       LDA.B r_CoreLoadingFuncAddr          ;0A9056|A516    |000016;
+                       LDA.B r_coreLoadingFuncAddr          ;0A9056|A516    |000016;
                        STA.W $067B,X                        ;0A9058|9D7B06  |0A067B;
-                       STA.B r_BossHealth                   ;0A905B|853D    |00003D;
+                       STA.B r_HUD_healthBoss               ;0A905B|853D    |00003D;
  
-          CODE_0A905D: STX.B r_CurrDrawnEntityCachedAttr    ;0A905D|8610    |000010;
+          CODE_0A905D: STX.B r_currOAM_Attr                 ;0A905D|8610    |000010;
                        LDA.B $17                            ;0A905F|A517    |000017;
                        LSR A                                ;0A9061|4A      |      ;
                        TAY                                  ;0A9062|A8      |      ;
@@ -2371,7 +2371,7 @@ bossBoneDragonKingSpawnPointer: dw bossAlucardSpawner00              ;0A8FFC|   
                        STA.W $0606,X                        ;0A9065|9D0606  |0A0606;
                        AND.B #$01                           ;0A9068|2901    |      ;
                        BEQ DATA8_0A9077                     ;0A906A|F00B    |0A9077;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;0A906C|A510    |000010;
+                       LDA.B r_currOAM_Attr                 ;0A906C|A510    |000010;
                        ORA.W $07EC,Y                        ;0A906E|19EC07  |0A07EC;
                        STA.W $07EC,Y                        ;0A9071|99EC07  |0A07EC;
                        JMP.W CODE_0A9080                    ;0A9074|4C8090  |0A9080;
@@ -2387,13 +2387,13 @@ bossBoneDragonKingSpawnPointer: dw bossAlucardSpawner00              ;0A8FFC|   
           CODE_0A9087: INC.B $17                            ;0A9087|E617    |000017;
                        INX                                  ;0A9089|E8      |      ;
                        LDA.B $17                            ;0A908A|A517    |000017;
-                       CMP.B r_015                          ;0A908C|C515    |000015;
+                       CMP.B r_15                           ;0A908C|C515    |000015;
                        BNE CODE_0A9040                      ;0A908E|D0B0    |0A9040;
                        LDX.B #$01                           ;0A9090|A201    |      ;
-                       LDA.B r_015                          ;0A9092|A515    |000015;
+                       LDA.B r_15                           ;0A9092|A515    |000015;
                        STA.W $061D,X                        ;0A9094|9D1D06  |0A061D;
                        JSR.W DATA8_0A8F73                   ;0A9097|20738F  |0A8F73;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A909A|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A909A|A66C    |00006C;
                        INC.W $07C8,X                        ;0A909C|FEC807  |0A07C8;
  
        emptySpawner03: RTS                                  ;0A909F|60      |      ;
@@ -2411,22 +2411,22 @@ bossWaterDragonSpawn01: JSR.W CODE_0A8DE7                    ;0A90A6|20E78D  |0A
                        STA.W $07F3                          ;0A90B0|8DF307  |0A07F3;
                        LDX.B #$01                           ;0A90B3|A201    |      ;
                        LDA.B #$02                           ;0A90B5|A902    |      ;
-                       STA.B r_CoreLoadingFuncAddr          ;0A90B7|8516    |000016;
+                       STA.B r_coreLoadingFuncAddr          ;0A90B7|8516    |000016;
  
           CODE_0A90B9: JSR.W DATA8_0A8DFF                   ;0A90B9|20FF8D  |0A8DFF;
                        JSR.W CODE_0A9332                    ;0A90BC|203293  |0A9332;
                        LDA.B #$40                           ;0A90BF|A940    |      ;
-                       STA.B r_BossHealth                   ;0A90C1|853D    |00003D;
-                       LDA.B r_CoreLoadingFuncAddr          ;0A90C3|A516    |000016;
+                       STA.B r_HUD_healthBoss               ;0A90C1|853D    |00003D;
+                       LDA.B r_coreLoadingFuncAddr          ;0A90C3|A516    |000016;
                        STA.W $0645,X                        ;0A90C5|9D4506  |0A0645;
                        DEC.W $0645,X                        ;0A90C8|DE4506  |0A0645;
                        INX                                  ;0A90CB|E8      |      ;
-                       DEC.B r_CoreLoadingFuncAddr          ;0A90CC|C616    |000016;
+                       DEC.B r_coreLoadingFuncAddr          ;0A90CC|C616    |000016;
                        BNE CODE_0A90B9                      ;0A90CE|D0E9    |0A90B9;
                        DEX                                  ;0A90D0|CA      |      ;
                        JSR.W lightningSpawn01               ;0A90D1|20168F  |0A8F16;
                        JSR.W DATA8_0A8F73                   ;0A90D4|20738F  |0A8F73;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A90D7|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A90D7|A66C    |00006C;
                        INC.W $07C8,X                        ;0A90D9|FEC807  |0A07C8;
  
           CODE_0A90DC: RTS                                  ;0A90DC|60      |      ;
@@ -2443,12 +2443,12 @@ bossMedusaSpawnPointer: dw bossAlucardSpawner00              ;0A90DD|        |0A
                        STA.W $07F3                          ;0A90ED|8DF307  |0A07F3;
                        LDX.B #$01                           ;0A90F0|A201    |      ;
                        LDA.B #$00                           ;0A90F2|A900    |      ;
-                       STA.B r_CoreLoadingFuncAddr          ;0A90F4|8516    |000016;
+                       STA.B r_coreLoadingFuncAddr          ;0A90F4|8516    |000016;
  
           CODE_0A90F6: JSR.W DATA8_0A8DFF                   ;0A90F6|20FF8D  |0A8DFF;
                        JSR.W CODE_0A9332                    ;0A90F9|203293  |0A9332;
-                       STA.B r_BossHealth                   ;0A90FC|853D    |00003D;
-                       LDA.B r_CoreLoadingFuncAddr          ;0A90FE|A516    |000016;
+                       STA.B r_HUD_healthBoss               ;0A90FC|853D    |00003D;
+                       LDA.B r_coreLoadingFuncAddr          ;0A90FE|A516    |000016;
                        STA.W $0606,X                        ;0A9100|9D0606  |0A0606;
                        TAY                                  ;0A9103|A8      |      ;
                        LDA.B #$00                           ;0A9104|A900    |      ;
@@ -2473,14 +2473,14 @@ bossMedusaSpawnPointer: dw bossAlucardSpawner00              ;0A90DD|        |0A
  
           CODE_0A9129: STA.W $0470,X                        ;0A9129|9D7004  |0A0470;
                        INX                                  ;0A912C|E8      |      ;
-                       INC.B r_CoreLoadingFuncAddr          ;0A912D|E616    |000016;
-                       LDA.B r_CoreLoadingFuncAddr          ;0A912F|A516    |000016;
+                       INC.B r_coreLoadingFuncAddr          ;0A912D|E616    |000016;
+                       LDA.B r_coreLoadingFuncAddr          ;0A912F|A516    |000016;
                        CMP.B #$04                           ;0A9131|C904    |      ;
                        BNE CODE_0A90F6                      ;0A9133|D0C1    |0A90F6;
                        DEX                                  ;0A9135|CA      |      ;
                        JSR.W lightningSpawn01               ;0A9136|20168F  |0A8F16;
                        JSR.W DATA8_0A8F73                   ;0A9139|20738F  |0A8F73;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A913C|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A913C|A66C    |00006C;
                        INC.W $07C8,X                        ;0A913E|FEC807  |0A07C8;
  
        emptySpawner04: RTS                                  ;0A9141|60      |      ;
@@ -2500,13 +2500,13 @@ bossAlucardSpawnerPointer: dw bossAlucardSpawner00              ;0A914A|        
                        STA.W $07F3                          ;0A915A|8DF307  |0A07F3;
                        LDX.B #$01                           ;0A915D|A201    |      ;
                        LDA.B #$00                           ;0A915F|A900    |      ;
-                       STA.B r_CoreLoadingFuncAddr          ;0A9161|8516    |000016;
+                       STA.B r_coreLoadingFuncAddr          ;0A9161|8516    |000016;
  
           CODE_0A9163: JSR.W DATA8_0A8DFF                   ;0A9163|20FF8D  |0A8DFF;
                        JSR.W CODE_0A9332                    ;0A9166|203293  |0A9332;
                        LDA.B #$40                           ;0A9169|A940    |      ;
-                       STA.B r_BossHealth                   ;0A916B|853D    |00003D;
-                       LDA.B r_CoreLoadingFuncAddr          ;0A916D|A516    |000016;
+                       STA.B r_HUD_healthBoss               ;0A916B|853D    |00003D;
+                       LDA.B r_coreLoadingFuncAddr          ;0A916D|A516    |000016;
                        BEQ CODE_0A9173                      ;0A916F|F002    |0A9173;
                        LDA.B #$02                           ;0A9171|A902    |      ;
  
@@ -2517,20 +2517,20 @@ bossAlucardSpawnerPointer: dw bossAlucardSpawner00              ;0A914A|        
                        STA.W $05D8,X                        ;0A9179|9DD805  |0A05D8;
                        LDA.B #$80                           ;0A917C|A980    |      ;
                        STA.W $05EF,X                        ;0A917E|9DEF05  |0A05EF;
-                       LDY.B r_CoreLoadingFuncAddr          ;0A9181|A416    |000016;
+                       LDY.B r_coreLoadingFuncAddr          ;0A9181|A416    |000016;
                        LDA.W DATA8_0A91A3,Y                 ;0A9183|B9A391  |0A91A3;
                        CLC                                  ;0A9186|18      |      ;
                        ADC.W $0438,X                        ;0A9187|7D3804  |0A0438;
                        STA.W $0438,X                        ;0A918A|9D3804  |0A0438;
                        INX                                  ;0A918D|E8      |      ;
-                       INC.B r_CoreLoadingFuncAddr          ;0A918E|E616    |000016;
-                       LDA.B r_CoreLoadingFuncAddr          ;0A9190|A516    |000016;
+                       INC.B r_coreLoadingFuncAddr          ;0A918E|E616    |000016;
+                       LDA.B r_coreLoadingFuncAddr          ;0A9190|A516    |000016;
                        CMP.B #$06                           ;0A9192|C906    |      ;
                        BNE CODE_0A9163                      ;0A9194|D0CD    |0A9163;
                        DEX                                  ;0A9196|CA      |      ;
                        JSR.W lightningSpawn01               ;0A9197|20168F  |0A8F16;
                        JSR.W DATA8_0A8F73                   ;0A919A|20738F  |0A8F73;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A919D|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A919D|A66C    |00006C;
                        INC.W $07C8,X                        ;0A919F|FEC807  |0A07C8;
  
           CODE_0A91A2: RTS                                  ;0A91A2|60      |      ;
@@ -2548,7 +2548,7 @@ lightningSpawnPointer08: dw lightningSpawn00                  ;0A91AF|        |0
      lightningSpawnFF: JSR.W CODE_0A8D66                    ;0A91B3|20668D  |0A8D66;
                        BNE CODE_0A9216                      ;0A91B6|D05E    |0A9216;
                        LDA.B #$00                           ;0A91B8|A900    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0A91BA|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0A91BA|8510    |000010;
                        db $20                               ;0A91BC|        |      ;
                        dw CODE_0FFEB9                       ;0A91BD|        |0FFEB9;
                        BNE CODE_0A9216                      ;0A91BF|D055    |0A9216;
@@ -2561,7 +2561,7 @@ lightningSpawnPointer08: dw lightningSpawn00                  ;0A91AF|        |0
      lightningSpawn00: JSR.W CODE_0A8D66                    ;0A91CD|20668D  |0A8D66;
                        BNE CODE_0A9216                      ;0A91D0|D044    |0A9216;
                        LDA.B #$02                           ;0A91D2|A902    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0A91D4|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0A91D4|8510    |000010;
  
          DATA8_0A91D6: db $20                               ;0A91D6|        |      ;
                        dw CODE_0FFEB9                       ;0A91D7|        |0FFEB9;
@@ -2571,7 +2571,7 @@ lightningSpawnPointer08: dw lightningSpawn00                  ;0A91AF|        |0
                        LDA.B #$60                           ;0A91E0|A960    |      ;
                        STA.W $05EF,X                        ;0A91E2|9DEF05  |0A05EF;
  
-          CODE_0A91E5: LDY.B r_CurrDrawnEntityCachedAttr    ;0A91E5|A410    |000010;
+          CODE_0A91E5: LDY.B r_currOAM_Attr                 ;0A91E5|A410    |000010;
                        LDA.W DATA8_0A9217,Y                 ;0A91E7|B91792  |0A9217;
                        STA.W $0438,X                        ;0A91EA|9D3804  |0A0438;
                        LDA.W DATA8_0A921A,Y                 ;0A91ED|B91A92  |0A921A;
@@ -2584,12 +2584,12 @@ lightningSpawnPointer08: dw lightningSpawn00                  ;0A91AF|        |0
                        STA.W $05C1,X                        ;0A9201|9DC105  |0A05C1;
                        LDA.B #$C8                           ;0A9204|A9C8    |      ;
                        STA.W $0470,X                        ;0A9206|9D7004  |0A0470;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;0A9209|A510    |000010;
+                       LDA.B r_currOAM_Attr                 ;0A9209|A510    |000010;
                        BEQ CODE_0A9211                      ;0A920B|F004    |0A9211;
-                       DEC.B r_CurrDrawnEntityCachedAttr    ;0A920D|C610    |000010;
+                       DEC.B r_currOAM_Attr                 ;0A920D|C610    |000010;
                        BNE DATA8_0A91D6                     ;0A920F|D0C5    |0A91D6;
  
-          CODE_0A9211: LDX.B r_CurrEntityIdxBeingProcessed  ;0A9211|A66C    |00006C;
+          CODE_0A9211: LDX.B r_entityID_processed           ;0A9211|A66C    |00006C;
                        INC.W $07C8,X                        ;0A9213|FEC807  |0A07C8;
  
           CODE_0A9216: RTS                                  ;0A9216|60      |      ;
@@ -2608,7 +2608,7 @@ lightningSpawnPointer0a: dw lighningSpawn03                   ;0A921D|        |0
       lighningSpawn03: JSR.W CODE_0A8D66                    ;0A9221|20668D  |0A8D66; clouds
                        BNE CODE_0A9269                      ;0A9224|D043    |0A9269;
                        LDA.B #$02                           ;0A9226|A902    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0A9228|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0A9228|8510    |000010;
  
          DATA8_0A922A: db $20                               ;0A922A|        |      ;
                        dw CODE_0FFEB9                       ;0A922B|        |0FFEB9;
@@ -2617,7 +2617,7 @@ lightningSpawnPointer0a: dw lighningSpawn03                   ;0A921D|        |0
                        STA.W $054E,X                        ;0A9231|9D4E05  |0A054E;
                        LDA.B #$00                           ;0A9234|A900    |      ;
                        STA.W $05EF,X                        ;0A9236|9DEF05  |0A05EF;
-                       LDY.B r_CurrDrawnEntityCachedAttr    ;0A9239|A410    |000010;
+                       LDY.B r_currOAM_Attr                 ;0A9239|A410    |000010;
                        TYA                                  ;0A923B|98      |      ;
                        ORA.B #$80                           ;0A923C|0980    |      ;
                        STA.W $0645,X                        ;0A923E|9D4506  |0A0645;
@@ -2632,9 +2632,9 @@ lightningSpawnPointer0a: dw lighningSpawn03                   ;0A921D|        |0
                        STA.W $0509,X                        ;0A9257|9D0905  |0A0509;
                        STA.W $0520,X                        ;0A925A|9D2005  |0A0520;
                        STA.W $0537,X                        ;0A925D|9D3705  |0A0537;
-                       DEC.B r_CurrDrawnEntityCachedAttr    ;0A9260|C610    |000010;
+                       DEC.B r_currOAM_Attr                 ;0A9260|C610    |000010;
                        BPL DATA8_0A922A                     ;0A9262|10C6    |0A922A;
-                       LDX.B r_CurrEntityIdxBeingProcessed  ;0A9264|A66C    |00006C;
+                       LDX.B r_entityID_processed           ;0A9264|A66C    |00006C;
                        INC.W $07C8,X                        ;0A9266|FEC807  |0A07C8;
  
           CODE_0A9269: RTS                                  ;0A9269|60      |      ;
@@ -5356,7 +5356,7 @@ luminaryMetadataPointer: dw DATA8_0AA840                      ;0AA644|        |0
                        db $00,$00,$02,$18,$90               ;0AB0E0|        |      ;
                        db $D0,$AE,$00,$00,$FF               ;0AB0E5|        |      ;
  
-          CODE_0AB0EA: LDA.B r_GameSubstate                 ;0AB0EA|A519    |000019;
+          CODE_0AB0EA: LDA.B r_gameSubstate                 ;0AB0EA|A519    |000019;
                        db $20                               ;0AB0EC|        |      ;
                        dw jumpFromStackYXpreserved          ;0AB0ED|        |0FE86D;
                        dw DATA8_0AB119                      ;0AB0EF|        |0AB119;
@@ -5400,7 +5400,7 @@ gameStateC_substate01: JSR.W CODE_0AB5F3                    ;0AB135|20F3B5  |0AB
                        LDA.B $B4                            ;0AB138|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB13A|C9FF    |      ;
                        BEQ CODE_0AB150                      ;0AB13C|F012    |0AB150;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB13E|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB13E|A51D    |00001D;
                        PHA                                  ;0AB140|48      |      ;
                        LDA.B #$62                           ;0AB141|A962    |      ;
                        db $20                               ;0AB143|        |      ;
@@ -5408,14 +5408,14 @@ gameStateC_substate01: JSR.W CODE_0AB5F3                    ;0AB135|20F3B5  |0AB
                        db $20                               ;0AB146|        |      ;
                        dw UNREACH_0FE716                    ;0AB147|        |0FE716;
                        PLA                                  ;0AB149|68      |      ;
-                       STA.B r_015                          ;0AB14A|8515    |000015;
+                       STA.B r_15                           ;0AB14A|8515    |000015;
                        db $20                               ;0AB14C|        |      ;
                        dw UNREACH_0FFBAF                    ;0AB14D|        |0FFBAF;
                        RTS                                  ;0AB14F|60      |      ;
  
  
           CODE_0AB150: LDA.B #$02                           ;0AB150|A902    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;0AB152|851C    |00001C;
+                       STA.B r_counter_ShowSprBg            ;0AB152|851C    |00001C;
                        JMP.W gameStateC_incSubstate         ;0AB154|4C1AB2  |0AB21A;
  
  
@@ -5431,22 +5431,22 @@ gameStateC_substate03: JSR.W CODE_0AB5F3                    ;0AB160|20F3B5  |0AB
                        JSR.W CODE_0AB452                    ;0AB166|2052B4  |0AB452;
                        JSR.W CODE_0AB19B                    ;0AB169|209BB1  |0AB19B;
                        LDA.B #$38                           ;0AB16C|A938    |      ;
-                       STA.B r_ChrBankSpr_0000              ;0AB16E|8546    |000046;
+                       STA.B r_CHR_BankSpr_0000             ;0AB16E|8546    |000046;
                        LDA.B #$39                           ;0AB170|A939    |      ;
-                       STA.B r_ChrBankSpr_0400              ;0AB172|8547    |000047;
+                       STA.B r_CHR_BankSpr_0400             ;0AB172|8547    |000047;
                        LDA.B #$3D                           ;0AB174|A93D    |      ;
-                       STA.B r_ChrBankSpr_0800              ;0AB176|8548    |000048;
+                       STA.B r_CHR_BankSpr_0800             ;0AB176|8548    |000048;
                        LDA.B #$3B                           ;0AB178|A93B    |      ;
-                       STA.B r_ChrBankSpr_0c00              ;0AB17A|8549    |000049;
+                       STA.B r_CHR_BankSpr_0c00             ;0AB17A|8549    |000049;
                        LDA.B #$41                           ;0AB17C|A941    |      ;
-                       STA.B r_ChrBankBG_0000               ;0AB17E|854A    |00004A;
+                       STA.B r_CHR_BankBG_0000              ;0AB17E|854A    |00004A;
                        LDA.B #$3A                           ;0AB180|A93A    |      ;
-                       STA.B r_ChrBankBG_0400               ;0AB182|854B    |00004B;
+                       STA.B r_CHR_BankBG_0400              ;0AB182|854B    |00004B;
                        LDA.B #$47                           ;0AB184|A947    |      ;
-                       STA.B r_ChrBankBG_0800               ;0AB186|854C    |00004C;
+                       STA.B r_CHR_BankBG_0800              ;0AB186|854C    |00004C;
                        LDA.B #$6F                           ;0AB188|A96F    |      ;
-                       STA.B r_ChrBankBG_0c00               ;0AB18A|854D    |00004D;
-                       INC.B r_GameSubstate                 ;0AB18C|E619    |000019;
+                       STA.B r_CHR_BankBG_0c00              ;0AB18A|854D    |00004D;
+                       INC.B r_gameSubstate                 ;0AB18C|E619    |000019;
                        LDA.B #$2A                           ;0AB18E|A92A    |      ;
                        db $20                               ;0AB190|        |      ;
                        dw screenLoadRoutine                 ;0AB191|        |0FECE9;
@@ -5457,7 +5457,7 @@ gameStateC_substate03: JSR.W CODE_0AB5F3                    ;0AB160|20F3B5  |0AB
                        dw screenLoadRoutine                 ;0AB199|        |0FECE9;
  
           CODE_0AB19B: LDA.B #$00                           ;0AB19B|A900    |      ;
-                       STA.B r_FrameStartChrBankOverrideIdx ;0AB19D|8572    |000072;
+                       STA.B r_HUD_CHR_overwrite            ;0AB19D|8572    |000072;
                        STA.B r_ScrollY                      ;0AB19F|85FC    |0000FC;
                        STA.B r_ScrollX                      ;0AB1A1|85FD    |0000FD;
                        RTS                                  ;0AB1A3|60      |      ;
@@ -5468,7 +5468,7 @@ gameStateC_substate03: JSR.W CODE_0AB5F3                    ;0AB160|20F3B5  |0AB
  
                        dw screenLoadRoutine                 ;0AB1A8|        |0FECE9;
  
-          CODE_0AB1AA: LDY.B r_PartnerIdx                   ;0AB1AA|A43A    |00003A;
+          CODE_0AB1AA: LDY.B r_partner                      ;0AB1AA|A43A    |00003A;
                        CPY.B #$FF                           ;0AB1AC|C0FF    |      ;
                        BNE CODE_0AB1B2                      ;0AB1AE|D002    |0AB1B2;
                        LDY.B #$00                           ;0AB1B0|A000    |      ;
@@ -5490,12 +5490,12 @@ gameStateC_substate04: JSR.W CODE_0AB5F3                    ;0AB1BD|20F3B5  |0AB
                        LDA.B #$01                           ;0AB1CC|A901    |      ;
                        LDX.B #$02                           ;0AB1CE|A202    |      ;
                        JSR.W CODE_0AB55F                    ;0AB1D0|205FB5  |0AB55F;
-                       INC.B r_GameSubstate                 ;0AB1D3|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB1D3|E619    |000019;
                        LDA.B #$00                           ;0AB1D5|A900    |      ;
                        STA.W $0783                          ;0AB1D7|8D8307  |0A0783;
                        JSR.W CODE_0AB54A                    ;0AB1DA|204AB5  |0AB54A;
                        LDA.B #$44                           ;0AB1DD|A944    |      ;
-                       STA.B r_NametableMapping             ;0AB1DF|8525    |000025;
+                       STA.B r_updateNametable              ;0AB1DF|8525    |000025;
                        LDA.B #$23                           ;0AB1E1|A923    |      ;
                        LDX.B #$70                           ;0AB1E3|A270    |      ;
                        db $20                               ;0AB1E5|        |      ;
@@ -5526,7 +5526,7 @@ gameStateC_substate05: JSR.W CODE_0AB5F3                    ;0AB1EF|20F3B5  |0AB
                        db $20                               ;0AB217|        |      ;
                        dw CODE_0FE25F                       ;0AB218|        |0FE25F;
  
-gameStateC_incSubstate: INC.B r_GameSubstate                 ;0AB21A|E619    |000019;
+gameStateC_incSubstate: INC.B r_gameSubstate                 ;0AB21A|E619    |000019;
  
           CODE_0AB21C: RTS                                  ;0AB21C|60      |      ;
  
@@ -5672,7 +5672,7 @@ gameStateC_next_783_afterTimer: db $20                               ;0AB2B8|   
                        JMP.W gameStateC_inc783_setTimerA    ;0AB315|4CA7B2  |0AB2A7;
  
  
-          CODE_0AB318: INC.B r_GameSubstate                 ;0AB318|E619    |000019;
+          CODE_0AB318: INC.B r_gameSubstate                 ;0AB318|E619    |000019;
                        RTS                                  ;0AB31A|60      |      ;
  
  
@@ -5689,7 +5689,7 @@ gameStateC_substate0a: LDY.W $0782                          ;0AB31B|AC8207  |0A0
                        db $20                               ;0AB331|        |      ;
                        dw UNREACH_0FE666                    ;0AB332|        |0FE666;
                        LDA.B #$50                           ;0AB334|A950    |      ;
-                       STA.B r_NametableMapping             ;0AB336|8525    |000025;
+                       STA.B r_updateNametable              ;0AB336|8525    |000025;
                        LDY.W $0782                          ;0AB338|AC8207  |0A0782;
                        LDA.W DATA8_0AB5A5,Y                 ;0AB33B|B9A5B5  |0AB5A5;
                        STA.W $0785                          ;0AB33E|8D8507  |0A0785;
@@ -5699,13 +5699,13 @@ gameStateC_substate0a: LDY.W $0782                          ;0AB31B|AC8207  |0A0
                        INC.W $0785                          ;0AB348|EE8507  |0A0785;
                        JSR.W CODE_0AB19B                    ;0AB34B|209BB1  |0AB19B;
                        LDA.B #$41                           ;0AB34E|A941    |      ;
-                       STA.B r_ChrBankBG_0000               ;0AB350|854A    |00004A;
+                       STA.B r_CHR_BankBG_0000              ;0AB350|854A    |00004A;
                        LDA.B #$41                           ;0AB352|A941    |      ;
-                       STA.B r_ChrBankBG_0400               ;0AB354|854B    |00004B;
+                       STA.B r_CHR_BankBG_0400              ;0AB354|854B    |00004B;
                        LDA.B #$36                           ;0AB356|A936    |      ;
-                       STA.B r_ChrBankBG_0800               ;0AB358|854C    |00004C;
+                       STA.B r_CHR_BankBG_0800              ;0AB358|854C    |00004C;
                        LDA.B #$6F                           ;0AB35A|A96F    |      ;
-                       STA.B r_ChrBankBG_0c00               ;0AB35C|854D    |00004D;
+                       STA.B r_CHR_BankBG_0c00              ;0AB35C|854D    |00004D;
                        LDA.B #$00                           ;0AB35E|A900    |      ;
                        STA.W $0788                          ;0AB360|8D8807  |0A0788;
                        JSR.W gameStateC_incSubstate         ;0AB363|201AB2  |0AB21A;
@@ -5768,7 +5768,7 @@ gameStateC_substate0c: JSR.W CODE_0AB390                    ;0AB3D5|2090B3  |0AB
                        db $20                               ;0AB3D8|        |      ;
                        dw UNREACH_0FE579                    ;0AB3D9|        |0FE579;
                        BNE CODE_0AB3E8                      ;0AB3DB|D00B    |0AB3E8;
-                       INC.B r_GameSubstate                 ;0AB3DD|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB3DD|E619    |000019;
                        LDY.W $0782                          ;0AB3DF|AC8207  |0A0782;
                        LDA.W CODE_0AB3E9,Y                  ;0AB3E2|B9E9B3  |0AB3E9;
                        STA.W $078A                          ;0AB3E5|8D8A07  |0A078A;
@@ -5777,7 +5777,7 @@ gameStateC_substate0c: JSR.W CODE_0AB390                    ;0AB3D5|2090B3  |0AB
  
  
           CODE_0AB3E9: ORA.B ($01,X)                        ;0AB3E9|0101    |000001;
-                       ORA.B (r_RoomMetaTilesAddrStart,X)   ;0AB3EB|0150    |000050;
+                       ORA.B (r_sceneAddr,X)                ;0AB3EB|0150    |000050;
  
 gameStateC_substate0d: DEC.W $078A                          ;0AB3ED|CE8A07  |0A078A;
                        BNE CODE_0AB3E8                      ;0AB3F0|D0F6    |0AB3E8;
@@ -5787,7 +5787,7 @@ gameStateC_substate0d: DEC.W $078A                          ;0AB3ED|CE8A07  |0A0
 gameStateC_substate0e: LDA.B $B4                            ;0AB3F5|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB3F7|C9FF    |      ;
                        BEQ CODE_0AB417                      ;0AB3F9|F01C    |0AB417;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB3FB|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB3FB|A51D    |00001D;
                        PHA                                  ;0AB3FD|48      |      ;
                        LDA.B #$5E                           ;0AB3FE|A95E    |      ;
                        db $20                               ;0AB400|        |      ;
@@ -5801,7 +5801,7 @@ gameStateC_substate0e: LDA.B $B4                            ;0AB3F5|A5B4    |000
                        db $20                               ;0AB40E|        |      ;
                        dw screenLoadRoutine                 ;0AB40F|        |0FECE9;
                        PLA                                  ;0AB411|68      |      ;
-                       STA.B r_015                          ;0AB412|8515    |000015;
+                       STA.B r_15                           ;0AB412|8515    |000015;
                        db $4C                               ;0AB414|        |      ;
  
                        dw UNREACH_0FFBAF                    ;0AB415|        |0FFBAF;
@@ -5828,13 +5828,13 @@ gameStateC_substate0f: db $20                               ;0AB42D|        |   
  
           CODE_0AB433: JSR.W CODE_0AB19B                    ;0AB433|209BB1  |0AB19B;
                        LDA.B #$41                           ;0AB436|A941    |      ;
-                       STA.B r_ChrBankBG_0000               ;0AB438|854A    |00004A;
+                       STA.B r_CHR_BankBG_0000              ;0AB438|854A    |00004A;
                        LDY.B #$70                           ;0AB43A|A070    |      ;
-                       STY.B r_ChrBankBG_0400               ;0AB43C|844B    |00004B;
+                       STY.B r_CHR_BankBG_0400              ;0AB43C|844B    |00004B;
                        INY                                  ;0AB43E|C8      |      ;
-                       STY.B r_ChrBankBG_0800               ;0AB43F|844C    |00004C;
+                       STY.B r_CHR_BankBG_0800              ;0AB43F|844C    |00004C;
                        INY                                  ;0AB441|C8      |      ;
-                       STY.B r_ChrBankBG_0c00               ;0AB442|844D    |00004D;
+                       STY.B r_CHR_BankBG_0c00              ;0AB442|844D    |00004D;
                        LDA.B #$B2                           ;0AB444|A9B2    |      ;
                        STA.B r_PPUCtrl                      ;0AB446|85FF    |0000FF;
                        LDX.B #$22                           ;0AB448|A222    |      ;
@@ -5867,7 +5867,7 @@ gameStateC_substate11: db $20                               ;0AB466|        |   
                        db $20                               ;0AB46F|        |      ;
                        dw UNREACH_0FE58E                    ;0AB470|        |0FE58E;
  
-          CODE_0AB472: INC.B r_GameSubstate                 ;0AB472|E619    |000019;
+          CODE_0AB472: INC.B r_gameSubstate                 ;0AB472|E619    |000019;
  
           CODE_0AB474: RTS                                  ;0AB474|60      |      ;
  
@@ -5875,18 +5875,18 @@ gameStateC_substate11: db $20                               ;0AB466|        |   
           CODE_0AB475: LDA.B $B4                            ;0AB475|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB477|C9FF    |      ;
                        BEQ CODE_0AB474                      ;0AB479|F0F9    |0AB474;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB47B|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB47B|A51D    |00001D;
                        PHA                                  ;0AB47D|48      |      ;
                        JSR.W CODE_0AB491                    ;0AB47E|2091B4  |0AB491;
                        PLA                                  ;0AB481|68      |      ;
-                       STA.B r_015                          ;0AB482|8515    |000015;
+                       STA.B r_15                           ;0AB482|8515    |000015;
                        db $20                               ;0AB484|        |      ;
                        dw UNREACH_0FFBA4                    ;0AB485|        |0FFBA4;
                        LDA.B $B4                            ;0AB487|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB489|C9FF    |      ;
                        BNE CODE_0AB474                      ;0AB48B|D0E7    |0AB474;
-                       LDA.B r_015                          ;0AB48D|A515    |000015;
-                       STA.B r_VramQueueNextIdxToFill       ;0AB48F|851D    |00001D;
+                       LDA.B r_15                           ;0AB48D|A515    |000015;
+                       STA.B r_sceneDrawQueue               ;0AB48F|851D    |00001D;
  
           CODE_0AB491: LDA.B #$5E                           ;0AB491|A95E    |      ;
                        db $20                               ;0AB493|        |      ;
@@ -5910,7 +5910,7 @@ gameStateC_substate12: db $20                               ;0AB4A4|        |   
 gameStateC_substate13: LDA.B $B4                            ;0AB4AC|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB4AE|C9FF    |      ;
                        BEQ CODE_0AB472                      ;0AB4B0|F0C0    |0AB472;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB4B2|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB4B2|A51D    |00001D;
                        PHA                                  ;0AB4B4|48      |      ;
                        LDA.B #$5E                           ;0AB4B5|A95E    |      ;
                        db $20                               ;0AB4B7|        |      ;
@@ -5922,7 +5922,7 @@ gameStateC_substate13: LDA.B $B4                            ;0AB4AC|A5B4    |000
                        db $20                               ;0AB4C1|        |      ;
                        dw screenLoadRoutine                 ;0AB4C2|        |0FECE9;
                        PLA                                  ;0AB4C4|68      |      ;
-                       STA.B r_015                          ;0AB4C5|8515    |000015;
+                       STA.B r_15                           ;0AB4C5|8515    |000015;
                        db $4C                               ;0AB4C7|        |      ;
  
                        dw UNREACH_0FFBAF                    ;0AB4C8|        |0FFBAF;
@@ -5930,9 +5930,9 @@ gameStateC_substate13: LDA.B $B4                            ;0AB4AC|A5B4    |000
 gameStateC_substate14: LDA.W $0789                          ;0AB4CA|AD8907  |0A0789;
                        STA.W $0781                          ;0AB4CD|8D8107  |0A0781;
                        LDA.B #$0D                           ;0AB4D0|A90D    |      ;
-                       STA.B r_GameState                    ;0AB4D2|8518    |000018;
+                       STA.B r_gameState                    ;0AB4D2|8518    |000018;
                        LDA.B #$00                           ;0AB4D4|A900    |      ;
-                       STA.B r_GameSubstate                 ;0AB4D6|8519    |000019;
+                       STA.B r_gameSubstate                 ;0AB4D6|8519    |000019;
  
           CODE_0AB4D8: RTS                                  ;0AB4D8|60      |      ;
  
@@ -5948,20 +5948,20 @@ gameStateC_substate14: LDA.W $0789                          ;0AB4CA|AD8907  |0A0
 gameStateC_substate09: LDA.B $B4                            ;0AB4E3|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB4E5|C9FF    |      ;
                        BEQ CODE_0AB507                      ;0AB4E7|F01E    |0AB507;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB4E9|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB4E9|A51D    |00001D;
                        PHA                                  ;0AB4EB|48      |      ;
                        LDA.B #$2A                           ;0AB4EC|A92A    |      ;
                        db $20                               ;0AB4EE|        |      ;
                        dw screenLoadRoutine                 ;0AB4EF|        |0FECE9;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB4F1|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB4F1|A51D    |00001D;
                        STA.W $0787                          ;0AB4F3|8D8707  |0A0787;
                        JSR.W CODE_0AB1A4                    ;0AB4F6|20A4B1  |0AB1A4;
                        PLA                                  ;0AB4F9|68      |      ;
-                       STA.B r_015                          ;0AB4FA|8515    |000015;
+                       STA.B r_15                           ;0AB4FA|8515    |000015;
                        db $20                               ;0AB4FC|        |      ;
                        dw UNREACH_0FFBAF                    ;0AB4FD|        |0FFBAF;
                        LDA.W $0787                          ;0AB4FF|AD8707  |0A0787;
-                       STA.B r_VramQueueNextIdxToFill       ;0AB502|851D    |00001D;
+                       STA.B r_sceneDrawQueue               ;0AB502|851D    |00001D;
                        JMP.W CODE_0AB1A4                    ;0AB504|4CA4B1  |0AB1A4;
  
  
@@ -6078,7 +6078,7 @@ gameStateC_substate09: LDA.B $B4                            ;0AB4E3|A5B4    |000
  
                        dw CODE_0FECF6                       ;0AB5F1|        |0FECF6;
  
-          CODE_0AB5F3: LDA.B r_Joy1ButtonsPressed           ;0AB5F3|A528    |000028;
+          CODE_0AB5F3: LDA.B r_Joy1Pe                       ;0AB5F3|A528    |000028;
                        AND.B #$20                           ;0AB5F5|2920    |      ;
                        BNE CODE_0AB5FE                      ;0AB5F7|D005    |0AB5FE;
                        LDA.B #$00                           ;0AB5F9|A900    |      ;
@@ -6093,7 +6093,7 @@ gameStateC_substate09: LDA.B $B4                            ;0AB4E3|A5B4    |000
                        ADC.B $00                            ;0AB603|6500    |000000;
                        TAY                                  ;0AB605|A8      |      ;
                        LDA.W coreLoadingFuncs,Y             ;0AB606|B916B6  |0AB616;
-                       STA.B r_CoreLoadingFuncAddr          ;0AB609|8516    |000016;
+                       STA.B r_coreLoadingFuncAddr          ;0AB609|8516    |000016;
                        LDA.W PTR16_0AB617,Y                 ;0AB60B|B917B6  |0AB617;
                        STA.B $17                            ;0AB60E|8517    |000017;
                        LDA.W DATA8_0AB618,Y                 ;0AB610|B918B6  |0AB618;
@@ -6124,7 +6124,7 @@ gameStateC_substate09: LDA.B $B4                            ;0AB4E3|A5B4    |000
                        db $80                               ;0AB630|        |      ;
  
  
-          CODE_0AB631: LDA.B r_GameSubstate                 ;0AB631|A519    |000019;
+          CODE_0AB631: LDA.B r_gameSubstate                 ;0AB631|A519    |000019;
                        db $20                               ;0AB633|        |      ;
                        dw jumpFromStackYXpreserved          ;0AB634|        |0FE86D;
                        dw gameStateD_substate0              ;0AB636|        |0AB6D5;
@@ -6139,15 +6139,15 @@ gameStateC_substate09: LDA.B $B4                            ;0AB4E3|A5B4    |000
                        dw CODE_0AB731                       ;0AB648|        |0AB731;
                        dw CODE_0AB73F                       ;0AB64A|        |0AB73F;
  
-  gameStateD_set6bTo0: CMP.B [r_PowerUpDrop]                ;0AB64C|C7B7    |0000B7;
+  gameStateD_set6bTo0: CMP.B [r_powerUpDrop]                ;0AB64C|C7B7    |0000B7;
  
           CODE_0AB64E: LDA.B #$00                           ;0AB64E|A900    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;0AB650|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;0AB650|856B    |00006B;
                        RTS                                  ;0AB652|60      |      ;
  
  
           CODE_0AB653: LDA.B #$08                           ;0AB653|A908    |      ;
-                       STA.B r_TranitionTimer               ;0AB655|8564    |000064;
+                       STA.B r_tranitionTimer               ;0AB655|8564    |000064;
                        LDA.B $59                            ;0AB657|A559    |000059;
                        CLC                                  ;0AB659|18      |      ;
                        ADC.B #$02                           ;0AB65A|6902    |      ;
@@ -6165,32 +6165,32 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
           CODE_0AB667: LDA.W $07A1                          ;0AB667|ADA107  |0A07A1;
                        BEQ CODE_0AB679                      ;0AB66A|F00D    |0AB679;
                        LDA.B #$FF                           ;0AB66C|A9FF    |      ;
-                       STA.B r_CollisionPointXvalDiv32      ;0AB66E|8512    |000012;
+                       STA.B r_collisionPointXvalDiv32      ;0AB66E|8512    |000012;
                        LDA.B #$FF                           ;0AB670|A9FF    |      ;
-                       STA.B r_CollisionPointYinScreen      ;0AB672|8511    |000011;
+                       STA.B r_collisionPointYinScreen      ;0AB672|8511    |000011;
                        LDA.B #$00                           ;0AB674|A900    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0AB676|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0AB676|8510    |000010;
                        RTS                                  ;0AB678|60      |      ;
  
  
           CODE_0AB679: LDA.B #$00                           ;0AB679|A900    |      ;
-                       STA.B r_CollisionPointXvalDiv32      ;0AB67B|8512    |000012;
+                       STA.B r_collisionPointXvalDiv32      ;0AB67B|8512    |000012;
                        LDA.B #$01                           ;0AB67D|A901    |      ;
-                       STA.B r_CollisionPointYinScreen      ;0AB67F|8511    |000011;
+                       STA.B r_collisionPointYinScreen      ;0AB67F|8511    |000011;
                        LDA.B #$00                           ;0AB681|A900    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0AB683|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0AB683|8510    |000010;
                        RTS                                  ;0AB685|60      |      ;
  
  
           CODE_0AB686: LDA.W $07A2                          ;0AB686|ADA207  |0A07A2;
                        CLC                                  ;0AB689|18      |      ;
-                       ADC.B r_CurrDrawnEntityCachedAttr    ;0AB68A|6510    |000010;
+                       ADC.B r_currOAM_Attr                 ;0AB68A|6510    |000010;
                        STA.W $07A2                          ;0AB68C|8DA207  |0A07A2;
                        LDA.W $07A3                          ;0AB68F|ADA307  |0A07A3;
-                       ADC.B r_CollisionPointYinScreen      ;0AB692|6511    |000011;
+                       ADC.B r_collisionPointYinScreen      ;0AB692|6511    |000011;
                        STA.W $07A3                          ;0AB694|8DA307  |0A07A3;
                        LDA.W $07A4                          ;0AB697|ADA407  |0A07A4;
-                       ADC.B r_CollisionPointXvalDiv32      ;0AB69A|6512    |000012;
+                       ADC.B r_collisionPointXvalDiv32      ;0AB69A|6512    |000012;
                        STA.W $07A4                          ;0AB69C|8DA407  |0A07A4;
                        RTS                                  ;0AB69F|60      |      ;
  
@@ -6208,17 +6208,17 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
  
           CODE_0AB6AD: SEC                                  ;0AB6AD|38      |      ;
                        LDA.W $04C4,X                        ;0AB6AE|BDC404  |0A04C4;
-                       SBC.B r_CurrDrawnEntityCachedAttr    ;0AB6B1|E510    |000010;
+                       SBC.B r_currOAM_Attr                 ;0AB6B1|E510    |000010;
                        STA.W $04C4,X                        ;0AB6B3|9DC404  |0A04C4;
                        LDA.W $0438,X                        ;0AB6B6|BD3804  |0A0438;
-                       SBC.B r_CollisionPointYinScreen      ;0AB6B9|E511    |000011;
+                       SBC.B r_collisionPointYinScreen      ;0AB6B9|E511    |000011;
                        STA.W $0438,X                        ;0AB6BB|9D3804  |0A0438;
                        BCS CODE_0AB6C6                      ;0AB6BE|B006    |0AB6C6;
-                       LDA.B r_CollisionPointXvalDiv32      ;0AB6C0|A512    |000012;
+                       LDA.B r_collisionPointXvalDiv32      ;0AB6C0|A512    |000012;
                        BMI CODE_0AB6A7                      ;0AB6C2|30E3    |0AB6A7;
                        BPL CODE_0AB6CA                      ;0AB6C4|1004    |0AB6CA;
  
-          CODE_0AB6C6: LDA.B r_CollisionPointXvalDiv32      ;0AB6C6|A512    |000012;
+          CODE_0AB6C6: LDA.B r_collisionPointXvalDiv32      ;0AB6C6|A512    |000012;
                        BPL CODE_0AB6A7                      ;0AB6C8|10DD    |0AB6A7;
  
           CODE_0AB6CA: LDA.B #$00                           ;0AB6CA|A900    |      ;
@@ -6231,7 +6231,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        dw setBank_c000_1E                   ;0AB6D6|        |0FE2DA;
                        db $20                               ;0AB6D8|        |      ;
                        dw UNREACH_0FE666                    ;0AB6D9|        |0FE666;
-                       LDA.B r_NametableMapping             ;0AB6DB|A525    |000025;
+                       LDA.B r_updateNametable              ;0AB6DB|A525    |000025;
                        STA.W $5105                          ;0AB6DD|8D0551  |0A5105;
                        LDA.W $0781                          ;0AB6E0|AD8107  |0A0781;
                        PHA                                  ;0AB6E3|48      |      ;
@@ -6241,7 +6241,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        STA.W $0781                          ;0AB6E8|8D8107  |0A0781;
                        db $20                               ;0AB6EB|        |      ;
                        dw setNameTableMapping_E4            ;0AB6EC|        |0FEBFD;
-                       INC.B r_GameSubstate                 ;0AB6EE|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB6EE|E619    |000019;
                        RTS                                  ;0AB6F0|60      |      ;
  
  
@@ -6249,21 +6249,21 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        db $20                               ;0AB6F3|        |      ;
                        dw CODE_0FE25F                       ;0AB6F4|        |0FE25F;
                        JSR.W CODE_0AB64E                    ;0AB6F6|204EB6  |0AB64E;
-                       INC.B r_GameSubstate                 ;0AB6F9|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB6F9|E619    |000019;
                        RTS                                  ;0AB6FB|60      |      ;
  
  
           CODE_0AB6FC: JSR.W gameStateD_substate2_process6bh;0AB6FC|20EEB7  |0AB7EE;
-                       LDA.B r_MenuOptionIdxSelected        ;0AB6FF|A56B    |00006B;
+                       LDA.B r_menuSelectIdx                ;0AB6FF|A56B    |00006B;
                        CMP.B #$FF                           ;0AB701|C9FF    |      ;
                        BNE CODE_0AB707                      ;0AB703|D002    |0AB707;
-                       INC.B r_GameSubstate                 ;0AB705|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB705|E619    |000019;
  
           CODE_0AB707: RTS                                  ;0AB707|60      |      ;
  
  
           CODE_0AB708: LDA.B #$02                           ;0AB708|A902    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;0AB70A|851C    |00001C;
+                       STA.B r_counter_ShowSprBg            ;0AB70A|851C    |00001C;
                        JSR.W CODE_0AB9D8                    ;0AB70C|20D8B9  |0AB9D8;
                        BCS DATA8_0AB712                     ;0AB70F|B001    |0AB712;
                        RTS                                  ;0AB711|60      |      ;
@@ -6272,9 +6272,9 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
          DATA8_0AB712: db $20                               ;0AB712|        |      ;
                        dw UNREACH_0FE7F7                    ;0AB713|        |0FE7F7;
                        LDA.B #$6E                           ;0AB715|A96E    |      ;
-                       STA.B r_ChrBankBG_0800               ;0AB717|854C    |00004C;
+                       STA.B r_CHR_BankBG_0800              ;0AB717|854C    |00004C;
                        LDA.B #$30                           ;0AB719|A930    |      ;
-                       STA.B r_GenericStateTimer            ;0AB71B|8530    |000030;
+                       STA.B r_timerGenerel                 ;0AB71B|8530    |000030;
                        LDA.B #$00                           ;0AB71D|A900    |      ;
                        STA.B r_ScrollY                      ;0AB71F|85FC    |0000FC;
                        STA.B r_ScrollX                      ;0AB721|85FD    |0000FD;
@@ -6284,25 +6284,25 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        LDA.B #$5B                           ;0AB729|A95B    |      ;
                        db $20                               ;0AB72B|        |      ;
                        dw CODE_0FECDC                       ;0AB72C|        |0FECDC;
-                       INC.B r_GameSubstate                 ;0AB72E|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB72E|E619    |000019;
  
           CODE_0AB730: RTS                                  ;0AB730|60      |      ;
  
  
-          CODE_0AB731: DEC.B r_GenericStateTimer            ;0AB731|C630    |000030;
+          CODE_0AB731: DEC.B r_timerGenerel                 ;0AB731|C630    |000030;
                        BNE CODE_0AB730                      ;0AB733|D0FB    |0AB730;
                        JSR.W gameStateD_setB4wordTo100h     ;0AB735|205FB6  |0AB65F;
                        LDA.B #$78                           ;0AB738|A978    |      ;
-                       STA.B r_GenericStateTimer            ;0AB73A|8530    |000030;
-                       INC.B r_GameSubstate                 ;0AB73C|E619    |000019;
+                       STA.B r_timerGenerel                 ;0AB73A|8530    |000030;
+                       INC.B r_gameSubstate                 ;0AB73C|E619    |000019;
                        RTS                                  ;0AB73E|60      |      ;
  
  
-          CODE_0AB73F: DEC.B r_GenericStateTimer            ;0AB73F|C630    |000030;
+          CODE_0AB73F: DEC.B r_timerGenerel                 ;0AB73F|C630    |000030;
                        BNE CODE_0AB74A                      ;0AB741|D007    |0AB74A;
                        LDA.B #$78                           ;0AB743|A978    |      ;
-                       STA.B r_GenericStateTimer            ;0AB745|8530    |000030;
-                       INC.B r_GameSubstate                 ;0AB747|E619    |000019;
+                       STA.B r_timerGenerel                 ;0AB745|8530    |000030;
+                       INC.B r_gameSubstate                 ;0AB747|E619    |000019;
  
           CODE_0AB749: RTS                                  ;0AB749|60      |      ;
  
@@ -6310,7 +6310,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
           CODE_0AB74A: LDA.B $B4                            ;0AB74A|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB74C|C9FF    |      ;
                        BEQ CODE_0AB749                      ;0AB74E|F0F9    |0AB749;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB750|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB750|A51D    |00001D;
                        PHA                                  ;0AB752|48      |      ;
                        LDA.B #$5D                           ;0AB753|A95D    |      ;
                        db $20                               ;0AB755|        |      ;
@@ -6322,34 +6322,34 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        db $20                               ;0AB75F|        |      ;
                        dw screenLoadRoutine                 ;0AB760|        |0FECE9;
                        PLA                                  ;0AB762|68      |      ;
-                       STA.B r_015                          ;0AB763|8515    |000015;
+                       STA.B r_15                           ;0AB763|8515    |000015;
                        LDA.B #$07                           ;0AB765|A907    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB767|20FFB5  |0AB5FF;
                        LDA.B $B4                            ;0AB76A|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB76C|C9FF    |      ;
                        BNE CODE_0AB749                      ;0AB76E|D0D9    |0AB749;
-                       LDA.B r_015                          ;0AB770|A515    |000015;
-                       STA.B r_VramQueueNextIdxToFill       ;0AB772|851D    |00001D;
+                       LDA.B r_15                           ;0AB770|A515    |000015;
+                       STA.B r_sceneDrawQueue               ;0AB772|851D    |00001D;
                        LDA.B #$5D                           ;0AB774|A95D    |      ;
                        db $4C                               ;0AB776|        |      ;
  
                        dw screenLoadRoutine                 ;0AB777|        |0FECE9;
  
-          CODE_0AB779: DEC.B r_GenericStateTimer            ;0AB779|C630    |000030;
+          CODE_0AB779: DEC.B r_timerGenerel                 ;0AB779|C630    |000030;
                        BNE CODE_0AB786                      ;0AB77B|D009    |0AB786;
                        JSR.W gameStateD_setB4wordTo100h     ;0AB77D|205FB6  |0AB65F;
                        LDA.B #$78                           ;0AB780|A978    |      ;
-                       STA.B r_GenericStateTimer            ;0AB782|8530    |000030;
-                       INC.B r_GameSubstate                 ;0AB784|E619    |000019;
+                       STA.B r_timerGenerel                 ;0AB782|8530    |000030;
+                       INC.B r_gameSubstate                 ;0AB784|E619    |000019;
  
           CODE_0AB786: RTS                                  ;0AB786|60      |      ;
  
  
-          CODE_0AB787: DEC.B r_GenericStateTimer            ;0AB787|C630    |000030;
+          CODE_0AB787: DEC.B r_timerGenerel                 ;0AB787|C630    |000030;
                        BNE CODE_0AB793                      ;0AB789|D008    |0AB793;
                        LDA.B #$00                           ;0AB78B|A900    |      ;
                        STA.W $07A6                          ;0AB78D|8DA607  |0A07A6;
-                       INC.B r_GameSubstate                 ;0AB790|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB790|E619    |000019;
  
           CODE_0AB792: RTS                                  ;0AB792|60      |      ;
  
@@ -6357,7 +6357,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
           CODE_0AB793: LDA.B $B4                            ;0AB793|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB795|C9FF    |      ;
                        BEQ CODE_0AB792                      ;0AB797|F0F9    |0AB792;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB799|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB799|A51D    |00001D;
                        PHA                                  ;0AB79B|48      |      ;
                        LDA.B #$5D                           ;0AB79C|A95D    |      ;
                        db $20                               ;0AB79E|        |      ;
@@ -6369,7 +6369,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        db $20                               ;0AB7A8|        |      ;
                        dw screenLoadRoutine                 ;0AB7A9|        |0FECE9;
                        PLA                                  ;0AB7AB|68      |      ;
-                       STA.B r_015                          ;0AB7AC|8515    |000015;
+                       STA.B r_15                           ;0AB7AC|8515    |000015;
                        LDA.B #$08                           ;0AB7AE|A908    |      ;
                        JMP.W CODE_0AB5FF                    ;0AB7B0|4CFFB5  |0AB5FF;
  
@@ -6380,15 +6380,15 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
  
  
           CODE_0AB7B9: LDA.B #$08                           ;0AB7B9|A908    |      ;
-                       STA.B r_GenericStateTimer            ;0AB7BB|8530    |000030;
+                       STA.B r_timerGenerel                 ;0AB7BB|8530    |000030;
                        LDX.B #$90                           ;0AB7BD|A290    |      ;
                        LDA.B #$5C                           ;0AB7BF|A95C    |      ;
                        db $20                               ;0AB7C1|        |      ;
                        dw CODE_0FECDC                       ;0AB7C2|        |0FECDC;
-                       INC.B r_GameSubstate                 ;0AB7C4|E619    |000019;
+                       INC.B r_gameSubstate                 ;0AB7C4|E619    |000019;
                        RTS                                  ;0AB7C6|60      |      ;
  
-                       LDA.B r_Joy1NewButtonsPressed        ;0AB7C7|A526    |000026;
+                       LDA.B r_curJoyPe1                    ;0AB7C7|A526    |000026;
                        AND.B #$10                           ;0AB7C9|2910    |      ;
                        BNE CODE_0AB7CE                      ;0AB7CB|D001    |0AB7CE;
                        RTS                                  ;0AB7CD|60      |      ;
@@ -6397,21 +6397,21 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
           CODE_0AB7CE: LDA.B #$01                           ;0AB7CE|A901    |      ;
                        STA.W $07F6                          ;0AB7D0|8DF607  |0A07F6;
                        LDA.B #$00                           ;0AB7D3|A900    |      ;
-                       STA.B r_CurrRoomGroupStage           ;0AB7D5|8532    |000032;
-                       STA.B r_CurrRoomSectionBlock         ;0AB7D7|8533    |000033;
-                       STA.B r_CurrRoomIdx                  ;0AB7D9|8534    |000034;
+                       STA.B r_stage                        ;0AB7D5|8532    |000032;
+                       STA.B r_blockLevel                   ;0AB7D7|8533    |000033;
+                       STA.B r_roomIdx                      ;0AB7D9|8534    |000034;
                        STA.B r_GrantDefeated                ;0AB7DB|852F    |00002F;
-                       LDY.B r_CurrCharacterIdx             ;0AB7DD|A43B    |00003B;
+                       LDY.B r_partnerIdx                   ;0AB7DD|A43B    |00003B;
                        LDA.W $0039,Y                        ;0AB7DF|B93900  |0A0039;
                        STA.W $054E                          ;0AB7E2|8D4E05  |0A054E;
                        LDA.B #$04                           ;0AB7E5|A904    |      ;
-                       STA.B r_GameState                    ;0AB7E7|8518    |000018;
+                       STA.B r_gameState                    ;0AB7E7|8518    |000018;
                        LDA.B #$1F                           ;0AB7E9|A91F    |      ;
-                       STA.B r_InGameSubstate               ;0AB7EB|852A    |00002A;
+                       STA.B r_gameLoadState                ;0AB7EB|852A    |00002A;
                        RTS                                  ;0AB7ED|60      |      ;
  
  
-gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A56B    |00006B;
+gameStateD_substate2_process6bh: LDA.B r_menuSelectIdx                ;0AB7EE|A56B    |00006B;
                        db $20                               ;0AB7F0|        |      ;
                        dw jumpFromStackYXpreserved          ;0AB7F1|        |0FE86D;
                        dw gameStateD_6b_0                   ;0AB7F3|        |0AB809;
@@ -6427,7 +6427,7 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        dw CODE_0AB95B                       ;0AB807|        |0AB95B;
  
       gameStateD_6b_0: LDA.B #$02                           ;0AB809|A902    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;0AB80B|851C    |00001C;
+                       STA.B r_counter_ShowSprBg            ;0AB80B|851C    |00001C;
                        JSR.W CODE_0AB9D8                    ;0AB80D|20D8B9  |0AB9D8;
                        BCS DATA8_0AB813                     ;0AB810|B001    |0AB813;
                        RTS                                  ;0AB812|60      |      ;
@@ -6451,18 +6451,18 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        LDA.B #$06                           ;0AB834|A906    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB836|20FFB5  |0AB5FF;
                        LDA.B #$37                           ;0AB839|A937    |      ;
-                       STA.B r_ChrBankBG_0c00               ;0AB83B|854D    |00004D;
+                       STA.B r_CHR_BankBG_0c00              ;0AB83B|854D    |00004D;
                        LDA.B #$03                           ;0AB83D|A903    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB83F|20FFB5  |0AB5FF;
                        LDA.B #$04                           ;0AB842|A904    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB844|20FFB5  |0AB5FF;
                        JSR.W CODE_0AB653                    ;0AB847|2053B6  |0AB653;
-                       INC.B r_MenuOptionIdxSelected        ;0AB84A|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;0AB84A|E66B    |00006B;
                        RTS                                  ;0AB84C|60      |      ;
  
  
           CODE_0AB84D: LDA.B #$02                           ;0AB84D|A902    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;0AB84F|851C    |00001C;
+                       STA.B r_counter_ShowSprBg            ;0AB84F|851C    |00001C;
                        LDA.B #$05                           ;0AB851|A905    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB853|20FFB5  |0AB5FF;
                        BCS CODE_0AB859                      ;0AB856|B001    |0AB859;
@@ -6471,16 +6471,16 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
  
           CODE_0AB859: JSR.W gameStateD_setB4wordTo100h     ;0AB859|205FB6  |0AB65F;
                        LDA.B #$78                           ;0AB85C|A978    |      ;
-                       STA.B r_GenericStateTimer            ;0AB85E|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;0AB860|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;0AB85E|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0AB860|E66B    |00006B;
                        RTS                                  ;0AB862|60      |      ;
  
  
-          CODE_0AB863: DEC.B r_GenericStateTimer            ;0AB863|C630    |000030;
+          CODE_0AB863: DEC.B r_timerGenerel                 ;0AB863|C630    |000030;
                        BNE CODE_0AB86E                      ;0AB865|D007    |0AB86E;
                        LDA.B #$78                           ;0AB867|A978    |      ;
-                       STA.B r_GenericStateTimer            ;0AB869|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;0AB86B|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;0AB869|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0AB86B|E66B    |00006B;
  
           CODE_0AB86D: RTS                                  ;0AB86D|60      |      ;
  
@@ -6488,31 +6488,31 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
           CODE_0AB86E: LDA.B $B4                            ;0AB86E|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB870|C9FF    |      ;
                        BEQ CODE_0AB86D                      ;0AB872|F0F9    |0AB86D;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB874|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB874|A51D    |00001D;
                        PHA                                  ;0AB876|48      |      ;
                        LDA.B #$00                           ;0AB877|A900    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB879|20FFB5  |0AB5FF;
                        PLA                                  ;0AB87C|68      |      ;
-                       STA.B r_015                          ;0AB87D|8515    |000015;
+                       STA.B r_15                           ;0AB87D|8515    |000015;
                        LDA.B #$07                           ;0AB87F|A907    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB881|20FFB5  |0AB5FF;
                        LDA.B $B4                            ;0AB884|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB886|C9FF    |      ;
                        BNE CODE_0AB86D                      ;0AB888|D0E3    |0AB86D;
-                       LDA.B r_015                          ;0AB88A|A515    |000015;
-                       STA.B r_VramQueueNextIdxToFill       ;0AB88C|851D    |00001D;
+                       LDA.B r_15                           ;0AB88A|A515    |000015;
+                       STA.B r_sceneDrawQueue               ;0AB88C|851D    |00001D;
                        LDA.B #$00                           ;0AB88E|A900    |      ;
                        JMP.W CODE_0AB5FF                    ;0AB890|4CFFB5  |0AB5FF;
  
  
-          CODE_0AB893: DEC.B r_GenericStateTimer            ;0AB893|C630    |000030;
+          CODE_0AB893: DEC.B r_timerGenerel                 ;0AB893|C630    |000030;
                        BEQ CODE_0AB898                      ;0AB895|F001    |0AB898;
                        RTS                                  ;0AB897|60      |      ;
  
  
           CODE_0AB898: LDA.B #$00                           ;0AB898|A900    |      ;
                        STA.W $07A5                          ;0AB89A|8DA507  |0A07A5;
-                       INC.B r_MenuOptionIdxSelected        ;0AB89D|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;0AB89D|E66B    |00006B;
                        RTS                                  ;0AB89F|60      |      ;
  
  
@@ -6531,13 +6531,13 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        STA.W $07A3                          ;0AB8B5|8DA307  |0A07A3;
                        STA.W $07A4                          ;0AB8B8|8DA407  |0A07A4;
                        LDA.B #$80                           ;0AB8BB|A980    |      ;
-                       STA.B r_GenericStateTimer            ;0AB8BD|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;0AB8BF|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;0AB8BD|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0AB8BF|E66B    |00006B;
                        RTS                                  ;0AB8C1|60      |      ;
  
  
           CODE_0AB8C2: LDA.B #$A2                           ;0AB8C2|A9A2    |      ;
-                       STA.B r_VramQueueDest                ;0AB8C4|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;0AB8C4|8561    |000061;
                        LDA.B #$26                           ;0AB8C6|A926    |      ;
                        STA.B $62                            ;0AB8C8|8562    |000062;
                        db $20                               ;0AB8CA|        |      ;
@@ -6563,9 +6563,9 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
           CODE_0AB8E7: LDA.B #$F9                           ;0AB8E7|A9F9    |      ;
                        BNE CODE_0AB8DB                      ;0AB8E9|D0F0    |0AB8DB;
  
-          CODE_0AB8EB: DEC.B r_GenericStateTimer            ;0AB8EB|C630    |000030;
+          CODE_0AB8EB: DEC.B r_timerGenerel                 ;0AB8EB|C630    |000030;
                        BNE CODE_0AB8F2                      ;0AB8ED|D003    |0AB8F2;
-                       INC.B r_MenuOptionIdxSelected        ;0AB8EF|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;0AB8EF|E66B    |00006B;
                        RTS                                  ;0AB8F1|60      |      ;
  
  
@@ -6585,26 +6585,26 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
  
  
           CODE_0AB910: LDA.B #$E0                           ;0AB910|A9E0    |      ;
-                       STA.B r_GenericStateTimer            ;0AB912|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;0AB914|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;0AB912|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0AB914|E66B    |00006B;
                        RTS                                  ;0AB916|60      |      ;
  
  
-          CODE_0AB917: DEC.B r_GenericStateTimer            ;0AB917|C630    |000030;
+          CODE_0AB917: DEC.B r_timerGenerel                 ;0AB917|C630    |000030;
                        BEQ CODE_0AB91C                      ;0AB919|F001    |0AB91C;
                        RTS                                  ;0AB91B|60      |      ;
  
  
           CODE_0AB91C: JSR.W gameStateD_setB4wordTo100h     ;0AB91C|205FB6  |0AB65F;
                        LDA.B #$78                           ;0AB91F|A978    |      ;
-                       STA.B r_GenericStateTimer            ;0AB921|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;0AB923|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;0AB921|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0AB923|E66B    |00006B;
                        RTS                                  ;0AB925|60      |      ;
  
  
-          CODE_0AB926: DEC.B r_GenericStateTimer            ;0AB926|C630    |000030;
+          CODE_0AB926: DEC.B r_timerGenerel                 ;0AB926|C630    |000030;
                        BNE CODE_0AB92D                      ;0AB928|D003    |0AB92D;
-                       INC.B r_MenuOptionIdxSelected        ;0AB92A|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;0AB92A|E66B    |00006B;
  
           CODE_0AB92C: RTS                                  ;0AB92C|60      |      ;
  
@@ -6612,12 +6612,12 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
           CODE_0AB92D: LDA.B $B4                            ;0AB92D|A5B4    |0000B4;
                        CMP.B #$FF                           ;0AB92F|C9FF    |      ;
                        BEQ CODE_0AB92C                      ;0AB931|F0F9    |0AB92C;
-                       LDA.B r_VramQueueNextIdxToFill       ;0AB933|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;0AB933|A51D    |00001D;
                        PHA                                  ;0AB935|48      |      ;
                        LDA.B #$00                           ;0AB936|A900    |      ;
                        JSR.W CODE_0AB5FF                    ;0AB938|20FFB5  |0AB5FF;
                        PLA                                  ;0AB93B|68      |      ;
-                       STA.B r_015                          ;0AB93C|8515    |000015;
+                       STA.B r_15                           ;0AB93C|8515    |000015;
                        LDA.B #$08                           ;0AB93E|A908    |      ;
                        JMP.W CODE_0AB5FF                    ;0AB940|4CFFB5  |0AB5FF;
  
@@ -6633,7 +6633,7 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
  
           CODE_0AB956: LDA.B #$00                           ;0AB956|A900    |      ;
  
-          CODE_0AB958: STA.B r_MenuOptionIdxSelected        ;0AB958|856B    |00006B;
+          CODE_0AB958: STA.B r_menuSelectIdx                ;0AB958|856B    |00006B;
                        RTS                                  ;0AB95A|60      |      ;
  
  
@@ -6644,7 +6644,7 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        ASL A                                ;0AB95F|0A      |      ;
                        TAY                                  ;0AB960|A8      |      ;
                        LDA.W DATA8_0ABA27,Y                 ;0AB961|B927BA  |0ABA27;
-                       STA.B r_CurrNumToVramQueue           ;0AB964|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;0AB964|8508    |000008;
                        LDA.W DATA8_0ABA28,Y                 ;0AB966|B928BA  |0ABA28;
                        STA.B $09                            ;0AB969|8509    |000009;
                        LDY.B #$00                           ;0AB96B|A000    |      ;
@@ -6654,11 +6654,11 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        LSR A                                ;0AB971|4A      |      ;
                        LSR A                                ;0AB972|4A      |      ;
                        LSR A                                ;0AB973|4A      |      ;
-                       STA.B r_CurrRoomGroupStage           ;0AB974|8532    |000032;
+                       STA.B r_stage                        ;0AB974|8532    |000032;
                        db $20                               ;0AB976|        |      ;
                        dw UNREACH_0FFB95                    ;0AB977|        |0FFB95;
                        AND.B #$0F                           ;0AB979|290F    |      ;
-                       STA.B r_CurrRoomSectionBlock         ;0AB97B|8533    |000033;
+                       STA.B r_blockLevel                   ;0AB97B|8533    |000033;
                        INY                                  ;0AB97D|C8      |      ;
                        db $20                               ;0AB97E|        |      ;
                        dw UNREACH_0FFB95                    ;0AB97F|        |0FFB95;
@@ -6666,15 +6666,15 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        LSR A                                ;0AB982|4A      |      ;
                        LSR A                                ;0AB983|4A      |      ;
                        LSR A                                ;0AB984|4A      |      ;
-                       STA.B r_CurrRoomIdx                  ;0AB985|8534    |000034;
+                       STA.B r_roomIdx                      ;0AB985|8534    |000034;
                        db $20                               ;0AB987|        |      ;
                        dw UNREACH_0FFB95                    ;0AB988|        |0FFB95;
                        AND.B #$0F                           ;0AB98A|290F    |      ;
-                       STA.B r_CurrScrollRoomScreen         ;0AB98C|8557    |000057;
+                       STA.B r_sceneScrollOffsetHi          ;0AB98C|8557    |000057;
                        AND.B #$01                           ;0AB98E|2901    |      ;
-                       STA.B $75                            ;0AB990|8575    |000075;
+                       STA.B r_075                          ;0AB990|8575    |000075;
                        LDA.B #$00                           ;0AB992|A900    |      ;
-                       STA.B r_CurrScrollOffsetIntoRoomScreen;0AB994|8556    |000056;
+                       STA.B r_sceneScrollOffsetLo          ;0AB994|8556    |000056;
                        INY                                  ;0AB996|C8      |      ;
                        db $20                               ;0AB997|        |      ;
                        dw UNREACH_0FFB95                    ;0AB998|        |0FFB95;
@@ -6727,16 +6727,16 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
                        BEQ CODE_0ABA09                      ;0AB9E6|F021    |0ABA09;
                        STA.B $62                            ;0AB9E8|8562    |000062;
                        LDA.W DATA8_0ABA0C,Y                 ;0AB9EA|B90CBA  |0ABA0C;
-                       STA.B r_VramQueueDest                ;0AB9ED|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;0AB9ED|8561    |000061;
                        LDA.W DATA8_0ABA0D,Y                 ;0AB9EF|B90DBA  |0ABA0D;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;0AB9F2|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;0AB9F2|8510    |000010;
                        db $20                               ;0AB9F4|        |      ;
                        dw CODE_0FE8B5                       ;0AB9F5|        |0FE8B5;
                        LDA.B #$00                           ;0AB9F7|A900    |      ;
  
           CODE_0AB9F9: STA.W $0300,X                        ;0AB9F9|9D0003  |0A0300;
                        INX                                  ;0AB9FC|E8      |      ;
-                       DEC.B r_CurrDrawnEntityCachedAttr    ;0AB9FD|C610    |000010;
+                       DEC.B r_currOAM_Attr                 ;0AB9FD|C610    |000010;
                        BNE CODE_0AB9F9                      ;0AB9FF|D0F8    |0AB9F9;
                        db $20                               ;0ABA01|        |      ;
                        dw CODE_0FE8DE                       ;0ABA02|        |0FE8DE;
@@ -6777,19 +6777,19 @@ gameStateD_substate2_process6bh: LDA.B r_MenuOptionIdxSelected        ;0AB7EE|A5
           CODE_0ABA3F: LDY.B #$02                           ;0ABA3F|A002    |      ;
  
           CODE_0ABA41: LDA.W PTR16_0ABA6E,Y                 ;0ABA41|B96EBA  |0ABA6E;
-                       STA.B r_CurrNumToVramQueue           ;0ABA44|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;0ABA44|8508    |000008;
                        LDA.W PTR16_0ABA6F,Y                 ;0ABA46|B96FBA  |0ABA6F;
                        STA.B $09                            ;0ABA49|8509    |000009;
                        LDA.W $07A0                          ;0ABA4B|ADA007  |0A07A0;
                        ASL A                                ;0ABA4E|0A      |      ;
                        TAY                                  ;0ABA4F|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;0ABA50|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;0ABA52|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;0ABA50|B108    |000008;
+                       STA.B r_temp_Xpos                    ;0ABA52|850A    |00000A;
                        INY                                  ;0ABA54|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;0ABA55|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;0ABA55|B108    |000008;
                        STA.B $0B                            ;0ABA57|850B    |00000B;
                        LDY.W $07A5                          ;0ABA59|ACA507  |0A07A5;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;0ABA5C|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;0ABA5C|B10A    |00000A;
                        CMP.B #$FF                           ;0ABA5E|C9FF    |      ;
                        BEQ CODE_0ABA6C                      ;0ABA60|F00A    |0ABA6C;
                        LDX.B #$90                           ;0ABA62|A290    |      ;

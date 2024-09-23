@@ -2831,7 +2831,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        STA.B $03                            ;02B6E7|8503    |000003;
                        INY                                  ;02B6E9|C8      |      ;
                        LDA.B #$00                           ;02B6EA|A900    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;02B6EC|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;02B6EC|8510    |000010;
                        JMP.W CODE_02B70B                    ;02B6EE|4C0BB7  |02B70B;
  
  
@@ -2845,9 +2845,9 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        LDA.W $07F0                          ;02B702|ADF007  |0207F0;
                        STA.B $01                            ;02B705|8501    |000001;
                        LDA.B #$01                           ;02B707|A901    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;02B709|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;02B709|8510    |000010;
  
-          CODE_02B70B: LDX.B r_VramQueueNextIdxToFill       ;02B70B|A61D    |00001D;
+          CODE_02B70B: LDX.B r_sceneDrawQueue               ;02B70B|A61D    |00001D;
                        LDA.B #$0A                           ;02B70D|A90A    |      ;
                        JSR.W titleScreenLoad_00             ;02B70F|2095B9  |02B995;
                        LDA.B $02                            ;02B712|A502    |000002;
@@ -2856,7 +2856,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        JSR.W titleScreenLoad_00             ;02B719|2095B9  |02B995;
                        STX.B $17                            ;02B71C|8617    |000017;
                        INX                                  ;02B71E|E8      |      ;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;02B71F|A510    |000010;
+                       LDA.B r_currOAM_Attr                 ;02B71F|A510    |000010;
                        BEQ CODE_02B729                      ;02B721|F006    |02B729;
                        LDA.W $07F3                          ;02B723|ADF307  |0207F3;
                        JMP.W CODE_02B72B                    ;02B726|4C2BB7  |02B72B;
@@ -2868,10 +2868,10 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        BEQ CODE_02B74D                      ;02B72D|F01E    |02B74D;
                        BPL CODE_02B773                      ;02B72F|1042    |02B773;
                        AND.B #$7F                           ;02B731|297F    |      ;
-                       STA.B r_CurrNumToVramQueue           ;02B733|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;02B733|8508    |000008;
                        TXA                                  ;02B735|8A      |      ;
                        CLC                                  ;02B736|18      |      ;
-                       ADC.B r_CurrNumToVramQueue           ;02B737|6508    |000008;
+                       ADC.B r_pointerQueue_VRAM            ;02B737|6508    |000008;
                        SBC.B #$3E                           ;02B739|E93E    |      ;
                        BEQ CODE_02B73F                      ;02B73B|F002    |02B73F;
                        BCS CODE_02B750                      ;02B73D|B011    |02B750;
@@ -2879,7 +2879,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
           CODE_02B73F: INY                                  ;02B73F|C8      |      ;
                        LDA.B ($00),Y                        ;02B740|B100    |000000;
                        JSR.W CODE_02B7D6                    ;02B742|20D6B7  |02B7D6;
-                       DEC.B r_CurrNumToVramQueue           ;02B745|C608    |000008;
+                       DEC.B r_pointerQueue_VRAM            ;02B745|C608    |000008;
                        BNE CODE_02B73F                      ;02B747|D0F6    |02B73F;
                        INY                                  ;02B749|C8      |      ;
                        JMP.W CODE_02B729                    ;02B74A|4C29B7  |02B729;
@@ -2889,27 +2889,27 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
  
  
           CODE_02B750: STA.W $07F3                          ;02B750|8DF307  |0207F3;
-                       LDA.B r_CurrNumToVramQueue           ;02B753|A508    |000008;
+                       LDA.B r_pointerQueue_VRAM            ;02B753|A508    |000008;
                        SEC                                  ;02B755|38      |      ;
                        SBC.W $07F3                          ;02B756|EDF307  |0207F3;
-                       STA.B r_CurrNumToVramQueue           ;02B759|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;02B759|8508    |000008;
                        LDA.W $07F3                          ;02B75B|ADF307  |0207F3;
                        ORA.B #$80                           ;02B75E|0980    |      ;
                        STA.W $07F3                          ;02B760|8DF307  |0207F3;
-                       LDA.B r_CurrNumToVramQueue           ;02B763|A508    |000008;
+                       LDA.B r_pointerQueue_VRAM            ;02B763|A508    |000008;
                        BEQ DATA8_02B7A5                     ;02B765|F03E    |02B7A5;
  
           CODE_02B767: INY                                  ;02B767|C8      |      ;
                        LDA.B ($00),Y                        ;02B768|B100    |000000;
                        JSR.W CODE_02B7D6                    ;02B76A|20D6B7  |02B7D6;
-                       DEC.B r_CurrNumToVramQueue           ;02B76D|C608    |000008;
+                       DEC.B r_pointerQueue_VRAM            ;02B76D|C608    |000008;
                        BNE CODE_02B767                      ;02B76F|D0F6    |02B767;
                        BEQ DATA8_02B7A5                     ;02B771|F032    |02B7A5;
  
-          CODE_02B773: STA.B r_CurrNumToVramQueue           ;02B773|8508    |000008;
+          CODE_02B773: STA.B r_pointerQueue_VRAM            ;02B773|8508    |000008;
                        TXA                                  ;02B775|8A      |      ;
                        CLC                                  ;02B776|18      |      ;
-                       ADC.B r_CurrNumToVramQueue           ;02B777|6508    |000008;
+                       ADC.B r_pointerQueue_VRAM            ;02B777|6508    |000008;
                        SBC.B #$3E                           ;02B779|E93E    |      ;
                        BEQ CODE_02B77F                      ;02B77B|F002    |02B77F;
                        BCS DATA8_02B78D                     ;02B77D|B00E    |02B78D;
@@ -2918,7 +2918,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        LDA.B ($00),Y                        ;02B780|B100    |000000;
  
           CODE_02B782: JSR.W CODE_02B7D6                    ;02B782|20D6B7  |02B7D6;
-                       DEC.B r_CurrNumToVramQueue           ;02B785|C608    |000008;
+                       DEC.B r_pointerQueue_VRAM            ;02B785|C608    |000008;
                        BNE CODE_02B782                      ;02B787|D0F9    |02B782;
                        INY                                  ;02B789|C8      |      ;
                        JMP.W CODE_02B729                    ;02B78A|4C29B7  |02B729;
@@ -2943,7 +2943,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        RTS                                  ;02B7CB|60      |      ;
  
  
-          CODE_02B7CC: STX.B r_VramQueueNextIdxToFill       ;02B7CC|861D    |00001D;
+          CODE_02B7CC: STX.B r_sceneDrawQueue               ;02B7CC|861D    |00001D;
                        LDX.B $17                            ;02B7CE|A617    |000017;
                        LDA.B $06                            ;02B7D0|A506    |000006;
                        STA.W $0300,X                        ;02B7D2|9D0003  |020300;
@@ -2966,7 +2966,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        AND.B #$FC                           ;02B7EE|29FC    |      ;
                        ASL A                                ;02B7F0|0A      |      ;
                        STA.B $05                            ;02B7F1|8505    |000005;
-                       LDX.B r_VramQueueNextIdxToFill       ;02B7F3|A61D    |00001D;
+                       LDX.B r_sceneDrawQueue               ;02B7F3|A61D    |00001D;
                        LDA.B #$01                           ;02B7F5|A901    |      ;
                        JSR.W titleScreenLoad_00             ;02B7F7|2095B9  |02B995;
                        LDA.B #$20                           ;02B7FA|A920    |      ;
@@ -2995,7 +2995,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        ORA.B $03                            ;02B823|0503    |000003;
                        JSR.W titleScreenLoad_00             ;02B825|2095B9  |02B995;
                        LDA.B #$08                           ;02B828|A908    |      ;
-                       STA.B r_CurrNumToVramQueue           ;02B82A|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;02B82A|8508    |000008;
  
           CODE_02B82C: LDY.B $05                            ;02B82C|A405    |000005;
                        LDA.B #$00                           ;02B82E|A900    |      ;
@@ -3010,7 +3010,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        ASL A                                ;02B83D|0A      |      ;
                        ROL.B $07                            ;02B83E|2607    |000007;
                        STA.B $06                            ;02B840|8506    |000006;
-                       STY.B r_RoomSectionChrBanksDataOffset;02B842|840F    |00000F;
+                       STY.B r_roomSectionChrBanksDataOffset;02B842|840F    |00000F;
                        LDY.B #$00                           ;02B844|A000    |      ;
                        LDA.W someLoadDataTitle_00,Y         ;02B846|B9B9B8  |02B8B9;
                        CLC                                  ;02B849|18      |      ;
@@ -3019,7 +3019,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        LDA.W PTR16_02B8BA,Y                 ;02B84E|B9BAB8  |02B8BA;
                        ADC.B $07                            ;02B851|6507    |000007;
                        STA.B $07                            ;02B853|8507    |000007;
-                       LDY.B r_RoomSectionChrBanksDataOffset;02B855|A40F    |00000F;
+                       LDY.B r_roomSectionChrBanksDataOffset;02B855|A40F    |00000F;
                        LDA.W $07EF                          ;02B857|ADEF07  |0207EF;
                        AND.B #$03                           ;02B85A|2903    |      ;
                        ASL A                                ;02B85C|0A      |      ;
@@ -3034,12 +3034,12 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        DEC.B $04                            ;02B869|C604    |000004;
                        BNE CODE_02B863                      ;02B86B|D0F6    |02B863;
                        INC.B $05                            ;02B86D|E605    |000005;
-                       DEC.B r_CurrNumToVramQueue           ;02B86F|C608    |000008;
+                       DEC.B r_pointerQueue_VRAM            ;02B86F|C608    |000008;
                        BNE CODE_02B82C                      ;02B871|D0B9    |02B82C;
                        LDA.B #$FF                           ;02B873|A9FF    |      ;
                        JSR.W titleScreenLoad_00             ;02B875|2095B9  |02B995;
                        JSR.W CODE_02B87E                    ;02B878|207EB8  |02B87E;
-                       STX.B r_VramQueueNextIdxToFill       ;02B87B|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;02B87B|861D    |00001D;
                        RTS                                  ;02B87D|60      |      ;
  
  
@@ -3059,7 +3059,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        JSR.W titleScreenLoad_00             ;02B89B|2095B9  |02B995;
                        LDA.B #$08                           ;02B89E|A908    |      ;
                        JSR.W titleScreenLoad_00             ;02B8A0|2095B9  |02B995;
-                       STA.B r_CurrNumToVramQueue           ;02B8A3|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;02B8A3|8508    |000008;
  
           CODE_02B8A5: LDY.B $05                            ;02B8A5|A405    |000005;
                        LDA.B ($00),Y                        ;02B8A7|B100    |000000;
@@ -3067,9 +3067,9 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        LDA.W DATA8_02BD9A,Y                 ;02B8AA|B99ABD  |02BD9A;
                        JSR.W titleScreenLoad_00             ;02B8AD|2095B9  |02B995;
                        INC.B $05                            ;02B8B0|E605    |000005;
-                       DEC.B r_CurrNumToVramQueue           ;02B8B2|C608    |000008;
+                       DEC.B r_pointerQueue_VRAM            ;02B8B2|C608    |000008;
                        BNE CODE_02B8A5                      ;02B8B4|D0EF    |02B8A5;
-                       STX.B r_VramQueueNextIdxToFill       ;02B8B6|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;02B8B6|861D    |00001D;
  
           CODE_02B8B8: RTS                                  ;02B8B8|60      |      ;
  
@@ -3134,7 +3134,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        RTS                                  ;02B999|60      |      ;
  
                        LDA.B #$18                           ;02B99A|A918    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;02B99C|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;02B99C|850A    |00000A;
                        LDA.B #$80                           ;02B99E|A980    |      ;
                        STA.W $0791                          ;02B9A0|8D9107  |020791;
                        LDA.W $0788                          ;02B9A3|AD8807  |020788;
@@ -3175,7 +3175,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        ASL A                                ;02B9E9|0A      |      ;
                        TAY                                  ;02B9EA|A8      |      ;
                        LDA.B #$00                           ;02B9EB|A900    |      ;
-                       STA.B r_CurrNumToVramQueue           ;02B9ED|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;02B9ED|8508    |000008;
                        STA.W $078F                          ;02B9EF|8D8F07  |02078F;
                        JSR.W CODE_02BA22                    ;02B9F2|2022BA  |02BA22;
                        STA.W $078D                          ;02B9F5|8D8D07  |02078D;
@@ -3185,19 +3185,19 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        ASL A                                ;02B9FE|0A      |      ;
                        TAY                                  ;02B9FF|A8      |      ;
                        LDA.B #$01                           ;02BA00|A901    |      ;
-                       STA.B r_CurrNumToVramQueue           ;02BA02|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;02BA02|8508    |000008;
                        LDA.B #$00                           ;02BA04|A900    |      ;
                        STA.W $0790                          ;02BA06|8D9007  |020790;
                        JSR.W CODE_02BA22                    ;02BA09|2022BA  |02BA22;
                        STA.W $078E                          ;02BA0C|8D8E07  |02078E;
                        LDA.W $078C                          ;02BA0F|AD8C07  |02078C;
-                       STA.B r_BaseIRQCmpVal                ;02BA12|8541    |000041;
+                       STA.B r_IRQCmpVal                    ;02BA12|8541    |000041;
                        LDA.W $078D                          ;02BA14|AD8D07  |02078D;
                        CLC                                  ;02BA17|18      |      ;
-                       ADC.B r_BaseIRQCmpVal                ;02BA18|6541    |000041;
-                       STA.B r_ScannlineTarget              ;02BA1A|8542    |000042;
+                       ADC.B r_IRQCmpVal                    ;02BA18|6541    |000041;
+                       STA.B r_scannlineTarget              ;02BA1A|8542    |000042;
                        LDA.W $0791                          ;02BA1C|AD9107  |020791;
-                       STA.B r_BaseIRQStatus                ;02BA1F|8540    |000040;
+                       STA.B r_IRQStatus                    ;02BA1F|8540    |000040;
                        RTS                                  ;02BA21|60      |      ;
  
  
@@ -3211,7 +3211,7 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
                        SBC.B $01                            ;02BA31|E501    |000001;
                        BEQ CODE_02BA45                      ;02BA33|F010    |02BA45;
  
-          CODE_02BA35: LDY.B r_CurrNumToVramQueue           ;02BA35|A408    |000008;
+          CODE_02BA35: LDY.B r_pointerQueue_VRAM            ;02BA35|A408    |000008;
                        BNE CODE_02BA3E                      ;02BA37|D005    |02BA3E;
                        LDA.B #$80                           ;02BA39|A980    |      ;
                        STA.W $0791                          ;02BA3B|8D9107  |020791;
@@ -3222,8 +3222,8 @@ RLE_tilemap_01_titleScreen: dw $2000                             ;02B570|       
  
           CODE_02BA45: LDA.B $00                            ;02BA45|A500    |000000;
                        CLC                                  ;02BA47|18      |      ;
-                       ADC.B r_CurrRoomSectionPlayerPosAndScreenAddr;02BA48|650A    |00000A;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;02BA4A|850A    |00000A;
+                       ADC.B r_temp_Xpos                    ;02BA48|650A    |00000A;
+                       STA.B r_temp_Xpos                    ;02BA4A|850A    |00000A;
                        BCS CODE_02BA35                      ;02BA4C|B0E7    |02BA35;
                        LDA.B $00                            ;02BA4E|A500    |000000;
  

@@ -5,65 +5,65 @@
               bank_80: db $80                               ;008000|        |      ; NES PRG 0000
  
  
-    loadPlayerCHRBank: LDY.W r_EntityObjectIdxes            ;008001|AC4E05  |00054E;
+    loadPlayerCHRBank: LDY.W r_entity_ObjectIdxes           ;008001|AC4E05  |00054E;
                        LDA.W playerCHRBankdata,Y            ;008004|B90F80  |00800F;
-                       STA.B r_ChrBankSpr_0000              ;008007|8546    |000046;
+                       STA.B r_CHR_BankSpr_0000             ;008007|8546    |000046;
                        CLC                                  ;008009|18      |      ;
                        ADC.B #$01                           ;00800A|6901    |      ;
  
-                       STA.B r_ChrBankSpr_0400              ;00800C|8547    |000047;
+                       STA.B r_CHR_BankSpr_0400             ;00800C|8547    |000047;
                        RTS                                  ;00800E|60      |      ;
  
  
     playerCHRBankdata: db $00,$04,$02,$06                   ;00800F|        |      ;
  
- getCurrRoomsChrBanks: LDA.B r_CurrRoomGroupStage           ;008013|A532    |000032;
+ getCurrRoomsChrBanks: LDA.B r_stage                        ;008013|A532    |000032;
                        ASL A                                ;008015|0A      |      ;
                        TAY                                  ;008016|A8      |      ;
                        LDA.W roomCHRbanks,Y                 ;008017|B96680  |008066;
-                       STA.B r_CurrNumToVramQueue           ;00801A|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00801A|8508    |000008;
                        LDA.W PTR16_008067,Y                 ;00801C|B96780  |008067;
                        STA.B $09                            ;00801F|8509    |000009;
-                       LDA.B r_CurrRoomSectionBlock         ;008021|A533    |000033;
+                       LDA.B r_blockLevel                   ;008021|A533    |000033;
                        ASL A                                ;008023|0A      |      ;
                        ASL A                                ;008024|0A      |      ;
-                       STA.B r_RoomSectionChrBanksDataOffset;008025|850F    |00000F;
+                       STA.B r_roomSectionChrBanksDataOffset;008025|850F    |00000F;
                        TAY                                  ;008027|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;008028|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00802A|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;008028|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00802A|850A    |00000A;
                        INY                                  ;00802C|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00802D|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00802D|B108    |000008;
                        STA.B $0B                            ;00802F|850B    |00000B;
-                       LDA.B r_CurrRoomIdx                  ;008031|A534    |000034;
+                       LDA.B r_roomIdx                      ;008031|A534    |000034;
                        ASL A                                ;008033|0A      |      ;
                        CLC                                  ;008034|18      |      ;
-                       ADC.B r_CurrRoomIdx                  ;008035|6534    |000034;
+                       ADC.B r_roomIdx                      ;008035|6534    |000034;
                        TAY                                  ;008037|A8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;008038|B10A    |00000A;
-                       STA.B r_ChrBankBG_0400               ;00803A|854B    |00004B;
+                       LDA.B (r_temp_Xpos),Y                ;008038|B10A    |00000A;
+                       STA.B r_CHR_BankBG_0400              ;00803A|854B    |00004B;
                        INY                                  ;00803C|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00803D|B10A    |00000A;
-                       STA.B r_ChrBankBG_0800               ;00803F|854C    |00004C;
+                       LDA.B (r_temp_Xpos),Y                ;00803D|B10A    |00000A;
+                       STA.B r_CHR_BankBG_0800              ;00803F|854C    |00004C;
                        INY                                  ;008041|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;008042|B10A    |00000A;
-                       STA.B r_ChrBankSecondQuest_1400      ;008044|854E    |00004E;
-                       LDY.B r_RoomSectionChrBanksDataOffset;008046|A40F    |00000F;
+                       LDA.B (r_temp_Xpos),Y                ;008042|B10A    |00000A;
+                       STA.B r_CHR_BankSecondQuest_1400     ;008044|854E    |00004E;
+                       LDY.B r_roomSectionChrBanksDataOffset;008046|A40F    |00000F;
                        INY                                  ;008048|C8      |      ;
                        INY                                  ;008049|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00804A|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00804C|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00804A|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00804C|850A    |00000A;
                        INY                                  ;00804E|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00804F|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00804F|B108    |000008;
                        STA.B $0B                            ;008051|850B    |00000B;
-                       LDA.B r_CurrRoomIdx                  ;008053|A534    |000034;
+                       LDA.B r_roomIdx                      ;008053|A534    |000034;
  
                        ASL A                                ;008055|0A      |      ;
                        TAY                                  ;008056|A8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;008057|B10A    |00000A;
-                       STA.B r_ChrBankSpr_0800              ;008059|8548    |000048;
+                       LDA.B (r_temp_Xpos),Y                ;008057|B10A    |00000A;
+                       STA.B r_CHR_BankSpr_0800             ;008059|8548    |000048;
                        INY                                  ;00805B|C8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00805C|B10A    |00000A;
-                       STA.B r_ChrBankSpr_0c00              ;00805E|8549    |000049;
+                       LDA.B (r_temp_Xpos),Y                ;00805C|B10A    |00000A;
+                       STA.B r_CHR_BankSpr_0c00             ;00805E|8549    |000049;
                        db $20                               ;008060|        |      ;
                        dw CODE_0FE33C                       ;008061|        |0FE33C;
                        db $4C                               ;008063|        |      ;
@@ -549,7 +549,7 @@
                        db $00,$A5,$4B,$20,$F9               ;0083EF|        |      ;
                        db $83                               ;0083F4|        |      ;
                        LDX.B #$08                           ;0083F5|A208    |      ;
-                       LDA.B r_ChrBankBG_0800               ;0083F7|A54C    |00004C;
+                       LDA.B r_CHR_BankBG_0800              ;0083F7|A54C    |00004C;
                        LDY.B #$00                           ;0083F9|A000    |      ;
                        CMP.B #$33                           ;0083FB|C933    |      ;
                        BEQ CODE_008432                      ;0083FD|F033    |008432;
@@ -566,22 +566,22 @@
                        ASL A                                ;00840E|0A      |      ;
                        TAY                                  ;00840F|A8      |      ;
                        LDA.W PTR16_00843D,Y                 ;008410|B93D84  |00843D;
-                       STA.B r_CurrNumToVramQueue           ;008413|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;008413|8508    |000008;
                        LDA.W PTR16_00843E,Y                 ;008415|B93E84  |00843E;
  
           CODE_008418: STA.B $09                            ;008418|8509    |000009;
                        LDY.B #$00                           ;00841A|A000    |      ;
  
-          CODE_00841C: LDA.B (r_CurrNumToVramQueue),Y       ;00841C|B108    |000008;
+          CODE_00841C: LDA.B (r_pointerQueue_VRAM),Y        ;00841C|B108    |000008;
                        INY                                  ;00841E|C8      |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00841F|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;00841F|850A    |00000A;
  
-                       LDA.B (r_CurrNumToVramQueue),Y       ;008421|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;008421|B108    |000008;
                        INY                                  ;008423|C8      |      ;
  
-          CODE_008424: STA.W r_CurrChrBanksTileCollisionTypeOffsets,X;008424|9D7007  |000770;
+          CODE_008424: STA.W r_collisionTypeOffsetsCurr,X   ;008424|9D7007  |000770;
                        INX                                  ;008427|E8      |      ;
-                       DEC.B r_CurrRoomSectionPlayerPosAndScreenAddr;008428|C60A    |00000A;
+                       DEC.B r_temp_Xpos                    ;008428|C60A    |00000A;
                        BNE CODE_008424                      ;00842A|D0F8    |008424;
                        TXA                                  ;00842C|8A      |      ;
                        AND.B #$07                           ;00842D|2907    |      ;
@@ -590,7 +590,7 @@
  
  
           CODE_008432: LDA.W PTR16_008493,Y                 ;008432|B99384  |008493;
-                       STA.B r_CurrNumToVramQueue           ;008435|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;008435|8508    |000008;
                        LDA.W PTR16_008494,Y                 ;008437|B99484  |008494;
                        JMP.W CODE_008418                    ;00843A|4C1884  |008418;
  
@@ -700,32 +700,32 @@
  
          DATA8_0084FD: db $06,$B8,$02,$C0                   ;0084FD|        |      ;
  
-          CODE_008501: LDA.B r_CurrRoomGroupStage           ;008501|A532    |000032;
+          CODE_008501: LDA.B r_stage                        ;008501|A532    |000032;
                        CMP.B #$0C                           ;008503|C90C    |      ;
  
                        BNE CODE_00850E                      ;008505|D007    |00850E;
-                       LDY.W r_HardMode                     ;008507|ACF607  |0007F6;
+                       LDY.W r_hardMode                     ;008507|ACF607  |0007F6;
                        BEQ CODE_00850E                      ;00850A|F002    |00850E;
                        LDA.B #$0F                           ;00850C|A90F    |      ;
  
           CODE_00850E: ASL A                                ;00850E|0A      |      ;
                        TAY                                  ;00850F|A8      |      ;
                        LDA.W groupPalettePointerList,Y      ;008510|B9CD85  |0085CD;
-                       STA.B r_CurrNumToVramQueue           ;008513|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;008513|8508    |000008;
                        LDA.W PTR16_0085CE,Y                 ;008515|B9CE85  |0085CE;
                        STA.B $09                            ;008518|8509    |000009;
-                       LDA.B r_CurrRoomSectionBlock         ;00851A|A533    |000033;
+                       LDA.B r_blockLevel                   ;00851A|A533    |000033;
                        ASL A                                ;00851C|0A      |      ;
                        ASL A                                ;00851D|0A      |      ;
                        TAY                                  ;00851E|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00851F|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;008521|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00851F|B108    |000008;
+                       STA.B r_temp_Xpos                    ;008521|850A    |00000A;
                        INY                                  ;008523|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;008524|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;008524|B108    |000008;
                        STA.B $0B                            ;008526|850B    |00000B;
  
                        INY                                  ;008528|C8      |      ;
-                       STY.B r_DoubleCurrRoomIdx            ;008529|840E    |00000E;
+                       STY.B r_tempCurrRoomIdx              ;008529|840E    |00000E;
                        RTS                                  ;00852B|60      |      ;
  
  
@@ -735,8 +735,8 @@
                        JSR.W CODE_008501                    ;008531|200185  |008501;
                        LDA.B #$00                           ;008534|A900    |      ;
                        STA.B $07                            ;008536|8507    |000007;
-                       LDY.B r_CurrRoomIdx                  ;008538|A434    |000034;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00853A|B10A    |00000A;
+                       LDY.B r_roomIdx                      ;008538|A434    |000034;
+                       LDA.B (r_temp_Xpos),Y                ;00853A|B10A    |00000A;
                        CMP.B #$1C                           ;00853C|C91C    |      ;
                        BCC CODE_008544                      ;00853E|9004    |008544;
                        SBC.B #$1C                           ;008540|E91C    |      ;
@@ -749,12 +749,12 @@
                        CLC                                  ;008549|18      |      ;
                        ADC.B $00                            ;00854A|6500    |000000;
                        TAY                                  ;00854C|A8      |      ;
-                       LDX.B r_VramQueueNextIdxToFill       ;00854D|A61D    |00001D;
+                       LDX.B r_sceneDrawQueue               ;00854D|A61D    |00001D;
                        LDA.B #$03                           ;00854F|A903    |      ;
-                       STA.B r_DoubleCurrSection            ;008551|850D    |00000D;
+                       STA.B r_tempCurrSection              ;008551|850D    |00000D;
  
           CODE_008553: LDA.B #$03                           ;008553|A903    |      ;
-                       STA.B r_DoubleCurrGroup              ;008555|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;008555|850C    |00000C;
  
           CODE_008557: LDA.B $07                            ;008557|A507    |000007;
                        BNE CODE_00856E                      ;008559|D013    |00856E;
@@ -764,11 +764,11 @@
  
                        INY                                  ;008561|C8      |      ;
                        INX                                  ;008562|E8      |      ;
-                       DEC.B r_DoubleCurrGroup              ;008563|C60C    |00000C;
+                       DEC.B r_tempCurrGroup                ;008563|C60C    |00000C;
                        BNE CODE_008557                      ;008565|D0F0    |008557;
                        INX                                  ;008567|E8      |      ;
  
-                       DEC.B r_DoubleCurrSection            ;008568|C60D    |00000D;
+                       DEC.B r_tempCurrSection              ;008568|C60D    |00000D;
                        BNE CODE_008553                      ;00856A|D0E7    |008553;
                        BEQ CODE_008574                      ;00856C|F006    |008574;
  
@@ -777,27 +777,27 @@
  
  
           CODE_008574: JSR.W CODE_0085BB                    ;008574|20BB85  |0085BB;
-                       LDY.B r_DoubleCurrRoomIdx            ;008577|A40E    |00000E;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;008579|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00857B|850A    |00000A;
+                       LDY.B r_tempCurrRoomIdx              ;008577|A40E    |00000E;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;008579|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00857B|850A    |00000A;
                        INY                                  ;00857D|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00857E|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00857E|B108    |000008;
                        STA.B $0B                            ;008580|850B    |00000B;
-                       LDY.B r_CurrRoomIdx                  ;008582|A434    |000034;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;008584|B10A    |00000A;
+                       LDY.B r_roomIdx                      ;008582|A434    |000034;
+                       LDA.B (r_temp_Xpos),Y                ;008584|B10A    |00000A;
                        ASL A                                ;008586|0A      |      ;
                        CLC                                  ;008587|18      |      ;
-                       ADC.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;008588|710A    |00000A;
+                       ADC.B (r_temp_Xpos),Y                ;008588|710A    |00000A;
                        TAY                                  ;00858A|A8      |      ;
-                       LDX.B r_VramQueueNextIdxToFill       ;00858B|A61D    |00001D;
+                       LDX.B r_sceneDrawQueue               ;00858B|A61D    |00001D;
                        LDA.B #$03                           ;00858D|A903    |      ;
-                       STA.B r_DoubleCurrGroup              ;00858F|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;00858F|850C    |00000C;
  
           CODE_008591: LDA.W DATA8_0089CE,Y                 ;008591|B9CE89  |0089CE;
                        STA.W $02F0,X                        ;008594|9DF002  |0002F0;
                        INY                                  ;008597|C8      |      ;
                        INX                                  ;008598|E8      |      ;
-                       DEC.B r_DoubleCurrGroup              ;008599|C60C    |00000C;
+                       DEC.B r_tempCurrGroup                ;008599|C60C    |00000C;
                        BNE CODE_008591                      ;00859B|D0F4    |008591;
                        RTS                                  ;00859D|60      |      ;
  
@@ -807,7 +807,7 @@
  
  
           CODE_0085A4: JSR.W CODE_00859E                    ;0085A4|209E85  |00859E;
-                       LDX.B r_VramQueueNextIdxToFill       ;0085A7|A61D    |00001D;
+                       LDX.B r_sceneDrawQueue               ;0085A7|A61D    |00001D;
                        LDY.B #$00                           ;0085A9|A000    |      ;
  
           CODE_0085AB: LDA.W DATA8_0085B8,Y                 ;0085AB|B9B885  |0085B8;
@@ -821,7 +821,7 @@
  
          DATA8_0085B8: db $20,$26,$37                       ;0085B8|        |      ;
  
-          CODE_0085BB: LDY.W r_EntityObjectIdxes            ;0085BB|AC4E05  |00054E;
+          CODE_0085BB: LDY.W r_entity_ObjectIdxes           ;0085BB|AC4E05  |00054E;
                        LDA.W paletteData,Y                  ;0085BE|B9C985  |0085C9;
                        db $20                               ;0085C1|        |      ;
                        dw screenLoadRoutine                 ;0085C2|        |0FECE9;
@@ -1455,45 +1455,45 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.B $B5                            ;008B88|85B5    |0000B5;
  
           CODE_008B8A: LDA.W PTR16_008BD1,Y                 ;008B8A|B9D18B  |008BD1;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;008B8D|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;008B8D|8510    |000010;
                        LDA.W PTR16_008BD2,Y                 ;008B8F|B9D28B  |008BD2;
-                       STA.B r_CollisionPointYinScreen      ;008B92|8511    |000011;
+                       STA.B r_collisionPointYinScreen      ;008B92|8511    |000011;
                        LDY.B $B4                            ;008B94|A4B4    |0000B4;
-                       LDA.B (r_CurrDrawnEntityCachedAttr),Y;008B96|B110    |000010;
+                       LDA.B (r_currOAM_Attr),Y             ;008B96|B110    |000010;
                        CMP.B #$FF                           ;008B98|C9FF    |      ;
                        BEQ CODE_008B7C                      ;008B9A|F0E0    |008B7C;
  
-          CODE_008B9C: STA.B r_CollisionPointXvalDiv32      ;008B9C|8512    |000012;
+          CODE_008B9C: STA.B r_collisionPointXvalDiv32      ;008B9C|8512    |000012;
                        JSR.W CODE_008BA2                    ;008B9E|20A28B  |008BA2;
                        RTS                                  ;008BA1|60      |      ;
  
  
           CODE_008BA2: LDA.B #$02                           ;008BA2|A902    |      ;
                        STA.B $00                            ;008BA4|8500    |000000;
-                       LDA.B r_015                          ;008BA6|A515    |000015;
+                       LDA.B r_15                           ;008BA6|A515    |000015;
  
           CODE_008BA8: CLC                                  ;008BA8|18      |      ;
                        ADC.B #$04                           ;008BA9|6904    |      ;
                        TAX                                  ;008BAB|AA      |      ;
                        LDA.B #$04                           ;008BAC|A904    |      ;
-                       STA.B r_CollisionPointAbsoluteXInRoom;008BAE|8513    |000013;
+                       STA.B r_collisionPointAbsoluteXInRoom;008BAE|8513    |000013;
  
           CODE_008BB0: LDA.B #$03                           ;008BB0|A903    |      ;
-                       STA.B r_CollisionPointAbsoluteXRoom  ;008BB2|8514    |000014;
+                       STA.B r_collisionPointAbsoluteXRoom  ;008BB2|8514    |000014;
  
           CODE_008BB4: LDA.W r_VramQueue,X                  ;008BB4|BD0003  |000300;
  
           CODE_008BB7: CLC                                  ;008BB7|18      |      ;
-                       ADC.B r_CollisionPointXvalDiv32      ;008BB8|6512    |000012;
+                       ADC.B r_collisionPointXvalDiv32      ;008BB8|6512    |000012;
                        BPL CODE_008BBE                      ;008BBA|1002    |008BBE;
                        LDA.B #$0F                           ;008BBC|A90F    |      ;
  
           CODE_008BBE: STA.W r_VramQueue,X                  ;008BBE|9D0003  |000300;
                        INX                                  ;008BC1|E8      |      ;
-                       DEC.B r_CollisionPointAbsoluteXRoom  ;008BC2|C614    |000014;
+                       DEC.B r_collisionPointAbsoluteXRoom  ;008BC2|C614    |000014;
                        BNE CODE_008BB4                      ;008BC4|D0EE    |008BB4;
                        INX                                  ;008BC6|E8      |      ;
-                       DEC.B r_CollisionPointAbsoluteXInRoom;008BC7|C613    |000013;
+                       DEC.B r_collisionPointAbsoluteXInRoom;008BC7|C613    |000013;
                        BNE CODE_008BB0                      ;008BC9|D0E5    |008BB0;
                        TXA                                  ;008BCB|8A      |      ;
                        DEC.B $00                            ;008BCC|C600    |000000;
@@ -1516,42 +1516,42 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.B $00                            ;008BE9|8500    |000000;
                        CLC                                  ;008BEB|18      |      ;
  
-          CODE_008BEC: LDA.W r_CurrScore,Y                  ;008BEC|B93600  |000036;
+          CODE_008BEC: LDA.W r_scoreLo,Y                    ;008BEC|B93600  |000036;
  
                        JSR.W CODE_008C6D                    ;008BEF|206D8C  |008C6D;
-                       STA.W r_CurrScore,Y                  ;008BF2|993600  |000036;
+                       STA.W r_scoreLo,Y                    ;008BF2|993600  |000036;
                        INY                                  ;008BF5|C8      |      ;
                        INX                                  ;008BF6|E8      |      ;
                        DEC.B $00                            ;008BF7|C600    |000000;
                        BNE CODE_008BEC                      ;008BF9|D0F1    |008BEC;
                        BCC CODE_008C06                      ;008BFB|9009    |008C06;
                        LDA.B #$99                           ;008BFD|A999    |      ;
-                       STA.B r_CurrScore                    ;008BFF|8536    |000036;
+                       STA.B r_scoreLo                      ;008BFF|8536    |000036;
  
-                       STA.B $37                            ;008C01|8537    |000037;
-                       STA.B $38                            ;008C03|8538    |000038;
+                       STA.B r_scoreMid                     ;008C01|8537    |000037;
+                       STA.B r_scoreHi                      ;008C03|8538    |000038;
  
           CODE_008C05: RTS                                  ;008C05|60      |      ;
  
  
-          CODE_008C06: LDA.B $38                            ;008C06|A538    |000038;
-                       CMP.B r_Score4ExtraLive              ;008C08|C53E    |00003E;
+          CODE_008C06: LDA.B r_scoreHi                      ;008C06|A538    |000038;
+                       CMP.B r_score4ExtraLive              ;008C08|C53E    |00003E;
                        BCC CODE_008C05                      ;008C0A|90F9    |008C05;
                        LDX.B #$05                           ;008C0C|A205    |      ;
-                       LDA.B r_Score4ExtraLive              ;008C0E|A53E    |00003E;
+                       LDA.B r_score4ExtraLive              ;008C0E|A53E    |00003E;
                        CLC                                  ;008C10|18      |      ;
                        JSR.W CODE_008C69                    ;008C11|20698C  |008C69;
                        BCC CODE_008C18                      ;008C14|9002    |008C18;
                        LDA.B #$FF                           ;008C16|A9FF    |      ;
  
-          CODE_008C18: STA.B r_Score4ExtraLive              ;008C18|853E    |00003E;
+          CODE_008C18: STA.B r_score4ExtraLive              ;008C18|853E    |00003E;
                        LDX.B #$01                           ;008C1A|A201    |      ;
-                       LDA.B r_CurrLivesLeft                ;008C1C|A535    |000035;
+                       LDA.B r_lifes                        ;008C1C|A535    |000035;
  
                        CLC                                  ;008C1E|18      |      ;
                        JSR.W CODE_008C69                    ;008C1F|20698C  |008C69;
                        BCS CODE_008C2E                      ;008C22|B00A    |008C2E;
-                       STA.B r_CurrLivesLeft                ;008C24|8535    |000035;
+                       STA.B r_lifes                        ;008C24|8535    |000035;
                        LDA.B #$4B                           ;008C26|A94B    |      ;
                        db $20                               ;008C28|        |      ;
                        dw CODE_0FE25F                       ;008C29|        |0FE25F;
@@ -1560,10 +1560,10 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_008C2E: RTS                                  ;008C2E|60      |      ;
  
                        STA.B $00                            ;008C2F|8500    |000000;
-                       LDA.B r_NumHearts                    ;008C31|A584    |000084;
+                       LDA.B r_hearts                       ;008C31|A584    |000084;
                        AND.B #$0F                           ;008C33|290F    |      ;
                        STA.B $01                            ;008C35|8501    |000001;
-                       LDA.B r_NumHearts                    ;008C37|A584    |000084;
+                       LDA.B r_hearts                       ;008C37|A584    |000084;
                        AND.B #$F0                           ;008C39|29F0    |      ;
                        STA.B $02                            ;008C3B|8502    |000002;
                        LDA.B $01                            ;008C3D|A501    |000001;
@@ -1582,19 +1582,19 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_008C54: ORA.B $02                            ;008C54|0502    |000002;
  
-                       STA.B r_NumHearts                    ;008C56|8584    |000084;
+                       STA.B r_hearts                       ;008C56|8584    |000084;
                        RTS                                  ;008C58|60      |      ;
  
-                       LDA.B r_NumHearts                    ;008C59|A584    |000084;
+                       LDA.B r_hearts                       ;008C59|A584    |000084;
                        CLC                                  ;008C5B|18      |      ;
                        JSR.W CODE_008C69                    ;008C5C|20698C  |008C69;
                        BCS CODE_008C64                      ;008C5F|B003    |008C64;
-                       STA.B r_NumHearts                    ;008C61|8584    |000084;
+                       STA.B r_hearts                       ;008C61|8584    |000084;
                        RTS                                  ;008C63|60      |      ;
  
  
           CODE_008C64: LDA.B #$99                           ;008C64|A999    |      ;
-                       STA.B r_NumHearts                    ;008C66|8584    |000084;
+                       STA.B r_hearts                       ;008C66|8584    |000084;
                        RTS                                  ;008C68|60      |      ;
  
  
@@ -1631,9 +1631,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_008C97: LDA.B #$20                           ;008C97|A920    |      ;
                        STA.B $62                            ;008C99|8562    |000062;
                        LDA.B #$77                           ;008C9B|A977    |      ;
-                       STA.B r_VramQueueDest                ;008C9D|8561    |000061;
-                       LDA.B r_NumHearts                    ;008C9F|A584    |000084;
-                       STA.B r_CurrNumToVramQueue           ;008CA1|8508    |000008;
+                       STA.B r_VRAM_QueueDest               ;008C9D|8561    |000061;
+                       LDA.B r_hearts                       ;008C9F|A584    |000084;
+                       STA.B r_pointerQueue_VRAM            ;008CA1|8508    |000008;
                        db $4C                               ;008CA3|        |      ;
  
                        dw UNREACH_0FE8FC                    ;008CA4|        |0FE8FC;
@@ -1641,11 +1641,11 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_008CA6: LDA.B #$20                           ;008CA6|A920    |      ;
                        STA.B $62                            ;008CA8|8562    |000062;
                        LDA.B #$67                           ;008CAA|A967    |      ;
-                       STA.B r_VramQueueDest                ;008CAC|8561    |000061;
-                       LDA.B r_PlayerHealth                 ;008CAE|A53C    |00003C;
-                       STA.B r_CurrNumToVramQueue           ;008CB0|8508    |000008;
+                       STA.B r_VRAM_QueueDest               ;008CAC|8561    |000061;
+                       LDA.B r_HUD_healthPlayer             ;008CAE|A53C    |00003C;
+                       STA.B r_pointerQueue_VRAM            ;008CB0|8508    |000008;
                        LDA.B #$83                           ;008CB2|A983    |      ;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;008CB4|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;008CB4|850A    |00000A;
                        LDA.B #$84                           ;008CB6|A984    |      ;
                        STA.B $0B                            ;008CB8|850B    |00000B;
                        JSR.W DATA8_008CD1                   ;008CBA|20D18C  |008CD1;
@@ -1653,13 +1653,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$20                           ;008CBD|A920    |      ;
                        STA.B $62                            ;008CBF|8562    |000062;
                        LDA.B #$87                           ;008CC1|A987    |      ;
-                       STA.B r_VramQueueDest                ;008CC3|8561    |000061;
-                       LDA.B r_BossHealth                   ;008CC5|A53D    |00003D;
-                       STA.B r_CurrNumToVramQueue           ;008CC7|8508    |000008;
+                       STA.B r_VRAM_QueueDest               ;008CC3|8561    |000061;
+                       LDA.B r_HUD_healthBoss               ;008CC5|A53D    |00003D;
+                       STA.B r_pointerQueue_VRAM            ;008CC7|8508    |000008;
  
                        LDA.B #$93                           ;008CC9|A993    |      ;
  
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;008CCB|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;008CCB|850A    |00000A;
  
                        LDA.B #$94                           ;008CCD|A994    |      ;
                        STA.B $0B                            ;008CCF|850B    |00000B;
@@ -1669,18 +1669,18 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$08                           ;008CD4|A908    |      ;
                        STA.B $09                            ;008CD6|8509    |000009;
  
-          CODE_008CD8: LDA.B r_CurrNumToVramQueue           ;008CD8|A508    |000008;
+          CODE_008CD8: LDA.B r_pointerQueue_VRAM            ;008CD8|A508    |000008;
                        BEQ CODE_008D0D                      ;008CDA|F031    |008D0D;
                        CMP.B #$08                           ;008CDC|C908    |      ;
                        BCC CODE_008CF3                      ;008CDE|9013    |008CF3;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;008CE0|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;008CE0|A50A    |00000A;
                        STA.W r_VramQueue,X                  ;008CE2|9D0003  |000300;
  
                        INX                                  ;008CE5|E8      |      ;
-                       LDA.B r_CurrNumToVramQueue           ;008CE6|A508    |000008;
+                       LDA.B r_pointerQueue_VRAM            ;008CE6|A508    |000008;
                        SEC                                  ;008CE8|38      |      ;
                        SBC.B #$08                           ;008CE9|E908    |      ;
-                       STA.B r_CurrNumToVramQueue           ;008CEB|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;008CEB|8508    |000008;
                        DEC.B $09                            ;008CED|C609    |000009;
                        BEQ CODE_008D18                      ;008CEF|F027    |008D18;
                        BNE CODE_008CD8                      ;008CF1|D0E5    |008CD8;
@@ -1694,7 +1694,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        BEQ CODE_008D18                      ;008CFF|F017    |008D18;
                        BNE CODE_008D0D                      ;008D01|D00A    |008D0D;
  
-          CODE_008D03: LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;008D03|A50A    |00000A;
+          CODE_008D03: LDA.B r_temp_Xpos                    ;008D03|A50A    |00000A;
                        STA.W r_VramQueue,X                  ;008D05|9D0003  |000300;
                        INX                                  ;008D08|E8      |      ;
                        DEC.B $09                            ;008D09|C609    |000009;
@@ -1711,23 +1711,23 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_008D18: LDA.B #$FF                           ;008D18|A9FF    |      ;
                        STA.W r_VramQueue,X                  ;008D1A|9D0003  |000300;
                        INX                                  ;008D1D|E8      |      ;
-                       STX.B r_VramQueueNextIdxToFill       ;008D1E|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;008D1E|861D    |00001D;
                        RTS                                  ;008D20|60      |      ;
  
  
           CODE_008D21: LDA.B #$20                           ;008D21|A920    |      ;
                        STA.B $62                            ;008D23|8562    |000062;
                        LDA.B #$52                           ;008D25|A952    |      ;
-                       STA.B r_VramQueueDest                ;008D27|8561    |000061;
-                       LDA.B $7F                            ;008D29|A57F    |00007F;
-                       STA.B r_CurrNumToVramQueue           ;008D2B|8508    |000008;
+                       STA.B r_VRAM_QueueDest               ;008D27|8561    |000061;
+                       LDA.B r_lvlTimerHi                   ;008D29|A57F    |00007F;
+                       STA.B r_pointerQueue_VRAM            ;008D2B|8508    |000008;
                        db $20                               ;008D2D|        |      ;
                        dw UNREACH_0FE8FC                    ;008D2E|        |0FE8FC;
  
-                       INC.B r_VramQueueDest                ;008D30|E661    |000061;
-                       INC.B r_VramQueueDest                ;008D32|E661    |000061;
-                       LDA.B r_CurrTimeLeft                 ;008D34|A57E    |00007E;
-                       STA.B r_CurrNumToVramQueue           ;008D36|8508    |000008;
+                       INC.B r_VRAM_QueueDest               ;008D30|E661    |000061;
+                       INC.B r_VRAM_QueueDest               ;008D32|E661    |000061;
+                       LDA.B r_lvlTimerLo                   ;008D34|A57E    |00007E;
+                       STA.B r_pointerQueue_VRAM            ;008D36|8508    |000008;
                        db $4C                               ;008D38|        |      ;
  
                        dw UNREACH_0FE8FC                    ;008D39|        |0FE8FC;
@@ -1735,21 +1735,21 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_008D3B: LDA.B #$20                           ;008D3B|A920    |      ;
                        STA.B $62                            ;008D3D|8562    |000062;
                        LDA.B #$46                           ;008D3F|A946    |      ;
-                       STA.B r_VramQueueDest                ;008D41|8561    |000061;
-                       LDA.B $38                            ;008D43|A538    |000038;
-                       STA.B r_CurrNumToVramQueue           ;008D45|8508    |000008;
+                       STA.B r_VRAM_QueueDest               ;008D41|8561    |000061;
+                       LDA.B r_scoreHi                      ;008D43|A538    |000038;
+                       STA.B r_pointerQueue_VRAM            ;008D45|8508    |000008;
                        db $20                               ;008D47|        |      ;
                        dw UNREACH_0FE8FC                    ;008D48|        |0FE8FC;
-                       INC.B r_VramQueueDest                ;008D4A|E661    |000061;
-                       INC.B r_VramQueueDest                ;008D4C|E661    |000061;
-                       LDA.B $37                            ;008D4E|A537    |000037;
-                       STA.B r_CurrNumToVramQueue           ;008D50|8508    |000008;
+                       INC.B r_VRAM_QueueDest               ;008D4A|E661    |000061;
+                       INC.B r_VRAM_QueueDest               ;008D4C|E661    |000061;
+                       LDA.B r_scoreMid                     ;008D4E|A537    |000037;
+                       STA.B r_pointerQueue_VRAM            ;008D50|8508    |000008;
                        db $20                               ;008D52|        |      ;
                        dw UNREACH_0FE8FC                    ;008D53|        |0FE8FC;
-                       INC.B r_VramQueueDest                ;008D55|E661    |000061;
-                       INC.B r_VramQueueDest                ;008D57|E661    |000061;
-                       LDA.B r_CurrScore                    ;008D59|A536    |000036;
-                       STA.B r_CurrNumToVramQueue           ;008D5B|8508    |000008;
+                       INC.B r_VRAM_QueueDest               ;008D55|E661    |000061;
+                       INC.B r_VRAM_QueueDest               ;008D57|E661    |000061;
+                       LDA.B r_scoreLo                      ;008D59|A536    |000036;
+                       STA.B r_pointerQueue_VRAM            ;008D5B|8508    |000008;
                        db $4C                               ;008D5D|        |      ;
  
                        dw UNREACH_0FE8FC                    ;008D5E|        |0FE8FC;
@@ -1772,7 +1772,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JSR.W CODE_008E3C                    ;008D80|203C8E  |008E3C;
                        JSR.W CODE_008E4B                    ;008D83|204B8E  |008E4B;
                        LDA.B #$24                           ;008D86|A924    |      ;
-                       LDX.B r_RoomOrientation              ;008D88|A668    |000068;
+                       LDX.B r_roomOrientation              ;008D88|A668    |000068;
                        BPL CODE_008D8F                      ;008D8A|1003    |008D8F;
  
                        SEC                                  ;008D8C|38      |      ;
@@ -1783,21 +1783,21 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;008D95|60      |      ;
  
  
-          CODE_008D96: LDA.B r_CurrRoomGroupStage           ;008D96|A532    |000032;
+          CODE_008D96: LDA.B r_stage                        ;008D96|A532    |000032;
                        ASL A                                ;008D98|0A      |      ;
                        TAY                                  ;008D99|A8      |      ;
                        LDA.W PTR16_008DCF,Y                 ;008D9A|B9CF8D  |008DCF;
-                       STA.B r_CurrNumToVramQueue           ;008D9D|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;008D9D|8508    |000008;
                        LDA.W PTR16_008DD0,Y                 ;008D9F|B9D08D  |008DD0;
                        STA.B $09                            ;008DA2|8509    |000009;
                        LDA.B #$20                           ;008DA4|A920    |      ;
                        STA.B $62                            ;008DA6|8562    |000062;
                        LDA.B #$5B                           ;008DA8|A95B    |      ;
-                       STA.B r_VramQueueDest                ;008DAA|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;008DAA|8561    |000061;
                        db $20                               ;008DAC|        |      ;
                        dw CODE_0FE8B5                       ;008DAD|        |0FE8B5;
                        LDY.B #$00                           ;008DAF|A000    |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;008DB1|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;008DB1|B108    |000008;
                        STA.W r_VramQueue,X                  ;008DB3|9D0003  |000300;
                        db $20                               ;008DB6|        |      ;
                        dw CODE_0FE8DD                       ;008DB7|        |0FE8DD;
@@ -1805,13 +1805,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$20                           ;008DB9|A920    |      ;
                        STA.B $62                            ;008DBB|8562    |000062;
                        LDA.B #$5E                           ;008DBD|A95E    |      ;
-                       STA.B r_VramQueueDest                ;008DBF|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;008DBF|8561    |000061;
                        db $20                               ;008DC1|        |      ;
                        dw CODE_0FE8B5                       ;008DC2|        |0FE8B5;
  
-                       LDY.B r_CurrRoomSectionBlock         ;008DC4|A433    |000033;
+                       LDY.B r_blockLevel                   ;008DC4|A433    |000033;
                        INY                                  ;008DC6|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;008DC7|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;008DC7|B108    |000008;
                        STA.W r_VramQueue,X                  ;008DC9|9D0003  |000300;
                        db $4C                               ;008DCC|        |      ;
  
@@ -1874,17 +1874,17 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_008E3C: LDA.B #$20                           ;008E3C|A920    |      ;
                        STA.B $62                            ;008E3E|8562    |000062;
                        LDA.B #$97                           ;008E40|A997    |      ;
-                       STA.B r_VramQueueDest                ;008E42|8561    |000061;
-                       LDY.B r_CurrLivesLeft                ;008E44|A435    |000035;
-                       STY.B r_CurrNumToVramQueue           ;008E46|8408    |000008;
+                       STA.B r_VRAM_QueueDest               ;008E42|8561    |000061;
+                       LDY.B r_lifes                        ;008E44|A435    |000035;
+                       STY.B r_pointerQueue_VRAM            ;008E46|8408    |000008;
                        db $4C                               ;008E48|        |      ;
  
                        dw UNREACH_0FE8FC                    ;008E49|        |0FE8FC;
  
-          CODE_008E4B: LDA.B r_CurrCharacterIdx             ;008E4B|A53B    |00003B;
+          CODE_008E4B: LDA.B r_partnerIdx                   ;008E4B|A53B    |00003B;
                        EOR.B #$01                           ;008E4D|4901    |      ;
                        TAY                                  ;008E4F|A8      |      ;
-                       LDA.W r_UsableChars,Y                ;008E50|B93900  |000039;
+                       LDA.W r_039,Y                        ;008E50|B93900  |000039;
                        BMI CODE_008E5C                      ;008E53|3007    |008E5C;
                        TAY                                  ;008E55|A8      |      ;
                        LDA.W DATA8_008E5D,Y                 ;008E56|B95D8E  |008E5D;
@@ -1897,9 +1897,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
          DATA8_008E5D: db $0F,$10,$11,$12                   ;008E5D|        |      ;
  
           CODE_008E61: JSR.W CODE_008E92                    ;008E61|20928E  |008E92;
-                       LDY.B r_CurrCharacterIdx             ;008E64|A43B    |00003B;
+                       LDY.B r_partnerIdx                   ;008E64|A43B    |00003B;
  
-                       LDA.W r_SubWeaponMultiplier,Y        ;008E66|B98700  |000087;
+                       LDA.W r_subweapMultiplier,Y          ;008E66|B98700  |000087;
                        ASL A                                ;008E69|0A      |      ;
                        TAY                                  ;008E6A|A8      |      ;
                        LDA.W DATA8_008EC9,Y                 ;008E6B|B9C98E  |008EC9;
@@ -1914,7 +1914,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$D8                           ;008E80|A9D8    |      ;
                        STA.W $0451                          ;008E82|8D5104  |000451;
                        LDA.B #$24                           ;008E85|A924    |      ;
-                       LDX.B r_RoomOrientation              ;008E87|A668    |000068;
+                       LDX.B r_roomOrientation              ;008E87|A668    |000068;
                        BPL CODE_008E8E                      ;008E89|1003    |008E8E;
                        SEC                                  ;008E8B|38      |      ;
  
@@ -1924,12 +1924,12 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;008E91|60      |      ;
  
  
-          CODE_008E92: LDY.B r_CurrCharacterIdx             ;008E92|A43B    |00003B;
-                       LDA.W r_CurrSubweapon,Y              ;008E94|B98500  |000085;
+          CODE_008E92: LDY.B r_partnerIdx                   ;008E92|A43B    |00003B;
+                       LDA.W r_subweap,Y                    ;008E94|B98500  |000085;
                        ASL A                                ;008E97|0A      |      ;
                        ASL A                                ;008E98|0A      |      ;
                        CLC                                  ;008E99|18      |      ;
-                       ADC.W r_CurrSubweapon,Y              ;008E9A|798500  |000085;
+                       ADC.W r_subweap,Y                    ;008E9A|798500  |000085;
                        TAY                                  ;008E9D|A8      |      ;
                        LDA.W DATA8_008ECF,Y                 ;008E9E|B9CF8E  |008ECF;
                        STA.W $0418                          ;008EA1|8D1804  |000418;
@@ -1939,7 +1939,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.W DATA8_008ED1,Y                 ;008EAA|B9D18E  |008ED1;
                        STA.W $0450                          ;008EAD|8D5004  |000450;
                        LDA.W DATA8_008ED2,Y                 ;008EB0|B9D28E  |008ED2;
-                       LDX.B r_RoomOrientation              ;008EB3|A668    |000068;
+                       LDX.B r_roomOrientation              ;008EB3|A668    |000068;
                        BPL CODE_008EBA                      ;008EB5|1003    |008EBA;
                        SEC                                  ;008EB7|38      |      ;
                        SBC.B #$04                           ;008EB8|E904    |      ;
@@ -1979,11 +1979,11 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $00,$68,$0E,$90,$24               ;008F05|        |      ;
                        db $00                               ;008F0A|        |      ;
  
-          CODE_008F0B: LDA.B r_RosseryFlashTimer            ;008F0B|A5B2    |0000B2;
+          CODE_008F0B: LDA.B r_rosseryFlashTimer            ;008F0B|A5B2    |0000B2;
                        BEQ CODE_008F35                      ;008F0D|F026    |008F35;
-                       DEC.B r_RosseryFlashTimer            ;008F0F|C6B2    |0000B2;
+                       DEC.B r_rosseryFlashTimer            ;008F0F|C6B2    |0000B2;
                        BEQ CODE_008F19                      ;008F11|F006    |008F19;
-                       LDA.B r_RosseryFlashTimer            ;008F13|A5B2    |0000B2;
+                       LDA.B r_rosseryFlashTimer            ;008F13|A5B2    |0000B2;
  
                        AND.B #$03                           ;008F15|2903    |      ;
                        BEQ CODE_008F1F                      ;008F17|F006    |008F1F;
@@ -1994,7 +1994,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_008F1F: JSR.W CODE_00859E                    ;008F1F|209E85  |00859E;
  
-                       LDX.B r_VramQueueNextIdxToFill       ;008F22|A61D    |00001D;
+                       LDX.B r_sceneDrawQueue               ;008F22|A61D    |00001D;
                        LDA.B #$20                           ;008F24|A920    |      ;
                        STA.W $02E7,X                        ;008F26|9DE702  |0002E7;
                        STA.W $02EB,X                        ;008F29|9DEB02  |0002EB;
@@ -2004,22 +2004,22 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JMP.W CODE_008F4E                    ;008F32|4C4E8F  |008F4E;
  
  
-          CODE_008F35: LDA.B r_PotionTimer                  ;008F35|A5AD    |0000AD;
+          CODE_008F35: LDA.B r_potionTimer                  ;008F35|A5AD    |0000AD;
                        BEQ CODE_008F4E                      ;008F37|F015    |008F4E;
-                       LDA.B r_GameStateLoopCounter         ;008F39|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;008F39|A51A    |00001A;
                        AND.B #$01                           ;008F3B|2901    |      ;
                        BEQ CODE_008F43                      ;008F3D|F004    |008F43;
-                       DEC.B r_PotionTimer                  ;008F3F|C6AD    |0000AD;
+                       DEC.B r_potionTimer                  ;008F3F|C6AD    |0000AD;
                        BEQ CODE_008F19                      ;008F41|F0D6    |008F19;
  
-          CODE_008F43: LDA.B r_PotionTimer                  ;008F43|A5AD    |0000AD;
+          CODE_008F43: LDA.B r_potionTimer                  ;008F43|A5AD    |0000AD;
                        AND.B #$01                           ;008F45|2901    |      ;
                        BEQ CODE_008F4B                      ;008F47|F002    |008F4B;
                        BNE CODE_008F19                      ;008F49|D0CE    |008F19;
  
           CODE_008F4B: JSR.W CODE_0085A4                    ;008F4B|20A485  |0085A4;
  
-          CODE_008F4E: LDA.B r_GameStateLoopCounter         ;008F4E|A51A    |00001A;
+          CODE_008F4E: LDA.B r_gameStateLoopCounter         ;008F4E|A51A    |00001A;
                        AND.B #$03                           ;008F50|2903    |      ;
                        TAY                                  ;008F52|A8      |      ;
                        BEQ CODE_008F61                      ;008F53|F00C    |008F61;
@@ -2058,21 +2058,21 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        JSR.W CODE_00907F                    ;008F80|207F90  |00907F;
                        LDA.B #$00                           ;008F83|A900    |      ;
-                       STA.B r_CurrScore                    ;008F85|8536    |000036;
-                       STA.B $37                            ;008F87|8537    |000037;
-                       STA.B $38                            ;008F89|8538    |000038;
-                       LDY.B r_Checkpoint                   ;008F8B|A42E    |00002E;
+                       STA.B r_scoreLo                      ;008F85|8536    |000036;
+                       STA.B r_scoreMid                     ;008F87|8537    |000037;
+                       STA.B r_scoreHi                      ;008F89|8538    |000038;
+                       LDY.B r_02e                          ;008F8B|A42E    |00002E;
                        LDA.W DATA8_008F9E,Y                 ;008F8D|B99E8F  |008F9E;
                        AND.B #$0F                           ;008F90|290F    |      ;
  
-                       STA.B r_CurrRoomSectionBlock         ;008F92|8533    |000033;
+                       STA.B r_blockLevel                   ;008F92|8533    |000033;
                        LDA.W DATA8_008F9E,Y                 ;008F94|B99E8F  |008F9E;
  
                        LSR A                                ;008F97|4A      |      ;
                        LSR A                                ;008F98|4A      |      ;
                        LSR A                                ;008F99|4A      |      ;
                        LSR A                                ;008F9A|4A      |      ;
-                       STA.B r_CurrRoomGroupStage           ;008F9B|8532    |000032;
+                       STA.B r_stage                        ;008F9B|8532    |000032;
                        RTS                                  ;008F9D|60      |      ;
  
  
@@ -2082,13 +2082,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $75,$80,$90,$A0,$B0               ;008FA8|        |      ;
                        db $C0,$D0,$E0                       ;008FAD|        |      ;
  
-          CODE_008FB0: LDA.B r_CurrRoomGroupStage           ;008FB0|A532    |000032;
+          CODE_008FB0: LDA.B r_stage                        ;008FB0|A532    |000032;
                        ASL A                                ;008FB2|0A      |      ;
                        CLC                                  ;008FB3|18      |      ;
-                       ADC.B r_CurrRoomGroupStage           ;008FB4|6532    |000032;
+                       ADC.B r_stage                        ;008FB4|6532    |000032;
                        TAY                                  ;008FB6|A8      |      ;
                        LDA.W DATA8_008FD1,Y                 ;008FB7|B9D18F  |008FD1;
-                       CMP.B r_CurrRoomSectionBlock         ;008FBA|C533    |000033;
+                       CMP.B r_blockLevel                   ;008FBA|C533    |000033;
                        BCS CODE_008FBF                      ;008FBC|B001    |008FBF;
                        INY                                  ;008FBE|C8      |      ;
  
@@ -2096,7 +2096,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        CMP.B #$03                           ;008FC2|C903    |      ;
                        BEQ CODE_008FC9                      ;008FC4|F003    |008FC9;
  
-          CODE_008FC6: STA.B r_Checkpoint                   ;008FC6|852E    |00002E;
+          CODE_008FC6: STA.B r_02e                          ;008FC6|852E    |00002E;
                        RTS                                  ;008FC8|60      |      ;
  
  
@@ -2160,13 +2160,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_009031: LDA.W DATA8_00904D,Y                 ;009031|B94D90  |00904D;
  
-                       STA.B r_CurrNumToVramQueue           ;009034|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;009034|8508    |000008;
                        LDA.W DATA8_00904E,Y                 ;009036|B94E90  |00904E;
                        STA.B $09                            ;009039|8509    |000009;
                        LDY.B #$00                           ;00903B|A000    |      ;
  
           CODE_00903D: LDA.W $07F8,Y                        ;00903D|B9F807  |0007F8;
-                       CMP.B (r_CurrNumToVramQueue),Y       ;009040|D108    |000008;
+                       CMP.B (r_pointerQueue_VRAM),Y        ;009040|D108    |000008;
                        BNE DATA8_00904B                     ;009042|D007    |00904B;
                        INY                                  ;009044|C8      |      ;
                        CPY.B #$08                           ;009045|C008    |      ;
@@ -2197,7 +2197,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JSR.W CODE_0090C0                    ;009086|20C090  |0090C0;
                        LDA.B #$02                           ;009089|A902    |      ;
  
-                       STA.B r_Score4ExtraLive              ;00908B|853E    |00003E;
+                       STA.B r_score4ExtraLive              ;00908B|853E    |00003E;
                        JSR.W CODE_008FFE                    ;00908D|20FE8F  |008FFE;
                        BCC CODE_0090B7                      ;009090|9025    |0090B7;
                        DEY                                  ;009092|88      |      ;
@@ -2205,7 +2205,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        DEY                                  ;009095|88      |      ;
                        BEQ CODE_0090B2                      ;009096|F01A    |0090B2;
  
-                       LDA.B r_PartnerIdx                   ;009098|A53A    |00003A;
+                       LDA.B r_partner                      ;009098|A53A    |00003A;
                        CMP.B #$FF                           ;00909A|C9FF    |      ;
                        BNE CODE_0090B7                      ;00909C|D019    |0090B7;
                        DEY                                  ;00909E|88      |      ;
@@ -2221,15 +2221,15 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_0090AC: LDA.B #$03                           ;0090AC|A903    |      ;
  
-          CODE_0090AE: STA.B r_PartnerIdx                   ;0090AE|853A    |00003A;
+          CODE_0090AE: STA.B r_partner                      ;0090AE|853A    |00003A;
                        BNE CODE_0090B7                      ;0090B0|D005    |0090B7;
  
           CODE_0090B2: LDA.B #$01                           ;0090B2|A901    |      ;
-                       STA.W r_HardMode                     ;0090B4|8DF607  |0007F6;
+                       STA.W r_hardMode                     ;0090B4|8DF607  |0007F6;
  
           CODE_0090B7: LDA.B #$02                           ;0090B7|A902    |      ;
  
-          CODE_0090B9: STA.B r_CurrLivesLeft                ;0090B9|8535    |000035;
+          CODE_0090B9: STA.B r_lifes                        ;0090B9|8535    |000035;
  
                        RTS                                  ;0090BB|60      |      ;
  
@@ -2238,27 +2238,27 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        BNE CODE_0090B9                      ;0090BE|D0F9    |0090B9;
  
           CODE_0090C0: LDA.B #$05                           ;0090C0|A905    |      ;
-                       STA.B r_NumHearts                    ;0090C2|8584    |000084;
+                       STA.B r_hearts                       ;0090C2|8584    |000084;
                        LDA.B #$40                           ;0090C4|A940    |      ;
-                       STA.B r_PlayerHealth                 ;0090C6|853C    |00003C;
+                       STA.B r_HUD_healthPlayer             ;0090C6|853C    |00003C;
  
           CODE_0090C8: LDA.B #$40                           ;0090C8|A940    |      ;
-                       STA.B r_BossHealth                   ;0090CA|853D    |00003D;
+                       STA.B r_HUD_healthBoss               ;0090CA|853D    |00003D;
                        RTS                                  ;0090CC|60      |      ;
  
  
           CODE_0090CD: LDA.B #$40                           ;0090CD|A940    |      ;
-                       STA.B r_ChrBankBG_0000               ;0090CF|854A    |00004A;
+                       STA.B r_CHR_BankBG_0000              ;0090CF|854A    |00004A;
                        LDA.B #$43                           ;0090D1|A943    |      ;
-                       STA.B r_ChrBankBG_0c00               ;0090D3|854D    |00004D;
+                       STA.B r_CHR_BankBG_0c00              ;0090D3|854D    |00004D;
                        RTS                                  ;0090D5|60      |      ;
  
  
           CODE_0090D6: LDA.B #$00                           ;0090D6|A900    |      ;
-                       STA.B r_StopWatchActive              ;0090D8|85AB    |0000AB;
-                       STA.B r_StopWatchTimer               ;0090DA|85AC    |0000AC;
-                       STA.W $06C9                          ;0090DC|8DC906  |0006C9;
-                       STA.B r_BridgeTimer                  ;0090DF|85B3    |0000B3;
+                       STA.B r_stopWatchActive              ;0090D8|85AB    |0000AB;
+                       STA.B r_stopWatchTimer               ;0090DA|85AC    |0000AC;
+                       STA.W r_sound_musicStop              ;0090DC|8DC906  |0006C9;
+                       STA.B r_bridgeTimer                  ;0090DF|85B3    |0000B3;
                        RTS                                  ;0090E1|60      |      ;
  
                        LDA.B #$B0                           ;0090E2|A9B0    |      ;
@@ -2270,17 +2270,17 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.W r_OamSpecIdxDoubled            ;0090EE|8D0004  |000400;
                        STA.W $0418                          ;0090F1|8D1804  |000418;
                        STA.W $0419                          ;0090F4|8D1904  |000419;
-                       STA.B r_MusicLoaded                  ;0090F7|8574    |000074;
-                       STA.B $75                            ;0090F9|8575    |000075;
-                       STA.W r_PlayerStateDoubled           ;0090FB|8D6505  |000565;
+                       STA.B r_074                          ;0090F7|8574    |000074;
+                       STA.B r_075                          ;0090F9|8575    |000075;
+                       STA.W r_Player_StateDoubled          ;0090FB|8D6505  |000565;
                        JSR.W CODE_0090D6                    ;0090FE|20D690  |0090D6;
                        db $20                               ;009101|        |      ;
                        dw CODE_0FE862                       ;009102|        |0FE862;
                        JMP.W CODE_009130                    ;009104|4C3091  |009130;
  
                        LDA.B #$00                           ;009107|A900    |      ;
-                       STA.W r_EntityYposSpeed              ;009109|8D2005  |000520;
-                       STA.W r_EntityYposSubSpeed           ;00910C|8D3705  |000537;
+                       STA.W r_entity_YposSpeed             ;009109|8D2005  |000520;
+                       STA.W r_entity_YposSubSpeed          ;00910C|8D3705  |000537;
                        JSR.W CODE_0090D6                    ;00910F|20D690  |0090D6;
                        db $20                               ;009112|        |      ;
                        dw CODE_0FE862                       ;009113|        |0FE862;
@@ -2289,38 +2289,38 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        CMP.B #$5F                           ;00911A|C95F    |      ;
                        BNE CODE_009122                      ;00911C|D004    |009122;
                        LDA.B #$00                           ;00911E|A900    |      ;
-                       STA.B r_MusicLoaded                  ;009120|8574    |000074;
+                       STA.B r_074                          ;009120|8574    |000074;
  
           CODE_009122: LDA.B #$B0                           ;009122|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;009124|85FF    |0000FF;
                        db $20                               ;009126|        |      ;
                        dw UNREACH_0FE666                    ;009127|        |0FE666;
                        LDA.B #$00                           ;009129|A900    |      ;
-                       STA.B $75                            ;00912B|8575    |000075;
+                       STA.B r_075                          ;00912B|8575    |000075;
                        JSR.W CODE_00917F                    ;00912D|207F91  |00917F;
  
           CODE_009130: JSR.W CODE_0090CD                    ;009130|20CD90  |0090CD;
                        LDA.B #$B0                           ;009133|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;009135|85FF    |0000FF;
-                       LDA.W r_PlayerStateDoubled           ;009137|AD6505  |000565;
+                       LDA.W r_Player_StateDoubled          ;009137|AD6505  |000565;
                        AND.B #$7F                           ;00913A|297F    |      ;
-                       STA.W r_PlayerStateDoubled           ;00913C|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00913C|8D6505  |000565;
                        LDA.B #$00                           ;00913F|A900    |      ;
                        STA.B $78                            ;009141|8578    |000078;
-                       STA.B r_HurtInvincibilityFrames      ;009143|8580    |000080;
-                       STA.B r_LoadCHRbeforeSwap            ;009145|85B0    |0000B0;
-                       STA.B r_RosseryFlashTimer            ;009147|85B2    |0000B2;
-                       STA.B r_PotionTimer                  ;009149|85AD    |0000AD;
-                       STA.B r_CinematicsControllerBossDefeated;00914B|852C    |00002C;
-                       STA.B r_FloodStop                    ;00914D|85C0    |0000C0;
-                       STA.B r_BossSecondFace               ;00914F|85C2    |0000C2;
-                       STA.B r_HorizontalScrollLockBridge   ;009151|85C8    |0000C8;
-                       STA.B r_BossObject                   ;009153|85C1    |0000C1;
-                       STA.B r_DisablePlayer                ;009155|85C4    |0000C4;
+                       STA.B r_invincableFrames             ;009143|8580    |000080;
+                       STA.B r_defaultCHR                   ;009145|85B0    |0000B0;
+                       STA.B r_rosseryFlashTimer            ;009147|85B2    |0000B2;
+                       STA.B r_potionTimer                  ;009149|85AD    |0000AD;
+                       STA.B r_autoPlay                     ;00914B|852C    |00002C;
+                       STA.B r_floodStop                    ;00914D|85C0    |0000C0;
+                       STA.B r_bossSecondFace               ;00914F|85C2    |0000C2;
+                       STA.B r_horizontalScrollLockBridge   ;009151|85C8    |0000C8;
+                       STA.B r_bossObject                   ;009153|85C1    |0000C1;
+                       STA.B r_disablePlayer                ;009155|85C4    |0000C4;
                        STA.B $C5                            ;009157|85C5    |0000C5;
                        STA.B $CC                            ;009159|85CC    |0000CC;
                        STA.B $CD                            ;00915B|85CD    |0000CD;
-                       STA.B r_BossSpecialHitbox            ;00915D|85BA    |0000BA;
+                       STA.B r_bossSpecialHitbox            ;00915D|85BA    |0000BA;
                        db $20                               ;00915F|        |      ;
                        dw UNREACH_0FE7F7                    ;009160|        |0FE7F7;
                        LDA.B #$00                           ;009162|A900    |      ;
@@ -2332,7 +2332,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDX.B #$00                           ;009173|A200    |      ;
                        TXA                                  ;009175|8A      |      ;
  
-          CODE_009176: STA.W r_SoundModeSongSelected,X      ;009176|9D8007  |000780;
+          CODE_009176: STA.W r_soundModeSongSelected,X      ;009176|9D8007  |000780;
                        INX                                  ;009179|E8      |      ;
                        CPX.B #$43                           ;00917A|E043    |      ;
                        BNE CODE_009176                      ;00917C|D0F8    |009176;
@@ -2342,7 +2342,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_00917F: LDA.B #$00                           ;00917F|A900    |      ;
                        TAX                                  ;009181|AA      |      ;
  
-          CODE_009182: STA.W r_CurrCollisionMapValues90,X   ;009182|9DE006  |0006E0;
+          CODE_009182: STA.W r_collisionMapValues90,X       ;009182|9DE006  |0006E0;
                        INX                                  ;009185|E8      |      ;
  
                        CPX.B #$90                           ;009186|E090    |      ;
@@ -2357,53 +2357,53 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JSR.W CODE_0090CD                    ;009192|20CD90  |0090CD;
                        db $20                               ;009195|        |      ;
                        dw UNREACH_0FE5CA                    ;009196|        |0FE5CA;
-                       LDA.W r_EntityObjectIdxes            ;009198|AD4E05  |00054E;
+                       LDA.W r_entity_ObjectIdxes           ;009198|AD4E05  |00054E;
                        PHA                                  ;00919B|48      |      ;
-                       LDA.B r_BossDragonKingHP             ;00919C|A5BD    |0000BD;
+                       LDA.B r_bossDragonKingHP             ;00919C|A5BD    |0000BD;
  
                        PHA                                  ;00919E|48      |      ;
-                       LDA.B r_BossDragonMisc               ;00919F|A5BE    |0000BE;
+                       LDA.B r_bossDragonMisc               ;00919F|A5BE    |0000BE;
                        PHA                                  ;0091A1|48      |      ;
                        db $20                               ;0091A2|        |      ;
  
                        dw clearZeroPage                     ;0091A3|        |0FE828;
                        PLA                                  ;0091A5|68      |      ;
-                       STA.B r_BossDragonMisc               ;0091A6|85BE    |0000BE;
+                       STA.B r_bossDragonMisc               ;0091A6|85BE    |0000BE;
                        PLA                                  ;0091A8|68      |      ;
-                       STA.B r_BossDragonKingHP             ;0091A9|85BD    |0000BD;
+                       STA.B r_bossDragonKingHP             ;0091A9|85BD    |0000BD;
  
                        PLA                                  ;0091AB|68      |      ;
-                       STA.W r_EntityObjectIdxes            ;0091AC|8D4E05  |00054E;
+                       STA.W r_entity_ObjectIdxes           ;0091AC|8D4E05  |00054E;
                        JMP.W CODE_0090C0                    ;0091AF|4CC090  |0090C0;
  
                        LDA.B #$00                           ;0091B2|A900    |      ;
-                       STA.B r_HurtInvincibilityFrames      ;0091B4|8580    |000080;
-                       STA.W r_EntityState                  ;0091B6|8D7004  |000470;
-                       DEC.B r_GenericStateTimer            ;0091B9|C630    |000030;
+                       STA.B r_invincableFrames             ;0091B4|8580    |000080;
+                       STA.W r_entity_Effect                ;0091B6|8D7004  |000470;
+                       DEC.B r_timerGenerel                 ;0091B9|C630    |000030;
                        BNE CODE_0091CD                      ;0091BB|D010    |0091CD;
                        LDA.B $9F                            ;0091BD|A59F    |00009F;
-                       STA.B r_InGameSubstate               ;0091BF|852A    |00002A;
-                       LDA.W r_PlayerStateDoubled           ;0091C1|AD6505  |000565;
+                       STA.B r_gameLoadState                ;0091BF|852A    |00002A;
+                       LDA.W r_Player_StateDoubled          ;0091C1|AD6505  |000565;
                        AND.B #$7F                           ;0091C4|297F    |      ;
-                       STA.W r_PlayerStateDoubled           ;0091C6|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;0091C6|8D6505  |000565;
                        LDA.B #$00                           ;0091C9|A900    |      ;
                        BEQ CODE_0091D1                      ;0091CB|F004    |0091D1;
  
-          CODE_0091CD: LDA.B r_GameStateLoopCounter         ;0091CD|A51A    |00001A;
+          CODE_0091CD: LDA.B r_gameStateLoopCounter         ;0091CD|A51A    |00001A;
                        AND.B #$03                           ;0091CF|2903    |      ;
  
-          CODE_0091D1: STA.W r_EntityPaletteOverride        ;0091D1|8D5404  |000454;
+          CODE_0091D1: STA.W r_entity_PaletteOverride       ;0091D1|8D5404  |000454;
                        RTS                                  ;0091D4|60      |      ;
  
                        JSR.W DATA8_0091DD                   ;0091D5|20DD91  |0091DD;
                        LDA.B #$00                           ;0091D8|A900    |      ;
-                       STA.B r_InGameSubstate               ;0091DA|852A    |00002A;
+                       STA.B r_gameLoadState                ;0091DA|852A    |00002A;
                        RTS                                  ;0091DC|60      |      ;
  
  
          DATA8_0091DD: db $20                               ;0091DD|        |      ;
                        dw UNREACH_0FE795                    ;0091DE|        |0FE795;
-                       LDA.B r_CurrRoomGroupStage           ;0091E0|A532    |000032;
+                       LDA.B r_stage                        ;0091E0|A532    |000032;
                        CMP.B #$03                           ;0091E2|C903    |      ;
                        BEQ CODE_009209                      ;0091E4|F023    |009209;
                        CMP.B #$0A                           ;0091E6|C90A    |      ;
@@ -2414,22 +2414,22 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_0091EE: JSR.W CODE_0090C0                    ;0091EE|20C090  |0090C0;
  
           CODE_0091F1: LDA.B #$00                           ;0091F1|A900    |      ;
-                       STA.W r_PlayerStateDoubled           ;0091F3|8D6505  |000565;
-                       STA.B $75                            ;0091F6|8575    |000075;
-                       STA.B r_MusicLoaded                  ;0091F8|8574    |000074;
+                       STA.W r_Player_StateDoubled          ;0091F3|8D6505  |000565;
+                       STA.B r_075                          ;0091F6|8575    |000075;
+                       STA.B r_074                          ;0091F8|8574    |000074;
                        RTS                                  ;0091FA|60      |      ;
  
  
-          CODE_0091FB: LDA.B r_CurrRoomSectionBlock         ;0091FB|A533    |000033;
+          CODE_0091FB: LDA.B r_blockLevel                   ;0091FB|A533    |000033;
                        BEQ CODE_0091EE                      ;0091FD|F0EF    |0091EE;
                        BNE CODE_00920F                      ;0091FF|D00E    |00920F;
  
-          CODE_009201: LDA.B r_CurrRoomSectionBlock         ;009201|A533    |000033;
+          CODE_009201: LDA.B r_blockLevel                   ;009201|A533    |000033;
                        CMP.B #$04                           ;009203|C904    |      ;
                        BEQ CODE_00920F                      ;009205|F008    |00920F;
                        BNE CODE_0091EE                      ;009207|D0E5    |0091EE;
  
-          CODE_009209: LDA.B r_CurrRoomSectionBlock         ;009209|A533    |000033;
+          CODE_009209: LDA.B r_blockLevel                   ;009209|A533    |000033;
                        CMP.B #$03                           ;00920B|C903    |      ;
                        BNE CODE_0091EE                      ;00920D|D0DF    |0091EE;
  
@@ -2442,21 +2442,21 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        CMP.B #$FF                           ;00921A|C9FF    |      ;
                        BEQ CODE_009230                      ;00921C|F012    |009230;
-                       CMP.B r_CurrRoomGroupStage           ;00921E|C532    |000032;
+                       CMP.B r_stage                        ;00921E|C532    |000032;
                        BNE DATA8_00923E                     ;009220|D01C    |00923E;
-                       LDA.B r_CurrRoomSectionBlock         ;009222|A533    |000033;
+                       LDA.B r_blockLevel                   ;009222|A533    |000033;
                        CMP.W DATA8_009245,Y                 ;009224|D94592  |009245;
                        BNE DATA8_00923E                     ;009227|D015    |00923E;
-                       LDA.B r_CurrRoomIdx                  ;009229|A534    |000034;
+                       LDA.B r_roomIdx                      ;009229|A534    |000034;
                        CMP.W DATA8_009246,Y                 ;00922B|D94692  |009246;
                        BNE DATA8_00923E                     ;00922E|D00E    |00923E;
  
           CODE_009230: LDA.W DATA8_009247,Y                 ;009230|B94792  |009247;
-                       STA.B r_MapTransitionCheckpoint      ;009233|85A4    |0000A4;
+                       STA.B r_0a4                          ;009233|85A4    |0000A4;
                        LDA.B #$00                           ;009235|A900    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009237|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009237|856B    |00006B;
                        LDA.B #$17                           ;009239|A917    |      ;
-                       STA.B r_InGameSubstate               ;00923B|852A    |00002A;
+                       STA.B r_gameLoadState                ;00923B|852A    |00002A;
                        RTS                                  ;00923D|60      |      ;
  
  
@@ -2485,17 +2485,17 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $00,$0E,$0D,$03,$01               ;00927E|        |      ;
                        db $0F,$FF,$00,$00,$00               ;009283|        |      ;
  
-                       LDA.B r_MenuOptionIdxSelected        ;009288|A56B    |00006B;
+                       LDA.B r_menuSelectIdx                ;009288|A56B    |00006B;
                        db $20                               ;00928A|        |      ;
                        dw jumpFromStackYXpreserved          ;00928B|        |0FE86D;
                        STA.W UNREACH_0FFA92,Y               ;00928D|9992FA  |0FFA92;
-                       STA.B (r_ScrollDirection)            ;009290|9265    |000065;
+                       STA.B (r_scrollDirection)            ;009290|9265    |000065;
  
-                       STA.B (r_DoubleCurrGroup,S),Y        ;009292|930C    |00000C;
-                       STY.B r_CinematicsControllerBossDefeated,X;009294|942C    |00002C;
-                       STY.B r_ScannlineTarget,X            ;009296|9442    |000042;
-                       STY.B r_CurrFrameStartingOamOffset,X ;009298|9420    |000020;
-                       LDX.B r_WhipSparkTimer               ;00929A|A68C    |00008C;
+                       STA.B (r_tempCurrGroup,S),Y          ;009292|930C    |00000C;
+                       STY.B r_autoPlay,X                   ;009294|942C    |00002C;
+                       STY.B r_scannlineTarget,X            ;009296|9442    |000042;
+                       STY.B r_spriteOffsetOAM,X            ;009298|9420    |000020;
+                       LDX.B r_whipSparkTimer               ;00929A|A68C    |00008C;
                        db $20                               ;00929C|        |      ;
                        dw UNREACH_0FE7F7                    ;00929D|        |0FE7F7;
                        LDA.B #$00                           ;00929F|A900    |      ;
@@ -2505,7 +2505,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_0092A6: LDA.W DATA8_0092D5,Y                 ;0092A6|B9D592  |0092D5;
                        CMP.B #$FF                           ;0092A9|C9FF    |      ;
                        BEQ CODE_0092B5                      ;0092AB|F008    |0092B5;
-                       CMP.B r_CurrRoomGroupStage           ;0092AD|C532    |000032;
+                       CMP.B r_stage                        ;0092AD|C532    |000032;
                        BEQ CODE_0092B7                      ;0092AF|F006    |0092B7;
                        INY                                  ;0092B1|C8      |      ;
                        INY                                  ;0092B2|C8      |      ;
@@ -2518,16 +2518,16 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        ASL A                                ;0092BB|0A      |      ;
                        TAY                                  ;0092BC|A8      |      ;
                        LDA.W DATA8_0092E2,Y                 ;0092BD|B9E292  |0092E2;
-                       STA.W r_EntityFacingLeft             ;0092C0|8DA804  |0004A8;
-                       STY.B r_AutoWalkPlayer               ;0092C3|84C6    |0000C6;
+                       STA.W r_entity_FacingLeft            ;0092C0|8DA804  |0004A8;
+                       STY.B r_autoWalkPlayer               ;0092C3|84C6    |0000C6;
                        db $20                               ;0092C5|        |      ;
                        dw UNREACH_0FE5CE                    ;0092C6|        |0FE5CE;
                        LDA.B #$00                           ;0092C8|A900    |      ;
-                       STA.W r_EntityState                  ;0092CA|8D7004  |000470;
+                       STA.W r_entity_Effect                ;0092CA|8D7004  |000470;
                        LDA.B #$00                           ;0092CD|A900    |      ;
                        db $20                               ;0092CF|        |      ;
                        dw CODE_0FEF57                       ;0092D0|        |0FEF57;
-                       INC.B r_MenuOptionIdxSelected        ;0092D2|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;0092D2|E66B    |00006B;
                        RTS                                  ;0092D4|60      |      ;
  
  
@@ -2548,8 +2548,8 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $04,$1F,$01,$00,$04               ;0092EF|        |      ; afterMedua
                        db $1F,$01,$01,$04,$1F               ;0092F4|        |      ;
                        db $01                               ;0092F9|        |      ;
-                       LDA.W r_EntityXPos                   ;0092FA|AD3804  |000438;
-                       LDY.W r_EntityFacingLeft             ;0092FD|ACA804  |0004A8;
+                       LDA.W r_entity_XPos                  ;0092FA|AD3804  |000438;
+                       LDY.W r_entity_FacingLeft            ;0092FD|ACA804  |0004A8;
  
                        BEQ CODE_009308                      ;009300|F006    |009308;
                        CMP.B #$18                           ;009302|C918    |      ;
@@ -2559,10 +2559,10 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_009308: CMP.B #$E8                           ;009308|C9E8    |      ;
                        BCC CODE_009315                      ;00930A|9009    |009315;
  
-          CODE_00930C: LDA.B r_CurrRoomGroupStage           ;00930C|A532    |000032;
+          CODE_00930C: LDA.B r_stage                        ;00930C|A532    |000032;
                        CMP.B #$01                           ;00930E|C901    |      ;
                        BEQ CODE_00931B                      ;009310|F009    |00931B;
-                       INC.B r_MenuOptionIdxSelected        ;009312|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;009312|E66B    |00006B;
                        RTS                                  ;009314|60      |      ;
  
  
@@ -2572,9 +2572,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        dw CODE_0FEF73                       ;009319|        |0FEF73;
  
           CODE_00931B: LDA.B #$11                           ;00931B|A911    |      ;
-                       STA.B r_InGameSubstate               ;00931D|852A    |00002A;
+                       STA.B r_gameLoadState                ;00931D|852A    |00002A;
                        LDA.B #$00                           ;00931F|A900    |      ;
-                       STA.W r_BoneDragonKingRipsBossGeneral;009321|8DEC07  |0007EC;
+                       STA.W r_bossBoneDragonKingRips       ;009321|8DEC07  |0007EC;
                        STA.W $07F3                          ;009324|8DF307  |0007F3;
                        LDA.B #$00                           ;009327|A900    |      ;
                        STA.W $07ED                          ;009329|8DED07  |0007ED;
@@ -2583,42 +2583,42 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        dw CODE_0FE25F                       ;00932F|        |0FE25F;
  
-          CODE_009331: LDA.B r_GameStateLoopCounter         ;009331|A51A    |00001A;
+          CODE_009331: LDA.B r_gameStateLoopCounter         ;009331|A51A    |00001A;
                        AND.B #$0F                           ;009333|290F    |      ;
                        BNE CODE_00933C                      ;009335|D005    |00933C;
                        LDA.B #$09                           ;009337|A909    |      ;
                        db $20                               ;009339|        |      ;
                        dw CODE_0FE25F                       ;00933A|        |0FE25F;
  
-          CODE_00933C: LDA.W r_EntityFacingLeft             ;00933C|ADA804  |0004A8;
+          CODE_00933C: LDA.W r_entity_FacingLeft            ;00933C|ADA804  |0004A8;
                        BEQ CODE_009353                      ;00933F|F012    |009353;
-                       LDA.W r_EntityFractionalX            ;009341|ADC404  |0004C4;
+                       LDA.W r_entity_FractionalX           ;009341|ADC404  |0004C4;
                        SEC                                  ;009344|38      |      ;
                        SBC.B #$C0                           ;009345|E9C0    |      ;
-                       STA.W r_EntityFractionalX            ;009347|8DC404  |0004C4;
-                       LDA.W r_EntityXPos                   ;00934A|AD3804  |000438;
+                       STA.W r_entity_FractionalX           ;009347|8DC404  |0004C4;
+                       LDA.W r_entity_XPos                  ;00934A|AD3804  |000438;
                        SBC.B #$00                           ;00934D|E900    |      ;
  
-                       STA.W r_EntityXPos                   ;00934F|8D3804  |000438;
+                       STA.W r_entity_XPos                  ;00934F|8D3804  |000438;
                        RTS                                  ;009352|60      |      ;
  
  
-          CODE_009353: LDA.W r_EntityFractionalX            ;009353|ADC404  |0004C4;
+          CODE_009353: LDA.W r_entity_FractionalX           ;009353|ADC404  |0004C4;
                        CLC                                  ;009356|18      |      ;
                        ADC.B #$C0                           ;009357|69C0    |      ;
-                       STA.W r_EntityFractionalX            ;009359|8DC404  |0004C4;
-                       LDA.W r_EntityXPos                   ;00935C|AD3804  |000438;
+                       STA.W r_entity_FractionalX           ;009359|8DC404  |0004C4;
+                       LDA.W r_entity_XPos                  ;00935C|AD3804  |000438;
                        ADC.B #$00                           ;00935F|6900    |      ;
-                       STA.W r_EntityXPos                   ;009361|8D3804  |000438;
+                       STA.W r_entity_XPos                  ;009361|8D3804  |000438;
                        RTS                                  ;009364|60      |      ;
  
-                       INC.B r_MenuOptionIdxSelected        ;009365|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;009365|E66B    |00006B;
                        LDA.B #$0C                           ;009367|A90C    |      ;
                        db $20                               ;009369|        |      ;
  
                        dw CODE_0FE25F                       ;00936A|        |0FE25F;
                        LDA.B #$3C                           ;00936C|A93C    |      ;
-                       STA.B r_GenericStateTimer            ;00936E|8530    |000030;
+                       STA.B r_timerGenerel                 ;00936E|8530    |000030;
                        LDA.B #$0C                           ;009370|A90C    |      ;
                        LDY.B #$00                           ;009372|A000    |      ;
                        LDX.B #$13                           ;009374|A213    |      ;
@@ -2626,27 +2626,27 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        dw CODE_0FEF5C                       ;009377|        |0FEF5C;
                        LDA.B #$00                           ;009379|A900    |      ;
                        STA.W r_OamSpecIdxDoubled,X          ;00937B|9D0004  |000400;
-                       STA.W r_EntityPaletteOverride,X      ;00937E|9D5404  |000454;
-                       LDA.W r_EntityYPos                   ;009381|AD1C04  |00041C;
+                       STA.W r_entity_PaletteOverride,X     ;00937E|9D5404  |000454;
+                       LDA.W r_entity_YPos                  ;009381|AD1C04  |00041C;
                        ADC.B #$08                           ;009384|6908    |      ;
                        AND.B #$F0                           ;009386|29F0    |      ;
-                       STA.W r_EntityYPos,X                 ;009388|9D1C04  |00041C;
-                       LDA.W r_EntityFacingLeft             ;00938B|ADA804  |0004A8;
+                       STA.W r_entity_YPos,X                ;009388|9D1C04  |00041C;
+                       LDA.W r_entity_FacingLeft            ;00938B|ADA804  |0004A8;
                        ASL A                                ;00938E|0A      |      ;
                        TAY                                  ;00938F|A8      |      ;
                        LDA.W CODE_009408,Y                  ;009390|B90894  |009408;
-                       STA.W r_EntityXPos,X                 ;009393|9D3804  |000438;
+                       STA.W r_entity_XPos,X                ;009393|9D3804  |000438;
                        LDA.W LOOSE_OP_009409,Y              ;009396|B90994  |009409;
  
-                       STA.W r_EntityFacingLeft,X           ;009399|9DA804  |0004A8;
+                       STA.W r_entity_FacingLeft,X          ;009399|9DA804  |0004A8;
  
-                       LDA.B r_CurrRoomGroupStage           ;00939C|A532    |000032;
+                       LDA.B r_stage                        ;00939C|A532    |000032;
                        CMP.B #$01                           ;00939E|C901    |      ;
                        BEQ CODE_0093F8                      ;0093A0|F056    |0093F8;
                        LDA.B #$00                           ;0093A2|A900    |      ;
                        STA.B $62                            ;0093A4|8562    |000062;
-                       LDY.W r_EntityObjectIdxes            ;0093A6|AC4E05  |00054E;
-                       LDA.W r_EntityYPos                   ;0093A9|AD1C04  |00041C;
+                       LDY.W r_entity_ObjectIdxes           ;0093A6|AC4E05  |00054E;
+                       LDA.W r_entity_YPos                  ;0093A9|AD1C04  |00041C;
                        SEC                                  ;0093AC|38      |      ;
                        SBC.W LOOSE_OP_009404,Y              ;0093AD|F90494  |009404;
                        ASL A                                ;0093B0|0A      |      ;
@@ -2654,23 +2654,23 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        ASL A                                ;0093B3|0A      |      ;
                        ROL.B $62                            ;0093B4|2662    |000062;
                        AND.B #$E0                           ;0093B6|29E0    |      ;
-                       STA.B r_VramQueueDest                ;0093B8|8561    |000061;
-                       LDY.W r_EntityFacingLeft             ;0093BA|ACA804  |0004A8;
+                       STA.B r_VRAM_QueueDest               ;0093B8|8561    |000061;
+                       LDY.W r_entity_FacingLeft            ;0093BA|ACA804  |0004A8;
                        LDA.W CODE_009402,Y                  ;0093BD|B90294  |009402;
                        CLC                                  ;0093C0|18      |      ;
-                       ADC.B r_VramQueueDest                ;0093C1|6561    |000061;
-                       STA.B r_VramQueueDest                ;0093C3|8561    |000061;
-                       LDA.B $75                            ;0093C5|A575    |000075;
+                       ADC.B r_VRAM_QueueDest               ;0093C1|6561    |000061;
+                       STA.B r_VRAM_QueueDest               ;0093C3|8561    |000061;
+                       LDA.B r_075                          ;0093C5|A575    |000075;
                        AND.B #$01                           ;0093C7|2901    |      ;
                        STA.B $00                            ;0093C9|8500    |000000;
-                       LDA.B r_ScrollDirection              ;0093CB|A565    |000065;
+                       LDA.B r_scrollDirection              ;0093CB|A565    |000065;
                        BNE CODE_0093D3                      ;0093CD|D004    |0093D3;
                        LDX.B #$24                           ;0093CF|A224    |      ;
                        BNE CODE_0093D5                      ;0093D1|D002    |0093D5;
  
           CODE_0093D3: LDX.B #$20                           ;0093D3|A220    |      ;
  
-          CODE_0093D5: LDA.B r_CurrScrollRoomScreen         ;0093D5|A557    |000057;
+          CODE_0093D5: LDA.B r_sceneScrollOffsetHi          ;0093D5|A557    |000057;
                        AND.B #$01                           ;0093D7|2901    |      ;
                        EOR.B $00                            ;0093D9|4500    |000000;
                        BEQ CODE_0093E1                      ;0093DB|F004    |0093E1;
@@ -2699,7 +2699,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_0093F8: LDA.B #$2A                           ;0093F8|A92A    |      ;
                        STA.B $62                            ;0093FA|8562    |000062;
                        LDA.B #$41                           ;0093FC|A941    |      ;
-                       STA.B r_VramQueueDest                ;0093FE|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;0093FE|8561    |000061;
  
                        BNE DATA8_0093E7                     ;009400|D0E5    |0093E7;
  
@@ -2707,15 +2707,15 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JSR.W $2024                          ;009405|202420  |002024;
  
           CODE_009408: PEA.W $0C00                          ;009408|F4000C  |000C00;
-                       ORA.B (r_AutoWalkPlayer,X)           ;00940B|01C6    |0000C6;
+                       ORA.B (r_autoWalkPlayer,X)           ;00940B|01C6    |0000C6;
                        BMI LOOSE_OP_0093DF                  ;00940D|30D0    |0093DF;
-                       TSB.W r_PartnerSwapDrawingLatch      ;00940F|0CA900  |0000A9;
+                       TSB.W r_partnerSwapDrawingLatch      ;00940F|0CA900  |0000A9;
                        db $20                               ;009412|        |      ;
                        dw CODE_0FEF57                       ;009413|        |0FEF57;
  
                        LDA.B #$14                           ;009415|A914    |      ;
-                       STA.B r_GenericStateTimer            ;009417|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;009419|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;009417|8530    |000030;
+                       INC.B r_menuSelectIdx                ;009419|E66B    |00006B;
  
           CODE_00941B: RTS                                  ;00941B|60      |      ;
  
@@ -2723,14 +2723,14 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDX.B #$13                           ;00941C|A213    |      ;
                        db $20                               ;00941E|        |      ;
                        dw CODE_0FEF75                       ;00941F|        |0FEF75;
-                       LDA.W r_EntityOamSpecIdxBaseOffset,X ;009421|BD9305  |000593;
+                       LDA.W r_entity_OamBaseOffset,X       ;009421|BD9305  |000593;
  
                        BNE CODE_00941B                      ;009424|D0F5    |00941B;
                        LDA.B #$80                           ;009426|A980    |      ;
-                       STA.W r_EntityTimeUntilNextAnimation,X;009428|9D7C05  |00057C;
+                       STA.W r_entity_AnimTimer,X           ;009428|9D7C05  |00057C;
                        RTS                                  ;00942B|60      |      ;
  
-                       DEC.B r_GenericStateTimer            ;00942C|C630    |000030;
+                       DEC.B r_timerGenerel                 ;00942C|C630    |000030;
                        BEQ CODE_009436                      ;00942E|F006    |009436;
                        JSR.W CODE_009331                    ;009430|203193  |009331;
                        db $4C                               ;009433|        |      ;
@@ -2740,47 +2740,47 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_009436: LDA.B #$00                           ;009436|A900    |      ;
                        STA.W r_OamSpecIdxDoubled            ;009438|8D0004  |000400;
                        LDA.B #$10                           ;00943B|A910    |      ;
-                       STA.B r_GenericStateTimer            ;00943D|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;00943F|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;00943D|8530    |000030;
+                       INC.B r_menuSelectIdx                ;00943F|E66B    |00006B;
  
           CODE_009441: RTS                                  ;009441|60      |      ;
  
-                       DEC.B r_GenericStateTimer            ;009442|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009442|C630    |000030;
                        BNE CODE_009441                      ;009444|D0FB    |009441;
                        LDA.B #$00                           ;009446|A900    |      ;
                        STA.W r_OamSpecIdxDoubled            ;009448|8D0004  |000400;
                        STA.W $0418                          ;00944B|8D1804  |000418;
                        STA.W $0419                          ;00944E|8D1904  |000419;
-                       LDY.B r_AutoWalkPlayer               ;009451|A4C6    |0000C6;
+                       LDY.B r_autoWalkPlayer               ;009451|A4C6    |0000C6;
                        LDA.W afterBoss_gameState,Y          ;009453|B9E392  |0092E3;
-                       STA.B r_GameState                    ;009456|8518    |000018;
+                       STA.B r_gameState                    ;009456|8518    |000018;
                        LDA.W afterBoss_subState,Y           ;009458|B9E492  |0092E4;
-                       STA.B r_InGameSubstate               ;00945B|852A    |00002A;
-                       LDA.B r_CurrRoomSectionBlock         ;00945D|A533    |000033;
+                       STA.B r_gameLoadState                ;00945B|852A    |00002A;
+                       LDA.B r_blockLevel                   ;00945D|A533    |000033;
                        CLC                                  ;00945F|18      |      ;
                        ADC.W afterBoss_Room,Y               ;009460|79E592  |0092E5;
-                       STA.B r_CurrRoomSectionBlock         ;009463|8533    |000033;
+                       STA.B r_blockLevel                   ;009463|8533    |000033;
                        LDA.B #$00                           ;009465|A900    |      ;
-                       STA.B r_GameSubstate                 ;009467|8519    |000019;
+                       STA.B r_gameSubstate                 ;009467|8519    |000019;
                        RTS                                  ;009469|60      |      ;
  
-                       LDA.B r_MenuOptionIdxSelected        ;00946A|A56B    |00006B;
+                       LDA.B r_menuSelectIdx                ;00946A|A56B    |00006B;
                        db $20                               ;00946C|        |      ;
                        dw jumpFromStackYXpreserved          ;00946D|        |0FE86D;
                        LDY.W LOOSE_OP_00BB94                ;00946F|AC94BB  |00BB94;
-                       STY.B r_PreviousConveyanceBackup88,X ;009472|94CF    |0000CF;
-                       STY.B r_UsableChars,X                ;009474|9439    |000039;
+                       STY.B r_previousBackup88,X           ;009472|94CF    |0000CF;
+                       STY.B r_039,X                        ;009474|9439    |000039;
                        STA.B $9B,X                          ;009476|959B    |00009B;
                        STA.B r_SoundMetadataAddr,X          ;009478|95E8    |0000E8;
-                       STA.B r_NametableMapping,X           ;00947A|9525    |000025;
+                       STA.B r_updateNametable,X            ;00947A|9525    |000025;
                        STX.B $60,Y                          ;00947C|9660    |000060;
-                       STX.B r_SizeCurrRoomNumScreens,Y     ;00947E|9671    |000071;
-                       STX.B r_CurrRoomEntityDataAddrSpawner,Y;009480|9698    |000098;
+                       STX.B r_scroolLock,Y                 ;00947E|9671    |000071;
+                       STX.B r_roomEntityDataAddrSpawner,Y  ;009480|9698    |000098;
                        STA.B r_SoundBankTempVar2,X          ;009482|95E5    |0000E5;
                        STA.B r_PrgBankBkup_8000,X           ;009484|9522    |000022;
                        STX.B $60,Y                          ;009486|9660    |000060;
-                       STX.B r_SizeCurrRoomNumScreens,Y     ;009488|9671    |000071;
-                       STX.B r_CollisionValIsForRightHalfOf32x16block,Y;00948A|96A5    |0000A5;
+                       STX.B r_scroolLock,Y                 ;009488|9671    |000071;
+                       STX.B r_collisionValIsForRightHalfOf32x16block,Y;00948A|96A5    |0000A5;
                        RTL                                  ;00948C|6B      |      ;
  
                        db $20                               ;00948D|        |      ;
@@ -2807,48 +2807,48 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $20                               ;0094B1|        |      ;
                        dw UNREACH_0FE5CE                    ;0094B2|        |0FE5CE;
                        LDA.B #$3C                           ;0094B4|A93C    |      ;
-                       STA.B r_GenericStateTimer            ;0094B6|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;0094B8|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;0094B6|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0094B8|E66B    |00006B;
                        RTS                                  ;0094BA|60      |      ;
  
  
-          CODE_0094BB: DEC.B r_GenericStateTimer            ;0094BB|C630    |000030;
+          CODE_0094BB: DEC.B r_timerGenerel                 ;0094BB|C630    |000030;
                        BEQ CODE_0094C7                      ;0094BD|F008    |0094C7;
-                       LDA.B r_GameStateLoopCounter         ;0094BF|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;0094BF|A51A    |00001A;
                        AND.B #$03                           ;0094C1|2903    |      ;
-                       STA.W r_EntityPaletteOverride        ;0094C3|8D5404  |000454;
+                       STA.W r_entity_PaletteOverride       ;0094C3|8D5404  |000454;
                        RTS                                  ;0094C6|60      |      ;
  
  
           CODE_0094C7: LDA.B #$00                           ;0094C7|A900    |      ;
-                       STA.W r_EntityPaletteOverride        ;0094C9|8D5404  |000454;
-                       INC.B r_MenuOptionIdxSelected        ;0094CC|E66B    |00006B;
+                       STA.W r_entity_PaletteOverride       ;0094C9|8D5404  |000454;
+                       INC.B r_menuSelectIdx                ;0094CC|E66B    |00006B;
                        RTS                                  ;0094CE|60      |      ;
  
  
           CODE_0094CF: LDA.B #$4C                           ;0094CF|A94C    |      ;
-                       STA.B r_GenericStateTimer            ;0094D1|8530    |000030;
-                       LDA.W r_EntityXPos                   ;0094D3|AD3804  |000438;
+                       STA.B r_timerGenerel                 ;0094D1|8530    |000030;
+                       LDA.W r_entity_XPos                  ;0094D3|AD3804  |000438;
                        STA.W $05D4                          ;0094D6|8DD405  |0005D4;
                        LDA.B #$00                           ;0094D9|A900    |      ;
                        STA.W $0505                          ;0094DB|8D0505  |000505;
                        STA.W $051C                          ;0094DE|8D1C05  |00051C;
  
-                       STA.W r_TimerBatRiverSwap            ;0094E1|8D0206  |000602;
+                       STA.W r_boss_batRiverSwap            ;0094E1|8D0206  |000602;
                        LDA.B #$10                           ;0094E4|A910    |      ;
-                       STA.W r_StairsStuneTimer             ;0094E6|8DEB05  |0005EB;
+                       STA.W r_stairsStuneTimer             ;0094E6|8DEB05  |0005EB;
                        LDA.B #$01                           ;0094E9|A901    |      ;
-                       STA.W r_WeaponDamage                 ;0094EB|8D3006  |000630;
-                       INC.B r_MenuOptionIdxSelected        ;0094EE|E66B    |00006B;
+                       STA.W r_weaponDamage                 ;0094EB|8D3006  |000630;
+                       INC.B r_menuSelectIdx                ;0094EE|E66B    |00006B;
                        RTS                                  ;0094F0|60      |      ;
  
  
-          CODE_0094F1: LDA.B r_PartnerSwapStateBackup       ;0094F1|A5AA    |0000AA;
+          CODE_0094F1: LDA.B r_partnerSwapStateBackup       ;0094F1|A5AA    |0000AA;
                        CMP.B #$16                           ;0094F3|C916    |      ;
                        BEQ CODE_009509                      ;0094F5|F012    |009509;
-                       LDA.B r_BossSecondFace               ;0094F7|A5C2    |0000C2;
+                       LDA.B r_bossSecondFace               ;0094F7|A5C2    |0000C2;
                        BNE CODE_009509                      ;0094F9|D00E    |009509;
-                       LDA.W r_EntityYPos                   ;0094FB|AD1C04  |00041C;
+                       LDA.W r_entity_YPos                  ;0094FB|AD1C04  |00041C;
                        SEC                                  ;0094FE|38      |      ;
  
                        SBC.B #$4A                           ;0094FF|E94A    |      ;
@@ -2863,7 +2863,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;00950A|60      |      ;
  
  
-          CODE_00950B: LDA.W r_EntityYPos                   ;00950B|AD1C04  |00041C;
+          CODE_00950B: LDA.W r_entity_YPos                  ;00950B|AD1C04  |00041C;
                        SEC                                  ;00950E|38      |      ;
                        SBC.B #$4E                           ;00950F|E94E    |      ;
                        BMI CODE_009519                      ;009511|3006    |009519;
@@ -2880,7 +2880,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_00951B: JSR.W CODE_0094F1                    ;00951B|20F194  |0094F1;
                        BCS CODE_009534                      ;00951E|B014    |009534;
  
-                       LDA.W r_EntityYPos                   ;009520|AD1C04  |00041C;
+                       LDA.W r_entity_YPos                  ;009520|AD1C04  |00041C;
                        SEC                                  ;009523|38      |      ;
                        SBC.B #$18                           ;009524|E918    |      ;
                        STA.W $0619                          ;009526|8D1906  |000619;
@@ -2889,37 +2889,37 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$09                           ;00952C|A909    |      ;
                        db $20                               ;00952E|        |      ;
                        dw UNREACH_0FE5BF                    ;00952F|        |0FE5BF;
-                       INC.B r_MenuOptionIdxSelected        ;009531|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;009531|E66B    |00006B;
                        RTS                                  ;009533|60      |      ;
  
  
           CODE_009534: LDA.B #$09                           ;009534|A909    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009536|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009536|856B    |00006B;
                        RTS                                  ;009538|60      |      ;
  
                        JSR.W CODE_00950B                    ;009539|200B95  |00950B;
                        BCS CODE_009550                      ;00953C|B012    |009550;
                        LDA.B #$0B                           ;00953E|A90B    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;009540|853F    |00003F;
-                       LDA.W r_EntityYPos                   ;009542|AD1C04  |00041C;
+                       STA.B r_IRQFuncIdx                   ;009540|853F    |00003F;
+                       LDA.W r_entity_YPos                  ;009542|AD1C04  |00041C;
                        SEC                                  ;009545|38      |      ;
                        SBC.B #$0C                           ;009546|E90C    |      ;
                        STA.W $0619                          ;009548|8D1906  |000619;
                        STA.B $7C                            ;00954B|857C    |00007C;
-                       INC.B r_MenuOptionIdxSelected        ;00954D|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00954D|E66B    |00006B;
                        RTS                                  ;00954F|60      |      ;
  
  
           CODE_009550: LDA.B #$09                           ;009550|A909    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009552|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009552|856B    |00006B;
                        RTS                                  ;009554|60      |      ;
  
  
           CODE_009555: LDA.B #$00                           ;009555|A900    |      ;
-                       STA.W r_EntityState                  ;009557|8D7004  |000470;
+                       STA.W r_entity_Effect                ;009557|8D7004  |000470;
                        LDA.W $0505                          ;00955A|AD0505  |000505;
                        BMI CODE_009589                      ;00955D|302A    |009589;
-                       LDA.W r_WeaponDamage                 ;00955F|AD3006  |000630;
+                       LDA.W r_weaponDamage                 ;00955F|AD3006  |000630;
                        BEQ CODE_00957A                      ;009562|F016    |00957A;
                        LDA.W $05D4                          ;009564|ADD405  |0005D4;
                        SEC                                  ;009567|38      |      ;
@@ -2930,7 +2930,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        BCS CODE_00958C                      ;009571|B019    |00958C;
  
           CODE_009573: LDA.B #$80                           ;009573|A980    |      ;
-                       STA.W r_EntityState                  ;009575|8D7004  |000470;
+                       STA.W r_entity_Effect                ;009575|8D7004  |000470;
                        BNE CODE_00958F                      ;009578|D015    |00958F;
  
           CODE_00957A: LDA.W $05D4                          ;00957A|ADD405  |0005D4;
@@ -2943,56 +2943,56 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_009589: LDA.W $05D4                          ;009589|ADD405  |0005D4;
  
-          CODE_00958C: STA.W r_EntityXPos                   ;00958C|8D3804  |000438;
+          CODE_00958C: STA.W r_entity_XPos                  ;00958C|8D3804  |000438;
  
-          CODE_00958F: LDA.W r_WeaponDamage                 ;00958F|AD3006  |000630;
+          CODE_00958F: LDA.W r_weaponDamage                 ;00958F|AD3006  |000630;
                        EOR.B #$01                           ;009592|4901    |      ;
-                       STA.W r_WeaponDamage                 ;009594|8D3006  |000630;
+                       STA.W r_weaponDamage                 ;009594|8D3006  |000630;
                        RTS                                  ;009597|60      |      ;
  
  
           CODE_009598: JSR.W CODE_009555                    ;009598|205595  |009555;
  
-          CODE_00959B: DEC.B r_GenericStateTimer            ;00959B|C630    |000030;
+          CODE_00959B: DEC.B r_timerGenerel                 ;00959B|C630    |000030;
                        BEQ CODE_0095D8                      ;00959D|F039    |0095D8;
                        LDA.W $051C                          ;00959F|AD1C05  |00051C;
                        CLC                                  ;0095A2|18      |      ;
-                       ADC.W r_StairsStuneTimer             ;0095A3|6DEB05  |0005EB;
+                       ADC.W r_stairsStuneTimer             ;0095A3|6DEB05  |0005EB;
                        STA.W $051C                          ;0095A6|8D1C05  |00051C;
                        LDA.W $0505                          ;0095A9|AD0505  |000505;
  
-                       ADC.W r_TimerBatRiverSwap            ;0095AC|6D0206  |000602;
+                       ADC.W r_boss_batRiverSwap            ;0095AC|6D0206  |000602;
                        STA.W $0505                          ;0095AF|8D0505  |000505;
                        CMP.B #$08                           ;0095B2|C908    |      ;
                        BCS CODE_0095B7                      ;0095B4|B001    |0095B7;
                        RTS                                  ;0095B6|60      |      ;
  
  
-          CODE_0095B7: LDA.W r_StairsStuneTimer             ;0095B7|ADEB05  |0005EB;
+          CODE_0095B7: LDA.W r_stairsStuneTimer             ;0095B7|ADEB05  |0005EB;
                        CLC                                  ;0095BA|18      |      ;
                        ADC.B #$10                           ;0095BB|6910    |      ;
-                       STA.W r_StairsStuneTimer             ;0095BD|8DEB05  |0005EB;
+                       STA.W r_stairsStuneTimer             ;0095BD|8DEB05  |0005EB;
  
-                       LDA.W r_TimerBatRiverSwap            ;0095C0|AD0206  |000602;
+                       LDA.W r_boss_batRiverSwap            ;0095C0|AD0206  |000602;
                        ADC.B #$00                           ;0095C3|6900    |      ;
-                       STA.W r_TimerBatRiverSwap            ;0095C5|8D0206  |000602;
+                       STA.W r_boss_batRiverSwap            ;0095C5|8D0206  |000602;
                        CMP.B #$08                           ;0095C8|C908    |      ;
                        BCS CODE_0095CD                      ;0095CA|B001    |0095CD;
                        RTS                                  ;0095CC|60      |      ;
  
  
           CODE_0095CD: LDA.B #$08                           ;0095CD|A908    |      ;
-                       STA.W r_TimerBatRiverSwap            ;0095CF|8D0206  |000602;
+                       STA.W r_boss_batRiverSwap            ;0095CF|8D0206  |000602;
                        LDA.B #$00                           ;0095D2|A900    |      ;
-                       STA.W r_StairsStuneTimer             ;0095D4|8DEB05  |0005EB;
+                       STA.W r_stairsStuneTimer             ;0095D4|8DEB05  |0005EB;
                        RTS                                  ;0095D7|60      |      ;
  
  
           CODE_0095D8: LDA.B #$80                           ;0095D8|A980    |      ;
-                       STA.W r_EntityState                  ;0095DA|8D7004  |000470;
+                       STA.W r_entity_Effect                ;0095DA|8D7004  |000470;
                        LDA.B #$00                           ;0095DD|A900    |      ;
                        STA.W $0413                          ;0095DF|8D1304  |000413;
-                       INC.B r_MenuOptionIdxSelected        ;0095E2|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;0095E2|E66B    |00006B;
                        RTS                                  ;0095E4|60      |      ;
  
  
@@ -3006,13 +3006,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$04                           ;0095F2|A904    |      ;
                        STA.W r_OamSpecIdxDoubled            ;0095F4|8D0004  |000400;
  
-          CODE_0095F7: LDA.B r_CurrCharacterIdx             ;0095F7|A53B    |00003B;
+          CODE_0095F7: LDA.B r_partnerIdx                   ;0095F7|A53B    |00003B;
                        EOR.B #$01                           ;0095F9|4901    |      ;
  
-                       STA.B r_CurrCharacterIdx             ;0095FB|853B    |00003B;
+                       STA.B r_partnerIdx                   ;0095FB|853B    |00003B;
                        TAY                                  ;0095FD|A8      |      ;
-                       LDA.W r_UsableChars,Y                ;0095FE|B93900  |000039;
-                       STA.W r_EntityObjectIdxes            ;009601|8D4E05  |00054E;
+                       LDA.W r_039,Y                        ;0095FE|B93900  |000039;
+                       STA.W r_entity_ObjectIdxes           ;009601|8D4E05  |00054E;
                        JSR.W CODE_008E4B                    ;009604|204B8E  |008E4B;
                        JSR.W CODE_008E61                    ;009607|20618E  |008E61;
                        db $20                               ;00960A|        |      ;
@@ -3022,12 +3022,12 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $20                               ;009610|        |      ;
                        dw CODE_0FE33C                       ;009611|        |0FE33C;
  
-                       LDA.W r_EntityObjectIdxes            ;009613|AD4E05  |00054E;
+                       LDA.W r_entity_ObjectIdxes           ;009613|AD4E05  |00054E;
                        ASL A                                ;009616|0A      |      ;
-                       STA.W r_EntityOamSpecGroupDoubled    ;009617|8D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled   ;009617|8D8C04  |00048C;
                        LDA.B #$00                           ;00961A|A900    |      ;
-                       STA.W r_EntityState                  ;00961C|8D7004  |000470;
-                       INC.B r_MenuOptionIdxSelected        ;00961F|E66B    |00006B;
+                       STA.W r_entity_Effect                ;00961C|8D7004  |000470;
+                       INC.B r_menuSelectIdx                ;00961F|E66B    |00006B;
                        RTS                                  ;009621|60      |      ;
  
  
@@ -3035,51 +3035,51 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_009625: LDA.W $051C                          ;009625|AD1C05  |00051C;
                        SEC                                  ;009628|38      |      ;
-                       SBC.W r_StairsStuneTimer             ;009629|EDEB05  |0005EB;
+                       SBC.W r_stairsStuneTimer             ;009629|EDEB05  |0005EB;
                        STA.W $051C                          ;00962C|8D1C05  |00051C;
                        LDA.W $0505                          ;00962F|AD0505  |000505;
-                       SBC.W r_TimerBatRiverSwap            ;009632|ED0206  |000602;
+                       SBC.W r_boss_batRiverSwap            ;009632|ED0206  |000602;
                        STA.W $0505                          ;009635|8D0505  |000505;
                        CMP.B #$F0                           ;009638|C9F0    |      ;
                        BCS CODE_00965D                      ;00963A|B021    |00965D;
                        CMP.B #$08                           ;00963C|C908    |      ;
                        BCS CODE_00964B                      ;00963E|B00B    |00964B;
                        LDA.B #$10                           ;009640|A910    |      ;
-                       STA.W r_StairsStuneTimer             ;009642|8DEB05  |0005EB;
+                       STA.W r_stairsStuneTimer             ;009642|8DEB05  |0005EB;
                        LDA.B #$00                           ;009645|A900    |      ;
-                       STA.W r_TimerBatRiverSwap            ;009647|8D0206  |000602;
+                       STA.W r_boss_batRiverSwap            ;009647|8D0206  |000602;
                        RTS                                  ;00964A|60      |      ;
  
  
-          CODE_00964B: LDA.W r_StairsStuneTimer             ;00964B|ADEB05  |0005EB;
+          CODE_00964B: LDA.W r_stairsStuneTimer             ;00964B|ADEB05  |0005EB;
                        SEC                                  ;00964E|38      |      ;
                        SBC.B #$10                           ;00964F|E910    |      ;
-                       STA.W r_StairsStuneTimer             ;009651|8DEB05  |0005EB;
-                       LDA.W r_TimerBatRiverSwap            ;009654|AD0206  |000602;
+                       STA.W r_stairsStuneTimer             ;009651|8DEB05  |0005EB;
+                       LDA.W r_boss_batRiverSwap            ;009654|AD0206  |000602;
                        SBC.B #$00                           ;009657|E900    |      ;
-                       STA.W r_TimerBatRiverSwap            ;009659|8D0206  |000602;
+                       STA.W r_boss_batRiverSwap            ;009659|8D0206  |000602;
                        RTS                                  ;00965C|60      |      ;
  
  
-          CODE_00965D: INC.B r_MenuOptionIdxSelected        ;00965D|E66B    |00006B;
+          CODE_00965D: INC.B r_menuSelectIdx                ;00965D|E66B    |00006B;
                        RTS                                  ;00965F|60      |      ;
  
                        LDA.W $05D4                          ;009660|ADD405  |0005D4;
-                       STA.W r_EntityXPos                   ;009663|8D3804  |000438;
+                       STA.W r_entity_XPos                  ;009663|8D3804  |000438;
                        LDA.B #$05                           ;009666|A905    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;009668|853F    |00003F;
+                       STA.B r_IRQFuncIdx                   ;009668|853F    |00003F;
                        LDA.B #$3C                           ;00966A|A93C    |      ;
-                       STA.B r_GenericStateTimer            ;00966C|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;00966E|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;00966C|8530    |000030;
+                       INC.B r_menuSelectIdx                ;00966E|E66B    |00006B;
                        RTS                                  ;009670|60      |      ;
  
-                       DEC.B r_GenericStateTimer            ;009671|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009671|C630    |000030;
  
                        BEQ CODE_00967D                      ;009673|F008    |00967D;
-                       LDA.B r_GameStateLoopCounter         ;009675|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;009675|A51A    |00001A;
  
                        AND.B #$03                           ;009677|2903    |      ;
-                       STA.W r_EntityPaletteOverride        ;009679|8D5404  |000454;
+                       STA.W r_entity_PaletteOverride       ;009679|8D5404  |000454;
                        RTS                                  ;00967C|60      |      ;
  
  
@@ -3087,69 +3087,69 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JMP.W CODE_0096AD                    ;00967F|4CAD96  |0096AD;
  
  
-          CODE_009682: LDA.B r_PartnerSwapDrawingBackup     ;009682|A5A6    |0000A6;
-                       STA.B r_BaseIRQFuncIdx               ;009684|853F    |00003F;
-                       LDA.B r_PartnerSwapDrawingIRQPointer ;009686|A5A7    |0000A7;
-                       STA.B r_BaseIRQCmpVal                ;009688|8541    |000041;
+          CODE_009682: LDA.B r_partnerSwapDrawingBackup     ;009682|A5A6    |0000A6;
+                       STA.B r_IRQFuncIdx                   ;009684|853F    |00003F;
+                       LDA.B r_partnerSwapDrawingIRQPointer ;009686|A5A7    |0000A7;
+                       STA.B r_IRQCmpVal                    ;009688|8541    |000041;
                        LDA.B $A8                            ;00968A|A5A8    |0000A8;
-                       STA.B r_ScannlineTarget              ;00968C|8542    |000042;
+                       STA.B r_scannlineTarget              ;00968C|8542    |000042;
  
-                       LDA.B r_PartnerSwapDrawingLatch      ;00968E|A5A9    |0000A9;
-                       STA.B r_BaseIRQStatus                ;009690|8540    |000040;
+                       LDA.B r_partnerSwapDrawingLatch      ;00968E|A5A9    |0000A9;
+                       STA.B r_IRQStatus                    ;009690|8540    |000040;
  
           CODE_009692: LDA.W $05D4                          ;009692|ADD405  |0005D4;
-                       STA.W r_EntityXPos                   ;009695|8D3804  |000438;
+                       STA.W r_entity_XPos                  ;009695|8D3804  |000438;
  
                        LDA.B #$3C                           ;009698|A93C    |      ;
-                       STA.B r_GenericStateTimer            ;00969A|8530    |000030;
-                       INC.B r_MenuOptionIdxSelected        ;00969C|E66B    |00006B;
+                       STA.B r_timerGenerel                 ;00969A|8530    |000030;
+                       INC.B r_menuSelectIdx                ;00969C|E66B    |00006B;
                        RTS                                  ;00969E|60      |      ;
  
  
-          CODE_00969F: DEC.B r_GenericStateTimer            ;00969F|C630    |000030;
+          CODE_00969F: DEC.B r_timerGenerel                 ;00969F|C630    |000030;
                        BEQ CODE_0096AB                      ;0096A1|F008    |0096AB;
-                       LDA.B r_GameStateLoopCounter         ;0096A3|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;0096A3|A51A    |00001A;
                        AND.B #$03                           ;0096A5|2903    |      ;
-                       STA.W r_EntityPaletteOverride        ;0096A7|8D5404  |000454;
+                       STA.W r_entity_PaletteOverride       ;0096A7|8D5404  |000454;
                        RTS                                  ;0096AA|60      |      ;
  
  
-          CODE_0096AB: LDA.B r_PartnerSwapStateBackup       ;0096AB|A5AA    |0000AA;
+          CODE_0096AB: LDA.B r_partnerSwapStateBackup       ;0096AB|A5AA    |0000AA;
  
-          CODE_0096AD: STA.B r_InGameSubstate               ;0096AD|852A    |00002A;
+          CODE_0096AD: STA.B r_gameLoadState                ;0096AD|852A    |00002A;
                        LDA.B #$00                           ;0096AF|A900    |      ;
-                       STA.W r_EntityPaletteOverride        ;0096B1|8D5404  |000454;
+                       STA.W r_entity_PaletteOverride       ;0096B1|8D5404  |000454;
                        db $20                               ;0096B4|        |      ;
                        dw UNREACH_0FE5CA                    ;0096B5|        |0FE5CA;
                        LDA.B #$00                           ;0096B7|A900    |      ;
                        STA.W $0505                          ;0096B9|8D0505  |000505;
                        STA.W $051C                          ;0096BC|8D1C05  |00051C;
                        STA.W $05D4                          ;0096BF|8DD405  |0005D4;
-                       STA.W r_StairsStuneTimer             ;0096C2|8DEB05  |0005EB;
-                       STA.W r_TimerBatRiverSwap            ;0096C5|8D0206  |000602;
+                       STA.W r_stairsStuneTimer             ;0096C2|8DEB05  |0005EB;
+                       STA.W r_boss_batRiverSwap            ;0096C5|8D0206  |000602;
                        STA.W $0619                          ;0096C8|8D1906  |000619;
-                       STA.W r_WeaponDamage                 ;0096CB|8D3006  |000630;
+                       STA.W r_weaponDamage                 ;0096CB|8D3006  |000630;
                        RTS                                  ;0096CE|60      |      ;
  
                        RTS                                  ;0096CF|60      |      ;
  
-                       LDA.W r_PlayerStateDoubled           ;0096D0|AD6505  |000565;
+                       LDA.W r_Player_StateDoubled          ;0096D0|AD6505  |000565;
                        CMP.B #$0E                           ;0096D3|C90E    |      ;
                        BCC CODE_0096F8                      ;0096D5|9021    |0096F8;
                        CMP.B #$16                           ;0096D7|C916    |      ;
                        BCS CODE_0096F8                      ;0096D9|B01D    |0096F8;
-                       LDA.W r_EntityYPos                   ;0096DB|AD1C04  |00041C;
+                       LDA.W r_entity_YPos                  ;0096DB|AD1C04  |00041C;
                        CMP.B #$70                           ;0096DE|C970    |      ;
                        BCS CODE_0096F8                      ;0096E0|B016    |0096F8;
-                       LDA.B r_CurrentRoomEffect            ;0096E2|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;0096E2|A57D    |00007D;
                        AND.B #$0F                           ;0096E4|290F    |      ;
                        ASL A                                ;0096E6|0A      |      ;
                        TAY                                  ;0096E7|A8      |      ;
                        LDA.W DATA8_0096FA,Y                 ;0096E8|B9FA96  |0096FA;
-                       CMP.B r_CurrScrollRoomScreen         ;0096EB|C557    |000057;
+                       CMP.B r_sceneScrollOffsetHi          ;0096EB|C557    |000057;
                        BNE CODE_0096F8                      ;0096ED|D009    |0096F8;
                        LDA.W DATA8_0096FB,Y                 ;0096EF|B9FB96  |0096FB;
-                       CMP.B r_CurrScrollOffsetIntoRoomScreen;0096F2|C556    |000056;
+                       CMP.B r_sceneScrollOffsetLo          ;0096F2|C556    |000056;
                        BNE CODE_0096F8                      ;0096F4|D002    |0096F8;
                        SEC                                  ;0096F6|38      |      ;
                        RTS                                  ;0096F7|60      |      ;
@@ -3168,16 +3168,16 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_009704: LDA.W DATA8_009730,Y                 ;009704|B93097  |009730;
                        CMP.B #$FF                           ;009707|C9FF    |      ;
                        BEQ CODE_00972A                      ;009709|F01F    |00972A;
-                       CMP.B r_CurrRoomGroupStage           ;00970B|C532    |000032;
+                       CMP.B r_stage                        ;00970B|C532    |000032;
                        BNE CODE_009724                      ;00970D|D015    |009724;
                        LDA.W DATA8_009731,Y                 ;00970F|B93197  |009731;
-                       CMP.B r_CurrRoomSectionBlock         ;009712|C533    |000033;
+                       CMP.B r_blockLevel                   ;009712|C533    |000033;
                        BNE CODE_009724                      ;009714|D00E    |009724;
                        LDA.W DATA8_009732,Y                 ;009716|B93297  |009732;
-                       CMP.B r_CurrRoomIdx                  ;009719|C534    |000034;
+                       CMP.B r_roomIdx                      ;009719|C534    |000034;
                        BNE CODE_009724                      ;00971B|D007    |009724;
                        LDA.W DATA8_009733,Y                 ;00971D|B93397  |009733;
-                       STA.B r_CurrentRoomEffect            ;009720|857D    |00007D;
+                       STA.B r_roomEffect                   ;009720|857D    |00007D;
                        SEC                                  ;009722|38      |      ;
                        RTS                                  ;009723|60      |      ;
  
@@ -3189,7 +3189,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        BNE CODE_009704                      ;009728|D0DA    |009704;
  
           CODE_00972A: LDA.B #$00                           ;00972A|A900    |      ;
-                       STA.B r_CurrentRoomEffect            ;00972C|857D    |00007D;
+                       STA.B r_roomEffect                   ;00972C|857D    |00007D;
                        CLC                                  ;00972E|18      |      ;
                        RTS                                  ;00972F|60      |      ;
  
@@ -3238,12 +3238,12 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $71,$08,$04,$00,$71               ;0097D3|        |      ;
                        db $05,$03,$01,$80,$0C               ;0097D8|        |      ;
                        db $02,$00,$81,$FF                   ;0097DD|        |      ;
-                       LDA.B r_CurrentRoomEffect            ;0097E1|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;0097E1|A57D    |00007D;
                        AND.B #$0F                           ;0097E3|290F    |      ;
                        TAX                                  ;0097E5|AA      |      ;
                        LDY.W DATA8_0097FA,X                 ;0097E6|BCFA97  |0097FA;
                        LDX.B #$2E                           ;0097E9|A22E    |      ;
-                       LDA.B r_CurrentRoomEffect            ;0097EB|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;0097EB|A57D    |00007D;
                        CMP.B #$31                           ;0097ED|C931    |      ;
                        BNE CODE_0097F5                      ;0097EF|D004    |0097F5;
                        LDA.B #$24                           ;0097F1|A924    |      ;
@@ -3258,7 +3258,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
          DATA8_0097FA: db $7E,$5E,$AE,$AE,$AE               ;0097FA|        |      ;
                        db $AE,$AE                           ;0097FF|        |      ;
  
-                       LDX.W r_PlayerDirectionBackup        ;009801|AEA000  |0000A0;
+                       LDX.W r_playerDirBKP                 ;009801|AEA000  |0000A0;
  
                        TYA                                  ;009804|98      |      ;
  
@@ -3266,7 +3266,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        INY                                  ;009808|C8      |      ;
                        CPY.B #$40                           ;009809|C040    |      ;
                        BNE CODE_009805                      ;00980B|D0F8    |009805;
-                       LDA.B r_CurrentRoomEffect            ;00980D|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;00980D|A57D    |00007D;
                        AND.B #$0F                           ;00980F|290F    |      ;
                        TAX                                  ;009811|AA      |      ;
                        LDY.W DATA8_00981C,X                 ;009812|BC1C98  |00981C;
@@ -3278,13 +3278,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_00981C: db $3F,$7F,$30                       ;00981C|        |      ;
                        LDY.B #$86                           ;00981F|A086    |      ;
-                       LDA.B (r_ChrBankBG_0800),Y           ;009821|B14C    |00004C;
+                       LDA.B (r_CHR_BankBG_0800),Y          ;009821|B14C    |00004C;
                        PLD                                  ;009823|2B      |      ;
                        TYA                                  ;009824|98      |      ;
  
           CODE_009825: PHA                                  ;009825|48      |      ;
                        LDA.B #$80                           ;009826|A980    |      ;
-                       STA.B r_StaticLayoutBank             ;009828|85B1    |0000B1;
+                       STA.B r_enemyCHR_idx                 ;009828|85B1    |0000B1;
                        PLA                                  ;00982A|68      |      ;
                        JSR.W CODE_00985E                    ;00982B|205E98  |00985E;
  
@@ -3339,7 +3339,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;009872|60      |      ;
  
  
-          CODE_009873: STX.B r_StaticLayoutBank             ;009873|86B1    |0000B1;
+          CODE_009873: STX.B r_enemyCHR_idx                 ;009873|86B1    |0000B1;
  
                        JSR.W CODE_00985E                    ;009875|205E98  |00985E;
  
@@ -3770,14 +3770,14 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $FF,$A9,$00,$85,$31               ;009DFD|        |      ;
                        db $AA                               ;009E02|        |      ;
  
-          CODE_009E03: STA.W r_BoneDragonKingRipsBossGeneral,X;009E03|9DEC07  |0007EC;
+          CODE_009E03: STA.W r_bossBoneDragonKingRips,X     ;009E03|9DEC07  |0007EC;
                        INX                                  ;009E06|E8      |      ;
                        CPX.B #$08                           ;009E07|E008    |      ;
                        BNE CODE_009E03                      ;009E09|D0F8    |009E03;
                        db $20                               ;009E0B|        |      ;
                        dw UNREACH_0FE795                    ;009E0C|        |0FE795;
                        LDA.B #$01                           ;009E0E|A901    |      ;
-                       STA.B r_CinematicsControllerBossDefeated;009E10|852C    |00002C;
+                       STA.B r_autoPlay                     ;009E10|852C    |00002C;
                        db $20                               ;009E12|        |      ;
                        dw UNREACH_0FE666                    ;009E13|        |0FE666;
                        JSR.W CODE_00A2B4                    ;009E15|20B4A2  |00A2B4;
@@ -3789,7 +3789,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        dw setNameTableMapping_E4            ;009E21|        |0FEBFD;
                        JSR.W CODE_00A247                    ;009E23|2047A2  |00A247;
  
-                       LDY.B r_MapTransitionCheckpoint      ;009E26|A4A4    |0000A4;
+                       LDY.B r_0a4                          ;009E26|A4A4    |0000A4;
                        LDA.W DATA8_00A48B,Y                 ;009E28|B98BA4  |00A48B;
                        STA.W $07ED                          ;009E2B|8DED07  |0007ED;
                        AND.B #$1F                           ;009E2E|291F    |      ;
@@ -3801,9 +3801,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        JSR.W DATA16_00A172                  ;009E3F|2072A1  |00A172;
                        JSR.W CODE_00A06D                    ;009E42|206DA0  |00A06D;
                        LDA.B #$04                           ;009E45|A904    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;009E47|851C    |00001C;
+                       STA.B r_counter_ShowSprBg            ;009E47|851C    |00001C;
  
-          CODE_009E49: INC.B r_MenuOptionIdxSelected        ;009E49|E66B    |00006B;
+          CODE_009E49: INC.B r_menuSelectIdx                ;009E49|E66B    |00006B;
                        LDA.B #$00                           ;009E4B|A900    |      ;
                        STA.W $07F3                          ;009E4D|8DF307  |0007F3;
                        RTS                                  ;009E50|60      |      ;
@@ -3822,15 +3822,15 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_009E65: STY.W $07EF                          ;009E65|8CEF07  |0007EF;
                        LDA.B #$00                           ;009E68|A900    |      ;
-                       STA.B r_GenericStateTimer            ;009E6A|8530    |000030;
+                       STA.B r_timerGenerel                 ;009E6A|8530    |000030;
                        JMP.W CODE_009E49                    ;009E6C|4C499E  |009E49;
  
  
           CODE_009E6F: JSR.W CODE_009E49                    ;009E6F|20499E  |009E49;
                        LDA.B #$03                           ;009E72|A903    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009E74|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009E74|856B    |00006B;
                        LDA.B #$40                           ;009E76|A940    |      ;
-                       STA.B r_GenericStateTimer            ;009E78|8530    |000030;
+                       STA.B r_timerGenerel                 ;009E78|8530    |000030;
                        RTS                                  ;009E7A|60      |      ;
  
  
@@ -3843,10 +3843,10 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        LDY.B $31                            ;009E88|A431    |000031;
                        BNE CODE_009EB6                      ;009E8A|D02A    |009EB6;
-                       DEC.B r_GenericStateTimer            ;009E8C|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009E8C|C630    |000030;
                        BEQ CODE_009E7B                      ;009E8E|F0EB    |009E7B;
                        JSR.W DATA8_00A1FA                   ;009E90|20FAA1  |00A1FA;
-                       LDA.B r_GenericStateTimer            ;009E93|A530    |000030;
+                       LDA.B r_timerGenerel                 ;009E93|A530    |000030;
                        CMP.B #$A0                           ;009E95|C9A0    |      ;
                        BCS CODE_009EB5                      ;009E97|B01C    |009EB5;
                        AND.B #$0F                           ;009E99|290F    |      ;
@@ -3872,7 +3872,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        BCC CODE_009EB5                      ;009EBC|90F7    |009EB5;
  
           CODE_009EBE: LDA.B #$20                           ;009EBE|A920    |      ;
-                       STA.B r_GenericStateTimer            ;009EC0|8530    |000030;
+                       STA.B r_timerGenerel                 ;009EC0|8530    |000030;
                        JMP.W CODE_009E49                    ;009EC2|4C499E  |009E49;
  
  
@@ -3881,16 +3881,16 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        BEQ CODE_009EF3                      ;009ECA|F027    |009EF3;
                        LDY.W $07F3                          ;009ECC|ACF307  |0007F3;
                        BNE CODE_009EDD                      ;009ECF|D00C    |009EDD;
-                       DEC.B r_GenericStateTimer            ;009ED1|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009ED1|C630    |000030;
                        BNE CODE_009EFE                      ;009ED3|D029    |009EFE;
                        LDA.B #$20                           ;009ED5|A920    |      ;
-                       STA.B r_GenericStateTimer            ;009ED7|8530    |000030;
+                       STA.B r_timerGenerel                 ;009ED7|8530    |000030;
  
                        INC.W $07F3                          ;009ED9|EEF307  |0007F3;
                        RTS                                  ;009EDC|60      |      ;
  
  
-          CODE_009EDD: DEC.B r_GenericStateTimer            ;009EDD|C630    |000030;
+          CODE_009EDD: DEC.B r_timerGenerel                 ;009EDD|C630    |000030;
                        BNE CODE_009EB5                      ;009EDF|D0D4    |009EB5;
  
                        LDA.B #$01                           ;009EE1|A901    |      ;
@@ -3905,9 +3905,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
           CODE_009EF3: JSR.W CODE_009E49                    ;009EF3|20499E  |009E49;
                        LDA.B #$05                           ;009EF6|A905    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009EF8|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009EF8|856B    |00006B;
                        LDA.B #$40                           ;009EFA|A940    |      ;
-                       STA.B r_GenericStateTimer            ;009EFC|8530    |000030;
+                       STA.B r_timerGenerel                 ;009EFC|8530    |000030;
  
           CODE_009EFE: RTS                                  ;009EFE|60      |      ;
  
@@ -3920,7 +3920,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$80                           ;009F0D|A980    |      ;
                        STA.W $0783                          ;009F0F|8D8307  |000783;
                        LDA.B #$20                           ;009F12|A920    |      ;
-                       STA.B r_GenericStateTimer            ;009F14|8530    |000030;
+                       STA.B r_timerGenerel                 ;009F14|8530    |000030;
                        JMP.W CODE_00A27F                    ;009F16|4C7FA2  |00A27F;
  
                        LDA.W $07EE                          ;009F19|ADEE07  |0007EE;
@@ -3935,7 +3935,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$EF                           ;009F2C|A9EF    |      ;
                        STA.B r_ScrollY                      ;009F2E|85FC    |0000FC;
  
-          CODE_009F30: DEC.B r_GenericStateTimer            ;009F30|C630    |000030;
+          CODE_009F30: DEC.B r_timerGenerel                 ;009F30|C630    |000030;
  
                        BNE CODE_009F84                      ;009F32|D050    |009F84;
                        INC.W $07F3                          ;009F34|EEF307  |0007F3;
@@ -3975,45 +3975,45 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        CMP.B #$08                           ;009F6E|C908    |      ;
                        BEQ CODE_009F79                      ;009F70|F007    |009F79;
                        LDA.B #$4F                           ;009F72|A94F    |      ;
-                       STA.B r_GenericStateTimer            ;009F74|8530    |000030;
+                       STA.B r_timerGenerel                 ;009F74|8530    |000030;
                        JMP.W CODE_009E49                    ;009F76|4C499E  |009E49;
  
  
           CODE_009F79: JSR.W CODE_009E49                    ;009F79|20499E  |009E49;
                        LDA.B #$08                           ;009F7C|A908    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009F7E|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009F7E|856B    |00006B;
                        LDA.B #$40                           ;009F80|A940    |      ;
-                       STA.B r_GenericStateTimer            ;009F82|8530    |000030;
+                       STA.B r_timerGenerel                 ;009F82|8530    |000030;
  
           CODE_009F84: RTS                                  ;009F84|60      |      ;
  
  
           CODE_009F85: JSR.W CODE_009E49                    ;009F85|20499E  |009E49;
                        LDA.B #$0A                           ;009F88|A90A    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009F8A|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009F8A|856B    |00006B;
                        LDA.B #$40                           ;009F8C|A940    |      ;
-                       STA.B r_GenericStateTimer            ;009F8E|8530    |000030;
+                       STA.B r_timerGenerel                 ;009F8E|8530    |000030;
  
                        RTS                                  ;009F90|60      |      ;
  
                        JSR.W CODE_00A0A8                    ;009F91|20A8A0  |00A0A8;
-                       DEC.B r_GenericStateTimer            ;009F94|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009F94|C630    |000030;
                        BNE CODE_009F84                      ;009F96|D0EC    |009F84;
                        JSR.W CODE_00A084                    ;009F98|2084A0  |00A084;
                        LDA.B #$AA                           ;009F9B|A9AA    |      ;
                        STA.W $0403                          ;009F9D|8D0304  |000403;
                        JSR.W CODE_009E49                    ;009FA0|20499E  |009E49;
                        LDA.B #$0A                           ;009FA3|A90A    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;009FA5|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;009FA5|856B    |00006B;
                        LDA.B #$40                           ;009FA7|A940    |      ;
  
-                       STA.B r_GenericStateTimer            ;009FA9|8530    |000030;
+                       STA.B r_timerGenerel                 ;009FA9|8530    |000030;
  
           CODE_009FAB: RTS                                  ;009FAB|60      |      ;
  
                        LDY.W $07F3                          ;009FAC|ACF307  |0007F3;
                        BNE CODE_009FB9                      ;009FAF|D008    |009FB9;
-                       DEC.B r_GenericStateTimer            ;009FB1|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009FB1|C630    |000030;
                        BNE CODE_009FAB                      ;009FB3|D0F6    |009FAB;
                        INC.W $07F3                          ;009FB5|EEF307  |0007F3;
                        RTS                                  ;009FB8|60      |      ;
@@ -4024,50 +4024,50 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDX.B #$03                           ;009FBE|A203    |      ;
                        CLC                                  ;009FC0|18      |      ;
                        LDA.B #$24                           ;009FC1|A924    |      ;
-                       ADC.W r_EntityFractionalX,X          ;009FC3|7DC404  |0004C4;
-                       STA.W r_EntityFractionalX,X          ;009FC6|9DC404  |0004C4;
+                       ADC.W r_entity_FractionalX,X         ;009FC3|7DC404  |0004C4;
+                       STA.W r_entity_FractionalX,X         ;009FC6|9DC404  |0004C4;
                        LDA.B #$00                           ;009FC9|A900    |      ;
-                       ADC.W r_EntityXPos,X                 ;009FCB|7D3804  |000438;
-                       STA.W r_EntityXPos,X                 ;009FCE|9D3804  |000438;
+                       ADC.W r_entity_XPos,X                ;009FCB|7D3804  |000438;
+                       STA.W r_entity_XPos,X                ;009FCE|9D3804  |000438;
                        CLC                                  ;009FD1|18      |      ;
                        LDA.B #$F0                           ;009FD2|A9F0    |      ;
-                       ADC.W r_EntityFractionalY,X          ;009FD4|7DDB04  |0004DB;
-                       STA.W r_EntityFractionalY,X          ;009FD7|9DDB04  |0004DB;
+                       ADC.W r_entity_FractionalY,X         ;009FD4|7DDB04  |0004DB;
+                       STA.W r_entity_FractionalY,X         ;009FD7|9DDB04  |0004DB;
                        LDA.B #$FF                           ;009FDA|A9FF    |      ;
-                       ADC.W r_EntityYPos,X                 ;009FDC|7D1C04  |00041C;
-                       STA.W r_EntityYPos,X                 ;009FDF|9D1C04  |00041C;
-                       LDA.W r_EntityXPos,X                 ;009FE2|BD3804  |000438;
+                       ADC.W r_entity_YPos,X                ;009FDC|7D1C04  |00041C;
+                       STA.W r_entity_YPos,X                ;009FDF|9D1C04  |00041C;
+                       LDA.W r_entity_XPos,X                ;009FE2|BD3804  |000438;
                        CMP.B #$9A                           ;009FE5|C99A    |      ;
  
                        BCC CODE_00A04F                      ;009FE7|9066    |00A04F;
                        LDA.B #$4F                           ;009FE9|A94F    |      ;
-                       STA.B r_GenericStateTimer            ;009FEB|8530    |000030;
+                       STA.B r_timerGenerel                 ;009FEB|8530    |000030;
                        JMP.W CODE_009E49                    ;009FED|4C499E  |009E49;
  
                        JSR.W CODE_00A0B1                    ;009FF0|20B1A0  |00A0B1;
-                       DEC.B r_GenericStateTimer            ;009FF3|C630    |000030;
+                       DEC.B r_timerGenerel                 ;009FF3|C630    |000030;
                        BNE CODE_00A04F                      ;009FF5|D058    |00A04F;
                        LDA.B #$00                           ;009FF7|A900    |      ;
                        STA.W $0403                          ;009FF9|8D0304  |000403;
                        JSR.W CODE_009E49                    ;009FFC|20499E  |009E49;
                        LDA.B #$40                           ;009FFF|A940    |      ;
-                       STA.B r_GenericStateTimer            ;00A001|8530    |000030; NES PRG 2000
+                       STA.B r_timerGenerel                 ;00A001|8530    |000030; NES PRG 2000
  
           CODE_00A003: LDA.B #$20                           ;00A003|A920    |      ;
                        JMP.W CODE_00A272                    ;00A005|4C72A2  |00A272;
  
                        LDY.W $07F3                          ;00A008|ACF307  |0007F3;
                        BNE CODE_00A01B                      ;00A00B|D00E    |00A01B;
-                       DEC.B r_GenericStateTimer            ;00A00D|C630    |000030;
+                       DEC.B r_timerGenerel                 ;00A00D|C630    |000030;
                        BNE CODE_00A04F                      ;00A00F|D03E    |00A04F;
                        LDA.B #$20                           ;00A011|A920    |      ;
-                       STA.B r_GenericStateTimer            ;00A013|8530    |000030;
+                       STA.B r_timerGenerel                 ;00A013|8530    |000030;
                        INC.W $07F3                          ;00A015|EEF307  |0007F3;
                        JMP.W CODE_00A442                    ;00A018|4C42A4  |00A442;
  
  
           CODE_00A01B: JSR.W CODE_00A303                    ;00A01B|2003A3  |00A303;
-                       DEC.B r_GenericStateTimer            ;00A01E|C630    |000030;
+                       DEC.B r_timerGenerel                 ;00A01E|C630    |000030;
  
                        BNE CODE_00A04F                      ;00A020|D02D    |00A04F;
                        JSR.W CODE_00A3AD                    ;00A022|20ADA3  |00A3AD;
@@ -4097,8 +4097,8 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_00A04F: RTS                                  ;00A04F|60      |      ;
  
                        JSR.W CODE_00A303                    ;00A050|2003A3  |00A303;
-                       LDA.B r_VramQueueNextIdxToFill       ;00A053|A51D    |00001D;
-                       STA.B r_015                          ;00A055|8515    |000015;
+                       LDA.B r_sceneDrawQueue               ;00A053|A51D    |00001D;
+                       STA.B r_15                           ;00A055|8515    |000015;
                        LDA.B #$29                           ;00A057|A929    |      ;
                        db $20                               ;00A059|        |      ;
                        dw screenLoadRoutine                 ;00A05A|        |0FECE9;
@@ -4154,12 +4154,12 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_00A0B1: JSR.W CODE_00A0BE                    ;00A0B1|20BEA0  |00A0BE;
                        LDA.W DATA8_00A0CB,Y                 ;00A0B4|B9CBA0  |00A0CB;
  
-          CODE_00A0B7: AND.B r_GenericStateTimer            ;00A0B7|2530    |000030;
+          CODE_00A0B7: AND.B r_timerGenerel                 ;00A0B7|2530    |000030;
                        BEQ CODE_00A0A2                      ;00A0B9|F0E7    |00A0A2;
                        JMP.W CODE_00A084                    ;00A0BB|4C84A0  |00A084;
  
  
-          CODE_00A0BE: LDA.B r_GenericStateTimer            ;00A0BE|A530    |000030;
+          CODE_00A0BE: LDA.B r_timerGenerel                 ;00A0BE|A530    |000030;
                        LSR A                                ;00A0C0|4A      |      ;
                        LSR A                                ;00A0C1|4A      |      ;
                        LSR A                                ;00A0C2|4A      |      ;
@@ -4180,7 +4180,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        dw CODE_0FEF75                       ;00A0DB|        |0FEF75;
                        JSR.W CODE_00A3EE                    ;00A0DD|20EEA3  |00A3EE;
  
-          CODE_00A0E0: LDA.B r_PartnerIdx                   ;00A0E0|A53A    |00003A;
+          CODE_00A0E0: LDA.B r_partner                      ;00A0E0|A53A    |00003A;
                        BMI CODE_00A11C                      ;00A0E2|3038    |00A11C;
                        LDX.B #$02                           ;00A0E4|A202    |      ;
                        LDA.W r_OamSpecIdxDoubled,X          ;00A0E6|BD0004  |000400;
@@ -4193,26 +4193,26 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
          DATA8_00A0F1: db $20                               ;00A0F1|        |      ;
                        dw UNREACH_0FE666                    ;00A0F2|        |0FE666;
                        LDA.B #$44                           ;00A0F4|A944    |      ;
-                       STA.B r_NametableMapping             ;00A0F6|8525    |000025;
+                       STA.B r_updateNametable              ;00A0F6|8525    |000025;
                        LDA.B r_PPUCtrl                      ;00A0F8|A5FF    |0000FF;
                        AND.B #$FC                           ;00A0FA|29FC    |      ;
                        STA.B r_PPUCtrl                      ;00A0FC|85FF    |0000FF;
                        LDA.B #$00                           ;00A0FE|A900    |      ;
-                       STA.B r_MenuOptionIdxSelected        ;00A100|856B    |00006B;
+                       STA.B r_menuSelectIdx                ;00A100|856B    |00006B;
                        LDA.B #$1F                           ;00A102|A91F    |      ;
  
-                       STA.B r_InGameSubstate               ;00A104|852A    |00002A;
-                       LDA.B r_MapTransitionCheckpoint      ;00A106|A5A4    |0000A4;
+                       STA.B r_gameLoadState                ;00A104|852A    |00002A;
+                       LDA.B r_0a4                          ;00A106|A5A4    |0000A4;
                        ASL A                                ;00A108|0A      |      ;
                        CLC                                  ;00A109|18      |      ;
-                       ADC.B r_MapTransitionCheckpoint      ;00A10A|65A4    |0000A4;
+                       ADC.B r_0a4                          ;00A10A|65A4    |0000A4;
                        TAY                                  ;00A10C|A8      |      ;
                        LDA.W DATA8_00A11D,Y                 ;00A10D|B91DA1  |00A11D;
-                       STA.B r_CurrRoomGroupStage           ;00A110|8532    |000032;
+                       STA.B r_stage                        ;00A110|8532    |000032;
                        LDA.W DATA8_00A11E,Y                 ;00A112|B91EA1  |00A11E;
-                       STA.B r_CurrRoomSectionBlock         ;00A115|8533    |000033;
+                       STA.B r_blockLevel                   ;00A115|8533    |000033;
                        LDA.W DATA8_00A11F,Y                 ;00A117|B91FA1  |00A11F;
-                       STA.B r_CurrRoomIdx                  ;00A11A|8534    |000034;
+                       STA.B r_roomIdx                      ;00A11A|8534    |000034;
  
           CODE_00A11C: RTS                                  ;00A11C|60      |      ;
  
@@ -4250,12 +4250,12 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        dw $0329                             ;00A175|        |      ;
                        TAY                                  ;00A177|A8      |      ;
                        LDA.W RLE_namScreenAtri,Y            ;00A178|B96AA1  |00A16A;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;00A17B|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;00A17B|8510    |000010;
                        LDA.W RLE_namScreenMapping_5105,Y    ;00A17D|B96EA1  |00A16E;
-                       STA.B r_NametableMapping             ;00A180|8525    |000025;
+                       STA.B r_updateNametable              ;00A180|8525    |000025;
                        STA.W $5105                          ;00A182|8D0551  |005105;
  
-          CODE_00A185: LDY.B r_CurrDrawnEntityCachedAttr    ;00A185|A410    |000010;
+          CODE_00A185: LDY.B r_currOAM_Attr                 ;00A185|A410    |000010;
                        LDA.B #$8A                           ;00A187|A98A    |      ;
                        LDX.W RLE_namScreenIndex,Y           ;00A189|BE5DA1  |00A15D;
                        BMI CODE_00A19C                      ;00A18C|300E    |00A19C;
@@ -4265,7 +4265,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
          DATA8_00A194: db $20                               ;00A194|        |      ;
                        dw screenLoadRoutine01               ;00A195|        |0FEBD5;
-                       INC.B r_CurrDrawnEntityCachedAttr    ;00A197|E610    |000010;
+                       INC.B r_currOAM_Attr                 ;00A197|E610    |000010;
                        JMP.W CODE_00A185                    ;00A199|4C85A1  |00A185;
  
  
@@ -4273,9 +4273,9 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        BCS CODE_00A1C6                      ;00A19E|B026    |00A1C6;
  
                        LDA.B #$00                           ;00A1A0|A900    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;00A1A2|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;00A1A2|8510    |000010;
  
-          CODE_00A1A4: LDY.B r_CurrDrawnEntityCachedAttr    ;00A1A4|A410    |000010;
+          CODE_00A1A4: LDY.B r_currOAM_Attr                 ;00A1A4|A410    |000010;
                        LDA.W loadPointerScreenLoad,Y        ;00A1A6|B94DA1  |00A14D;
                        STA.B $00                            ;00A1A9|8500    |000000;
                        LDA.W PTR16_00A14E,Y                 ;00A1AB|B94EA1  |00A14E;
@@ -4286,9 +4286,9 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$8A                           ;00A1B7|A98A    |      ;
                        db $20                               ;00A1B9|        |      ;
                        dw CODE_0FEBE0                       ;00A1BA|        |0FEBE0;
-                       INC.B r_CurrDrawnEntityCachedAttr    ;00A1BC|E610    |000010;
-                       INC.B r_CurrDrawnEntityCachedAttr    ;00A1BE|E610    |000010;
-                       LDA.B r_CurrDrawnEntityCachedAttr    ;00A1C0|A510    |000010;
+                       INC.B r_currOAM_Attr                 ;00A1BC|E610    |000010;
+                       INC.B r_currOAM_Attr                 ;00A1BE|E610    |000010;
+                       LDA.B r_currOAM_Attr                 ;00A1C0|A510    |000010;
                        CMP.B #$08                           ;00A1C2|C908    |      ;
                        BCC CODE_00A1A4                      ;00A1C4|90DE    |00A1A4;
  
@@ -4302,24 +4302,24 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
           CODE_00A1D2: JSR.W CODE_00A1E0                    ;00A1D2|20E0A1  |00A1E0;
                        LDA.B #$7F                           ;00A1D5|A97F    |      ;
-                       STA.B r_ChrBankBG_0000               ;00A1D7|854A    |00004A;
-                       STA.B r_ChrBankBG_0400               ;00A1D9|854B    |00004B;
-                       STA.B r_ChrBankBG_0800               ;00A1DB|854C    |00004C;
-                       STA.B r_ChrBankBG_0c00               ;00A1DD|854D    |00004D;
+                       STA.B r_CHR_BankBG_0000              ;00A1D7|854A    |00004A;
+                       STA.B r_CHR_BankBG_0400              ;00A1D9|854B    |00004B;
+                       STA.B r_CHR_BankBG_0800              ;00A1DB|854C    |00004C;
+                       STA.B r_CHR_BankBG_0c00              ;00A1DD|854D    |00004D;
  
           CODE_00A1DF: RTS                                  ;00A1DF|60      |      ;
  
  
           CODE_00A1E0: LDA.B #$00                           ;00A1E0|A900    |      ;
-                       STA.B r_ChrBankSpr_0000              ;00A1E2|8546    |000046;
-                       LDY.B r_PartnerIdx                   ;00A1E4|A43A    |00003A;
+                       STA.B r_CHR_BankSpr_0000             ;00A1E2|8546    |000046;
+                       LDY.B r_partner                      ;00A1E4|A43A    |00003A;
                        INY                                  ;00A1E6|C8      |      ;
                        LDA.W DATA8_00A1F5,Y                 ;00A1E7|B9F5A1  |00A1F5;
-                       STA.B r_ChrBankSpr_0400              ;00A1EA|8547    |000047;
+                       STA.B r_CHR_BankSpr_0400             ;00A1EA|8547    |000047;
                        LDA.B #$7E                           ;00A1EC|A97E    |      ;
-                       STA.B r_ChrBankSpr_0800              ;00A1EE|8548    |000048;
+                       STA.B r_CHR_BankSpr_0800             ;00A1EE|8548    |000048;
                        LDA.B #$7B                           ;00A1F0|A97B    |      ;
-                       STA.B r_ChrBankSpr_0c00              ;00A1F2|8549    |000049;
+                       STA.B r_CHR_BankSpr_0c00             ;00A1F2|8549    |000049;
                        RTS                                  ;00A1F4|60      |      ;
  
  
@@ -4331,7 +4331,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        db $5F,$E2,$A5,$30,$4A               ;00A209|        |      ;
                        db $4A,$4A,$4A,$A8,$B9               ;00A20E|        |      ;
                        db $37,$A2,$85,$00                   ;00A213|        |      ;
-                       LDA.B r_GameStateLoopCounter         ;00A217|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;00A217|A51A    |00001A;
                        AND.B #$02                           ;00A219|2902    |      ;
                        BEQ CODE_00A224                      ;00A21B|F007    |00A224;
                        SEC                                  ;00A21D|38      |      ;
@@ -4370,13 +4370,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
           CODE_00A257: LDA.B #$00                           ;00A257|A900    |      ;
                        STA.W r_OamSpecIdxDoubled,X          ;00A259|9D0004  |000400;
-                       STA.W r_EntityOamSpecGroupDoubled,X  ;00A25C|9D8C04  |00048C;
-                       STA.W r_EntityXPos,X                 ;00A25F|9D3804  |000438;
-                       STA.W r_EntityYPos,X                 ;00A262|9D1C04  |00041C;
-                       STA.W r_EntityPaletteOverride,X      ;00A265|9D5404  |000454;
-                       STA.W r_EntityState,X                ;00A268|9D7004  |000470;
-                       STA.W r_EntityFacingLeft,X           ;00A26B|9DA804  |0004A8;
-                       STA.W r_EntityAnimationDefIdxInSpecGroup,X;00A26E|9DAA05  |0005AA;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;00A25C|9D8C04  |00048C;
+                       STA.W r_entity_XPos,X                ;00A25F|9D3804  |000438;
+                       STA.W r_entity_YPos,X                ;00A262|9D1C04  |00041C;
+                       STA.W r_entity_PaletteOverride,X     ;00A265|9D5404  |000454;
+                       STA.W r_entity_Effect,X              ;00A268|9D7004  |000470;
+                       STA.W r_entity_FacingLeft,X          ;00A26B|9DA804  |0004A8;
+                       STA.W r_entity_AnimGroup,X           ;00A26E|9DAA05  |0005AA;
                        RTS                                  ;00A271|60      |      ;
  
  
@@ -4393,7 +4393,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        JSR.W CODE_00A2A3                    ;00A283|20A3A2  |00A2A3;
                        JSR.W CODE_00A2A3                    ;00A286|20A3A2  |00A2A3;
  
-          CODE_00A289: LDA.B r_PartnerIdx                   ;00A289|A53A    |00003A;
+          CODE_00A289: LDA.B r_partner                      ;00A289|A53A    |00003A;
                        BMI CODE_00A299                      ;00A28B|300C    |00A299;
                        CMP.B #$02                           ;00A28D|C902    |      ;
                        BCC CODE_00A299                      ;00A28F|9008    |00A299;
@@ -4438,7 +4438,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$3F                           ;00A2C8|A93F    |      ;
                        STA.W $07A1                          ;00A2CA|8DA107  |0007A1;
                        LDA.B #$FF                           ;00A2CD|A9FF    |      ;
-                       STA.W r_SpawnerID                    ;00A2CF|8DC207  |0007C2;
+                       STA.W r_spawnerID                    ;00A2CF|8DC207  |0007C2;
                        RTS                                  ;00A2D2|60      |      ;
  
  
@@ -4461,13 +4461,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        BEQ CODE_00A310                      ;00A30C|F002    |00A310;
                        LDY.B #$00                           ;00A30E|A000    |      ;
  
-          CODE_00A310: STY.B r_CollisionPointYinScreen      ;00A310|8411    |000011;
-                       INC.W r_BoneDragonKingRipsBossGeneral;00A312|EEEC07  |0007EC;
+          CODE_00A310: STY.B r_collisionPointYinScreen      ;00A310|8411    |000011;
+                       INC.W r_bossBoneDragonKingRips       ;00A312|EEEC07  |0007EC;
                        LDA.W $07ED                          ;00A315|ADED07  |0007ED;
                        AND.B #$1F                           ;00A318|291F    |      ;
                        CMP.B #$0E                           ;00A31A|C90E    |      ;
                        BCS CODE_00A340                      ;00A31C|B022    |00A340;
-                       LDA.W r_BoneDragonKingRipsBossGeneral;00A31E|ADEC07  |0007EC;
+                       LDA.W r_bossBoneDragonKingRips       ;00A31E|ADEC07  |0007EC;
                        AND.B #$3F                           ;00A321|293F    |      ;
                        CMP.B #$1F                           ;00A323|C91F    |      ;
                        BEQ CODE_00A377                      ;00A325|F050    |00A377;
@@ -4477,23 +4477,23 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
           CODE_00A32B: RTS                                  ;00A32B|60      |      ;
  
  
-          CODE_00A32C: LDA.B r_CollisionPointYinScreen      ;00A32C|A511    |000011;
+          CODE_00A32C: LDA.B r_collisionPointYinScreen      ;00A32C|A511    |000011;
                        BNE CODE_00A38B                      ;00A32E|D05B    |00A38B;
                        LDX.B #$03                           ;00A330|A203    |      ;
  
-          CODE_00A332: LDA.W r_EntityState,X                ;00A332|BD7004  |000470;
+          CODE_00A332: LDA.W r_entity_Effect,X              ;00A332|BD7004  |000470;
                        AND.B #$7F                           ;00A335|297F    |      ;
-                       STA.W r_EntityState,X                ;00A337|9D7004  |000470;
+                       STA.W r_entity_Effect,X              ;00A337|9D7004  |000470;
                        INX                                  ;00A33A|E8      |      ;
                        CPX.B #$0A                           ;00A33B|E00A    |      ;
                        BNE CODE_00A332                      ;00A33D|D0F3    |00A332;
                        RTS                                  ;00A33F|60      |      ;
  
  
-          CODE_00A340: LDA.W r_BoneDragonKingRipsBossGeneral;00A340|ADEC07  |0007EC;
+          CODE_00A340: LDA.W r_bossBoneDragonKingRips       ;00A340|ADEC07  |0007EC;
                        AND.B #$7F                           ;00A343|297F    |      ;
                        STA.B $00                            ;00A345|8500    |000000;
-                       LDA.W r_BoneDragonKingRipsBossGeneral;00A347|ADEC07  |0007EC;
+                       LDA.W r_bossBoneDragonKingRips       ;00A347|ADEC07  |0007EC;
                        AND.B #$20                           ;00A34A|2920    |      ;
                        ASL A                                ;00A34C|0A      |      ;
                        ASL A                                ;00A34D|0A      |      ;
@@ -4518,18 +4518,18 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDY.B #$3B                           ;00A370|A03B    |      ;
  
           CODE_00A372: TYA                                  ;00A372|98      |      ;
-                       STA.W r_EntityAnimationDefIdxInSpecGroup,X;00A373|9DAA05  |0005AA;
+                       STA.W r_entity_AnimGroup,X           ;00A373|9DAA05  |0005AA;
  
           CODE_00A376: RTS                                  ;00A376|60      |      ;
  
  
-          CODE_00A377: LDA.B r_CollisionPointYinScreen      ;00A377|A511    |000011;
+          CODE_00A377: LDA.B r_collisionPointYinScreen      ;00A377|A511    |000011;
                        BNE CODE_00A39C                      ;00A379|D021    |00A39C;
                        LDX.B #$03                           ;00A37B|A203    |      ;
  
-          CODE_00A37D: LDA.W r_EntityState,X                ;00A37D|BD7004  |000470;
+          CODE_00A37D: LDA.W r_entity_Effect,X              ;00A37D|BD7004  |000470;
                        ORA.B #$80                           ;00A380|0980    |      ;
-                       STA.W r_EntityState,X                ;00A382|9D7004  |000470;
+                       STA.W r_entity_Effect,X              ;00A382|9D7004  |000470;
                        INX                                  ;00A385|E8      |      ;
                        CPX.B #$0A                           ;00A386|E00A    |      ;
                        BNE CODE_00A37D                      ;00A388|D0F3    |00A37D;
@@ -4541,7 +4541,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDX.B #$03                           ;00A390|A203    |      ;
                        JSR.W CODE_00A447                    ;00A392|2047A4  |00A447;
                        LDA.B #$17                           ;00A395|A917    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;00A397|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;00A397|8510    |000010;
                        JMP.W CODE_00A272                    ;00A399|4C72A2  |00A272;
  
  
@@ -4550,27 +4550,27 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDX.B #$03                           ;00A3A1|A203    |      ;
                        JSR.W CODE_00A447                    ;00A3A3|2047A4  |00A447;
                        LDA.B #$20                           ;00A3A6|A920    |      ;
-                       STA.B r_CurrDrawnEntityCachedAttr    ;00A3A8|8510    |000010;
+                       STA.B r_currOAM_Attr                 ;00A3A8|8510    |000010;
                        JMP.W CODE_00A272                    ;00A3AA|4C72A2  |00A272;
  
  
-          CODE_00A3AD: LDY.B r_CurrCharacterIdx             ;00A3AD|A43B    |00003B;
-                       LDA.W r_UsableChars,Y                ;00A3AF|B93900  |000039;
+          CODE_00A3AD: LDY.B r_partnerIdx                   ;00A3AD|A43B    |00003B;
+                       LDA.W r_039,Y                        ;00A3AF|B93900  |000039;
                        TAY                                  ;00A3B2|A8      |      ;
                        LDX.B #$01                           ;00A3B3|A201    |      ;
  
           CODE_00A3B5: LDA.W DATA8_00A419,Y                 ;00A3B5|B919A4  |00A419;
-                       STA.W r_EntityPaletteOverride,X      ;00A3B8|9D5404  |000454;
+                       STA.W r_entity_PaletteOverride,X     ;00A3B8|9D5404  |000454;
                        LDA.W DATA8_00A415,Y                 ;00A3BB|B915A4  |00A415;
-                       STA.W r_EntityYPos,X                 ;00A3BE|9D1C04  |00041C;
+                       STA.W r_entity_YPos,X                ;00A3BE|9D1C04  |00041C;
                        LDA.W DATA8_00A411,Y                 ;00A3C1|B911A4  |00A411;
-                       STA.W r_EntityAnimationDefIdxInSpecGroup,X;00A3C4|9DAA05  |0005AA;
+                       STA.W r_entity_AnimGroup,X           ;00A3C4|9DAA05  |0005AA;
                        LDA.W DATA8_00A40D,Y                 ;00A3C7|B90DA4  |00A40D;
-                       STA.W r_EntityOamSpecGroupDoubled,X  ;00A3CA|9D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;00A3CA|9D8C04  |00048C;
                        LDA.B #$01                           ;00A3CD|A901    |      ;
-                       STA.W r_EntityTimeUntilNextAnimation,X;00A3CF|9D7C05  |00057C;
+                       STA.W r_entity_AnimTimer,X           ;00A3CF|9D7C05  |00057C;
                        LDA.B #$00                           ;00A3D2|A900    |      ;
-                       STA.W r_EntityOamSpecIdxBaseOffset,X ;00A3D4|9D9305  |000593;
+                       STA.W r_entity_OamBaseOffset,X       ;00A3D4|9D9305  |000593;
                        LDY.B #$01                           ;00A3D7|A001    |      ;
                        LDA.W $07ED                          ;00A3D9|ADED07  |0007ED;
                        AND.B #$40                           ;00A3DC|2940    |      ;
@@ -4578,10 +4578,10 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDY.B #$FF                           ;00A3E0|A0FF    |      ;
  
           CODE_00A3E2: TYA                                  ;00A3E2|98      |      ;
-                       STA.W r_EntityXPos,X                 ;00A3E3|9D3804  |000438;
+                       STA.W r_entity_XPos,X                ;00A3E3|9D3804  |000438;
  
                        BPL DATA8_00A3EB                     ;00A3E6|1003    |00A3EB;
-                       INC.W r_EntityFacingLeft,X           ;00A3E8|FEA804  |0004A8;
+                       INC.W r_entity_FacingLeft,X          ;00A3E8|FEA804  |0004A8;
  
          DATA8_00A3EB: db $4C                               ;00A3EB|        |      ;
  
@@ -4596,9 +4596,9 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
           CODE_00A3F9: LDX.B #$02                           ;00A3F9|A202    |      ;
                        LDA.W r_OamSpecIdxDoubled,X          ;00A3FB|BD0004  |000400;
                        BNE DATA8_00A433                     ;00A3FE|D033    |00A433;
-                       LDY.B r_PartnerIdx                   ;00A400|A43A    |00003A;
+                       LDY.B r_partner                      ;00A400|A43A    |00003A;
                        BMI DATA8_00A433                     ;00A402|302F    |00A433;
-                       LDA.B r_CurrCharacterIdx             ;00A404|A53B    |00003B;
+                       LDA.B r_partnerIdx                   ;00A404|A53B    |00003B;
                        BEQ CODE_00A40A                      ;00A406|F002    |00A40A;
                        LDY.B #$00                           ;00A408|A000    |      ;
  
@@ -4640,22 +4640,22 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        INY                                  ;00A45B|C8      |      ;
  
           CODE_00A45C: LDA.B #$0C                           ;00A45C|A90C    |      ;
-                       STA.W r_EntityOamSpecGroupDoubled,X  ;00A45E|9D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;00A45E|9D8C04  |00048C;
                        LDA.B #$00                           ;00A461|A900    |      ;
-                       STA.W r_EntityState,X                ;00A463|9D7004  |000470;
+                       STA.W r_entity_Effect,X              ;00A463|9D7004  |000470;
                        LDA.B #$00                           ;00A466|A900    |      ;
-                       STA.W r_EntityPaletteOverride,X      ;00A468|9D5404  |000454;
+                       STA.W r_entity_PaletteOverride,X     ;00A468|9D5404  |000454;
                        LDA.B #$01                           ;00A46B|A901    |      ;
-                       STA.W r_EntityFacingLeft,X           ;00A46D|9DA804  |0004A8;
-                       STA.W r_EntityTimeUntilNextAnimation,X;00A470|9D7C05  |00057C;
+                       STA.W r_entity_FacingLeft,X          ;00A46D|9DA804  |0004A8;
+                       STA.W r_entity_AnimTimer,X           ;00A470|9D7C05  |00057C;
                        LDA.B ($00),Y                        ;00A473|B100    |000000;
                        STA.W r_OamSpecIdxDoubled,X          ;00A475|9D0004  |000400;
                        INY                                  ;00A478|C8      |      ;
                        LDA.B ($00),Y                        ;00A479|B100    |000000;
-                       STA.W r_EntityXPos,X                 ;00A47B|9D3804  |000438;
+                       STA.W r_entity_XPos,X                ;00A47B|9D3804  |000438;
                        INY                                  ;00A47E|C8      |      ;
                        LDA.B ($00),Y                        ;00A47F|B100    |000000;
-                       STA.W r_EntityYPos,X                 ;00A481|9D1C04  |00041C;
+                       STA.W r_entity_YPos,X                ;00A481|9D1C04  |00041C;
                        INY                                  ;00A484|C8      |      ;
                        INX                                  ;00A485|E8      |      ;
                        DEC.B $02                            ;00A486|C602    |000002;
@@ -4788,7 +4788,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        db $EF,$77,$22,$D2,$78               ;00A5B0|        |      ;
                        db $22,$D3                           ;00A5B5|        |      ;
  
-    gameState8_states: LDA.B r_GameSubstate                 ;00A5B7|A519    |000019;
+    gameState8_states: LDA.B r_gameSubstate                 ;00A5B7|A519    |000019;
                        db $20                               ;00A5B9|        |      ;
                        dw jumpFromStackYXpreserved          ;00A5BA|        |0FE86D;
                        dw gameState8_substate0              ;00A5BC|        |00A5D6;
@@ -4812,7 +4812,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        db $20                               ;00A5DC|        |      ;
                        dw UNREACH_0FE78A                    ;00A5DD|        |0FE78A;
                        LDY.B #$00                           ;00A5DF|A000    |      ;
-                       LDA.B r_CurrRoomGroupStage           ;00A5E1|A532    |000032;
+                       LDA.B r_stage                        ;00A5E1|A532    |000032;
                        CMP.B #$00                           ;00A5E3|C900    |      ;
                        BEQ CODE_00A5ED                      ;00A5E5|F006    |00A5ED;
                        INY                                  ;00A5E7|C8      |      ;
@@ -4820,8 +4820,8 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        BEQ CODE_00A5ED                      ;00A5EA|F001    |00A5ED;
                        INY                                  ;00A5EC|C8      |      ;
  
-          CODE_00A5ED: STY.W r_SoundModeSongSelected        ;00A5ED|8C8007  |000780;
-                       INC.B r_GameSubstate                 ;00A5F0|E619    |000019;
+          CODE_00A5ED: STY.W r_soundModeSongSelected        ;00A5ED|8C8007  |000780;
+                       INC.B r_gameSubstate                 ;00A5F0|E619    |000019;
                        RTS                                  ;00A5F2|60      |      ;
  
  
@@ -4830,7 +4830,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDY.B #$00                           ;00A5F6|A000    |      ;
  
           CODE_00A5F8: LDA.W screensCHR_Data,Y              ;00A5F8|B93FA6  |00A63F;
-                       STA.W r_ChrBankSpr_0800,Y            ;00A5FB|994800  |000048;
+                       STA.W r_CHR_BankSpr_0800,Y           ;00A5FB|994800  |000048;
                        INY                                  ;00A5FE|C8      |      ;
                        CPY.B #$06                           ;00A5FF|C006    |      ;
                        BNE CODE_00A5F8                      ;00A601|D0F5    |00A5F8;
@@ -4844,18 +4844,18 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$98                           ;00A60F|A998    |      ;
                        db $20                               ;00A611|        |      ;
                        dw screenLoadRoutine01               ;00A612|        |0FEBD5;
-                       LDA.W r_SoundModeSongSelected        ;00A614|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00A614|AD8007  |000780;
                        BEQ CODE_00A61E                      ;00A617|F005    |00A61E;
                        LDA.B #$17                           ;00A619|A917    |      ;
                        db $20                               ;00A61B|        |      ;
                        dw screenLoadRoutine                 ;00A61C|        |0FECE9;
  
-          CODE_00A61E: LDA.W r_SoundModeSongSelected        ;00A61E|AD8007  |000780;
+          CODE_00A61E: LDA.W r_soundModeSongSelected        ;00A61E|AD8007  |000780;
  
                        ASL A                                ;00A621|0A      |      ;
                        TAY                                  ;00A622|A8      |      ;
                        LDA.W DATA16_00AE1F,Y                ;00A623|B91FAE  |00AE1F;
-                       STA.B r_CurrNumToVramQueue           ;00A626|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00A626|8508    |000008;
                        LDA.W DATA16_00AE20,Y                ;00A628|B920AE  |00AE20;
                        STA.B $09                            ;00A62B|8509    |000009;
                        JSR.W CODE_00AD48                    ;00A62D|2048AD  |00AD48;
@@ -4867,7 +4867,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$6C                           ;00A637|A96C    |      ;
                        db $20                               ;00A639|        |      ;
                        dw CODE_0FE25F                       ;00A63A|        |0FE25F;
-                       INC.B r_GameSubstate                 ;00A63C|E619    |000019;
+                       INC.B r_gameSubstate                 ;00A63C|E619    |000019;
                        RTS                                  ;00A63E|60      |      ;
  
  
@@ -4882,10 +4882,10 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
  
           CODE_00A64B: LDY.B #$00                           ;00A64B|A000    |      ;
-                       STY.W r_BGanimationTimer             ;00A64D|8C8107  |000781;
+                       STY.W r_animTimerBG_CHR              ;00A64D|8C8107  |000781;
                        INY                                  ;00A650|C8      |      ;
                        STY.W r_FogParallelPos               ;00A651|8C8207  |000782;
-                       INC.B r_GameSubstate                 ;00A654|E619    |000019;
+                       INC.B r_gameSubstate                 ;00A654|E619    |000019;
                        RTS                                  ;00A656|60      |      ;
  
  
@@ -4894,7 +4894,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        RTS                                  ;00A65C|60      |      ;
  
  
-          CODE_00A65D: LDA.W r_BGanimationTimer             ;00A65D|AD8107  |000781;
+          CODE_00A65D: LDA.W r_animTimerBG_CHR              ;00A65D|AD8107  |000781;
                        ASL A                                ;00A660|0A      |      ;
                        ASL A                                ;00A661|0A      |      ;
                        TAY                                  ;00A662|A8      |      ;
@@ -4917,13 +4917,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$04                           ;00A68B|A904    |      ;
                        db $20                               ;00A68D|        |      ;
                        dw screenLoadRoutine                 ;00A68E|        |0FECE9;
-                       INC.W r_BGanimationTimer             ;00A690|EE8107  |000781;
+                       INC.W r_animTimerBG_CHR              ;00A690|EE8107  |000781;
                        RTS                                  ;00A693|60      |      ;
  
  
           CODE_00A694: LDA.B #$00                           ;00A694|A900    |      ;
-                       STA.W r_BGanimationTimer             ;00A696|8D8107  |000781;
-                       INC.B r_GameSubstate                 ;00A699|E619    |000019;
+                       STA.W r_animTimerBG_CHR              ;00A696|8D8107  |000781;
+                       INC.B r_gameSubstate                 ;00A699|E619    |000019;
                        RTS                                  ;00A69B|60      |      ;
  
  
@@ -4938,22 +4938,22 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        db $0F,$10,$04,$0F,$0F               ;00A6A9|        |      ;
                        db $0F,$04,$FF                       ;00A6AE|        |      ;
  
- gameState8_substate4: LDA.W r_SoundModeSongSelected        ;00A6B1|AD8007  |000780;
+ gameState8_substate4: LDA.W r_soundModeSongSelected        ;00A6B1|AD8007  |000780;
                        ASL A                                ;00A6B4|0A      |      ;
                        TAY                                  ;00A6B5|A8      |      ;
                        LDA.W DATA16_00AE25,Y                ;00A6B6|B925AE  |00AE25;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00A6B9|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;00A6B9|850A    |00000A;
                        LDA.W DATA16_00AE26,Y                ;00A6BB|B926AE  |00AE26;
                        STA.B $0B                            ;00A6BE|850B    |00000B;
-                       LDA.W r_BGanimationTimer             ;00A6C0|AD8107  |000781;
+                       LDA.W r_animTimerBG_CHR              ;00A6C0|AD8107  |000781;
                        ASL A                                ;00A6C3|0A      |      ;
                        TAY                                  ;00A6C4|A8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A6C5|B10A    |00000A;
-                       STA.B r_CurrNumToVramQueue           ;00A6C7|8508    |000008;
+                       LDA.B (r_temp_Xpos),Y                ;00A6C5|B10A    |00000A;
+                       STA.B r_pointerQueue_VRAM            ;00A6C7|8508    |000008;
                        INY                                  ;00A6C9|C8      |      ;
                        CMP.B #$FF                           ;00A6CA|C9FF    |      ;
                        BEQ CODE_00A6D9                      ;00A6CC|F00B    |00A6D9;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A6CE|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00A6CE|B10A    |00000A;
  
           CODE_00A6D0: STA.B $09                            ;00A6D0|8509    |000009;
                        JSR.W CODE_00AD48                    ;00A6D2|2048AD  |00AD48;
@@ -4962,15 +4962,15 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
              posYData: db $81,$07,$60                       ;00A6D6|        |      ;
  
-          CODE_00A6D9: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A6D9|B10A    |00000A;
+          CODE_00A6D9: LDA.B (r_temp_Xpos),Y                ;00A6D9|B10A    |00000A;
                        CMP.B #$FF                           ;00A6DB|C9FF    |      ;
                        BNE CODE_00A6D0                      ;00A6DD|D0F1    |00A6D0;
  
-                       LDA.W r_SoundModeSongSelected        ;00A6DF|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00A6DF|AD8007  |000780;
                        ASL A                                ;00A6E2|0A      |      ;
                        ASL A                                ;00A6E3|0A      |      ;
                        CLC                                  ;00A6E4|18      |      ;
-                       ADC.W r_SoundModeSongSelected        ;00A6E5|6D8007  |000780;
+                       ADC.W r_soundModeSongSelected        ;00A6E5|6D8007  |000780;
                        TAY                                  ;00A6E8|A8      |      ;
                        LDA.W moreProgrData_783,Y            ;00A6E9|B915A7  |00A715;
                        STA.W $0783                          ;00A6EC|8D8307  |000783;
@@ -4979,14 +4979,14 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.W moreProgrData_785,Y            ;00A6F5|B917A7  |00A717;
                        STA.W r_EffectSpeedSupGeneral        ;00A6F8|8D8507  |000785;
                        LDA.W moreProgrData_786,Y            ;00A6FB|B918A7  |00A718;
-                       STA.W r_PWiconGeneral                ;00A6FE|8D8607  |000786;
+                       STA.W r_PW_iconGeneral               ;00A6FE|8D8607  |000786;
                        LDA.W moreProgrData_787,Y            ;00A701|B919A7  |00A719;
                        STA.W $0787                          ;00A704|8D8707  |000787;
                        LDA.B #$00                           ;00A707|A900    |      ;
-                       STA.W r_PWdumpGeneral                ;00A709|8D8807  |000788;
+                       STA.W r_PW_dumpGeneral               ;00A709|8D8807  |000788;
                        STA.W $0789                          ;00A70C|8D8907  |000789;
                        STA.W $0789                          ;00A70F|8D8907  |000789;
-                       INC.B r_GameSubstate                 ;00A712|E619    |000019;
+                       INC.B r_gameSubstate                 ;00A712|E619    |000019;
                        RTS                                  ;00A714|60      |      ;
  
  
@@ -5008,10 +5008,10 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$FF                           ;00A72B|A9FF    |      ;
  
           CODE_00A72D: STA.B $01                            ;00A72D|8501    |000001;
-                       LDA.W r_PWdumpGeneral                ;00A72F|AD8807  |000788;
+                       LDA.W r_PW_dumpGeneral               ;00A72F|AD8807  |000788;
                        SEC                                  ;00A732|38      |      ;
                        SBC.W $0783                          ;00A733|ED8307  |000783;
-                       STA.W r_PWdumpGeneral                ;00A736|8D8807  |000788;
+                       STA.W r_PW_dumpGeneral               ;00A736|8D8807  |000788;
                        LDA.B r_ScrollX                      ;00A739|A5FD    |0000FD;
                        SBC.W r_EffectSpeedGeneral           ;00A73B|ED8407  |000784;
                        STA.B r_ScrollX                      ;00A73E|85FD    |0000FD;
@@ -5030,14 +5030,14 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        ADC.W r_EffectSpeedSupGeneral        ;00A758|6D8507  |000785;
                        STA.W $0789                          ;00A75B|8D8907  |000789;
                        LDA.B r_ScrollY                      ;00A75E|A5FC    |0000FC;
-                       ADC.W r_PWiconGeneral                ;00A760|6D8607  |000786;
+                       ADC.W r_PW_iconGeneral               ;00A760|6D8607  |000786;
                        STA.B r_ScrollY                      ;00A763|85FC    |0000FC;
                        DEC.W $0787                          ;00A765|CE8707  |000787;
                        BNE CODE_00A7A9                      ;00A768|D03F    |00A7A9;
  
                        JSR.W DATA8_00A871                   ;00A76A|2071A8  |00A871;
                        JSR.W DATA8_00A8AD                   ;00A76D|20ADA8  |00A8AD;
-                       LDY.W r_SoundModeSongSelected        ;00A770|AC8007  |000780;
+                       LDY.W r_soundModeSongSelected        ;00A770|AC8007  |000780;
                        LDA.W AndMoreProgData_00,Y           ;00A773|B9AAA7  |00A7AA;
                        db $20                               ;00A776|        |      ;
                        dw screenLoadRoutine                 ;00A777|        |0FECE9;
@@ -5048,7 +5048,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$19                           ;00A780|A919    |      ;
                        db $20                               ;00A782|        |      ;
                        dw UNREACH_0FE5C1                    ;00A783|        |0FE5C1;
-                       LDA.W r_SoundModeSongSelected        ;00A785|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00A785|AD8007  |000780;
                        ASL A                                ;00A788|0A      |      ;
                        TAY                                  ;00A789|A8      |      ;
                        LDA.W AndMoreProgData_78d,Y          ;00A78A|B9ADA7  |00A7AD;
@@ -5056,14 +5056,14 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.W AndMoreProgData_78c,Y          ;00A790|B9AEA7  |00A7AE;
                        STA.W $078C                          ;00A793|8D8C07  |00078C;
                        LDA.B #$00                           ;00A796|A900    |      ;
-                       STA.W r_EpilogTimer                  ;00A798|8D8A07  |00078A;
+                       STA.W r_epilogTimer                  ;00A798|8D8A07  |00078A;
                        LDA.B r_PPUCtrl                      ;00A79B|A5FF    |0000FF;
                        ORA.B #$01                           ;00A79D|0901    |      ;
                        STA.W $078B                          ;00A79F|8D8B07  |00078B;
  
                        LDA.B #$00                           ;00A7A2|A900    |      ;
-                       STA.W r_BGanimationTimer             ;00A7A4|8D8107  |000781;
-                       INC.B r_GameSubstate                 ;00A7A7|E619    |000019;
+                       STA.W r_animTimerBG_CHR              ;00A7A4|8D8107  |000781;
+                       INC.B r_gameSubstate                 ;00A7A7|E619    |000019;
  
           CODE_00A7A9: RTS                                  ;00A7A9|60      |      ;
  
@@ -5087,7 +5087,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        ADC.B #$01                           ;00A7C3|6901    |      ;
                        TAX                                  ;00A7C5|AA      |      ;
                        LDA.B $07                            ;00A7C6|A507    |000007;
-                       STA.W r_EntityState,X                ;00A7C8|9D7004  |000470;
+                       STA.W r_entity_Effect,X              ;00A7C8|9D7004  |000470;
                        INY                                  ;00A7CB|C8      |      ;
                        CPY.B #$04                           ;00A7CC|C004    |      ;
                        BNE CODE_00A7BF                      ;00A7CE|D0EF    |00A7BF;
@@ -5096,47 +5096,47 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$80                           ;00A7D1|A980    |      ;
                        BNE CODE_00A7BB                      ;00A7D3|D0E6    |00A7BB;
  
-          CODE_00A7D5: LDA.W r_SoundModeSongSelected        ;00A7D5|AD8007  |000780;
+          CODE_00A7D5: LDA.W r_soundModeSongSelected        ;00A7D5|AD8007  |000780;
                        ASL A                                ;00A7D8|0A      |      ;
                        ASL A                                ;00A7D9|0A      |      ;
                        STA.B $07                            ;00A7DA|8507    |000007;
                        TAY                                  ;00A7DC|A8      |      ;
                        LDA.W progre_pathSpriteMap_00,Y      ;00A7DD|B926A8  |00A826;
-                       STA.B r_CurrNumToVramQueue           ;00A7E0|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00A7E0|8508    |000008;
                        LDA.W DATA8_00A827,Y                 ;00A7E2|B927A8  |00A827;
                        STA.B $09                            ;00A7E5|8509    |000009;
                        LDX.B #$01                           ;00A7E7|A201    |      ;
                        LDY.B #$00                           ;00A7E9|A000    |      ;
  
-          CODE_00A7EB: LDA.B (r_CurrNumToVramQueue),Y       ;00A7EB|B108    |000008;
+          CODE_00A7EB: LDA.B (r_pointerQueue_VRAM),Y        ;00A7EB|B108    |000008;
                        CMP.B #$FF                           ;00A7ED|C9FF    |      ;
                        BEQ CODE_00A7F8                      ;00A7EF|F007    |00A7F8;
-                       STA.W r_EntityState,X                ;00A7F1|9D7004  |000470;
+                       STA.W r_entity_Effect,X              ;00A7F1|9D7004  |000470;
                        INX                                  ;00A7F4|E8      |      ;
                        INY                                  ;00A7F5|C8      |      ;
                        BNE CODE_00A7EB                      ;00A7F6|D0F3    |00A7EB;
  
           CODE_00A7F8: LDY.B $07                            ;00A7F8|A407    |000007;
                        LDA.W DATA8_00A828,Y                 ;00A7FA|B928A8  |00A828;
-                       STA.B r_CurrNumToVramQueue           ;00A7FD|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00A7FD|8508    |000008;
                        LDA.W DATA8_00A829,Y                 ;00A7FF|B929A8  |00A829;
                        STA.B $09                            ;00A802|8509    |000009;
                        LDY.B #$00                           ;00A804|A000    |      ;
-                       LDA.W r_EntityYPos                   ;00A806|AD1C04  |00041C;
-                       CMP.B (r_CurrNumToVramQueue),Y       ;00A809|D108    |000008;
+                       LDA.W r_entity_YPos                  ;00A806|AD1C04  |00041C;
+                       CMP.B (r_pointerQueue_VRAM),Y        ;00A809|D108    |000008;
                        BCC CODE_00A80F                      ;00A80B|9002    |00A80F;
                        INY                                  ;00A80D|C8      |      ;
                        INY                                  ;00A80E|C8      |      ;
  
           CODE_00A80F: INY                                  ;00A80F|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A810|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00A812|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A810|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00A812|850A    |00000A;
                        INY                                  ;00A814|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A815|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A815|B108    |000008;
                        STA.B $0B                            ;00A817|850B    |00000B;
                        LDY.B #$00                           ;00A819|A000    |      ;
  
-          CODE_00A81B: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A81B|B10A    |00000A;
+          CODE_00A81B: LDA.B (r_temp_Xpos),Y                ;00A81B|B10A    |00000A;
                        STA.W $0791,Y                        ;00A81D|999107  |000791;
                        INY                                  ;00A820|C8      |      ;
                        CPY.B #$04                           ;00A821|C004    |      ;
@@ -5171,29 +5171,29 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
  
          DATA8_00A871: db $AD,$80,$07,$0A,$A8               ;00A871|        |      ;
                        LDA.W DATA8_00ADD7,Y                 ;00A876|B9D7AD  |00ADD7;
-                       STA.B r_CurrNumToVramQueue           ;00A879|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00A879|8508    |000008;
                        LDA.W DATA8_00ADD8,Y                 ;00A87B|B9D8AD  |00ADD8;
                        STA.B $09                            ;00A87E|8509    |000009;
                        LDX.B #$01                           ;00A880|A201    |      ;
                        LDY.B #$00                           ;00A882|A000    |      ;
  
-          CODE_00A884: LDA.B (r_CurrNumToVramQueue),Y       ;00A884|B108    |000008;
+          CODE_00A884: LDA.B (r_pointerQueue_VRAM),Y        ;00A884|B108    |000008;
                        CMP.B #$FF                           ;00A886|C9FF    |      ;
                        BEQ CODE_00A8AC                      ;00A888|F022    |00A8AC;
                        STA.W r_OamSpecIdxDoubled,X          ;00A88A|9D0004  |000400;
                        LDA.B #$0C                           ;00A88D|A90C    |      ;
-                       STA.W r_EntityOamSpecGroupDoubled,X  ;00A88F|9D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;00A88F|9D8C04  |00048C;
                        LDA.B #$01                           ;00A892|A901    |      ;
-                       STA.W r_EntityFacingLeft,X           ;00A894|9DA804  |0004A8;
+                       STA.W r_entity_FacingLeft,X          ;00A894|9DA804  |0004A8;
                        LDA.B #$80                           ;00A897|A980    |      ;
-                       STA.W r_EntityState,X                ;00A899|9D7004  |000470;
+                       STA.W r_entity_Effect,X              ;00A899|9D7004  |000470;
                        INY                                  ;00A89C|C8      |      ;
  
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A89D|B108    |000008;
-                       STA.W r_EntityXPos,X                 ;00A89F|9D3804  |000438;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A89D|B108    |000008;
+                       STA.W r_entity_XPos,X                ;00A89F|9D3804  |000438;
                        INY                                  ;00A8A2|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A8A3|B108    |000008;
-                       STA.W r_EntityYPos,X                 ;00A8A5|9D1C04  |00041C;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A8A3|B108    |000008;
+                       STA.W r_entity_YPos,X                ;00A8A5|9D1C04  |00041C;
                        INY                                  ;00A8A8|C8      |      ;
                        INX                                  ;00A8A9|E8      |      ;
                        BNE CODE_00A884                      ;00A8AA|D0D8    |00A884;
@@ -5205,13 +5205,13 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
                        dw UNREACH_0FE716                    ;00A8AE|        |0FE716;
                        LDY.B #$00                           ;00A8B0|A000    |      ;
                        LDA.B #$08                           ;00A8B2|A908    |      ;
-                       STA.B r_DoubleCurrGroup              ;00A8B4|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;00A8B4|850C    |00000C;
  
           CODE_00A8B6: LDA.W DATA8_00A8C3,Y                 ;00A8B6|B9C3A8  |00A8C3;
                        STA.W $02EF,X                        ;00A8B9|9DEF02  |0002EF;
                        INY                                  ;00A8BC|C8      |      ;
                        INX                                  ;00A8BD|E8      |      ;
-                       DEC.B r_DoubleCurrGroup              ;00A8BE|C60C    |00000C;
+                       DEC.B r_tempCurrGroup                ;00A8BE|C60C    |00000C;
                        BNE CODE_00A8B6                      ;00A8C0|D0F4    |00A8B6;
                        RTS                                  ;00A8C2|60      |      ;
  
@@ -5220,40 +5220,40 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
                        db $0F,$07,$20                       ;00A8C8|        |      ;
  
  gameState8_substate6: JSR.W DATA8_00A7B3                   ;00A8CB|20B3A7  |00A7B3;
-                       LDA.W r_SoundModeSongSelected        ;00A8CE|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00A8CE|AD8007  |000780;
                        ASL A                                ;00A8D1|0A      |      ;
                        TAY                                  ;00A8D2|A8      |      ;
                        LDA.W DATA16_00AE2B,Y                ;00A8D3|B92BAE  |00AE2B;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00A8D6|850A    |00000A;
+                       STA.B r_temp_Xpos                    ;00A8D6|850A    |00000A;
                        LDA.W DATA16_00AE2C,Y                ;00A8D8|B92CAE  |00AE2C;
                        STA.B $0B                            ;00A8DB|850B    |00000B;
-                       LDA.W r_BGanimationTimer             ;00A8DD|AD8107  |000781;
+                       LDA.W r_animTimerBG_CHR              ;00A8DD|AD8107  |000781;
                        ASL A                                ;00A8E0|0A      |      ;
                        TAY                                  ;00A8E1|A8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A8E2|B10A    |00000A;
-                       STA.B r_CurrNumToVramQueue           ;00A8E4|8508    |000008;
+                       LDA.B (r_temp_Xpos),Y                ;00A8E2|B10A    |00000A;
+                       STA.B r_pointerQueue_VRAM            ;00A8E4|8508    |000008;
                        INY                                  ;00A8E6|C8      |      ;
                        CMP.B #$FF                           ;00A8E7|C9FF    |      ;
                        BEQ CODE_00A8F6                      ;00A8E9|F00B    |00A8F6;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A8EB|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00A8EB|B10A    |00000A;
  
           CODE_00A8ED: STA.B $09                            ;00A8ED|8509    |000009;
                        JSR.W CODE_00AD48                    ;00A8EF|2048AD  |00AD48;
-                       INC.W r_BGanimationTimer             ;00A8F2|EE8107  |000781;
+                       INC.W r_animTimerBG_CHR              ;00A8F2|EE8107  |000781;
                        RTS                                  ;00A8F5|60      |      ;
  
  
-          CODE_00A8F6: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00A8F6|B10A    |00000A;
+          CODE_00A8F6: LDA.B (r_temp_Xpos),Y                ;00A8F6|B10A    |00000A;
                        CMP.B #$FF                           ;00A8F8|C9FF    |      ;
                        BNE CODE_00A8ED                      ;00A8FA|D0F1    |00A8ED;
-                       LDY.W r_SoundModeSongSelected        ;00A8FC|AC8007  |000780;
+                       LDY.W r_soundModeSongSelected        ;00A8FC|AC8007  |000780;
                        LDA.W DATA8_00A90D,Y                 ;00A8FF|B90DA9  |00A90D;
                        STA.W r_EffectSpeedGeneral           ;00A902|8D8407  |000784;
  
                        LDA.B #$01                           ;00A905|A901    |      ;
  
                        STA.W r_FogParallelPos               ;00A907|8D8207  |000782;
-                       INC.B r_GameSubstate                 ;00A90A|E619    |000019;
+                       INC.B r_gameSubstate                 ;00A90A|E619    |000019;
                        RTS                                  ;00A90C|60      |      ;
  
  
@@ -5267,9 +5267,9 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
  
           CODE_00A91C: STA.B $01                            ;00A91C|8501    |000001;
                        SEC                                  ;00A91E|38      |      ;
-                       LDA.W r_EpilogTimer                  ;00A91F|AD8A07  |00078A;
+                       LDA.W r_epilogTimer                  ;00A91F|AD8A07  |00078A;
                        SBC.W r_EffectSpeedGeneral           ;00A922|ED8407  |000784;
-                       STA.W r_EpilogTimer                  ;00A925|8D8A07  |00078A;
+                       STA.W r_epilogTimer                  ;00A925|8D8A07  |00078A;
                        LDA.W r_FogParallelPos               ;00A928|AD8207  |000782;
                        SBC.B $01                            ;00A92B|E501    |000001;
                        STA.W r_FogParallelPos               ;00A92D|8D8207  |000782;
@@ -5279,18 +5279,18 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
                        AND.B #$FE                           ;00A937|29FE    |      ;
                        ORA.B $00                            ;00A939|0500    |000000;
                        STA.W $078B                          ;00A93B|8D8B07  |00078B;
-                       LDA.W r_EpilogTimer                  ;00A93E|AD8A07  |00078A;
+                       LDA.W r_epilogTimer                  ;00A93E|AD8A07  |00078A;
                        BNE CODE_00A94A                      ;00A941|D007    |00A94A;
                        LDA.B #$00                           ;00A943|A900    |      ;
-                       STA.W r_PlayerStateDoubled           ;00A945|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00A945|8D6505  |000565;
  
-                       INC.B r_GameSubstate                 ;00A948|E619    |000019;
+                       INC.B r_gameSubstate                 ;00A948|E619    |000019;
  
           CODE_00A94A: RTS                                  ;00A94A|60      |      ;
  
  
  gameState8_substate8: JSR.W CODE_00A7D5                    ;00A94B|20D5A7  |00A7D5;
-                       LDA.W r_PlayerStateDoubled           ;00A94E|AD6505  |000565;
+                       LDA.W r_Player_StateDoubled          ;00A94E|AD6505  |000565;
                        CMP.B #$10                           ;00A951|C910    |      ;
                        BEQ CODE_00A95F                      ;00A953|F00A    |00A95F;
                        CMP.B #$12                           ;00A955|C912    |      ;
@@ -5302,14 +5302,14 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
           CODE_00A95F: JSR.W CODE_00A7B9                    ;00A95F|20B9A7  |00A7B9;
  
           CODE_00A962: JSR.W CODE_00AA05                    ;00A962|2005AA  |00AA05;
-                       LDA.W r_PlayerStateDoubled           ;00A965|AD6505  |000565;
+                       LDA.W r_Player_StateDoubled          ;00A965|AD6505  |000565;
                        CMP.B #$12                           ;00A968|C912    |      ;
                        BNE CODE_00A9A4                      ;00A96A|D038    |00A9A4;
-                       LDA.W r_SoundModeSongSelected        ;00A96C|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00A96C|AD8007  |000780;
                        ASL A                                ;00A96F|0A      |      ;
                        TAY                                  ;00A970|A8      |      ;
                        LDA.W progressionPointerTable,Y      ;00A971|B9A5A9  |00A9A5;
-                       STA.B r_CurrNumToVramQueue           ;00A974|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00A974|8508    |000008;
                        LDA.W PTR16_00A9A6,Y                 ;00A976|B9A6A9  |00A9A6;
                        STA.B $09                            ;00A979|8509    |000009;
                        LDA.W $0790                          ;00A97B|AD9007  |000790;
@@ -5317,24 +5317,24 @@ progre_pathSpriteMap_01: db $A0,$61,$A8,$65,$A8               ;00A84A|        | 
                        CLC                                  ;00A97F|18      |      ;
                        ADC.W $0790                          ;00A980|6D9007  |000790;
                        TAY                                  ;00A983|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A984|B108    |000008;
-                       STA.B r_CurrRoomGroupStage           ;00A986|8532    |000032;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A984|B108    |000008;
+                       STA.B r_stage                        ;00A986|8532    |000032;
  
                        INY                                  ;00A988|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A989|B108    |000008;
-                       STA.B r_CurrRoomSectionBlock         ;00A98B|8533    |000033;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A989|B108    |000008;
+                       STA.B r_blockLevel                   ;00A98B|8533    |000033;
                        INY                                  ;00A98D|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00A98E|B108    |000008;
-                       STA.B r_CurrRoomIdx                  ;00A990|8534    |000034;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00A98E|B108    |000008;
+                       STA.B r_roomIdx                      ;00A990|8534    |000034;
                        LDA.B #$07                           ;00A992|A907    |      ;
                        STA.W $0160                          ;00A994|8D6001  |000160;
                        LDA.B #$B4                           ;00A997|A9B4    |      ;
-                       STA.B r_GenericStateTimer            ;00A999|8530    |000030;
+                       STA.B r_timerGenerel                 ;00A999|8530    |000030;
                        LDY.B #$00                           ;00A99B|A000    |      ;
                        STY.B $B4                            ;00A99D|84B4    |0000B4;
                        INY                                  ;00A99F|C8      |      ;
                        STY.B $B5                            ;00A9A0|84B5    |0000B5;
-                       INC.B r_GameSubstate                 ;00A9A2|E619    |000019;
+                       INC.B r_gameSubstate                 ;00A9A2|E619    |000019;
  
           CODE_00A9A4: RTS                                  ;00A9A4|60      |      ;
  
@@ -5354,14 +5354,14 @@ progressionPointerTable: dw goClockTower                      ;00A9A5|        |0
        goCryptOrWater: db $07,$06,$00,$08,$00               ;00A9BA|        |      ;
                        db $00                               ;00A9BF|        |      ;
  
- gameState8_substate9: DEC.B r_GenericStateTimer            ;00A9C0|C630    |000030;
+ gameState8_substate9: DEC.B r_timerGenerel                 ;00A9C0|C630    |000030;
                        BEQ CODE_00A9CC                      ;00A9C2|F008    |00A9CC;
-                       LDA.B r_GenericStateTimer            ;00A9C4|A530    |000030;
+                       LDA.B r_timerGenerel                 ;00A9C4|A530    |000030;
                        CMP.B #$30                           ;00A9C6|C930    |      ;
                        BCS CODE_00A9CE                      ;00A9C8|B004    |00A9CE;
                        BCC CODE_00A9CF                      ;00A9CA|9003    |00A9CF;
  
-          CODE_00A9CC: INC.B r_GameSubstate                 ;00A9CC|E619    |000019;
+          CODE_00A9CC: INC.B r_gameSubstate                 ;00A9CC|E619    |000019;
  
           CODE_00A9CE: RTS                                  ;00A9CE|60      |      ;
  
@@ -5369,23 +5369,23 @@ progressionPointerTable: dw goClockTower                      ;00A9A5|        |0
           CODE_00A9CF: LDA.B $B4                            ;00A9CF|A5B4    |0000B4;
                        CMP.B #$FF                           ;00A9D1|C9FF    |      ;
                        BEQ CODE_00A9CE                      ;00A9D3|F0F9    |00A9CE;
-                       LDA.B r_VramQueueNextIdxToFill       ;00A9D5|A51D    |00001D;
+                       LDA.B r_sceneDrawQueue               ;00A9D5|A51D    |00001D;
                        PHA                                  ;00A9D7|48      |      ;
  
-                       LDY.W r_SoundModeSongSelected        ;00A9D8|AC8007  |000780;
+                       LDY.W r_soundModeSongSelected        ;00A9D8|AC8007  |000780;
                        LDA.W AndMoreProgData_00,Y           ;00A9DB|B9AAA7  |00A7AA;
                        db $20                               ;00A9DE|        |      ;
                        dw screenLoadRoutine                 ;00A9DF|        |0FECE9;
                        JSR.W DATA8_00A8AD                   ;00A9E1|20ADA8  |00A8AD;
                        PLA                                  ;00A9E4|68      |      ;
-                       STA.B r_015                          ;00A9E5|8515    |000015;
+                       STA.B r_15                           ;00A9E5|8515    |000015;
                        db $4C                               ;00A9E7|        |      ;
  
                        dw UNREACH_0FFBAF                    ;00A9E8|        |0FFBAF;
  
 gameState8_substate10: db $20                               ;00A9EA|        |      ;
                        dw setNameTableMapping_E4            ;00A9EB|        |0FEBFD;
-                       LDA.W r_SoundModeSongSelected        ;00A9ED|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00A9ED|AD8007  |000780;
                        BNE DATA8_00A9F5                     ;00A9F0|D003    |00A9F5;
                        JSR.W CODE_0090C0                    ;00A9F2|20C090  |0090C0;
  
@@ -5397,11 +5397,11 @@ gameState8_substate10: db $20                               ;00A9EA|        |   
  
                        LDA.B #$04                           ;00A9FB|A904    |      ;
  
-                       STA.B r_GameState                    ;00A9FD|8518    |000018;
+                       STA.B r_gameState                    ;00A9FD|8518    |000018;
  
                        LDA.B #$00                           ;00A9FF|A900    |      ;
  
-                       STA.B r_InGameSubstate               ;00AA01|852A    |00002A;
+                       STA.B r_gameLoadState                ;00AA01|852A    |00002A;
  
                        RTS                                  ;00AA03|60      |      ;
  
@@ -5409,7 +5409,7 @@ gameState8_substate10: db $20                               ;00A9EA|        |   
 gameState8_substateEmpty: RTS                                  ;00AA04|60      |      ;
  
  
-          CODE_00AA05: LDA.W r_PlayerStateDoubled           ;00AA05|AD6505  |000565;
+          CODE_00AA05: LDA.W r_Player_StateDoubled          ;00AA05|AD6505  |000565;
  
           CODE_00AA08: CMP.B #$00                           ;00AA08|C900    |      ;
                        BEQ CODE_00AA46                      ;00AA0A|F03A    |00AA46;
@@ -5417,31 +5417,31 @@ gameState8_substateEmpty: RTS                                  ;00AA04|60      |
                        BEQ CODE_00AA46                      ;00AA0E|F036    |00AA46;
                        CMP.B #$10                           ;00AA10|C910    |      ;
                        BEQ CODE_00AA46                      ;00AA12|F032    |00AA46;
-                       LDA.W r_SoundModeSongSelected        ;00AA14|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00AA14|AD8007  |000780;
                        ASL A                                ;00AA17|0A      |      ;
                        TAY                                  ;00AA18|A8      |      ;
-                       LDA.W r_EntityXPos                   ;00AA19|AD3804  |000438;
+                       LDA.W r_entity_XPos                  ;00AA19|AD3804  |000438;
                        CMP.W DATA16_00AA61,Y                ;00AA1C|D961AA  |00AA61;
                        BCC CODE_00AA26                      ;00AA1F|9005    |00AA26;
                        CMP.W DATA16_00AA62,Y                ;00AA21|D962AA  |00AA62;
                        BCC CODE_00AA46                      ;00AA24|9020    |00AA46;
  
-          CODE_00AA26: LDA.W r_EntityFacingLeft             ;00AA26|ADA804  |0004A8;
+          CODE_00AA26: LDA.W r_entity_FacingLeft            ;00AA26|ADA804  |0004A8;
                        ASL A                                ;00AA29|0A      |      ;
                        TAY                                  ;00AA2A|A8      |      ;
                        LDA.W DATA16_00AA67,Y                ;00AA2B|B967AA  |00AA67;
-                       STA.W r_EntityXposSpeed              ;00AA2E|8DF204  |0004F2;
+                       STA.W r_entity_XposSpeed             ;00AA2E|8DF204  |0004F2;
                        LDA.W DATA16_00AA68,Y                ;00AA31|B968AA  |00AA68;
-                       STA.W r_EntityXposSubSpeed           ;00AA34|8D0905  |000509;
+                       STA.W r_entity_XposSubSpeed          ;00AA34|8D0905  |000509;
                        LDA.B #$10                           ;00AA37|A910    |      ;
-                       STA.W r_PlayerStateDoubled           ;00AA39|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00AA39|8D6505  |000565;
                        LDA.B #$58                           ;00AA3C|A958    |      ;
                        STA.W $0787                          ;00AA3E|8D8707  |000787;
                        LDA.B #$00                           ;00AA41|A900    |      ;
                        db $20                               ;00AA43|        |      ;
                        dw CODE_0FEF57                       ;00AA44|        |0FEF57;
  
-          CODE_00AA46: LDY.W r_PlayerStateDoubled           ;00AA46|AC6505  |000565;
+          CODE_00AA46: LDY.W r_Player_StateDoubled          ;00AA46|AC6505  |000565;
                        db $20                               ;00AA49|        |      ;
                        dw CODE_0FE886                       ;00AA4A|        |0FE886;
                        RTL                                  ;00AA4C|6B      |      ;
@@ -5465,12 +5465,12 @@ gameState8_substateEmpty: RTS                                  ;00AA04|60      |
         DATA16_00AA61: dw $C000,$C000,$FF40                 ;00AA61|        |      ;
  
         DATA16_00AA67: dw $C000,$40FF                       ;00AA67|        |      ;
-                       LDY.W r_EntityObjectIdxes            ;00AA6B|AC4E05  |00054E;
+                       LDY.W r_entity_ObjectIdxes           ;00AA6B|AC4E05  |00054E;
                        LDA.W playPosSpdScreen,Y             ;00AA6E|B9DAAA  |00AADA;
-                       STA.W r_EntityOamSpecGroupDoubled    ;00AA71|8D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled   ;00AA71|8D8C04  |00048C;
                        LDA.B #$02                           ;00AA74|A902    |      ;
                        STA.W r_OamSpecIdxDoubled            ;00AA76|8D0004  |000400;
-                       LDA.W r_SoundModeSongSelected        ;00AA79|AD8007  |000780;
+                       LDA.W r_soundModeSongSelected        ;00AA79|AD8007  |000780;
                        ASL A                                ;00AA7C|0A      |      ;
                        STA.B $00                            ;00AA7D|8500    |000000;
                        ASL A                                ;00AA7F|0A      |      ;
@@ -5478,41 +5478,41 @@ gameState8_substateEmpty: RTS                                  ;00AA04|60      |
                        ADC.B $00                            ;00AA81|6500    |000000;
                        TAY                                  ;00AA83|A8      |      ;
                        LDA.W DATA8_00AADE,Y                 ;00AA84|B9DEAA  |00AADE;
-                       STA.W r_EntityXPos                   ;00AA87|8D3804  |000438;
+                       STA.W r_entity_XPos                  ;00AA87|8D3804  |000438;
                        LDA.W DATA8_00AADF,Y                 ;00AA8A|B9DFAA  |00AADF;
-                       LDX.W r_EntityObjectIdxes            ;00AA8D|AE4E05  |00054E;
+                       LDX.W r_entity_ObjectIdxes           ;00AA8D|AE4E05  |00054E;
                        CPX.B #$02                           ;00AA90|E002    |      ;
                        BNE CODE_00AA97                      ;00AA92|D003    |00AA97;
                        CLC                                  ;00AA94|18      |      ;
                        ADC.B #$04                           ;00AA95|6904    |      ;
  
-          CODE_00AA97: STA.W r_EntityYPos                   ;00AA97|8D1C04  |00041C;
+          CODE_00AA97: STA.W r_entity_YPos                  ;00AA97|8D1C04  |00041C;
                        LDA.W progressionPathSelecter,Y      ;00AA9A|B9E0AA  |00AAE0;
-                       STA.W r_EntityFacingLeft             ;00AA9D|8DA804  |0004A8;
+                       STA.W r_entity_FacingLeft            ;00AA9D|8DA804  |0004A8;
                        LDA.W DATA8_00AAE1,Y                 ;00AAA0|B9E1AA  |00AAE1;
-                       STA.W r_EntityXposSpeed              ;00AAA3|8DF204  |0004F2;
+                       STA.W r_entity_XposSpeed             ;00AAA3|8DF204  |0004F2;
                        LDA.W DATA8_00AAE2,Y                 ;00AAA6|B9E2AA  |00AAE2;
-                       STA.W r_EntityXposSubSpeed           ;00AAA9|8D0905  |000509;
+                       STA.W r_entity_XposSubSpeed          ;00AAA9|8D0905  |000509;
                        LDA.W DATA8_00AAE3,Y                 ;00AAAC|B9E3AA  |00AAE3;
                        STA.W $0790                          ;00AAAF|8D9007  |000790;
                        LDA.B #$44                           ;00AAB2|A944    |      ;
                        STA.W $0787                          ;00AAB4|8D8707  |000787;
                        LDA.B #$00                           ;00AAB7|A900    |      ;
-                       STA.B r_RoomOrientation              ;00AAB9|8568    |000068;
-                       STA.B r_CurrScrollOffsetIntoRoomScreen;00AABB|8556    |000056;
-                       STA.B r_CurrScrollRoomScreen         ;00AABD|8557    |000057;
-                       LDA.W r_SoundModeSongSelected        ;00AABF|AD8007  |000780;
+                       STA.B r_roomOrientation              ;00AAB9|8568    |000068;
+                       STA.B r_sceneScrollOffsetLo          ;00AABB|8556    |000056;
+                       STA.B r_sceneScrollOffsetHi          ;00AABD|8557    |000057;
+                       LDA.W r_soundModeSongSelected        ;00AABF|AD8007  |000780;
                        ASL A                                ;00AAC2|0A      |      ;
                        TAY                                  ;00AAC3|A8      |      ;
                        LDA.W PTR16_00AD96,Y                 ;00AAC4|B996AD  |00AD96;
-                       STA.B r_CurrRoomStairsDataAddr       ;00AAC7|8569    |000069;
+                       STA.B r_currRoomStairsDataAddr       ;00AAC7|8569    |000069;
                        LDA.W PTR16_00AD97,Y                 ;00AAC9|B997AD  |00AD97;
                        STA.B $6A                            ;00AACC|856A    |00006A;
                        LDA.B #$00                           ;00AACE|A900    |      ;
                        db $20                               ;00AAD0|        |      ;
                        dw CODE_0FEF57                       ;00AAD1|        |0FEF57;
-                       INC.W r_PlayerStateDoubled           ;00AAD3|EE6505  |000565;
-                       INC.W r_PlayerStateDoubled           ;00AAD6|EE6505  |000565;
+                       INC.W r_Player_StateDoubled          ;00AAD3|EE6505  |000565;
+                       INC.W r_Player_StateDoubled          ;00AAD6|EE6505  |000565;
                        RTS                                  ;00AAD9|60      |      ;
  
  
@@ -5531,7 +5531,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
          DATA8_00AAE3: db $01,$08,$80,$00,$00               ;00AAE3|        |      ;
                        db $C0,$00,$F8,$80,$01               ;00AAE8|        |      ;
                        db $FF,$40,$00                       ;00AAED|        |      ;
-                       LDA.B r_GameStateLoopCounter         ;00AAF0|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;00AAF0|A51A    |00001A;
                        AND.B #$0F                           ;00AAF2|290F    |      ;
                        BNE DATA8_00AAFB                     ;00AAF4|D005    |00AAFB;
                        LDA.B #$09                           ;00AAF6|A909    |      ;
@@ -5541,13 +5541,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
          DATA8_00AAFB: db $20                               ;00AAFB|        |      ;
  
                        dw CODE_0FEF73                       ;00AAFC|        |0FEF73;
-                       LDA.W r_EntityFractionalX            ;00AAFE|ADC404  |0004C4;
+                       LDA.W r_entity_FractionalX           ;00AAFE|ADC404  |0004C4;
                        CLC                                  ;00AB01|18      |      ;
-                       ADC.W r_EntityXposSubSpeed           ;00AB02|6D0905  |000509;
-                       STA.W r_EntityFractionalX            ;00AB05|8DC404  |0004C4;
-                       LDA.W r_EntityXPos                   ;00AB08|AD3804  |000438;
-                       ADC.W r_EntityXposSpeed              ;00AB0B|6DF204  |0004F2;
-                       STA.W r_EntityXPos                   ;00AB0E|8D3804  |000438;
+                       ADC.W r_entity_XposSubSpeed          ;00AB02|6D0905  |000509;
+                       STA.W r_entity_FractionalX           ;00AB05|8DC404  |0004C4;
+                       LDA.W r_entity_XPos                  ;00AB08|AD3804  |000438;
+                       ADC.W r_entity_XposSpeed             ;00AB0B|6DF204  |0004F2;
+                       STA.W r_entity_XPos                  ;00AB0E|8D3804  |000438;
                        CMP.B #$FE                           ;00AB11|C9FE    |      ;
                        BCS CODE_00AB1E                      ;00AB13|B009    |00AB1E;
                        CMP.B #$02                           ;00AB15|C902    |      ;
@@ -5557,12 +5557,12 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00AB1E: LDA.B #$00                           ;00AB1E|A900    |      ;
                        STA.W r_OamSpecIdxDoubled            ;00AB20|8D0004  |000400;
-                       INC.W r_PlayerStateDoubled           ;00AB23|EE6505  |000565;
-                       INC.W r_PlayerStateDoubled           ;00AB26|EE6505  |000565;
+                       INC.W r_Player_StateDoubled          ;00AB23|EE6505  |000565;
+                       INC.W r_Player_StateDoubled          ;00AB26|EE6505  |000565;
  
           CODE_00AB29: RTS                                  ;00AB29|60      |      ;
  
-                       LDA.B r_Joy1ButtonsPressed           ;00AB2A|A528    |000028;
+                       LDA.B r_Joy1Pe                       ;00AB2A|A528    |000028;
                        LSR A                                ;00AB2C|4A      |      ;
                        BCS CODE_00ABA0                      ;00AB2D|B071    |00ABA0;
                        LSR A                                ;00AB2F|4A      |      ;
@@ -5581,7 +5581,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw UNREACH_0FE6D4                    ;00AB3F|        |0FE6D4;
                        BCC CODE_00AB38                      ;00AB41|90F5    |00AB38;
                        LDA.B #$00                           ;00AB43|A900    |      ;
-                       STA.W r_EntityPhase                  ;00AB45|8DC105  |0005C1;
+                       STA.W r_entity_script_idx            ;00AB45|8DC105  |0005C1;
                        LDX.B #$01                           ;00AB48|A201    |      ;
                        BNE CODE_00AB58                      ;00AB4A|D00C    |00AB58;
  
@@ -5589,11 +5589,11 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw UNREACH_0FE6DF                    ;00AB4D|        |0FE6DF;
                        BCC CODE_00AB38                      ;00AB4F|90E7    |00AB38;
                        LDA.B #$01                           ;00AB51|A901    |      ;
-                       STA.W r_EntityPhase                  ;00AB53|8DC105  |0005C1;
+                       STA.W r_entity_script_idx            ;00AB53|8DC105  |0005C1;
                        LDX.B #$00                           ;00AB56|A200    |      ;
  
           CODE_00AB58: LDY.B #$00                           ;00AB58|A000    |      ;
-                       LDA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00AB5A|A50A    |00000A;
+                       LDA.B r_temp_Xpos                    ;00AB5A|A50A    |00000A;
                        ASL A                                ;00AB5C|0A      |      ;
                        BCC CODE_00AB64                      ;00AB5D|9005    |00AB64;
                        TXA                                  ;00AB5F|8A      |      ;
@@ -5601,17 +5601,17 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        TAX                                  ;00AB62|AA      |      ;
                        INY                                  ;00AB63|C8      |      ;
  
-          CODE_00AB64: STY.W r_EntityAI_idx                 ;00AB64|8CEF05  |0005EF;
-                       STX.W r_EntityFacingLeft             ;00AB67|8EA804  |0004A8;
+          CODE_00AB64: STY.W r_entity_AI_idx                ;00AB64|8CEF05  |0005EF;
+                       STX.W r_entity_FacingLeft            ;00AB67|8EA804  |0004A8;
                        LDA.B $0B                            ;00AB6A|A50B    |00000B;
-                       STA.W r_PixelsToWalkToStairs         ;00AB6C|8D1D06  |00061D;
+                       STA.W r_stairs_PixelToWalk           ;00AB6C|8D1D06  |00061D;
                        LDY.B #$00                           ;00AB6F|A000    |      ;
                        ASL A                                ;00AB71|0A      |      ;
                        BCC CODE_00AB75                      ;00AB72|9001    |00AB75;
                        INY                                  ;00AB74|C8      |      ;
  
-          CODE_00AB75: STY.W r_EntityAlarmOrStartYforSinusoidalMovement;00AB75|8C0606  |000606;
-                       LDA.B r_DoubleCurrSection            ;00AB78|A50D    |00000D;
+          CODE_00AB75: STY.W r_entity_YposTarget            ;00AB75|8C0606  |000606;
+                       LDA.B r_tempCurrSection              ;00AB78|A50D    |00000D;
                        BEQ CODE_00AB82                      ;00AB7A|F006    |00AB82;
                        LDA.B #$FF                           ;00AB7C|A9FF    |      ;
                        LDY.B #$00                           ;00AB7E|A000    |      ;
@@ -5620,17 +5620,17 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00AB82: LDA.B #$01                           ;00AB82|A901    |      ;
                        LDY.B #$00                           ;00AB84|A000    |      ;
  
-          CODE_00AB86: STY.W r_EntityXposSubSpeed           ;00AB86|8C0905  |000509;
-                       STA.W r_EntityXposSpeed              ;00AB89|8DF204  |0004F2;
+          CODE_00AB86: STY.W r_entity_XposSubSpeed          ;00AB86|8C0905  |000509;
+                       STA.W r_entity_XposSpeed             ;00AB89|8DF204  |0004F2;
                        LDA.B #$08                           ;00AB8C|A908    |      ;
-                       STA.W r_PlayerStateDoubled           ;00AB8E|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00AB8E|8D6505  |000565;
                        LDA.B #$00                           ;00AB91|A900    |      ;
  
-          CODE_00AB93: STA.W r_EntityAnimationDefIdxInSpecGroup;00AB93|8DAA05  |0005AA;
+          CODE_00AB93: STA.W r_entity_AnimGroup             ;00AB93|8DAA05  |0005AA;
                        LDY.B #$02                           ;00AB96|A002    |      ;
-                       STY.W r_EntityOamSpecIdxBaseOffset   ;00AB98|8C9305  |000593;
+                       STY.W r_entity_OamBaseOffset         ;00AB98|8C9305  |000593;
                        DEY                                  ;00AB9B|88      |      ;
-                       STY.W r_EntityTimeUntilNextAnimation ;00AB9C|8C7C05  |00057C;
+                       STY.W r_entity_AnimTimer             ;00AB9C|8C7C05  |00057C;
                        RTS                                  ;00AB9F|60      |      ;
  
  
@@ -5639,45 +5639,45 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00ABA4: LDA.B #$01                           ;00ABA4|A901    |      ;
  
-          CODE_00ABA6: STA.W r_EntityFacingLeft             ;00ABA6|8DA804  |0004A8;
+          CODE_00ABA6: STA.W r_entity_FacingLeft            ;00ABA6|8DA804  |0004A8;
                        LDA.B #$00                           ;00ABA9|A900    |      ;
  
-                       STA.W r_EntityXposSpeed              ;00ABAB|8DF204  |0004F2;
-                       STA.W r_EntityXposSubSpeed           ;00ABAE|8D0905  |000509;
+                       STA.W r_entity_XposSpeed             ;00ABAB|8DF204  |0004F2;
+                       STA.W r_entity_XposSubSpeed          ;00ABAE|8D0905  |000509;
                        LDA.B #$06                           ;00ABB1|A906    |      ;
-                       STA.W r_PlayerStateDoubled           ;00ABB3|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00ABB3|8D6505  |000565;
                        LDA.B #$00                           ;00ABB6|A900    |      ;
                        JMP.W CODE_00AB93                    ;00ABB8|4C93AB  |00AB93;
  
-                       LDA.B r_Joy1ButtonsPressed           ;00ABBB|A528    |000028;
+                       LDA.B r_Joy1Pe                       ;00ABBB|A528    |000028;
                        LSR A                                ;00ABBD|4A      |      ;
                        BCS CODE_00ABDF                      ;00ABBE|B01F    |00ABDF;
                        LSR A                                ;00ABC0|4A      |      ;
                        BCS CODE_00ABFC                      ;00ABC1|B039    |00ABFC;
                        LDA.B #$04                           ;00ABC3|A904    |      ;
-                       STA.W r_PlayerStateDoubled           ;00ABC5|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00ABC5|8D6505  |000565;
  
          DATA8_00ABC8: db $20                               ;00ABC8|        |      ;
                        dw CODE_0FEF73                       ;00ABC9|        |0FEF73;
  
-          CODE_00ABCB: LDA.W r_EntityFractionalX            ;00ABCB|ADC404  |0004C4;
+          CODE_00ABCB: LDA.W r_entity_FractionalX           ;00ABCB|ADC404  |0004C4;
  
                        CLC                                  ;00ABCE|18      |      ;
-                       ADC.W r_EntityXposSubSpeed           ;00ABCF|6D0905  |000509;
-                       STA.W r_EntityFractionalX            ;00ABD2|8DC404  |0004C4;
-                       LDA.W r_EntityXPos                   ;00ABD5|AD3804  |000438;
-                       ADC.W r_EntityXposSpeed              ;00ABD8|6DF204  |0004F2;
-                       STA.W r_EntityXPos                   ;00ABDB|8D3804  |000438;
+                       ADC.W r_entity_XposSubSpeed          ;00ABCF|6D0905  |000509;
+                       STA.W r_entity_FractionalX           ;00ABD2|8DC404  |0004C4;
+                       LDA.W r_entity_XPos                  ;00ABD5|AD3804  |000438;
+                       ADC.W r_entity_XposSpeed             ;00ABD8|6DF204  |0004F2;
+                       STA.W r_entity_XPos                  ;00ABDB|8D3804  |000438;
  
                        RTS                                  ;00ABDE|60      |      ;
  
  
           CODE_00ABDF: LDA.B #$00                           ;00ABDF|A900    |      ;
-                       STA.W r_EntityFacingLeft             ;00ABE1|8DA804  |0004A8;
+                       STA.W r_entity_FacingLeft            ;00ABE1|8DA804  |0004A8;
                        JSR.W CODE_00AC28                    ;00ABE4|2028AC  |00AC28;
                        LDY.B #$02                           ;00ABE7|A002    |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00ABE9|B10A    |00000A;
-                       CMP.W r_EntityXPos                   ;00ABEB|CD3804  |000438;
+                       LDA.B (r_temp_Xpos),Y                ;00ABE9|B10A    |00000A;
+                       CMP.W r_entity_XPos                  ;00ABEB|CD3804  |000438;
                        BCC CODE_00ABF7                      ;00ABEE|9007    |00ABF7;
                        LDA.B #$01                           ;00ABF0|A901    |      ;
                        LDY.B #$00                           ;00ABF2|A000    |      ;
@@ -5689,62 +5689,62 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        BEQ CODE_00AC11                      ;00ABFA|F015    |00AC11;
  
           CODE_00ABFC: LDA.B #$01                           ;00ABFC|A901    |      ;
-                       STA.W r_EntityFacingLeft             ;00ABFE|8DA804  |0004A8;
+                       STA.W r_entity_FacingLeft            ;00ABFE|8DA804  |0004A8;
                        JSR.W CODE_00AC28                    ;00AC01|2028AC  |00AC28;
  
                        LDY.B #$01                           ;00AC04|A001    |      ;
  
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00AC06|B10A    |00000A;
-                       CMP.W r_EntityXPos                   ;00AC08|CD3804  |000438;
+                       LDA.B (r_temp_Xpos),Y                ;00AC06|B10A    |00000A;
+                       CMP.W r_entity_XPos                  ;00AC08|CD3804  |000438;
                        BCS CODE_00ABF7                      ;00AC0B|B0EA    |00ABF7;
  
                        LDA.B #$FF                           ;00AC0D|A9FF    |      ;
                        LDY.B #$00                           ;00AC0F|A000    |      ;
  
-          CODE_00AC11: STY.W r_EntityXposSubSpeed           ;00AC11|8C0905  |000509;
-                       STA.W r_EntityXposSpeed              ;00AC14|8DF204  |0004F2;
+          CODE_00AC11: STY.W r_entity_XposSubSpeed          ;00AC11|8C0905  |000509;
+                       STA.W r_entity_XposSpeed             ;00AC14|8DF204  |0004F2;
                        LDA.B #$00                           ;00AC17|A900    |      ;
-                       STA.W r_EntityYposSpeed              ;00AC19|8D2005  |000520;
+                       STA.W r_entity_YposSpeed             ;00AC19|8D2005  |000520;
  
-                       STA.W r_EntityYposSubSpeed           ;00AC1C|8D3705  |000537;
+                       STA.W r_entity_YposSubSpeed          ;00AC1C|8D3705  |000537;
                        JMP.W DATA8_00ABC8                   ;00AC1F|4CC8AB  |00ABC8;
  
                        LDA.B #$FF                           ;00AC22|A9FF    |      ;
                        LDY.B #$E0                           ;00AC24|A0E0    |      ;
                        BNE CODE_00AC11                      ;00AC26|D0E9    |00AC11;
  
-          CODE_00AC28: LDA.W r_SoundModeSongSelected        ;00AC28|AD8007  |000780;
+          CODE_00AC28: LDA.W r_soundModeSongSelected        ;00AC28|AD8007  |000780;
                        ASL A                                ;00AC2B|0A      |      ;
                        TAY                                  ;00AC2C|A8      |      ;
                        LDA.W PTR16_00ADAE,Y                 ;00AC2D|B9AEAD  |00ADAE;
-                       STA.B r_CurrNumToVramQueue           ;00AC30|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00AC30|8508    |000008;
                        LDA.W PTR16_00ADAF,Y                 ;00AC32|B9AFAD  |00ADAF;
                        STA.B $09                            ;00AC35|8509    |000009;
                        LDA.W $0790                          ;00AC37|AD9007  |000790;
                        ASL A                                ;00AC3A|0A      |      ;
                        TAY                                  ;00AC3B|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AC3C|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00AC3E|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AC3C|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00AC3E|850A    |00000A;
                        INY                                  ;00AC40|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AC41|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AC41|B108    |000008;
                        STA.B $0B                            ;00AC43|850B    |00000B;
                        RTS                                  ;00AC45|60      |      ;
  
  
-          CODE_00AC46: LDA.W r_SoundModeSongSelected        ;00AC46|AD8007  |000780;
+          CODE_00AC46: LDA.W r_soundModeSongSelected        ;00AC46|AD8007  |000780;
                        ASL A                                ;00AC49|0A      |      ;
                        TAY                                  ;00AC4A|A8      |      ;
                        LDA.W PTR16_00AD9C,Y                 ;00AC4B|B99CAD  |00AD9C;
-                       STA.B r_CurrNumToVramQueue           ;00AC4E|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00AC4E|8508    |000008;
                        LDA.W PTR16_00AD9D,Y                 ;00AC50|B99DAD  |00AD9D;
                        STA.B $09                            ;00AC53|8509    |000009;
                        LDY.B #$00                           ;00AC55|A000    |      ;
  
-          CODE_00AC57: LDA.B (r_CurrNumToVramQueue),Y       ;00AC57|B108    |000008;
+          CODE_00AC57: LDA.B (r_pointerQueue_VRAM),Y        ;00AC57|B108    |000008;
                        CMP.B #$FF                           ;00AC59|C9FF    |      ;
                        BEQ CODE_00AC7F                      ;00AC5B|F022    |00AC7F;
                        STA.B $00                            ;00AC5D|8500    |000000;
-                       LDX.W r_EntityObjectIdxes            ;00AC5F|AE4E05  |00054E;
+                       LDX.W r_entity_ObjectIdxes           ;00AC5F|AE4E05  |00054E;
                        CPX.B #$02                           ;00AC62|E002    |      ;
                        BNE CODE_00AC6B                      ;00AC64|D005    |00AC6B;
                        CLC                                  ;00AC66|18      |      ;
@@ -5753,7 +5753,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00AC6B: LDA.B $00                            ;00AC6B|A500    |000000;
                        SEC                                  ;00AC6D|38      |      ;
-                       SBC.W r_EntityYPos                   ;00AC6E|ED1C04  |00041C;
+                       SBC.W r_entity_YPos                  ;00AC6E|ED1C04  |00041C;
                        BCS CODE_00AC77                      ;00AC71|B004    |00AC77;
                        EOR.B #$FF                           ;00AC73|49FF    |      ;
                        ADC.B #$01                           ;00AC75|6901    |      ;
@@ -5771,30 +5771,30 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00AC81: LDA.B $00                            ;00AC81|A500    |000000;
                        TAX                                  ;00AC83|AA      |      ;
                        INY                                  ;00AC84|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AC85|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AC85|B108    |000008;
                        SEC                                  ;00AC87|38      |      ;
                        RTS                                  ;00AC88|60      |      ;
  
-                       LDA.W r_PixelsToWalkToStairs         ;00AC89|AD1D06  |00061D;
+                       LDA.W r_stairs_PixelToWalk           ;00AC89|AD1D06  |00061D;
                        BEQ CODE_00AC97                      ;00AC8C|F009    |00AC97;
-                       DEC.W r_PixelsToWalkToStairs         ;00AC8E|CE1D06  |00061D;
+                       DEC.W r_stairs_PixelToWalk           ;00AC8E|CE1D06  |00061D;
                        db $20                               ;00AC91|        |      ;
                        dw CODE_0FEF73                       ;00AC92|        |0FEF73;
                        JMP.W CODE_00ABCB                    ;00AC94|4CCBAB  |00ABCB;
  
  
           CODE_00AC97: LDA.B #$0A                           ;00AC97|A90A    |      ;
-                       STA.W r_PlayerStateDoubled           ;00AC99|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00AC99|8D6505  |000565;
                        RTS                                  ;00AC9C|60      |      ;
  
-                       LDA.W r_EntityPhase                  ;00AC9D|ADC105  |0005C1;
+                       LDA.W r_entity_script_idx            ;00AC9D|ADC105  |0005C1;
                        BNE CODE_00ACA5                      ;00ACA0|D003    |00ACA5;
                        JMP.W DATA8_00AD3C                   ;00ACA2|4C3CAD  |00AD3C;
  
  
           CODE_00ACA5: JMP.W DATA8_00AD33                   ;00ACA5|4C33AD  |00AD33;
  
-                       LDA.B r_Joy1ButtonsPressed           ;00ACA8|A528    |000028;
+                       LDA.B r_Joy1Pe                       ;00ACA8|A528    |000028;
                        LSR A                                ;00ACAA|4A      |      ;
                        BCS CODE_00ACBA                      ;00ACAB|B00D    |00ACBA;
                        LSR A                                ;00ACAD|4A      |      ;
@@ -5810,9 +5810,9 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
  
           CODE_00ACBA: LDA.B #$00                           ;00ACBA|A900    |      ;
-                       STA.W r_EntityFacingLeft             ;00ACBC|8DA804  |0004A8;
+                       STA.W r_entity_FacingLeft            ;00ACBC|8DA804  |0004A8;
  
-                       LDA.W r_EntityAI_idx                 ;00ACBF|ADEF05  |0005EF;
+                       LDA.W r_entity_AI_idx                ;00ACBF|ADEF05  |0005EF;
                        BEQ CODE_00ACCB                      ;00ACC2|F007    |00ACCB;
                        LDX.B #$00                           ;00ACC4|A200    |      ;
                        LDY.B #$00                           ;00ACC6|A000    |      ;
@@ -5825,8 +5825,8 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
  
           CODE_00ACD2: LDA.B #$01                           ;00ACD2|A901    |      ;
-                       STA.W r_EntityFacingLeft             ;00ACD4|8DA804  |0004A8;
-                       LDA.W r_EntityAI_idx                 ;00ACD7|ADEF05  |0005EF;
+                       STA.W r_entity_FacingLeft            ;00ACD4|8DA804  |0004A8;
+                       LDA.W r_entity_AI_idx                ;00ACD7|ADEF05  |0005EF;
                        BEQ CODE_00ACE3                      ;00ACDA|F007    |00ACE3;
                        LDX.B #$02                           ;00ACDC|A202    |      ;
                        LDY.B #$0C                           ;00ACDE|A00C    |      ;
@@ -5839,19 +5839,19 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
  
           CODE_00ACEA: JSR.W CODE_00ABCB                    ;00ACEA|20CBAB  |00ABCB;
-                       LDA.W r_EntityFractionalY            ;00ACED|ADDB04  |0004DB;
+                       LDA.W r_entity_FractionalY           ;00ACED|ADDB04  |0004DB;
                        CLC                                  ;00ACF0|18      |      ;
-                       ADC.W r_EntityYposSubSpeed           ;00ACF1|6D3705  |000537;
-                       STA.W r_EntityFractionalY            ;00ACF4|8DDB04  |0004DB;
-                       LDA.W r_EntityYPos                   ;00ACF7|AD1C04  |00041C;
-                       ADC.W r_EntityYposSpeed              ;00ACFA|6D2005  |000520;
-                       STA.W r_EntityYPos                   ;00ACFD|8D1C04  |00041C;
-                       LDA.W r_PixelsToWalkToStairs         ;00AD00|AD1D06  |00061D;
+                       ADC.W r_entity_YposSubSpeed          ;00ACF1|6D3705  |000537;
+                       STA.W r_entity_FractionalY           ;00ACF4|8DDB04  |0004DB;
+                       LDA.W r_entity_YPos                  ;00ACF7|AD1C04  |00041C;
+                       ADC.W r_entity_YposSpeed             ;00ACFA|6D2005  |000520;
+                       STA.W r_entity_YPos                  ;00ACFD|8D1C04  |00041C;
+                       LDA.W r_stairs_PixelToWalk           ;00AD00|AD1D06  |00061D;
                        BEQ CODE_00AD14                      ;00AD03|F00F    |00AD14;
-                       DEC.W r_PixelsToWalkToStairs         ;00AD05|CE1D06  |00061D;
-                       LDA.W r_EntityTimeUntilNextAnimation ;00AD08|AD7C05  |00057C;
+                       DEC.W r_stairs_PixelToWalk           ;00AD05|CE1D06  |00061D;
+                       LDA.W r_entity_AnimTimer             ;00AD08|AD7C05  |00057C;
                        BEQ DATA8_00AD11                     ;00AD0B|F004    |00AD11;
-                       DEC.W r_EntityTimeUntilNextAnimation ;00AD0D|CE7C05  |00057C;
+                       DEC.W r_entity_AnimTimer             ;00AD0D|CE7C05  |00057C;
                        RTS                                  ;00AD10|60      |      ;
  
  
@@ -5860,19 +5860,19 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw UNREACH_0FE6EA                    ;00AD12|        |0FE6EA;
  
           CODE_00AD14: LDA.B #$00                           ;00AD14|A900    |      ;
-                       STA.W r_EntityFractionalX            ;00AD16|8DC404  |0004C4;
-                       STA.W r_EntityFractionalY            ;00AD19|8DDB04  |0004DB;
+                       STA.W r_entity_FractionalX           ;00AD16|8DC404  |0004C4;
+                       STA.W r_entity_FractionalY           ;00AD19|8DDB04  |0004DB;
                        JSR.W CODE_00AC46                    ;00AD1C|2046AC  |00AC46;
                        BCC CODE_00AD2D                      ;00AD1F|900C    |00AD2D;
                        STA.W $0790                          ;00AD21|8D9007  |000790;
-                       STX.W r_EntityYPos                   ;00AD24|8E1C04  |00041C;
+                       STX.W r_entity_YPos                  ;00AD24|8E1C04  |00041C;
                        LDA.B #$04                           ;00AD27|A904    |      ;
-                       STA.W r_PlayerStateDoubled           ;00AD29|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00AD29|8D6505  |000565;
                        RTS                                  ;00AD2C|60      |      ;
  
  
           CODE_00AD2D: LDA.B #$0C                           ;00AD2D|A90C    |      ;
-                       STA.W r_PlayerStateDoubled           ;00AD2F|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00AD2F|8D6505  |000565;
                        RTS                                  ;00AD32|60      |      ;
  
  
@@ -5880,7 +5880,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw UNREACH_0FE6F5                    ;00AD34|        |0FE6F5;
  
           CODE_00AD36: LDA.B #$0E                           ;00AD36|A90E    |      ;
-                       STA.W r_PlayerStateDoubled           ;00AD38|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00AD38|8D6505  |000565;
                        RTS                                  ;00AD3B|60      |      ;
  
  
@@ -5897,54 +5897,54 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00AD48: LDY.B #$00                           ;00AD48|A000    |      ;
  
-          CODE_00AD4A: LDA.B (r_CurrNumToVramQueue),Y       ;00AD4A|B108    |000008;
+          CODE_00AD4A: LDA.B (r_pointerQueue_VRAM),Y        ;00AD4A|B108    |000008;
                        STA.B $62                            ;00AD4C|8562    |000062;
                        INY                                  ;00AD4E|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AD4F|B108    |000008;
-                       STA.B r_VramQueueDest                ;00AD51|8561    |000061;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD4F|B108    |000008;
+                       STA.B r_VRAM_QueueDest               ;00AD51|8561    |000061;
                        INY                                  ;00AD53|C8      |      ;
                        db $20                               ;00AD54|        |      ;
                        dw CODE_0FE8B5                       ;00AD55|        |0FE8B5;
  
-          CODE_00AD57: LDA.B (r_CurrNumToVramQueue),Y       ;00AD57|B108    |000008;
+          CODE_00AD57: LDA.B (r_pointerQueue_VRAM),Y        ;00AD57|B108    |000008;
                        BEQ CODE_00AD76                      ;00AD59|F01B    |00AD76;
                        CMP.B #$FF                           ;00AD5B|C9FF    |      ;
                        BEQ CODE_00AD91                      ;00AD5D|F032    |00AD91;
                        CMP.B #$FE                           ;00AD5F|C9FE    |      ;
                        BEQ CODE_00AD89                      ;00AD61|F026    |00AD89;
                        INY                                  ;00AD63|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AD64|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00AD66|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD64|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00AD66|850A    |00000A;
                        INY                                  ;00AD68|C8      |      ;
  
-          CODE_00AD69: LDA.B (r_CurrNumToVramQueue),Y       ;00AD69|B108    |000008;
+          CODE_00AD69: LDA.B (r_pointerQueue_VRAM),Y        ;00AD69|B108    |000008;
                        STA.W r_VramQueue,X                  ;00AD6B|9D0003  |000300;
                        INY                                  ;00AD6E|C8      |      ;
                        INX                                  ;00AD6F|E8      |      ;
-                       DEC.B r_CurrRoomSectionPlayerPosAndScreenAddr;00AD70|C60A    |00000A;
+                       DEC.B r_temp_Xpos                    ;00AD70|C60A    |00000A;
                        BNE CODE_00AD69                      ;00AD72|D0F5    |00AD69;
                        BEQ CODE_00AD57                      ;00AD74|F0E1    |00AD57;
  
           CODE_00AD76: INY                                  ;00AD76|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AD77|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00AD79|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD77|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00AD79|850A    |00000A;
                        INY                                  ;00AD7B|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00AD7C|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD7C|B108    |000008;
                        INY                                  ;00AD7E|C8      |      ;
  
           CODE_00AD7F: STA.W r_VramQueue,X                  ;00AD7F|9D0003  |000300;
                        INX                                  ;00AD82|E8      |      ;
-                       DEC.B r_CurrRoomSectionPlayerPosAndScreenAddr;00AD83|C60A    |00000A;
+                       DEC.B r_temp_Xpos                    ;00AD83|C60A    |00000A;
                        BNE CODE_00AD7F                      ;00AD85|D0F8    |00AD7F;
                        BEQ CODE_00AD57                      ;00AD87|F0CE    |00AD57;
  
-          CODE_00AD89: STX.B r_VramQueueNextIdxToFill       ;00AD89|861D    |00001D;
+          CODE_00AD89: STX.B r_sceneDrawQueue               ;00AD89|861D    |00001D;
                        db $20                               ;00AD8B|        |      ;
                        dw CODE_0FED12                       ;00AD8C|        |0FED12;
                        INY                                  ;00AD8E|C8      |      ;
                        BNE CODE_00AD4A                      ;00AD8F|D0B9    |00AD4A;
  
-          CODE_00AD91: STX.B r_VramQueueNextIdxToFill       ;00AD91|861D    |00001D;
+          CODE_00AD91: STX.B r_sceneDrawQueue               ;00AD91|861D    |00001D;
                        db $4C                               ;00AD93|        |      ;
  
                        dw CODE_0FED12                       ;00AD94|        |0FED12;
@@ -6323,11 +6323,11 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        db $00,$00,$FF                       ;00B3E0|        |      ;
  
           CODE_00B3E3: LDA.B #$00                           ;00B3E3|A900    |      ;
-                       STA.B r_MusicLoaded                  ;00B3E5|8574    |000074;
+                       STA.B r_074                          ;00B3E5|8574    |000074;
                        db $4C                               ;00B3E7|        |      ;
  
                        dw UNREACH_0FE795                    ;00B3E8|        |0FE795;
-                       LDA.B r_MenuOptionIdxSelected        ;00B3EA|A56B    |00006B;
+                       LDA.B r_menuSelectIdx                ;00B3EA|A56B    |00006B;
                        db $20                               ;00B3EC|        |      ;
                        dw jumpFromStackYXpreserved          ;00B3ED|        |0FE86D;
                        dw DATA8_00B413                      ;00B3EF|        |00B413;
@@ -6357,7 +6357,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JSR.W CODE_00B3E3                    ;00B416|20E3B3  |00B3E3;
                        db $20                               ;00B419|        |      ;
                        dw UNREACH_0FE5CE                    ;00B41A|        |0FE5CE;
-                       INC.B r_MenuOptionIdxSelected        ;00B41C|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B41C|E66B    |00006B;
                        RTS                                  ;00B41E|60      |      ;
  
  
@@ -6365,15 +6365,15 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JSR.W CODE_00B7B0                    ;00B422|20B0B7  |00B7B0;
                        LDA.B #$00                           ;00B425|A900    |      ;
                        JSR.W CODE_00B71D                    ;00B427|201DB7  |00B71D;
-                       INC.B r_MenuOptionIdxSelected        ;00B42A|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B42A|E66B    |00006B;
                        RTS                                  ;00B42C|60      |      ;
  
  
           CODE_00B42D: LDA.B #$00                           ;00B42D|A900    |      ;
-                       STA.B r_CurrScrollOffsetIntoRoomScreen;00B42F|8556    |000056;
+                       STA.B r_sceneScrollOffsetLo          ;00B42F|8556    |000056;
  
                        LDA.B #$02                           ;00B431|A902    |      ;
-                       STA.B r_CurrScrollRoomScreen         ;00B433|8557    |000057;
+                       STA.B r_sceneScrollOffsetHi          ;00B433|8557    |000057;
                        RTS                                  ;00B435|60      |      ;
  
  
@@ -6382,14 +6382,14 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JSR.W CODE_00B407                    ;00B43C|2007B4  |00B407;
                        JSR.W CODE_00B83A                    ;00B43F|203AB8  |00B83A;
  
-                       LDA.W r_PlayerStateDoubled           ;00B442|AD6505  |000565;
+                       LDA.W r_Player_StateDoubled          ;00B442|AD6505  |000565;
                        CMP.B #$02                           ;00B445|C902    |      ;
                        BEQ CODE_00B44A                      ;00B447|F001    |00B44A;
  
           CODE_00B449: RTS                                  ;00B449|60      |      ;
  
  
-          CODE_00B44A: LDA.W r_EntityObjectIdxes            ;00B44A|AD4E05  |00054E;
+          CODE_00B44A: LDA.W r_entity_ObjectIdxes           ;00B44A|AD4E05  |00054E;
                        CMP.B #$02                           ;00B44D|C902    |      ;
                        BNE CODE_00B455                      ;00B44F|D004    |00B455;
                        LDX.B #$0C                           ;00B451|A20C    |      ;
@@ -6397,7 +6397,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B455: LDX.B #$10                           ;00B455|A210    |      ;
  
-          CODE_00B457: STX.B r_CurrNumToVramQueue           ;00B457|8608    |000008;
+          CODE_00B457: STX.B r_pointerQueue_VRAM            ;00B457|8608    |000008;
                        LDX.B #$F0                           ;00B459|A2F0    |      ;
                        LDA.B #$FB                           ;00B45B|A9FB    |      ;
                        db $20                               ;00B45D|        |      ;
@@ -6408,13 +6408,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        db $20                               ;00B466|        |      ;
                        dw UNREACH_0FFCDD                    ;00B467|        |0FFCDD;
                        BNE CODE_00B449                      ;00B469|D0DE    |00B449;
-                       LDX.B r_CurrNumToVramQueue           ;00B46B|A608    |000008;
+                       LDX.B r_pointerQueue_VRAM            ;00B46B|A608    |000008;
                        LDA.B #$FB                           ;00B46D|A9FB    |      ;
                        db $20                               ;00B46F|        |      ;
                        dw UNREACH_0FFCDD                    ;00B470|        |0FFCDD;
                        BNE CODE_00B47E                      ;00B472|D00A    |00B47E;
                        LDA.B #$05                           ;00B474|A905    |      ;
-                       LDX.B r_CurrNumToVramQueue           ;00B476|A608    |000008;
+                       LDX.B r_pointerQueue_VRAM            ;00B476|A608    |000008;
  
                        db $20                               ;00B478|        |      ;
                        dw UNREACH_0FFCDD                    ;00B479|        |0FFCDD;
@@ -6423,7 +6423,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
  
           CODE_00B47E: LDA.B #$00                           ;00B47E|A900    |      ;
-                       STA.B r_TimerDropClunk               ;00B480|85B9    |0000B9;
+                       STA.B r_timerClunk_drop              ;00B480|85B9    |0000B9;
  
                        STA.W $0413                          ;00B482|8D1304  |000413;
                        STA.W $0414                          ;00B485|8D1404  |000414;
@@ -6435,16 +6435,16 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
                        STA.W $0563                          ;00B491|8D6305  |000563;
                        STA.W $0564                          ;00B494|8D6405  |000564;
-                       INC.B r_MenuOptionIdxSelected        ;00B497|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B497|E66B    |00006B;
                        RTS                                  ;00B499|60      |      ;
  
  
-          CODE_00B49A: LDA.W r_EntityXPos                   ;00B49A|AD3804  |000438;
+          CODE_00B49A: LDA.W r_entity_XPos                  ;00B49A|AD3804  |000438;
                        CMP.B #$D0                           ;00B49D|C9D0    |      ;
                        BCS CODE_00B4BC                      ;00B49F|B01B    |00B4BC;
                        JSR.W CODE_00B7EE                    ;00B4A1|20EEB7  |00B7EE;
                        BCS CODE_00B4B0                      ;00B4A4|B00A    |00B4B0;
-                       LDA.W r_EntityObjectIdxes,X          ;00B4A6|BD4E05  |00054E;
+                       LDA.W r_entity_ObjectIdxes,X         ;00B4A6|BD4E05  |00054E;
                        CMP.B #$05                           ;00B4A9|C905    |      ;
                        BEQ CODE_00B4BC                      ;00B4AB|F00F    |00B4BC;
                        JSR.W DATA8_00B716                   ;00B4AD|2016B7  |00B716;
@@ -6460,25 +6460,25 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        STA.W r_OamSpecIdxDoubled            ;00B4C1|8D0004  |000400;
                        JSR.W CODE_00B8A5                    ;00B4C4|20A5B8  |00B8A5;
                        LDA.B #$10                           ;00B4C7|A910    |      ;
-                       STA.B r_GenericStateTimer            ;00B4C9|8530    |000030;
+                       STA.B r_timerGenerel                 ;00B4C9|8530    |000030;
                        JMP.W CODE_00B47E                    ;00B4CB|4C7EB4  |00B47E;
  
  
           CODE_00B4CE: JSR.W CODE_00B83A                    ;00B4CE|203AB8  |00B83A;
                        JSR.W DATA8_00B859                   ;00B4D1|2059B8  |00B859;
-                       DEC.B r_GenericStateTimer            ;00B4D4|C630    |000030;
+                       DEC.B r_timerGenerel                 ;00B4D4|C630    |000030;
                        BEQ CODE_00B4D9                      ;00B4D6|F001    |00B4D9;
                        RTS                                  ;00B4D8|60      |      ;
  
  
           CODE_00B4D9: LDY.B #$00                           ;00B4D9|A000    |      ;
                        STY.W r_EffectSpeedSupGeneral        ;00B4DB|8C8507  |000785;
-                       STY.W r_PWiconGeneral                ;00B4DE|8C8607  |000786;
+                       STY.W r_PW_iconGeneral               ;00B4DE|8C8607  |000786;
  
                        INY                                  ;00B4E1|C8      |      ;
                        STY.W r_EffectSpeedGeneral           ;00B4E2|8C8407  |000784;
                        STY.W $0787                          ;00B4E5|8C8707  |000787;
-                       INC.B r_MenuOptionIdxSelected        ;00B4E8|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B4E8|E66B    |00006B;
                        RTS                                  ;00B4EA|60      |      ;
  
  
@@ -6492,14 +6492,14 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B4FA: LDA.B #$00                           ;00B4FA|A900    |      ;
                        STA.B $C9                            ;00B4FC|85C9    |0000C9;
-                       INC.B r_MenuOptionIdxSelected        ;00B4FE|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B4FE|E66B    |00006B;
                        RTS                                  ;00B500|60      |      ;
  
  
           CODE_00B501: JSR.W CODE_00B82C                    ;00B501|202CB8  |00B82C;
                        JSR.W CODE_00B63E                    ;00B504|203EB6  |00B63E;
                        BCC CODE_00B50B                      ;00B507|9002    |00B50B;
-                       INC.B r_MenuOptionIdxSelected        ;00B509|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B509|E66B    |00006B;
  
           CODE_00B50B: RTS                                  ;00B50B|60      |      ;
  
@@ -6508,33 +6508,33 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JSR.W CODE_00B5F2                    ;00B50F|20F2B5  |00B5F2;
                        JSR.W DATA8_00D5C3                   ;00B512|20C3D5  |00D5C3;
                        LDA.B #$03                           ;00B515|A903    |      ;
-                       STA.B r_FrameStartChrBankOverrideIdx ;00B517|8572    |000072;
-                       INC.B r_MenuOptionIdxSelected        ;00B519|E66B    |00006B;
+                       STA.B r_HUD_CHR_overwrite            ;00B517|8572    |000072;
+                       INC.B r_menuSelectIdx                ;00B519|E66B    |00006B;
                        RTS                                  ;00B51B|60      |      ;
  
  
           CODE_00B51C: JSR.W CODE_00B82C                    ;00B51C|202CB8  |00B82C;
                        JSR.W CODE_00B5F2                    ;00B51F|20F2B5  |00B5F2;
                        JSR.W CODE_00B5DE                    ;00B522|20DEB5  |00B5DE;
-                       LDA.B r_FloodHight                   ;00B525|A5CA    |0000CA;
+                       LDA.B r_floodHight                   ;00B525|A5CA    |0000CA;
  
                        CMP.B #$A0                           ;00B527|C9A0    |      ;
                        BCS CODE_00B535                      ;00B529|B00A    |00B535;
                        JSR.W CODE_00B79D                    ;00B52B|209DB7  |00B79D;
                        LDA.B #$06                           ;00B52E|A906    |      ;
                        JSR.W CODE_00B71D                    ;00B530|201DB7  |00B71D;
-                       INC.B r_MenuOptionIdxSelected        ;00B533|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00B533|E66B    |00006B;
  
           CODE_00B535: RTS                                  ;00B535|60      |      ;
  
  
           CODE_00B536: JSR.W CODE_00B5F2                    ;00B536|20F2B5  |00B5F2;
-                       LDA.W r_EntityXPos                   ;00B539|AD3804  |000438;
+                       LDA.W r_entity_XPos                  ;00B539|AD3804  |000438;
                        CMP.B #$E8                           ;00B53C|C9E8    |      ;
                        BCS CODE_00B557                      ;00B53E|B017    |00B557;
                        JSR.W CODE_00B7EE                    ;00B540|20EEB7  |00B7EE;
                        BCS CODE_00B54B                      ;00B543|B006    |00B54B;
-                       LDA.W r_EntityObjectIdxes,X          ;00B545|BD4E05  |00054E;
+                       LDA.W r_entity_ObjectIdxes,X         ;00B545|BD4E05  |00054E;
                        JSR.W DATA8_00B716                   ;00B548|2016B7  |00B716;
  
           CODE_00B54B: JSR.W CODE_00B72A                    ;00B54B|202AB7  |00B72A;
@@ -6545,46 +6545,46 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B557: JSR.W CODE_00B82C                    ;00B557|202CB8  |00B82C;
                        LDA.B #$02                           ;00B55A|A902    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;00B55C|851C    |00001C;
-                       INC.B r_MenuOptionIdxSelected        ;00B55E|E66B    |00006B;
+                       STA.B r_counter_ShowSprBg            ;00B55C|851C    |00001C;
+                       INC.B r_menuSelectIdx                ;00B55E|E66B    |00006B;
                        RTS                                  ;00B560|60      |      ;
  
  
           CODE_00B561: LDA.B #$02                           ;00B561|A902    |      ;
-                       STA.B r_CounterUntilCanShowSprBg     ;00B563|851C    |00001C;
+                       STA.B r_counter_ShowSprBg            ;00B563|851C    |00001C;
                        db $20                               ;00B565|        |      ;
                        dw UNREACH_0FE5CA                    ;00B566|        |0FE5CA;
                        JSR.W CODE_00B3E3                    ;00B568|20E3B3  |00B3E3;
                        LDA.B #$00                           ;00B56B|A900    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;00B56D|853F    |00003F;
+                       STA.B r_IRQFuncIdx                   ;00B56D|853F    |00003F;
                        STA.B r_IRQFuncDrawIdx               ;00B56F|856D    |00006D;
                        LDA.B #$40                           ;00B571|A940    |      ;
-                       STA.B r_BossHealth                   ;00B573|853D    |00003D;
+                       STA.B r_HUD_healthBoss               ;00B573|853D    |00003D;
                        db $20                               ;00B575|        |      ;
                        dw UNREACH_0FFB85                    ;00B576|        |0FFB85;
-                       INC.B r_CurrRoomSectionBlock         ;00B578|E633    |000033;
+                       INC.B r_blockLevel                   ;00B578|E633    |000033;
                        LDA.B #$00                           ;00B57A|A900    |      ;
-                       STA.B r_CurrRoomIdx                  ;00B57C|8534    |000034;
+                       STA.B r_roomIdx                      ;00B57C|8534    |000034;
                        LDA.B #$01                           ;00B57E|A901    |      ;
-                       STA.B r_InGameSubstate               ;00B580|852A    |00002A;
+                       STA.B r_gameLoadState                ;00B580|852A    |00002A;
                        RTS                                  ;00B582|60      |      ;
  
-                       LDA.B r_DeathDelay                   ;00B583|A5BF    |0000BF;
+                       LDA.B r_deathDelay                   ;00B583|A5BF    |0000BF;
  
                        BNE CODE_00B5ED                      ;00B585|D066    |00B5ED;
-                       LDA.B r_FloodHight                   ;00B587|A5CA    |0000CA;
+                       LDA.B r_floodHight                   ;00B587|A5CA    |0000CA;
                        CMP.B #$32                           ;00B589|C932    |      ;
                        BCC CODE_00B599                      ;00B58B|900C    |00B599;
  
-                       LDA.W r_EntityYPos                   ;00B58D|AD1C04  |00041C;
+                       LDA.W r_entity_YPos                  ;00B58D|AD1C04  |00041C;
                        SEC                                  ;00B590|38      |      ;
                        SBC.B #$10                           ;00B591|E910    |      ;
                        BCC CODE_00B5CD                      ;00B593|9038    |00B5CD;
  
-                       CMP.B r_FloodHight                   ;00B595|C5CA    |0000CA;
+                       CMP.B r_floodHight                   ;00B595|C5CA    |0000CA;
                        BCC CODE_00B5CD                      ;00B597|9034    |00B5CD;
  
-          CODE_00B599: LDA.W r_PlayerStateDoubled           ;00B599|AD6505  |000565;
+          CODE_00B599: LDA.W r_Player_StateDoubled          ;00B599|AD6505  |000565;
                        CMP.B #$08                           ;00B59C|C908    |      ;
                        BEQ DATA8_00B5C7                     ;00B59E|F027    |00B5C7;
                        CMP.B #$0C                           ;00B5A0|C90C    |      ;
@@ -6599,13 +6599,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        BEQ DATA8_00B5C7                     ;00B5B2|F013    |00B5C7;
                        CMP.B #$26                           ;00B5B4|C926    |      ;
                        BNE CODE_00B5BD                      ;00B5B6|D005    |00B5BD;
-                       LDA.W r_TimerBatRiverSwap            ;00B5B8|AD0206  |000602;
+                       LDA.W r_boss_batRiverSwap            ;00B5B8|AD0206  |000602;
                        BEQ DATA8_00B5C7                     ;00B5BB|F00A    |00B5C7;
  
           CODE_00B5BD: LDA.B #$2E                           ;00B5BD|A92E    |      ;
-                       STA.W r_PlayerStateDoubled           ;00B5BF|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00B5BF|8D6505  |000565;
                        LDA.B #$80                           ;00B5C2|A980    |      ;
-                       STA.B r_DeathDelay                   ;00B5C4|85BF    |0000BF;
+                       STA.B r_deathDelay                   ;00B5C4|85BF    |0000BF;
                        RTS                                  ;00B5C6|60      |      ;
  
  
@@ -6614,9 +6614,9 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JMP.W CODE_00B5BD                    ;00B5CA|4CBDB5  |00B5BD;
  
  
-          CODE_00B5CD: LDA.B r_FloodStop                    ;00B5CD|A5C0    |0000C0;
+          CODE_00B5CD: LDA.B r_floodStop                    ;00B5CD|A5C0    |0000C0;
                        BNE CODE_00B5ED                      ;00B5CF|D01C    |00B5ED;
-                       LDA.W r_HardMode                     ;00B5D1|ADF607  |0007F6;
+                       LDA.W r_hardMode                     ;00B5D1|ADF607  |0007F6;
                        BNE CODE_00B5DA                      ;00B5D4|D004    |00B5DA;
                        LDA.B #$08                           ;00B5D6|A908    |      ;
  
@@ -6627,16 +6627,16 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B5DE: LDA.B #$10                           ;00B5DE|A910    |      ;
  
-          CODE_00B5E0: STA.B r_DoubleCurrRoomIdx            ;00B5E0|850E    |00000E;
+          CODE_00B5E0: STA.B r_tempCurrRoomIdx              ;00B5E0|850E    |00000E;
                        LDA.B $CB                            ;00B5E2|A5CB    |0000CB;
                        SEC                                  ;00B5E4|38      |      ;
-                       SBC.B r_DoubleCurrRoomIdx            ;00B5E5|E50E    |00000E;
+                       SBC.B r_tempCurrRoomIdx              ;00B5E5|E50E    |00000E;
                        STA.B $CB                            ;00B5E7|85CB    |0000CB;
                        BCS CODE_00B5ED                      ;00B5E9|B002    |00B5ED;
-                       DEC.B r_FloodHight                   ;00B5EB|C6CA    |0000CA;
+                       DEC.B r_floodHight                   ;00B5EB|C6CA    |0000CA;
  
-          CODE_00B5ED: LDA.B r_FloodHight                   ;00B5ED|A5CA    |0000CA;
-                       STA.B r_ScannlineTarget              ;00B5EF|8542    |000042;
+          CODE_00B5ED: LDA.B r_floodHight                   ;00B5ED|A5CA    |0000CA;
+                       STA.B r_scannlineTarget              ;00B5EF|8542    |000042;
                        RTS                                  ;00B5F1|60      |      ;
  
  
@@ -6645,15 +6645,15 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        RTS                                  ;00B5F7|60      |      ;
  
  
-          CODE_00B5F8: LDA.B r_VramQueueNextIdxToFill       ;00B5F8|A51D    |00001D;
+          CODE_00B5F8: LDA.B r_sceneDrawQueue               ;00B5F8|A51D    |00001D;
                        PHA                                  ;00B5FA|48      |      ;
                        JSR.W CODE_00852C                    ;00B5FB|202C85  |00852C;
                        PLA                                  ;00B5FE|68      |      ;
                        TAX                                  ;00B5FF|AA      |      ;
-                       LDA.W r_PWiconGeneral                ;00B600|AD8607  |000786;
+                       LDA.W r_PW_iconGeneral               ;00B600|AD8607  |000786;
                        ASL A                                ;00B603|0A      |      ;
                        CLC                                  ;00B604|18      |      ;
-                       ADC.W r_PWiconGeneral                ;00B605|6D8607  |000786;
+                       ADC.W r_PW_iconGeneral               ;00B605|6D8607  |000786;
  
           CODE_00B608: TAY                                  ;00B608|A8      |      ;
                        LDA.W DATA8_00B62F,Y                 ;00B609|B92FB6  |00B62F;
@@ -6665,14 +6665,14 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        STA.W $0309,X                        ;00B616|9D0903  |000309;
                        LDA.W DATA8_00B631,Y                 ;00B619|B931B6  |00B631;
                        STA.W $030A,X                        ;00B61C|9D0A03  |00030A;
-                       INC.W r_PWiconGeneral                ;00B61F|EE8607  |000786;
+                       INC.W r_PW_iconGeneral               ;00B61F|EE8607  |000786;
                        LDA.B #$08                           ;00B622|A908    |      ;
                        STA.W $0787                          ;00B624|8D8707  |000787;
                        RTS                                  ;00B627|60      |      ;
  
  
           CODE_00B628: LDA.B #$00                           ;00B628|A900    |      ;
-                       STA.W r_PWiconGeneral                ;00B62A|8D8607  |000786;
+                       STA.W r_PW_iconGeneral               ;00B62A|8D8607  |000786;
                        BEQ CODE_00B608                      ;00B62D|F0D9    |00B608;
  
          DATA8_00B62F: db $01                               ;00B62F|        |      ;
@@ -6699,12 +6699,12 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.W DATA8_00B6E0,Y                 ;00B64D|B9E0B6  |00B6E0;
                        STA.B $62                            ;00B650|8562    |000062;
                        LDA.W DATA8_00B6E1,Y                 ;00B652|B9E1B6  |00B6E1;
-                       STA.B r_VramQueueDest                ;00B655|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00B655|8561    |000061;
                        LDA.W DATA8_00B6E2,Y                 ;00B657|B9E2B6  |00B6E2;
-                       STA.B r_RoomSectionChrBanksDataOffset;00B65A|850F    |00000F;
+                       STA.B r_roomSectionChrBanksDataOffset;00B65A|850F    |00000F;
  
                        LDA.W DATA8_00B6E3,Y                 ;00B65C|B9E3B6  |00B6E3;
-                       STA.B r_DoubleCurrRoomIdx            ;00B65F|850E    |00000E;
+                       STA.B r_tempCurrRoomIdx              ;00B65F|850E    |00000E;
                        LDA.W DATA8_00B6E4,Y                 ;00B661|B9E4B6  |00B6E4;
                        STA.B $02                            ;00B664|8502    |000002;
                        LDA.B $03                            ;00B666|A503    |000003;
@@ -6724,7 +6724,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        ASL A                                ;00B67C|0A      |      ;
                        TAY                                  ;00B67D|A8      |      ;
                        LDA.W DATA8_00B6EA,Y                 ;00B67E|B9EAB6  |00B6EA;
-                       STA.B r_CurrNumToVramQueue           ;00B681|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00B681|8508    |000008;
                        LDA.W DATA8_00B6EB,Y                 ;00B683|B9EBB6  |00B6EB;
                        STA.B $09                            ;00B686|8509    |000009;
                        LDA.B $02                            ;00B688|A502    |000002;
@@ -6750,7 +6750,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00B6A5: LDA.B #$04                           ;00B6A5|A904    |      ;
                        STA.B $00                            ;00B6A7|8500    |000000;
  
-          CODE_00B6A9: LDA.B (r_CurrNumToVramQueue),Y       ;00B6A9|B108    |000008;
+          CODE_00B6A9: LDA.B (r_pointerQueue_VRAM),Y        ;00B6A9|B108    |000008;
                        db $20                               ;00B6AB|        |      ;
                        dw CODE_0FED16                       ;00B6AC|        |0FED16;
                        INY                                  ;00B6AE|C8      |      ;
@@ -6762,11 +6762,11 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw updatePointerOffset_00            ;00B6B8|        |0FE899;
                        DEC.B $01                            ;00B6BA|C601    |000001;
                        BNE DATA8_00B6A2                     ;00B6BC|D0E4    |00B6A2;
-                       LDX.B r_VramQueueNextIdxToFill       ;00B6BE|A61D    |00001D;
-                       LDA.B r_DoubleCurrRoomIdx            ;00B6C0|A50E    |00000E;
+                       LDX.B r_sceneDrawQueue               ;00B6BE|A61D    |00001D;
+                       LDA.B r_tempCurrRoomIdx              ;00B6C0|A50E    |00000E;
                        db $20                               ;00B6C2|        |      ;
                        dw CODE_0FED16                       ;00B6C3|        |0FED16;
-                       LDA.B r_RoomSectionChrBanksDataOffset;00B6C5|A50F    |00000F;
+                       LDA.B r_roomSectionChrBanksDataOffset;00B6C5|A50F    |00000F;
                        db $20                               ;00B6C7|        |      ;
  
                        dw CODE_0FED16                       ;00B6C8|        |0FED16;
@@ -6815,43 +6815,43 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
          DATA8_00B716: db $48                               ;00B716|        |      ;
                        LDA.B #$00                           ;00B717|A900    |      ;
-                       STA.W r_EntityObjectIdxes,X          ;00B719|9D4E05  |00054E;
+                       STA.W r_entity_ObjectIdxes,X         ;00B719|9D4E05  |00054E;
                        PLA                                  ;00B71C|68      |      ;
  
-          CODE_00B71D: STA.W r_BGanimationTimer             ;00B71D|8D8107  |000781;
+          CODE_00B71D: STA.W r_animTimerBG_CHR              ;00B71D|8D8107  |000781;
                        LDY.B #$00                           ;00B720|A000    |      ;
                        STY.W r_FogParallelPos               ;00B722|8C8207  |000782;
                        INY                                  ;00B725|C8      |      ;
-                       STY.W r_SoundModeSongSelected        ;00B726|8C8007  |000780;
+                       STY.W r_soundModeSongSelected        ;00B726|8C8007  |000780;
                        RTS                                  ;00B729|60      |      ;
  
  
           CODE_00B72A: LDA.W $0783                          ;00B72A|AD8307  |000783;
-                       STA.B r_Joy1ButtonsPressed           ;00B72D|8528    |000028;
+                       STA.B r_Joy1Pe                       ;00B72D|8528    |000028;
  
-                       STA.B r_Joy1NewButtonsPressed        ;00B72F|8526    |000026;
+                       STA.B r_curJoyPe1                    ;00B72F|8526    |000026;
  
-                       DEC.W r_SoundModeSongSelected        ;00B731|CE8007  |000780;
+                       DEC.W r_soundModeSongSelected        ;00B731|CE8007  |000780;
  
                        BEQ CODE_00B737                      ;00B734|F001    |00B737;
                        RTS                                  ;00B736|60      |      ;
  
  
-          CODE_00B737: LDA.W r_BGanimationTimer             ;00B737|AD8107  |000781;
+          CODE_00B737: LDA.W r_animTimerBG_CHR              ;00B737|AD8107  |000781;
                        ASL A                                ;00B73A|0A      |      ;
                        TAY                                  ;00B73B|A8      |      ;
                        LDA.W DATA16_00B771,Y                ;00B73C|B971B7  |00B771;
-                       STA.B r_CurrNumToVramQueue           ;00B73F|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00B73F|8508    |000008;
                        LDA.W PTR16_00B772,Y                 ;00B741|B972B7  |00B772;
                        STA.B $09                            ;00B744|8509    |000009;
                        LDA.W r_FogParallelPos               ;00B746|AD8207  |000782;
                        ASL A                                ;00B749|0A      |      ;
                        TAY                                  ;00B74A|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00B74B|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00B74B|B108    |000008;
                        STA.W $0783                          ;00B74D|8D8307  |000783;
                        INY                                  ;00B750|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00B751|B108    |000008;
-                       STA.W r_SoundModeSongSelected        ;00B753|8D8007  |000780;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00B751|B108    |000008;
+                       STA.W r_soundModeSongSelected        ;00B753|8D8007  |000780;
                        INC.W r_FogParallelPos               ;00B756|EE8207  |000782;
                        RTS                                  ;00B759|60      |      ;
  
@@ -6881,7 +6881,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw $A0FF                             ;00B79C|        |      ;
                        db $02                               ;00B79E|        |      ;
                        LDA.W PTR16_00B75A,Y                 ;00B79F|B95AB7  |00B75A;
-                       STA.B r_CurrNumToVramQueue           ;00B7A2|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00B7A2|8508    |000008;
                        LDA.W PTR16_00B75B,Y                 ;00B7A4|B95BB7  |00B75B;
                        STA.B $09                            ;00B7A7|8509    |000009;
                        LDY.B #$00                           ;00B7A9|A000    |      ;
@@ -6892,7 +6892,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B7B0: LDY.B #$00                           ;00B7B0|A000    |      ;
                        LDA.W PTR16_00B75A,Y                 ;00B7B2|B95AB7  |00B75A;
-                       STA.B r_CurrNumToVramQueue           ;00B7B5|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00B7B5|8508    |000008;
                        LDA.W PTR16_00B75B,Y                 ;00B7B7|B95BB7  |00B75B;
                        STA.B $09                            ;00B7BA|8509    |000009;
                        LDY.B #$00                           ;00B7BC|A000    |      ;
@@ -6906,26 +6906,26 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
  
           CODE_00B7C9: LDA.B #$00                           ;00B7C9|A900    |      ;
-                       STA.W r_EntityOamSpecGroupDoubled,X  ;00B7CB|9D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;00B7CB|9D8C04  |00048C;
                        LDA.B #$00                           ;00B7CE|A900    |      ;
                        STA.W r_OamSpecIdxDoubled,X          ;00B7D0|9D0004  |000400;
                        LDA.B #$00                           ;00B7D3|A900    |      ;
-                       STA.W r_EntityPaletteOverride,X      ;00B7D5|9D5404  |000454;
-                       STA.W r_EntityState,X                ;00B7D8|9D7004  |000470;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00B7DB|B108    |000008;
-                       STA.W r_EntityXPos,X                 ;00B7DD|9D3804  |000438;
+                       STA.W r_entity_PaletteOverride,X     ;00B7D5|9D5404  |000454;
+                       STA.W r_entity_Effect,X              ;00B7D8|9D7004  |000470;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00B7DB|B108    |000008;
+                       STA.W r_entity_XPos,X                ;00B7DD|9D3804  |000438;
                        INY                                  ;00B7E0|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00B7E1|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00B7E1|B108    |000008;
  
-                       STA.W r_EntityYPos,X                 ;00B7E3|9D1C04  |00041C;
+                       STA.W r_entity_YPos,X                ;00B7E3|9D1C04  |00041C;
                        INY                                  ;00B7E6|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00B7E7|B108    |000008;
-                       STA.W r_EntityObjectIdxes,X          ;00B7E9|9D4E05  |00054E;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00B7E7|B108    |000008;
+                       STA.W r_entity_ObjectIdxes,X         ;00B7E9|9D4E05  |00054E;
                        INY                                  ;00B7EC|C8      |      ;
                        RTS                                  ;00B7ED|60      |      ;
  
  
-          CODE_00B7EE: LDA.W r_PlayerStateDoubled           ;00B7EE|AD6505  |000565;
+          CODE_00B7EE: LDA.W r_Player_StateDoubled          ;00B7EE|AD6505  |000565;
                        CMP.B #$02                           ;00B7F1|C902    |      ;
                        BEQ CODE_00B7FA                      ;00B7F3|F005    |00B7FA;
                        CMP.B #$04                           ;00B7F5|C904    |      ;
@@ -6935,7 +6935,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B7FA: LDX.B #$01                           ;00B7FA|A201    |      ;
  
-          CODE_00B7FC: LDA.W r_EntityObjectIdxes,X          ;00B7FC|BD4E05  |00054E;
+          CODE_00B7FC: LDA.W r_entity_ObjectIdxes,X         ;00B7FC|BD4E05  |00054E;
                        BNE CODE_00B807                      ;00B7FF|D006    |00B807;
  
           CODE_00B801: INX                                  ;00B801|E8      |      ;
@@ -6945,9 +6945,9 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        RTS                                  ;00B806|60      |      ;
  
  
-          CODE_00B807: LDA.W r_EntityXPos,X                 ;00B807|BD3804  |000438;
+          CODE_00B807: LDA.W r_entity_XPos,X                ;00B807|BD3804  |000438;
                        SEC                                  ;00B80A|38      |      ;
-                       SBC.W r_EntityXPos                   ;00B80B|ED3804  |000438;
+                       SBC.W r_entity_XPos                  ;00B80B|ED3804  |000438;
                        BCS CODE_00B815                      ;00B80E|B005    |00B815;
                        EOR.B #$FF                           ;00B810|49FF    |      ;
                        CLC                                  ;00B812|18      |      ;
@@ -6955,10 +6955,10 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B815: CMP.B #$08                           ;00B815|C908    |      ;
                        BCS CODE_00B801                      ;00B817|B0E8    |00B801;
-                       LDA.W r_EntityYPos,X                 ;00B819|BD1C04  |00041C;
+                       LDA.W r_entity_YPos,X                ;00B819|BD1C04  |00041C;
  
                        SEC                                  ;00B81C|38      |      ;
-                       SBC.W r_EntityYPos                   ;00B81D|ED1C04  |00041C;
+                       SBC.W r_entity_YPos                  ;00B81D|ED1C04  |00041C;
                        BCS CODE_00B827                      ;00B820|B005    |00B827;
                        EOR.B #$FF                           ;00B822|49FF    |      ;
                        CLC                                  ;00B824|18      |      ;
@@ -6969,7 +6969,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        RTS                                  ;00B82B|60      |      ;
  
  
-          CODE_00B82C: LDA.B r_GameStateLoopCounter         ;00B82C|A51A    |00001A;
+          CODE_00B82C: LDA.B r_gameStateLoopCounter         ;00B82C|A51A    |00001A;
                        AND.B #$0F                           ;00B82E|290F    |      ;
  
                        BNE CODE_00B845                      ;00B830|D013    |00B845;
@@ -6979,7 +6979,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JMP.W CODE_00B845                    ;00B837|4C45B8  |00B845;
  
  
-          CODE_00B83A: LDA.B r_GameStateLoopCounter         ;00B83A|A51A    |00001A;
+          CODE_00B83A: LDA.B r_gameStateLoopCounter         ;00B83A|A51A    |00001A;
  
                        AND.B #$0F                           ;00B83C|290F    |      ;
                        BNE CODE_00B845                      ;00B83E|D005    |00B845;
@@ -6987,13 +6987,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        db $20                               ;00B842|        |      ;
                        dw CODE_0FE25F                       ;00B843|        |0FE25F;
  
-          CODE_00B845: LDA.B r_GameStateLoopCounter         ;00B845|A51A    |00001A;
+          CODE_00B845: LDA.B r_gameStateLoopCounter         ;00B845|A51A    |00001A;
                        AND.B #$02                           ;00B847|2902    |      ;
                        TAY                                  ;00B849|A8      |      ;
                        LDA.W DATA8_00B855,Y                 ;00B84A|B955B8  |00B855;
-                       STA.B r_CurrScrollRoomScreen         ;00B84D|8557    |000057;
+                       STA.B r_sceneScrollOffsetHi          ;00B84D|8557    |000057;
                        LDA.W DATA8_00B856,Y                 ;00B84F|B956B8  |00B856;
-                       STA.B r_CurrScrollOffsetIntoRoomScreen;00B852|8556    |000056;
+                       STA.B r_sceneScrollOffsetLo          ;00B852|8556    |000056;
                        RTS                                  ;00B854|60      |      ;
  
  
@@ -7017,26 +7017,26 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.B #$40                           ;00B86E|A940    |      ;
                        CLC                                  ;00B870|18      |      ;
  
-          CODE_00B871: ADC.W r_EntityYposSubSpeed,X         ;00B871|7D3705  |000537;
-                       STA.W r_EntityYposSubSpeed,X         ;00B874|9D3705  |000537;
+          CODE_00B871: ADC.W r_entity_YposSubSpeed,X        ;00B871|7D3705  |000537;
+                       STA.W r_entity_YposSubSpeed,X        ;00B874|9D3705  |000537;
                        BCC CODE_00B87C                      ;00B877|9003    |00B87C;
-                       INC.W r_EntityYposSpeed,X            ;00B879|FE2005  |000520;
+                       INC.W r_entity_YposSpeed,X           ;00B879|FE2005  |000520;
  
-          CODE_00B87C: LDA.W r_EntityFractionalX,X          ;00B87C|BDC404  |0004C4;
+          CODE_00B87C: LDA.W r_entity_FractionalX,X         ;00B87C|BDC404  |0004C4;
                        CLC                                  ;00B87F|18      |      ;
-                       ADC.W r_EntityXposSubSpeed,X         ;00B880|7D0905  |000509;
+                       ADC.W r_entity_XposSubSpeed,X        ;00B880|7D0905  |000509;
  
-                       STA.W r_EntityFractionalX,X          ;00B883|9DC404  |0004C4;
-                       LDA.W r_EntityXPos,X                 ;00B886|BD3804  |000438;
-                       ADC.W r_EntityXposSpeed,X            ;00B889|7DF204  |0004F2;
-                       STA.W r_EntityXPos,X                 ;00B88C|9D3804  |000438;
-                       LDA.W r_EntityFractionalY,X          ;00B88F|BDDB04  |0004DB;
+                       STA.W r_entity_FractionalX,X         ;00B883|9DC404  |0004C4;
+                       LDA.W r_entity_XPos,X                ;00B886|BD3804  |000438;
+                       ADC.W r_entity_XposSpeed,X           ;00B889|7DF204  |0004F2;
+                       STA.W r_entity_XPos,X                ;00B88C|9D3804  |000438;
+                       LDA.W r_entity_FractionalY,X         ;00B88F|BDDB04  |0004DB;
                        CLC                                  ;00B892|18      |      ;
-                       ADC.W r_EntityYposSubSpeed,X         ;00B893|7D3705  |000537;
-                       STA.W r_EntityFractionalY,X          ;00B896|9DDB04  |0004DB;
-                       LDA.W r_EntityYPos,X                 ;00B899|BD1C04  |00041C;
-                       ADC.W r_EntityYposSpeed,X            ;00B89C|7D2005  |000520;
-                       STA.W r_EntityYPos,X                 ;00B89F|9D1C04  |00041C;
+                       ADC.W r_entity_YposSubSpeed,X        ;00B893|7D3705  |000537;
+                       STA.W r_entity_FractionalY,X         ;00B896|9DDB04  |0004DB;
+                       LDA.W r_entity_YPos,X                ;00B899|BD1C04  |00041C;
+                       ADC.W r_entity_YposSpeed,X           ;00B89C|7D2005  |000520;
+                       STA.W r_entity_YPos,X                ;00B89F|9D1C04  |00041C;
                        JMP.W CODE_00B865                    ;00B8A2|4C65B8  |00B865;
  
  
@@ -7046,32 +7046,32 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00B8A9: LDA.B #$20                           ;00B8A9|A920    |      ;
                        STA.W r_5d8,X                        ;00B8AB|9DD805  |0005D8;
                        LDA.B #$0E                           ;00B8AE|A90E    |      ;
-                       STA.W r_EntityOamSpecGroupDoubled,X  ;00B8B0|9D8C04  |00048C;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;00B8B0|9D8C04  |00048C;
                        LDA.B #$18                           ;00B8B3|A918    |      ;
                        STA.W r_OamSpecIdxDoubled,X          ;00B8B5|9D0004  |000400;
  
                        LDA.B #$00                           ;00B8B8|A900    |      ;
-                       STA.W r_EntityPaletteOverride,X      ;00B8BA|9D5404  |000454;
-                       STA.W r_EntityState,X                ;00B8BD|9D7004  |000470;
+                       STA.W r_entity_PaletteOverride,X     ;00B8BA|9D5404  |000454;
+                       STA.W r_entity_Effect,X              ;00B8BD|9D7004  |000470;
                        LDA.W DATA8_00B8F0,Y                 ;00B8C0|B9F0B8  |00B8F0;
-                       STA.W r_EntityXposSpeed,X            ;00B8C3|9DF204  |0004F2;
+                       STA.W r_entity_XposSpeed,X           ;00B8C3|9DF204  |0004F2;
                        INY                                  ;00B8C6|C8      |      ;
                        LDA.W DATA8_00B8F0,Y                 ;00B8C7|B9F0B8  |00B8F0;
-                       STA.W r_EntityXposSubSpeed,X         ;00B8CA|9D0905  |000509;
+                       STA.W r_entity_XposSubSpeed,X        ;00B8CA|9D0905  |000509;
                        INY                                  ;00B8CD|C8      |      ;
                        LDA.W DATA8_00B8F0,Y                 ;00B8CE|B9F0B8  |00B8F0;
  
-                       STA.W r_EntityYposSpeed,X            ;00B8D1|9D2005  |000520;
+                       STA.W r_entity_YposSpeed,X           ;00B8D1|9D2005  |000520;
                        INY                                  ;00B8D4|C8      |      ;
                        LDA.W DATA8_00B8F0,Y                 ;00B8D5|B9F0B8  |00B8F0;
-                       STA.W r_EntityYposSubSpeed,X         ;00B8D8|9D3705  |000537;
+                       STA.W r_entity_YposSubSpeed,X        ;00B8D8|9D3705  |000537;
                        INY                                  ;00B8DB|C8      |      ;
  
                        LDA.W DATA8_00B8F0,Y                 ;00B8DC|B9F0B8  |00B8F0;
-                       STA.W r_EntityXPos,X                 ;00B8DF|9D3804  |000438;
+                       STA.W r_entity_XPos,X                ;00B8DF|9D3804  |000438;
                        INY                                  ;00B8E2|C8      |      ;
                        LDA.W DATA8_00B8F0,Y                 ;00B8E3|B9F0B8  |00B8F0;
-                       STA.W r_EntityYPos,X                 ;00B8E6|9D1C04  |00041C;
+                       STA.W r_entity_YPos,X                ;00B8E6|9D1C04  |00041C;
                        INY                                  ;00B8E9|C8      |      ;
                        INX                                  ;00B8EA|E8      |      ;
                        CPX.B #$06                           ;00B8EB|E006    |      ;
@@ -7114,7 +7114,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.W DATA8_00BA12,Y                 ;00B933|B912BA  |00BA12;
                        STA.B $62                            ;00B936|8562    |000062;
                        LDA.W DATA8_00BA13,Y                 ;00B938|B913BA  |00BA13;
-                       STA.B r_VramQueueDest                ;00B93B|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00B93B|8561    |000061;
                        db $20                               ;00B93D|        |      ;
                        dw CODE_0FE8B5                       ;00B93E|        |0FE8B5;
                        LDY.W r_EffectSpeedSupGeneral        ;00B940|AC8507  |000785;
@@ -7129,14 +7129,14 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.W DATA8_00BA3B,Y                 ;00B94D|B93BBA  |00BA3B;
                        STA.B $02                            ;00B950|8502    |000002;
                        LDA.W DATA8_00BA2A                   ;00B952|AD2ABA  |00BA2A;
-                       STA.B r_CurrNumToVramQueue           ;00B955|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00B955|8508    |000008;
                        LDA.W DATA8_00BA2B                   ;00B957|AD2BBA  |00BA2B;
                        STA.B $09                            ;00B95A|8509    |000009;
                        JSR.W CODE_00B977                    ;00B95C|2077B9  |00B977;
                        LDA.B $02                            ;00B95F|A502    |000002;
                        STA.B $01                            ;00B961|8501    |000001;
                        LDA.W DATA8_00BA2C                   ;00B963|AD2CBA  |00BA2C;
-                       STA.B r_CurrNumToVramQueue           ;00B966|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00B966|8508    |000008;
                        LDA.W DATA8_00BA2D                   ;00B968|AD2DBA  |00BA2D;
                        STA.B $09                            ;00B96B|8509    |000009;
                        JSR.W CODE_00B977                    ;00B96D|2077B9  |00B977;
@@ -7155,14 +7155,14 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00B980: ASL A                                ;00B980|0A      |      ;
                        TAY                                  ;00B981|A8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00B982|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00B982|B108    |000008;
  
                        AND.B $01                            ;00B984|2501    |000001;
                        INY                                  ;00B986|C8      |      ;
-                       ORA.B (r_CurrNumToVramQueue),Y       ;00B987|1108    |000008;
+                       ORA.B (r_pointerQueue_VRAM),Y        ;00B987|1108    |000008;
                        STA.W r_VramQueue,X                  ;00B989|9D0003  |000300;
                        INX                                  ;00B98C|E8      |      ;
-                       STX.B r_VramQueueNextIdxToFill       ;00B98D|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;00B98D|861D    |00001D;
                        RTS                                  ;00B98F|60      |      ;
  
  
@@ -7172,7 +7172,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.W DATA8_00B9FA,Y                 ;00B995|B9FAB9  |00B9FA;
                        STA.B $62                            ;00B998|8562    |000062;
                        LDA.W DATA8_00B9FB,Y                 ;00B99A|B9FBB9  |00B9FB;
-                       STA.B r_VramQueueDest                ;00B99D|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00B99D|8561    |000061;
                        db $20                               ;00B99F|        |      ;
                        dw CODE_0FE8B5                       ;00B9A0|        |0FE8B5;
                        LDA.W r_EffectSpeedSupGeneral        ;00B9A2|AD8507  |000785;
@@ -7203,8 +7203,8 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw CODE_0FE8DE                       ;00B9CA|        |0FE8DE;
                        LDA.B #$20                           ;00B9CC|A920    |      ;
                        CLC                                  ;00B9CE|18      |      ;
-                       ADC.B r_VramQueueDest                ;00B9CF|6561    |000061;
-                       STA.B r_VramQueueDest                ;00B9D1|8561    |000061;
+                       ADC.B r_VRAM_QueueDest               ;00B9CF|6561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00B9D1|8561    |000061;
                        BCC DATA8_00B9D7                     ;00B9D3|9002    |00B9D7;
                        INC.B $62                            ;00B9D5|E662    |000062;
  
@@ -7260,7 +7260,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
          DATA8_00BA3B: db $A0,$2A,$8A,$BB,$E0               ;00BA3B|        |      ;
                        db $BA,$EA,$0A,$0A,$00               ;00BA40|        |      ;
                        db $00                               ;00BA45|        |      ;
-                       LDA.B r_MenuOptionIdxSelected        ;00BA46|A56B    |00006B;
+                       LDA.B r_menuSelectIdx                ;00BA46|A56B    |00006B;
  
                        db $20                               ;00BA48|        |      ;
                        dw jumpFromStackYXpreserved          ;00BA49|        |0FE86D;
@@ -7269,18 +7269,18 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw DATA8_00BA7F                      ;00BA4F|        |00BA7F;
  
           CODE_00BA51: LDA.B #$00                           ;00BA51|A900    |      ;
-                       STA.W r_PWdumpGeneral                ;00BA53|8D8807  |000788;
-                       INC.B r_MenuOptionIdxSelected        ;00BA56|E66B    |00006B;
+                       STA.W r_PW_dumpGeneral               ;00BA53|8D8807  |000788;
+                       INC.B r_menuSelectIdx                ;00BA56|E66B    |00006B;
                        RTS                                  ;00BA58|60      |      ;
  
  
-          CODE_00BA59: LDA.B r_GameStateLoopCounter         ;00BA59|A51A    |00001A;
+          CODE_00BA59: LDA.B r_gameStateLoopCounter         ;00BA59|A51A    |00001A;
                        AND.B #$03                           ;00BA5B|2903    |      ;
                        BEQ CODE_00BA60                      ;00BA5D|F001    |00BA60;
                        RTS                                  ;00BA5F|60      |      ;
  
  
-          CODE_00BA60: LDY.W r_PWdumpGeneral                ;00BA60|AC8807  |000788;
+          CODE_00BA60: LDY.W r_PW_dumpGeneral               ;00BA60|AC8807  |000788;
                        LDA.W DATA8_00BA7B,Y                 ;00BA63|B97BBA  |00BA7B;
                        db $20                               ;00BA66|        |      ;
                        dw screenLoadRoutine                 ;00BA67|        |0FECE9;
@@ -7288,11 +7288,11 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        db $20                               ;00BA6B|        |      ;
                        dw screenLoadRoutine                 ;00BA6C|        |0FECE9;
  
-                       INC.W r_PWdumpGeneral                ;00BA6E|EE8807  |000788;
-                       LDA.W r_PWdumpGeneral                ;00BA71|AD8807  |000788;
+                       INC.W r_PW_dumpGeneral               ;00BA6E|EE8807  |000788;
+                       LDA.W r_PW_dumpGeneral               ;00BA71|AD8807  |000788;
                        CMP.B #$04                           ;00BA74|C904    |      ;
                        BNE CODE_00BA7A                      ;00BA76|D002    |00BA7A;
-                       INC.B r_MenuOptionIdxSelected        ;00BA78|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00BA78|E66B    |00006B;
  
           CODE_00BA7A: RTS                                  ;00BA7A|60      |      ;
  
@@ -7300,7 +7300,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
          DATA8_00BA7B: db $1C,$1B,$1A,$19                   ;00BA7B|        |      ;
  
          DATA8_00BA7F: db $20,$95,$BA                       ;00BA7F|        |      ;
-                       LDA.B r_CurrentRoomEffect            ;00BA82|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;00BA82|A57D    |00007D;
                        AND.B #$0F                           ;00BA84|290F    |      ;
                        BEQ CODE_00BA8C                      ;00BA86|F004    |00BA8C;
                        LDA.B #$24                           ;00BA88|A924    |      ;
@@ -7308,42 +7308,42 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00BA8C: LDA.B #$13                           ;00BA8C|A913    |      ;
  
-          CODE_00BA8E: STA.B r_BaseIRQFuncIdx               ;00BA8E|853F    |00003F;
+          CODE_00BA8E: STA.B r_IRQFuncIdx                   ;00BA8E|853F    |00003F;
                        LDA.B #$03                           ;00BA90|A903    |      ;
-                       STA.B r_InGameSubstate               ;00BA92|852A    |00002A;
+                       STA.B r_gameLoadState                ;00BA92|852A    |00002A;
                        RTS                                  ;00BA94|60      |      ;
  
                        JSR.W CODE_00BDDA                    ;00BA95|20DABD  |00BDDA;
                        LDY.B #$00                           ;00BA98|A000    |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BA9A|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BA9A|B108    |000008;
                        ASL A                                ;00BA9C|0A      |      ;
                        SEC                                  ;00BA9D|38      |      ;
                        SBC.B #$02                           ;00BA9E|E902    |      ;
-                       STA.B r_DoubleCurrGroup              ;00BAA0|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;00BAA0|850C    |00000C;
                        LDY.B #$01                           ;00BAA2|A001    |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BAA4|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00BAA6|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BAA4|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00BAA6|850A    |00000A;
                        INY                                  ;00BAA8|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BAA9|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BAA9|B108    |000008;
                        STA.B $0B                            ;00BAAB|850B    |00000B;
                        JSR.W CODE_00BAC2                    ;00BAAD|20C2BA  |00BAC2;
-                       LDA.B r_DoubleCurrGroup              ;00BAB0|A50C    |00000C;
+                       LDA.B r_tempCurrGroup                ;00BAB0|A50C    |00000C;
                        CLC                                  ;00BAB2|18      |      ;
                        ADC.B #$02                           ;00BAB3|6902    |      ;
-                       STA.B r_DoubleCurrGroup              ;00BAB5|850C    |00000C;
+                       STA.B r_tempCurrGroup                ;00BAB5|850C    |00000C;
                        LDY.B #$03                           ;00BAB7|A003    |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BAB9|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00BABB|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BAB9|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00BABB|850A    |00000A;
                        INY                                  ;00BABD|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BABE|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BABE|B108    |000008;
                        STA.B $0B                            ;00BAC0|850B    |00000B;
  
           CODE_00BAC2: LDY.B $59                            ;00BAC2|A459    |000059;
-                       STY.B r_RoomSectionChrBanksDataOffset;00BAC4|840F    |00000F;
+                       STY.B r_roomSectionChrBanksDataOffset;00BAC4|840F    |00000F;
                        LDA.B #$0C                           ;00BAC6|A90C    |      ;
                        STA.B $00                            ;00BAC8|8500    |000000;
  
-          CODE_00BACA: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BACA|B10A    |00000A;
+          CODE_00BACA: LDA.B (r_temp_Xpos),Y                ;00BACA|B10A    |00000A;
                        CMP.B #$FF                           ;00BACC|C9FF    |      ;
                        BEQ CODE_00BAE5                      ;00BACE|F015    |00BAE5;
  
@@ -7355,9 +7355,9 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        CMP.B #$A5                           ;00BAD8|C9A5    |      ;
                        BEQ CODE_00BAE6                      ;00BADA|F00A    |00BAE6;
  
-          CODE_00BADC: LDY.B r_RoomSectionChrBanksDataOffset;00BADC|A40F    |00000F;
+          CODE_00BADC: LDY.B r_roomSectionChrBanksDataOffset;00BADC|A40F    |00000F;
                        INY                                  ;00BADE|C8      |      ;
-                       STY.B r_RoomSectionChrBanksDataOffset;00BADF|840F    |00000F;
+                       STY.B r_roomSectionChrBanksDataOffset;00BADF|840F    |00000F;
                        DEC.B $00                            ;00BAE1|C600    |000000;
                        BNE CODE_00BACA                      ;00BAE3|D0E5    |00BACA;
  
@@ -7371,12 +7371,12 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00BAF0: JSR.W CODE_00BB07                    ;00BAF0|2007BB  |00BB07;
                        LDA.B #$00                           ;00BAF3|A900    |      ;
-                       STA.W r_CurrCollisionMapValues90,Y   ;00BAF5|99E006  |0006E0;
+                       STA.W r_collisionMapValues90,Y       ;00BAF5|99E006  |0006E0;
                        BEQ CODE_00BADC                      ;00BAF8|F0E2    |00BADC;
  
           CODE_00BAFA: JSR.W CODE_00BB07                    ;00BAFA|2007BB  |00BB07;
                        LDA.B #$00                           ;00BAFD|A900    |      ;
-                       STA.W r_CurrCollisionMapValues90,Y   ;00BAFF|99E006  |0006E0;
+                       STA.W r_collisionMapValues90,Y       ;00BAFF|99E006  |0006E0;
                        STA.W $06E1,Y                        ;00BB02|99E106  |0006E1;
                        BEQ CODE_00BADC                      ;00BB05|F0D5    |00BADC;
  
@@ -7391,7 +7391,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00BB11: TAY                                  ;00BB11|A8      |      ;
                        LDA.W UNREACH_0FFD4C,Y               ;00BB12|B94CFD  |0FFD4C;
                        CLC                                  ;00BB15|18      |      ;
-                       ADC.B r_DoubleCurrGroup              ;00BB16|650C    |00000C;
+                       ADC.B r_tempCurrGroup                ;00BB16|650C    |00000C;
                        TAY                                  ;00BB18|A8      |      ;
                        RTS                                  ;00BB19|60      |      ;
  
@@ -7404,12 +7404,12 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.B #$35                           ;00BB27|A935    |      ;
                        db $20                               ;00BB29|        |      ;
                        dw CODE_0FE25F                       ;00BB2A|        |0FE25F;
-                       LDA.W r_EntityXPos                   ;00BB2C|AD3804  |000438;
+                       LDA.W r_entity_XPos                  ;00BB2C|AD3804  |000438;
                        CLC                                  ;00BB2F|18      |      ;
-                       ADC.B r_CurrScrollOffsetIntoRoomScreen;00BB30|6556    |000056;
+                       ADC.B r_sceneScrollOffsetLo          ;00BB30|6556    |000056;
                        STA.B $00                            ;00BB32|8500    |000000;
                        LDA.B #$00                           ;00BB34|A900    |      ;
-                       ADC.B r_CurrScrollRoomScreen         ;00BB36|6557    |000057;
+                       ADC.B r_sceneScrollOffsetHi          ;00BB36|6557    |000057;
                        LSR A                                ;00BB38|4A      |      ;
                        ROR.B $00                            ;00BB39|6600    |000000;
                        LSR A                                ;00BB3B|4A      |      ;
@@ -7422,8 +7422,8 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        STA.W r_FogParallelPos               ;00BB46|8D8207  |000782;
                        STA.W r_EffectSpeedGeneral           ;00BB49|8D8407  |000784;
  
-                       STA.W r_PWiconGeneral                ;00BB4C|8D8607  |000786;
-                       LDA.W r_EntityYPos                   ;00BB4F|AD1C04  |00041C;
+                       STA.W r_PW_iconGeneral               ;00BB4C|8D8607  |000786;
+                       LDA.W r_entity_YPos                  ;00BB4F|AD1C04  |00041C;
                        LSR A                                ;00BB52|4A      |      ;
                        LSR A                                ;00BB53|4A      |      ;
                        LSR A                                ;00BB54|4A      |      ;
@@ -7435,23 +7435,23 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        STA.W r_EffectSpeedSupGeneral        ;00BB5A|8D8507  |000785;
                        STA.W $0787                          ;00BB5D|8D8707  |000787;
                        LDA.B #$0C                           ;00BB60|A90C    |      ;
-                       STA.W r_PWdumpGeneral                ;00BB62|8D8807  |000788;
+                       STA.W r_PW_dumpGeneral               ;00BB62|8D8807  |000788;
  
                        LDA.B #$01                           ;00BB65|A901    |      ;
-                       STA.B r_BaseIRQFuncIdx               ;00BB67|853F    |00003F;
+                       STA.B r_IRQFuncIdx                   ;00BB67|853F    |00003F;
  
-                       INC.B r_MenuOptionIdxSelected        ;00BB69|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00BB69|E66B    |00006B;
                        RTS                                  ;00BB6B|60      |      ;
  
-                       LDA.B r_GameStateLoopCounter         ;00BB6C|A51A    |00001A;
+                       LDA.B r_gameStateLoopCounter         ;00BB6C|A51A    |00001A;
                        AND.B #$01                           ;00BB6E|2901    |      ;
  
                        BEQ CODE_00BB79                      ;00BB70|F007    |00BB79;
  
-                       DEC.W r_PWdumpGeneral                ;00BB72|CE8807  |000788;
+                       DEC.W r_PW_dumpGeneral               ;00BB72|CE8807  |000788;
                        BNE CODE_00BB7A                      ;00BB75|D003    |00BB7A;
  
-                       INC.B r_MenuOptionIdxSelected        ;00BB77|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00BB77|E66B    |00006B;
  
           CODE_00BB79: RTS                                  ;00BB79|60      |      ;
  
@@ -7464,7 +7464,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        TYA                                  ;00BB86|98      |      ;
                        LSR A                                ;00BB87|4A      |      ;
                        TAY                                  ;00BB88|A8      |      ;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BB89|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00BB89|B10A    |00000A;
                        CMP.B #$0A                           ;00BB8B|C90A    |      ;
                        BEQ CODE_00BBAB                      ;00BB8D|F01C    |00BBAB;
                        CMP.B #$A5                           ;00BB8F|C9A5    |      ;
@@ -7474,7 +7474,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDY.B #$00                           ;00BB97|A000    |      ;
                        LDA.W r_EffectSpeedSupGeneral        ;00BB99|AD8507  |000785;
                        SEC                                  ;00BB9C|38      |      ;
-                       SBC.B (r_CurrNumToVramQueue),Y       ;00BB9D|F108    |000008;
+                       SBC.B (r_pointerQueue_VRAM),Y        ;00BB9D|F108    |000008;
                        BNE CODE_00BBA6                      ;00BB9F|D005    |00BBA6;
                        INC.W r_EffectSpeedSupGeneral        ;00BBA1|EE8507  |000785;
                        BNE CODE_00BBAE                      ;00BBA4|D008    |00BBAE;
@@ -7487,13 +7487,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00BBAE: LDX.B #$02                           ;00BBAE|A202    |      ;
                        JSR.W CODE_00BBDE                    ;00BBB0|20DEBB  |00BBDE;
  
-                       LDY.W r_PWiconGeneral                ;00BBB3|AC8607  |000786;
+                       LDY.W r_PW_iconGeneral               ;00BBB3|AC8607  |000786;
                        INY                                  ;00BBB6|C8      |      ;
                        TYA                                  ;00BBB7|98      |      ;
                        LSR A                                ;00BBB8|4A      |      ;
                        TAY                                  ;00BBB9|A8      |      ;
  
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BBBA|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00BBBA|B10A    |00000A;
  
                        CMP.B #$0A                           ;00BBBC|C90A    |      ;
  
@@ -7508,7 +7508,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
                        LDA.W $0787                          ;00BBCA|AD8707  |000787;
                        SEC                                  ;00BBCD|38      |      ;
-                       SBC.B (r_CurrNumToVramQueue),Y       ;00BBCE|F108    |000008;
+                       SBC.B (r_pointerQueue_VRAM),Y        ;00BBCE|F108    |000008;
                        BNE CODE_00BBD6                      ;00BBD0|D004    |00BBD6;
                        INC.W $0787                          ;00BBD2|EE8707  |000787;
                        RTS                                  ;00BBD5|60      |      ;
@@ -7518,30 +7518,30 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        RTS                                  ;00BBD9|60      |      ;
  
  
-          CODE_00BBDA: INC.W r_PWiconGeneral                ;00BBDA|EE8607  |000786;
+          CODE_00BBDA: INC.W r_PW_iconGeneral               ;00BBDA|EE8607  |000786;
                        RTS                                  ;00BBDD|60      |      ;
  
  
-          CODE_00BBDE: STX.B r_RoomSectionChrBanksDataOffset;00BBDE|860F    |00000F;
+          CODE_00BBDE: STX.B r_roomSectionChrBanksDataOffset;00BBDE|860F    |00000F;
                        LDY.B #$00                           ;00BBE0|A000    |      ;
                        LDA.W r_EffectSpeedSupGeneral,X      ;00BBE2|BD8507  |000785;
                        SEC                                  ;00BBE5|38      |      ;
-                       SBC.B (r_CurrNumToVramQueue),Y       ;00BBE6|F108    |000008;
+                       SBC.B (r_pointerQueue_VRAM),Y        ;00BBE6|F108    |000008;
                        ASL A                                ;00BBE8|0A      |      ;
                        TAY                                  ;00BBE9|A8      |      ;
                        INY                                  ;00BBEA|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BBEB|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00BBED|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BBEB|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00BBED|850A    |00000A;
                        INY                                  ;00BBEF|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BBF0|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BBF0|B108    |000008;
                        STA.B $0B                            ;00BBF2|850B    |00000B;
                        LDA.W r_EffectSpeedGeneral,X         ;00BBF4|BD8407  |000784;
                        LSR A                                ;00BBF7|4A      |      ;
                        BCS CODE_00BC31                      ;00BBF8|B037    |00BC31;
                        TAY                                  ;00BBFA|A8      |      ;
-                       LDA.B r_RoomSectionChrBanksDataOffset;00BBFB|A50F    |00000F;
+                       LDA.B r_roomSectionChrBanksDataOffset;00BBFB|A50F    |00000F;
                        BEQ CODE_00BC18                      ;00BBFD|F019    |00BC18;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BBFF|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00BBFF|B10A    |00000A;
                        CMP.B #$AA                           ;00BC01|C9AA    |      ;
                        BEQ CODE_00BC13                      ;00BC03|F00E    |00BC13;
                        CMP.B #$A5                           ;00BC05|C9A5    |      ;
@@ -7558,7 +7558,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JMP.W CODE_00BC65                    ;00BC15|4C65BC  |00BC65;
  
  
-          CODE_00BC18: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BC18|B10A    |00000A;
+          CODE_00BC18: LDA.B (r_temp_Xpos),Y                ;00BC18|B10A    |00000A;
                        CMP.B #$AA                           ;00BC1A|C9AA    |      ;
                        BEQ CODE_00BC2C                      ;00BC1C|F00E    |00BC2C;
                        CMP.B #$A5                           ;00BC1E|C9A5    |      ;
@@ -7576,9 +7576,9 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
  
           CODE_00BC31: TAY                                  ;00BC31|A8      |      ;
-                       LDA.B r_RoomSectionChrBanksDataOffset;00BC32|A50F    |00000F;
+                       LDA.B r_roomSectionChrBanksDataOffset;00BC32|A50F    |00000F;
                        BEQ CODE_00BC4F                      ;00BC34|F019    |00BC4F;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BC36|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00BC36|B10A    |00000A;
                        CMP.B #$AA                           ;00BC38|C9AA    |      ;
                        BEQ CODE_00BC4A                      ;00BC3A|F00E    |00BC4A;
                        CMP.B #$A5                           ;00BC3C|C9A5    |      ;
@@ -7595,7 +7595,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JMP.W CODE_00BC65                    ;00BC4C|4C65BC  |00BC65;
  
  
-          CODE_00BC4F: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BC4F|B10A    |00000A;
+          CODE_00BC4F: LDA.B (r_temp_Xpos),Y                ;00BC4F|B10A    |00000A;
                        CMP.B #$AA                           ;00BC51|C9AA    |      ;
                        BEQ CODE_00BC63                      ;00BC53|F00E    |00BC63;
                        CMP.B #$A5                           ;00BC55|C9A5    |      ;
@@ -7615,17 +7615,17 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        STY.B $01                            ;00BC67|8401    |000001;
                        TYA                                  ;00BC69|98      |      ;
                        AND.B #$07                           ;00BC6A|2907    |      ;
-                       STA.B r_VramQueueDest                ;00BC6C|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00BC6C|8561    |000061;
                        LDA.W r_EffectSpeedSupGeneral,X      ;00BC6E|BD8507  |000785;
                        ASL A                                ;00BC71|0A      |      ;
                        ASL A                                ;00BC72|0A      |      ;
                        ASL A                                ;00BC73|0A      |      ;
                        CLC                                  ;00BC74|18      |      ;
-                       ADC.B r_VramQueueDest                ;00BC75|6561    |000061;
+                       ADC.B r_VRAM_QueueDest               ;00BC75|6561    |000061;
                        CLC                                  ;00BC77|18      |      ;
                        ADC.B #$C0                           ;00BC78|69C0    |      ;
-                       STA.B r_VramQueueDest                ;00BC7A|8561    |000061;
-                       LDA.B $75                            ;00BC7C|A575    |000075;
+                       STA.B r_VRAM_QueueDest               ;00BC7A|8561    |000061;
+                       LDA.B r_075                          ;00BC7C|A575    |000075;
                        ASL A                                ;00BC7E|0A      |      ;
                        ASL A                                ;00BC7F|0A      |      ;
                        ASL A                                ;00BC80|0A      |      ;
@@ -7646,22 +7646,22 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.B $00                            ;00BC98|A500    |000000;
                        STA.W r_VramQueue,X                  ;00BC9A|9D0003  |000300;
                        INX                                  ;00BC9D|E8      |      ;
-                       STX.B r_VramQueueNextIdxToFill       ;00BC9E|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;00BC9E|861D    |00001D;
                        db $20                               ;00BCA0|        |      ;
  
                        dw CODE_0FED12                       ;00BCA1|        |0FED12;
                        LDA.B #$02                           ;00BCA3|A902    |      ;
                        STA.B $01                            ;00BCA5|8501    |000001;
-                       LDX.B r_RoomSectionChrBanksDataOffset;00BCA7|A60F    |00000F;
+                       LDX.B r_roomSectionChrBanksDataOffset;00BCA7|A60F    |00000F;
                        LDA.W r_EffectSpeedSupGeneral,X      ;00BCA9|BD8507  |000785;
                        ASL A                                ;00BCAC|0A      |      ;
                        SEC                                  ;00BCAD|38      |      ;
                        SBC.B #$02                           ;00BCAE|E902    |      ;
                        STA.B $00                            ;00BCB0|8500    |000000;
-                       LDA.B r_CurrentRoomEffect            ;00BCB2|A57D    |00007D;
+                       LDA.B r_roomEffect                   ;00BCB2|A57D    |00007D;
                        AND.B #$0F                           ;00BCB4|290F    |      ;
                        BEQ CODE_00BCC0                      ;00BCB6|F008    |00BCC0;
-                       LDA.W r_EntityYPos                   ;00BCB8|AD1C04  |00041C;
+                       LDA.W r_entity_YPos                  ;00BCB8|AD1C04  |00041C;
                        BPL CODE_00BCC0                      ;00BCBB|1003    |00BCC0;
                        CLC                                  ;00BCBD|18      |      ;
  
@@ -7691,7 +7691,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        ADC.B $00                            ;00BCDF|6500    |000000;
                        TAY                                  ;00BCE1|A8      |      ;
                        LDA.B #$88                           ;00BCE2|A988    |      ;
-                       STA.W r_CurrCollisionMapValues90,Y   ;00BCE4|99E006  |0006E0;
+                       STA.W r_collisionMapValues90,Y       ;00BCE4|99E006  |0006E0;
                        RTS                                  ;00BCE7|60      |      ;
  
                        LDA.B #$1C                           ;00BCE8|A91C    |      ;
@@ -7700,49 +7700,49 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.B #$04                           ;00BCED|A904    |      ;
                        db $20                               ;00BCEF|        |      ;
                        dw screenLoadRoutine                 ;00BCF0|        |0FECE9;
-                       INC.B r_MenuOptionIdxSelected        ;00BCF2|E66B    |00006B;
+                       INC.B r_menuSelectIdx                ;00BCF2|E66B    |00006B;
                        RTS                                  ;00BCF4|60      |      ;
  
  
           CODE_00BCF5: JSR.W CODE_00BDDA                    ;00BCF5|20DABD  |00BDDA;
                        LDY.B #$00                           ;00BCF8|A000    |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BCFA|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BCFA|B108    |000008;
                        ASL A                                ;00BCFC|0A      |      ;
                        ASL A                                ;00BCFD|0A      |      ;
                        ASL A                                ;00BCFE|0A      |      ;
                        CLC                                  ;00BCFF|18      |      ;
                        ADC.B #$C0                           ;00BD00|69C0    |      ;
-                       STA.B r_VramQueueDest                ;00BD02|8561    |000061;
-                       LDA.B r_CurrScrollOffsetIntoRoomScreen;00BD04|A556    |000056;
-                       STA.B r_DoubleCurrGroup              ;00BD06|850C    |00000C;
-                       LDA.B r_CurrScrollRoomScreen         ;00BD08|A557    |000057;
+                       STA.B r_VRAM_QueueDest               ;00BD02|8561    |000061;
+                       LDA.B r_sceneScrollOffsetLo          ;00BD04|A556    |000056;
+                       STA.B r_tempCurrGroup                ;00BD06|850C    |00000C;
+                       LDA.B r_sceneScrollOffsetHi          ;00BD08|A557    |000057;
                        LSR A                                ;00BD0A|4A      |      ;
-                       ROR.B r_DoubleCurrGroup              ;00BD0B|660C    |00000C;
+                       ROR.B r_tempCurrGroup                ;00BD0B|660C    |00000C;
                        LSR A                                ;00BD0D|4A      |      ;
-                       ROR.B r_DoubleCurrGroup              ;00BD0E|660C    |00000C;
+                       ROR.B r_tempCurrGroup                ;00BD0E|660C    |00000C;
                        LSR A                                ;00BD10|4A      |      ;
-                       ROR.B r_DoubleCurrGroup              ;00BD11|660C    |00000C;
+                       ROR.B r_tempCurrGroup                ;00BD11|660C    |00000C;
                        LSR A                                ;00BD13|4A      |      ;
-                       ROR.B r_DoubleCurrGroup              ;00BD14|660C    |00000C;
+                       ROR.B r_tempCurrGroup                ;00BD14|660C    |00000C;
                        LSR A                                ;00BD16|4A      |      ;
-                       ROR.B r_DoubleCurrGroup              ;00BD17|660C    |00000C;
-                       LDA.B r_DoubleCurrGroup              ;00BD19|A50C    |00000C;
+                       ROR.B r_tempCurrGroup                ;00BD17|660C    |00000C;
+                       LDA.B r_tempCurrGroup                ;00BD19|A50C    |00000C;
                        SEC                                  ;00BD1B|38      |      ;
                        SBC.B #$02                           ;00BD1C|E902    |      ;
                        BPL CODE_00BD22                      ;00BD1E|1002    |00BD22;
                        LDA.B #$00                           ;00BD20|A900    |      ;
  
-          CODE_00BD22: STA.B r_DoubleCurrGroup              ;00BD22|850C    |00000C;
-                       LDA.B $75                            ;00BD24|A575    |000075;
+          CODE_00BD22: STA.B r_tempCurrGroup                ;00BD22|850C    |00000C;
+                       LDA.B r_075                          ;00BD24|A575    |000075;
                        ASL A                                ;00BD26|0A      |      ;
                        ASL A                                ;00BD27|0A      |      ;
                        ASL A                                ;00BD28|0A      |      ;
                        AND.B #$08                           ;00BD29|2908    |      ;
                        STA.B $00                            ;00BD2B|8500    |000000;
-                       LDA.B r_DoubleCurrGroup              ;00BD2D|A50C    |00000C;
+                       LDA.B r_tempCurrGroup                ;00BD2D|A50C    |00000C;
                        AND.B #$07                           ;00BD2F|2907    |      ;
                        STA.B $02                            ;00BD31|8502    |000002;
-                       LDA.B r_DoubleCurrGroup              ;00BD33|A50C    |00000C;
+                       LDA.B r_tempCurrGroup                ;00BD33|A50C    |00000C;
                        AND.B #$08                           ;00BD35|2908    |      ;
                        EOR.B $00                            ;00BD37|4500    |000000;
                        BEQ CODE_00BD3F                      ;00BD39|F004    |00BD3F;
@@ -7755,15 +7755,15 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        STA.B $04                            ;00BD43|8504    |000004;
                        LDA.B $02                            ;00BD45|A502    |000002;
                        CLC                                  ;00BD47|18      |      ;
-                       ADC.B r_VramQueueDest                ;00BD48|6561    |000061;
-                       STA.B r_VramQueueDest                ;00BD4A|8561    |000061;
+                       ADC.B r_VRAM_QueueDest               ;00BD48|6561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00BD4A|8561    |000061;
                        STA.B $05                            ;00BD4C|8505    |000005;
                        LDY.B #$01                           ;00BD4E|A001    |      ;
  
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BD50|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00BD52|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD50|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00BD52|850A    |00000A;
                        INY                                  ;00BD54|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BD55|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD55|B108    |000008;
                        STA.B $0B                            ;00BD57|850B    |00000B;
                        JSR.W CODE_00BD86                    ;00BD59|2086BD  |00BD86;
                        LDA.B $04                            ;00BD5C|A504    |000004;
@@ -7771,29 +7771,29 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        LDA.B $05                            ;00BD60|A505    |000005;
                        CLC                                  ;00BD62|18      |      ;
                        ADC.B #$08                           ;00BD63|6908    |      ;
-                       STA.B r_VramQueueDest                ;00BD65|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00BD65|8561    |000061;
                        LDY.B #$03                           ;00BD67|A003    |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BD69|B108    |000008;
-                       STA.B r_CurrRoomSectionPlayerPosAndScreenAddr;00BD6B|850A    |00000A;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD69|B108    |000008;
+                       STA.B r_temp_Xpos                    ;00BD6B|850A    |00000A;
                        INY                                  ;00BD6D|C8      |      ;
-                       LDA.B (r_CurrNumToVramQueue),Y       ;00BD6E|B108    |000008;
+                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD6E|B108    |000008;
                        STA.B $0B                            ;00BD70|850B    |00000B;
                        JSR.W CODE_00BD86                    ;00BD72|2086BD  |00BD86;
-                       LDA.W r_PlayerStateDoubled           ;00BD75|AD6505  |000565;
+                       LDA.W r_Player_StateDoubled          ;00BD75|AD6505  |000565;
                        AND.B #$7F                           ;00BD78|297F    |      ;
-                       STA.W r_PlayerStateDoubled           ;00BD7A|8D6505  |000565;
+                       STA.W r_Player_StateDoubled          ;00BD7A|8D6505  |000565;
                        LDA.B #$68                           ;00BD7D|A968    |      ;
                        STA.B $C7                            ;00BD7F|85C7    |0000C7;
                        LDA.B #$1B                           ;00BD81|A91B    |      ;
-                       STA.B r_InGameSubstate               ;00BD83|852A    |00002A;
+                       STA.B r_gameLoadState                ;00BD83|852A    |00002A;
                        RTS                                  ;00BD85|60      |      ;
  
  
-          CODE_00BD86: LDY.B r_DoubleCurrGroup              ;00BD86|A40C    |00000C;
+          CODE_00BD86: LDY.B r_tempCurrGroup                ;00BD86|A40C    |00000C;
                        LDA.B #$0C                           ;00BD88|A90C    |      ;
-                       STA.B r_RoomSectionChrBanksDataOffset;00BD8A|850F    |00000F;
+                       STA.B r_roomSectionChrBanksDataOffset;00BD8A|850F    |00000F;
  
-          CODE_00BD8C: LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BD8C|B10A    |00000A;
+          CODE_00BD8C: LDA.B (r_temp_Xpos),Y                ;00BD8C|B10A    |00000A;
                        CMP.B #$FF                           ;00BD8E|C9FF    |      ;
                        BEQ CODE_00BDC5                      ;00BD90|F033    |00BDC5;
                        CMP.B #$0A                           ;00BD92|C90A    |      ;
@@ -7803,13 +7803,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        CMP.B #$AA                           ;00BD9A|C9AA    |      ;
                        BEQ DATA8_00BDC6                     ;00BD9C|F028    |00BDC6;
  
-          CODE_00BD9E: DEC.B r_RoomSectionChrBanksDataOffset;00BD9E|C60F    |00000F;
+          CODE_00BD9E: DEC.B r_roomSectionChrBanksDataOffset;00BD9E|C60F    |00000F;
                        BEQ CODE_00BDC5                      ;00BDA0|F023    |00BDC5;
-                       LDA.B r_VramQueueDest                ;00BDA2|A561    |000061;
+                       LDA.B r_VRAM_QueueDest               ;00BDA2|A561    |000061;
                        AND.B #$08                           ;00BDA4|2908    |      ;
                        STA.B $01                            ;00BDA6|8501    |000001;
-                       INC.B r_VramQueueDest                ;00BDA8|E661    |000061;
-                       LDA.B r_VramQueueDest                ;00BDAA|A561    |000061;
+                       INC.B r_VRAM_QueueDest               ;00BDA8|E661    |000061;
+                       LDA.B r_VRAM_QueueDest               ;00BDAA|A561    |000061;
                        AND.B #$08                           ;00BDAC|2908    |      ;
                        EOR.B $01                            ;00BDAE|4501    |000001;
                        BNE CODE_00BDB5                      ;00BDB0|D003    |00BDB5;
@@ -7817,10 +7817,10 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00BDB2: INY                                  ;00BDB2|C8      |      ;
                        BNE CODE_00BD8C                      ;00BDB3|D0D7    |00BD8C;
  
-          CODE_00BDB5: LDA.B r_VramQueueDest                ;00BDB5|A561    |000061;
+          CODE_00BDB5: LDA.B r_VRAM_QueueDest               ;00BDB5|A561    |000061;
                        SEC                                  ;00BDB7|38      |      ;
                        SBC.B #$08                           ;00BDB8|E908    |      ;
-                       STA.B r_VramQueueDest                ;00BDBA|8561    |000061;
+                       STA.B r_VRAM_QueueDest               ;00BDBA|8561    |000061;
                        LDA.B $62                            ;00BDBC|A562    |000062;
  
                        EOR.B #$04                           ;00BDBE|4904    |      ;
@@ -7833,13 +7833,13 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
          DATA8_00BDC6: db $20                               ;00BDC6|        |      ;
                        dw CODE_0FE8B5                       ;00BDC7|        |0FE8B5;
-                       LDA.B (r_CurrRoomSectionPlayerPosAndScreenAddr),Y;00BDC9|B10A    |00000A;
+                       LDA.B (r_temp_Xpos),Y                ;00BDC9|B10A    |00000A;
                        STA.W r_VramQueue,X                  ;00BDCB|9D0003  |000300;
                        INX                                  ;00BDCE|E8      |      ;
                        LDA.B #$FF                           ;00BDCF|A9FF    |      ;
                        STA.W r_VramQueue,X                  ;00BDD1|9D0003  |000300;
                        INX                                  ;00BDD4|E8      |      ;
-                       STX.B r_VramQueueNextIdxToFill       ;00BDD5|861D    |00001D;
+                       STX.B r_sceneDrawQueue               ;00BDD5|861D    |00001D;
                        BNE CODE_00BD9E                      ;00BDD7|D0C5    |00BD9E;
                        RTS                                  ;00BDD9|60      |      ;
  
@@ -7848,10 +7848,10 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        JMP.W CODE_00BDF1                    ;00BDDD|4CF1BD  |00BDF1;
  
  
-          CODE_00BDE0: LDA.B r_CurrentRoomEffect            ;00BDE0|A57D    |00007D;
+          CODE_00BDE0: LDA.B r_roomEffect                   ;00BDE0|A57D    |00007D;
                        AND.B #$0F                           ;00BDE2|290F    |      ;
                        BEQ CODE_00BDEE                      ;00BDE4|F008    |00BDEE;
-                       LDY.W r_EntityYPos                   ;00BDE6|AC1C04  |00041C;
+                       LDY.W r_entity_YPos                  ;00BDE6|AC1C04  |00041C;
                        BPL CODE_00BDEE                      ;00BDE9|1003    |00BDEE;
                        CLC                                  ;00BDEB|18      |      ;
                        ADC.B #$01                           ;00BDEC|6901    |      ;
@@ -7862,7 +7862,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        TAY                                  ;00BDF2|A8      |      ;
                        LDA.W DATA8_00BDFE,Y                 ;00BDF3|B9FEBD  |00BDFE;
  
-                       STA.B r_CurrNumToVramQueue           ;00BDF6|8508    |000008;
+                       STA.B r_pointerQueue_VRAM            ;00BDF6|8508    |000008;
                        LDA.W DATA8_00BDFF,Y                 ;00BDF8|B9FFBD  |00BDFF;
                        STA.B $09                            ;00BDFB|8509    |000009;
                        RTS                                  ;00BDFD|60      |      ;

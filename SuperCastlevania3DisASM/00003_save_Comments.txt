@@ -117,6 +117,13 @@
         <sys:Item Key="701974" Value="address then bank" />
         <sys:Item Key="753664" Value="PRG 2c000" />
         <sys:Item Key="762891" Value="sc_clearSpeeds" />
+        <sys:Item Key="764152" Value="behavior 55 push" />
+        <sys:Item Key="764153" Value="sprite Group index" />
+        <sys:Item Key="764154" Value="spite index " />
+        <sys:Item Key="764157" Value="xSpeed walking Skelly" />
+        <sys:Item Key="764158" Value="xsubSpeed walking Skelly" />
+        <sys:Item Key="764160" Value="colusion behavier??" />
+        <sys:Item Key="764172" Value="behavior" />
         <sys:Item Key="764636" Value="04" />
         <sys:Item Key="765944" Value="72" />
         <sys:Item Key="766112" Value="34 - 42,4c-50 " />
@@ -143,5 +150,6 @@
         <sys:Item Key="1040798" Value="moreSoundSettings" />
         <sys:Item Key="1043413" Value="screenLoadSetup??" />
         <sys:Item Key="1043517" Value="bit7 trim unrol byte langth" />
+        <sys:Item Key="1044434" Value="start index, speed, numer of frames" />
       </Comments>
       

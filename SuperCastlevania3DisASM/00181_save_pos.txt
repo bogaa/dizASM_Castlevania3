@@ -270,7 +270,7 @@
 +X0B
 +H0B
 .D0B
-+D0B
++D
 .D0B
 .D0B
 +X0B
