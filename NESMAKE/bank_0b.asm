@@ -183,7 +183,7 @@
           CODE_0B811F: RTS                                  ;0B811F|60      |      ;
  
  
-        enemy_2_ID_42: JSR.W CODE_0B8113                    ;0B8120|201381  |0B8113;
+   enemy_2_ID_boss_42: JSR.W CODE_0B8113                    ;0B8120|201381  |0B8113; boneKing0, grant
                        BCC CODE_0B811F                      ;0B8123|90FA    |0B811F;
                        LDA.W $041C,X                        ;0B8125|BD1C04  |0B041C;
                        CMP.B r_floodHight                   ;0B8128|C5CA    |0000CA;
@@ -4278,7 +4278,7 @@ enemyID_ghostFlicker_D2: db $FE,$C1,$05                       ;0B9FEA|        | 
           CODE_0B9FFA: RTS                                  ;0B9FFA|60      |      ;
  
  
-enemyID_bleaManDrop_D4: JSR.W enemy_2_ID_42                  ;0B9FFB|202081  |0B8120;
+enemyID_bleaManDrop_D4: JSR.W enemy_2_ID_boss_42             ;0B9FFB|202081  |0B8120;
                        BCS CODE_0B9FFA                      ;0B9FFE|B0FA    |0B9FFA;
                        DEC.W $0606,X                        ;0BA000|DE0606  |0B0606;
                        BNE CODE_0BA01E                      ;0BA003|D019    |0BA01E;
@@ -4396,7 +4396,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
  
           CODE_0BA0D3: LDX.B r_entityID_processed           ;0BA0D3|A66C    |00006C;
-                       JMP.W enemy_2_ID_42                  ;0BA0D5|4C2081  |0B8120;
+                       JMP.W enemy_2_ID_boss_42             ;0BA0D5|4C2081  |0B8120;
  
  
           enemyID__72: db $20                               ;0BA0D8|        |      ;
@@ -4879,7 +4879,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
           CODE_0BA40A: RTS                                  ;0BA40A|60      |      ;
  
  
-     entityScripts_60: db $97,$00,$00,$00,$17               ;0BA40B|        |      ; sc_clearSpeeds
+     entityScripts_60: db $97,$00,$00,$00,$17               ;0BA40B|        |      ; boss hammerTime
                        db $00,$00,$00,$14,$00               ;0BA410|        |      ;
                        db $00,$00,$15,$00,$00               ;0BA415|        |      ;
                        db $00,$13,$0A,$0B,$00               ;0BA41A|        |      ;
@@ -5640,7 +5640,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        db $00,$08,$03,$00,$00               ;0BAF87|        |      ;
                        db $04,$06,$00,$00                   ;0BAF8C|        |      ;
  
-     entityScripts_30: db $13,$0E,$00,$00,$55               ;0BAF90|        |      ;
+     entityScripts_30: db $13,$0E,$00,$00,$55               ;0BAF90|        |      ; first boss bone king
                        db $01,$00,$00,$A0,$00               ;0BAF95|        |      ;
                        db $00,$00                           ;0BAF9A|        |      ;
  
@@ -5909,7 +5909,8 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
  
           CODE_0BB1FA: RTS                                  ;0BB1FA|60      |      ;
  
-                       LDA.W $0470,X                        ;0BB1FB|BD7004  |0B0470;
+ 
+          CODE_0BB1FB: LDA.W $0470,X                        ;0BB1FB|BD7004  |0B0470;
                        AND.B #$11                           ;0BB1FE|2911    |      ;
                        BNE CODE_0BB1FA                      ;0BB200|D0F8    |0BB1FA;
                        LDA.W $0400,X                        ;0BB202|BD0004  |0B0400;
@@ -6121,7 +6122,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB394: LDA.B r_bossSpecialHitbox            ;0BB394|A5BA    |0000BA;
                        BEQ CODE_0BB3A0                      ;0BB396|F008    |0BB3A0;
                        db $20                               ;0BB398|        |      ;
-                       dw UNREACH_0FE611                    ;0BB399|        |0FE611;
+                       dw CODE_0FE611                       ;0BB399|        |0FE611;
                        BCC CODE_0BB3A0                      ;0BB39B|9003    |0BB3A0;
                        JMP.W CODE_0BB763                    ;0BB39D|4C63B7  |0BB763;
  
@@ -6229,7 +6230,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB459: LDA.B r_bossSpecialHitbox            ;0BB459|A5BA    |0000BA;
                        BEQ CODE_0BB465                      ;0BB45B|F008    |0BB465;
                        db $20                               ;0BB45D|        |      ;
-                       dw UNREACH_0FE611                    ;0BB45E|        |0FE611;
+                       dw CODE_0FE611                       ;0BB45E|        |0FE611;
                        BCC CODE_0BB465                      ;0BB460|9003    |0BB465;
                        JMP.W CODE_0BB78D                    ;0BB462|4C8DB7  |0BB78D;
  
@@ -7060,7 +7061,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        SBC.B #$10                           ;0BBA20|E910    |      ;
                        STA.B r_tempCurrGroup                ;0BBA22|850C    |00000C;
                        LDY.B $07                            ;0BBA24|A407    |000007;
-                       LDA.W UNREACH_0FFDC2,Y               ;0BBA26|B9C2FD  |0FFDC2;
+                       LDA.W DATA8_0FFDC2,Y                 ;0BBA26|B9C2FD  |0FFDC2;
                        TAX                                  ;0BBA29|AA      |      ;
                        LDY.B #$00                           ;0BBA2A|A000    |      ;
                        LDA.B r_temp_Xpos                    ;0BBA2C|A50A    |00000A;
@@ -7483,7 +7484,7 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        dw enemy_2_ID_3C                     ;0BBE89|        |0B8702;
                        dw enemy_2_ID_3E                     ;0BBE8B|        |0B8183;
                        dw enemy_2_ID_40                     ;0BBE8D|        |0B8477;
-                       dw enemy_2_ID_42                     ;0BBE8F|        |0B8120;
+                       dw enemy_2_ID_boss_42                ;0BBE8F|        |0B8120;
                        dw enemy_2_ID_44                     ;0BBE91|        |0B816A;
                        dw enemy_2_ID_46                     ;0BBE93|        |0B8FA1;
                        dw enemy_2_ID_48                     ;0BBE95|        |0B8719;

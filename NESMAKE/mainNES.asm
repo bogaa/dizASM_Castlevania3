@@ -98,7 +98,7 @@ org $07c000
 ;	;bank 6		= BANK 03 	DizBase $38000 NESoffset $c000		3
 ;	
 ;	;bank 7		= BANK 00 	DizBase $C000  NESoffset $E000		3
-;								data/commonDPCMdata.s
+;								data/commonDPCMdata.s	; boss scream samples 
 ;								data/b7_dpcmData.s
 ;							
 ;	;bank 8		= BANK 04 	DizBase $48000 NESoffset $10000		4

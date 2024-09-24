@@ -198,7 +198,7 @@
           CODE_0E8154: LDA.B #$00                           ;0E8154|A900    |      ;
                        LDX.B #$10                           ;0E8156|A210    |      ;
                        db $20                               ;0E8158|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E8159|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E8159|        |0FFCDD;
                        BEQ CODE_0E8172                      ;0E815B|F015    |0E8172;
                        LDA.B r_stage                        ;0E815D|A532    |000032;
                        CMP.B #$01                           ;0E815F|C901    |      ;
@@ -442,12 +442,12 @@
           CODE_0E8356: STA.B r_pointerQueue_VRAM            ;0E8356|8508    |000008;
                        LDX.B #$F0                           ;0E8358|A2F0    |      ;
                        db $20                               ;0E835A|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E835B|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E835B|        |0FFCDD;
                        BNE CODE_0E8368                      ;0E835D|D009    |0E8368;
                        LDA.B r_pointerQueue_VRAM            ;0E835F|A508    |000008;
                        LDX.B #$00                           ;0E8361|A200    |      ;
                        db $20                               ;0E8363|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E8364|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E8364|        |0FFCDD;
                        BEQ CODE_0E836E                      ;0E8366|F006    |0E836E;
  
           CODE_0E8368: JSR.W UNREACH_0E97CF                 ;0E8368|20CF97  |0E97CF;
@@ -496,7 +496,7 @@
                        LDX.B #$F8                           ;0E83AE|A2F8    |      ;
                        LDA.B #$00                           ;0E83B0|A900    |      ;
                        db $20                               ;0E83B2|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E83B3|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E83B3|        |0FFCDD;
                        CMP.B #$05                           ;0E83B5|C905    |      ;
                        BEQ CODE_0E83BF                      ;0E83B7|F006    |0E83BF;
                        CMP.B #$07                           ;0E83B9|C907    |      ;
@@ -520,7 +520,7 @@
                        LDX.B #$0C                           ;0E83D2|A20C    |      ;
                        LDA.B #$00                           ;0E83D4|A900    |      ;
                        db $20                               ;0E83D6|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E83D7|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E83D7|        |0FFCDD;
                        BNE CODE_0E83DD                      ;0E83D9|D002    |0E83DD;
                        SEC                                  ;0E83DB|38      |      ;
                        RTS                                  ;0E83DC|60      |      ;
@@ -531,11 +531,11 @@
  
  
          DATA8_0E83DF: db $20                               ;0E83DF|        |      ;
-                       dw UNREACH_0FFBE8                    ;0E83E0|        |0FFBE8;
+                       dw CODE_0FFBE8                       ;0E83E0|        |0FFBE8;
                        LDX.B r_pointerQueue_VRAM            ;0E83E2|A608    |000008;
                        LDA.B #$FB                           ;0E83E4|A9FB    |      ;
                        db $20                               ;0E83E6|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E83E7|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E83E7|        |0FFCDD;
                        CMP.B #$04                           ;0E83E9|C904    |      ;
                        BEQ DATA8_0E83EF                     ;0E83EB|F002    |0E83EF;
                        SEC                                  ;0E83ED|38      |      ;
@@ -543,7 +543,7 @@
  
  
          DATA8_0E83EF: db $20                               ;0E83EF|        |      ;
-                       dw UNREACH_0FFBE8                    ;0E83F0|        |0FFBE8;
+                       dw CODE_0FFBE8                       ;0E83F0|        |0FFBE8;
                        SEC                                  ;0E83F2|38      |      ;
                        RTS                                  ;0E83F3|60      |      ;
  
@@ -555,7 +555,7 @@
                        JMP.W CODE_0E820B                    ;0E83FC|4C0B82  |0E820B;
  
                        db $20                               ;0E83FF|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E8400|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E8400|        |0FFCDD;
                        BEQ CODE_0E840A                      ;0E8402|F006    |0E840A;
                        CMP.B #$01                           ;0E8404|C901    |      ;
                        BEQ CODE_0E840A                      ;0E8406|F002    |0E840A;
@@ -565,7 +565,7 @@
  
  
          DATA8_0E840B: db $20                               ;0E840B|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E840C|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E840C|        |0FFCDD;
                        BEQ CODE_0E8412                      ;0E840E|F002    |0E8412;
                        CMP.B #$01                           ;0E8410|C901    |      ;
  
@@ -603,7 +603,7 @@
  
           CODE_0E843C: LDA.B #$05                           ;0E843C|A905    |      ;
                        db $20                               ;0E843E|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E843F|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E843F|        |0FFCDD;
                        BEQ CODE_0E8461                      ;0E8441|F01E    |0E8461;
                        CMP.B #$01                           ;0E8443|C901    |      ;
                        BEQ CODE_0E84C0                      ;0E8445|F079    |0E84C0;
@@ -624,7 +624,7 @@
           CODE_0E8461: LDX.B r_pointerQueue_VRAM            ;0E8461|A608    |000008;
                        LDA.B #$FB                           ;0E8463|A9FB    |      ;
                        db $20                               ;0E8465|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E8466|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E8466|        |0FFCDD;
                        BEQ CODE_0E848E                      ;0E8468|F024    |0E848E;
                        CMP.B #$01                           ;0E846A|C901    |      ;
                        BEQ CODE_0E84C9                      ;0E846C|F05B    |0E84C9;
@@ -710,16 +710,16 @@
           CODE_0E84E0: LDX.B r_pointerQueue_VRAM            ;0E84E0|A608    |000008;
                        LDA.B #$05                           ;0E84E2|A905    |      ;
                        db $20                               ;0E84E4|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E84E5|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E84E5|        |0FFCDD;
                        BNE CODE_0E84F9                      ;0E84E7|D010    |0E84F9;
                        LDX.B r_pointerQueue_VRAM            ;0E84E9|A608    |000008;
                        LDA.B #$FB                           ;0E84EB|A9FB    |      ;
                        db $20                               ;0E84ED|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E84EE|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E84EE|        |0FFCDD;
                        BNE CODE_0E84F9                      ;0E84F0|D007    |0E84F9;
                        LDX.B r_ConveyorRelated              ;0E84F2|A691    |000091;
                        db $20                               ;0E84F4|        |      ;
-                       dw UNREACH_0FFE9C                    ;0E84F5|        |0FFE9C;
+                       dw CODE_0FFE9C                       ;0E84F5|        |0FFE9C;
  
           CODE_0E84F7: SEC                                  ;0E84F7|38      |      ;
                        RTS                                  ;0E84F8|60      |      ;
@@ -1060,25 +1060,25 @@
                        CMP.B #$02                           ;0E873C|C902    |      ;
                        BEQ CODE_0E872A                      ;0E873E|F0EA    |0E872A;
  
-          CODE_0E8740: LDA.B $78                            ;0E8740|A578    |000078;
-                       BNE CODE_0E8762                      ;0E8742|D01E    |0E8762;
+          CODE_0E8740: LDA.B r_bossActiveFlag               ;0E8740|A578    |000078;
+                       BNE stopScroll_if_boss_87            ;0E8742|D01E    |0E8762;
                        LDA.B r_roomOrientation              ;0E8744|A568    |000068;
-                       BMI CODE_0E8762                      ;0E8746|301A    |0E8762;
+                       BMI stopScroll_if_boss_87            ;0E8746|301A    |0E8762;
                        LDA.W $04F2                          ;0E8748|ADF204  |0E04F2;
                        BMI CODE_0E8782                      ;0E874B|3035    |0E8782;
                        ORA.W $0509                          ;0E874D|0D0905  |0E0509;
                        BEQ CODE_0E8781                      ;0E8750|F02F    |0E8781;
                        LDA.B r_scroolLock                   ;0E8752|A571    |000071;
                        CMP.B r_sceneScrollOffsetHi          ;0E8754|C557    |000057;
-                       BEQ CODE_0E8762                      ;0E8756|F00A    |0E8762;
+                       BEQ stopScroll_if_boss_87            ;0E8756|F00A    |0E8762;
                        LDA.W $0438                          ;0E8758|AD3804  |0E0438;
-                       BPL CODE_0E8762                      ;0E875B|1005    |0E8762;
+                       BPL stopScroll_if_boss_87            ;0E875B|1005    |0E8762;
                        LDA.B #$01                           ;0E875D|A901    |      ;
                        STA.B r_scrollDirection              ;0E875F|8565    |000065;
                        RTS                                  ;0E8761|60      |      ;
  
  
-          CODE_0E8762: LDA.W $04C4                          ;0E8762|ADC404  |0E04C4;
+stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E04C4;
                        CLC                                  ;0E8765|18      |      ;
                        ADC.W $0509                          ;0E8766|6D0905  |0E0509;
                        STA.W $04C4                          ;0E8769|8DC404  |0E04C4;
@@ -1096,13 +1096,13 @@
  
  
           CODE_0E8782: LDA.B r_horizontalScrollLockBridge   ;0E8782|A5C8    |0000C8;
-                       BNE CODE_0E8762                      ;0E8784|D0DC    |0E8762;
+                       BNE stopScroll_if_boss_87            ;0E8784|D0DC    |0E8762;
                        LDA.B r_sceneScrollOffsetLo          ;0E8786|A556    |000056;
                        ORA.B r_sceneScrollOffsetHi          ;0E8788|0557    |000057;
-                       BEQ CODE_0E8762                      ;0E878A|F0D6    |0E8762;
+                       BEQ stopScroll_if_boss_87            ;0E878A|F0D6    |0E8762;
                        LDY.W $0438                          ;0E878C|AC3804  |0E0438;
                        DEY                                  ;0E878F|88      |      ;
-                       BMI CODE_0E8762                      ;0E8790|30D0    |0E8762;
+                       BMI stopScroll_if_boss_87            ;0E8790|30D0    |0E8762;
                        LDA.B #$00                           ;0E8792|A900    |      ;
                        STA.B r_scrollDirection              ;0E8794|8565    |000065;
                        RTS                                  ;0E8796|60      |      ;
@@ -1282,13 +1282,13 @@
  
           CODE_0E8996: LDA.B r_lvlTimerLo                   ;0E8996|A57E    |00007E;
                        ORA.B r_lvlTimerHi                   ;0E8998|057F    |00007F;
-                       BNE CODE_0E89A3                      ;0E899A|D007    |0E89A3;
+                       BNE levelTimer                       ;0E899A|D007    |0E89A3;
                        JSR.W CODE_0E8398                    ;0E899C|209883  |0E8398;
                        JSR.W CODE_0EBDC4                    ;0E899F|20C4BD  |0EBDC4;
                        RTS                                  ;0E89A2|60      |      ;
  
  
-          CODE_0E89A3: LDA.B r_lvlTimerLo                   ;0E89A3|A57E    |00007E;
+           levelTimer: LDA.B r_lvlTimerLo                   ;0E89A3|A57E    |00007E;
                        AND.B #$0F                           ;0E89A5|290F    |      ;
                        STA.B $01                            ;0E89A7|8501    |000001;
                        LDA.B r_lvlTimerLo                   ;0E89A9|A57E    |00007E;
@@ -2020,7 +2020,7 @@
                        TAY                                  ;0E8F9B|A8      |      ;
                        LDA.B r_knockBackDirrection          ;0E8F9C|A590    |000090;
                        BPL CODE_0E8FAD                      ;0E8F9E|100D    |0E8FAD;
-                       LDA.W UNREACH_0FFD81,Y               ;0E8FA0|B981FD  |0FFD81;
+                       LDA.W DATA8_0FFD81,Y                 ;0E8FA0|B981FD  |0FFD81;
                        STA.W $0537                          ;0E8FA3|8D3705  |0E0537;
                        LDA.B #$00                           ;0E8FA6|A900    |      ;
                        STA.W $0520                          ;0E8FA8|8D2005  |0E0520;
@@ -2028,7 +2028,7 @@
  
           CODE_0E8FAD: LDA.B #$00                           ;0E8FAD|A900    |      ;
                        SEC                                  ;0E8FAF|38      |      ;
-                       SBC.W UNREACH_0FFD81,Y               ;0E8FB0|F981FD  |0FFD81;
+                       SBC.W DATA8_0FFD81,Y                 ;0E8FB0|F981FD  |0FFD81;
                        STA.W $0537                          ;0E8FB3|8D3705  |0E0537;
                        LDA.B #$FF                           ;0E8FB6|A9FF    |      ;
                        STA.W $0520                          ;0E8FB8|8D2005  |0E0520;
@@ -2038,7 +2038,7 @@
                        SEC                                  ;0E8FBD|38      |      ;
                        SBC.B $00                            ;0E8FBE|E500    |000000;
                        TAY                                  ;0E8FC0|A8      |      ;
-                       LDA.W UNREACH_0FFD81,Y               ;0E8FC1|B981FD  |0FFD81;
+                       LDA.W DATA8_0FFD81,Y                 ;0E8FC1|B981FD  |0FFD81;
                        STA.W $0509                          ;0E8FC4|8D0905  |0E0509;
                        LDA.B #$00                           ;0E8FC7|A900    |      ;
                        STA.W $04F2                          ;0E8FC9|8DF204  |0E04F2;
@@ -2173,7 +2173,7 @@
           CODE_0E915E: STA.B $00                            ;0E915E|8500    |000000;
                        LDX.B #$00                           ;0E9160|A200    |      ;
                        db $20                               ;0E9162|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E9163|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E9163|        |0FFCDD;
                        BEQ CODE_0E9169                      ;0E9165|F002    |0E9169;
  
           CODE_0E9167: SEC                                  ;0E9167|38      |      ;
@@ -2187,7 +2187,7 @@
                        TAX                                  ;0E9170|AA      |      ;
                        LDA.B $00                            ;0E9171|A500    |000000;
                        db $20                               ;0E9173|        |      ;
-                       dw UNREACH_0FFCDD                    ;0E9174|        |0FFCDD;
+                       dw CODE_0FFCDD                       ;0E9174|        |0FFCDD;
                        BNE CODE_0E9167                      ;0E9176|D0EF    |0E9167;
                        LDA.B $01                            ;0E9178|A501    |000001;
                        CLC                                  ;0E917A|18      |      ;

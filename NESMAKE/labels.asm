@@ -89,6 +89,7 @@
                        r_075 = $000075
                        r_quarterSpawner_Xpos = $000076
                        r_spawnerBlock = $000077
+                       r_bossActiveFlag = $000078
                        r_roomEffect = $00007D
                        r_lvlTimerLo = $00007E
                        r_lvlTimerHi = $00007F
@@ -302,14 +303,15 @@
                        enemyIDTableHi01 = $0BBD50
                        enemyIDTable01Hi = $0BBE50
                        enemyScriptTableHi = $0BBEA2
+ 
                        compressScreenTilemapPointerHi = $0FEC78
                        spriteAnimIndexHi = $0FEFB5
+ 
                        PTR16_008067 = $008067
                        PTR16_00843E = $00843E
                        PTR16_008494 = $008494
                        PTR16_0085CE = $0085CE
                        PTR16_008BD2 = $008BD2
-                       LOOSE_OP_008C8C = $008C8C
                        PTR16_008DD0 = $008DD0
                        LOOSE_OP_0093B7 = $0093B7
                        LOOSE_OP_0093DF = $0093DF
@@ -346,6 +348,7 @@
                        PTR16_02B7DE = $02B7DE
                        PTR16_02B8BA = $02B8BA
                        PTR16_02B8BC = $02B8BC
+                       LOOSE_OP_098139 = $098139
                        PTR16_0A875A = $0A875A
                        LOOSE_OP_0A926F = $0A926F
                        PTR16_0A9380 = $0A9380

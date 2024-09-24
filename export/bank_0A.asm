@@ -654,7 +654,8 @@
  
           CODE_0A849D: RTS                                  ;0A849D|60      |      ;
  
-                       LDX.B #$01                           ;0A849E|A201    |      ;
+ 
+          CODE_0A849E: LDX.B #$01                           ;0A849E|A201    |      ;
  
           CODE_0A84A0: LDA.W $054E,X                        ;0A84A0|BD4E05  |0A054E;
                        CMP.B #$93                           ;0A84A3|C993    |      ;
@@ -698,7 +699,8 @@
                        STA.W $041C,X                        ;0A84E6|9D1C04  |0A041C;
                        RTS                                  ;0A84E9|60      |      ;
  
-                       LDX.B #$00                           ;0A84EA|A200    |      ;
+ 
+          CODE_0A84EA: LDX.B #$00                           ;0A84EA|A200    |      ;
  
           CODE_0A84EC: LDA.W $07C2,X                        ;0A84EC|BDC207  |0A07C2;
                        BEQ CODE_0A84FF                      ;0A84EF|F00E    |0A84FF;
@@ -2258,7 +2260,8 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
           CODE_0A8F78: LDA.W $054E,X                        ;0A8F78|BD4E05  |0A054E;
                        STA.B r_bossObject                   ;0A8F7B|85C1    |0000C1;
-                       STX.B r_roomSectionChrBanksDataOffset;0A8F7D|860F    |00000F;
+ 
+          CODE_0A8F7D: STX.B r_roomSectionChrBanksDataOffset;0A8F7D|860F    |00000F;
                        db $20                               ;0A8F7F|        |      ;
                        dw UNREACH_0FE730                    ;0A8F80|        |0FE730;
                        LDX.B r_roomSectionChrBanksDataOffset;0A8F82|A60F    |00000F;
@@ -5421,7 +5424,7 @@ gameStateC_substate01: JSR.W CODE_0AB5F3                    ;0AB135|20F3B5  |0AB
  
 gameStateC_substate02: JSR.W CODE_0AB5F3                    ;0AB157|20F3B5  |0AB5F3;
                        db $20                               ;0AB15A|        |      ;
-                       dw UNREACH_0FE666                    ;0AB15B|        |0FE666;
+                       dw CODE_0FE666                       ;0AB15B|        |0FE666;
                        JMP.W gameStateC_incSubstate         ;0AB15D|4C1AB2  |0AB21A;
  
  
@@ -5499,7 +5502,7 @@ gameStateC_substate04: JSR.W CODE_0AB5F3                    ;0AB1BD|20F3B5  |0AB
                        LDA.B #$23                           ;0AB1E1|A923    |      ;
                        LDX.B #$70                           ;0AB1E3|A270    |      ;
                        db $20                               ;0AB1E5|        |      ;
-                       dw UNREACH_0FE5C1                    ;0AB1E6|        |0FE5C1;
+                       dw CODE_0FE5C1                       ;0AB1E6|        |0FE5C1;
                        LDY.B #$00                           ;0AB1E8|A000    |      ;
                        LDA.B #$80                           ;0AB1EA|A980    |      ;
                        db $4C                               ;0AB1EC|        |      ;
@@ -5687,7 +5690,7 @@ gameStateC_substate0a: LDY.W $0782                          ;0AB31B|AC8207  |0A0
                        db $20                               ;0AB32E|        |      ;
                        dw setNameTableMapping_E4            ;0AB32F|        |0FEBFD;
                        db $20                               ;0AB331|        |      ;
-                       dw UNREACH_0FE666                    ;0AB332|        |0FE666;
+                       dw CODE_0FE666                       ;0AB332|        |0FE666;
                        LDA.B #$50                           ;0AB334|A950    |      ;
                        STA.B r_updateNametable              ;0AB336|8525    |000025;
                        LDY.W $0782                          ;0AB338|AC8207  |0A0782;
@@ -6230,7 +6233,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
  gameStateD_substate0: db $20                               ;0AB6D5|        |      ;
                        dw setBank_c000_1E                   ;0AB6D6|        |0FE2DA;
                        db $20                               ;0AB6D8|        |      ;
-                       dw UNREACH_0FE666                    ;0AB6D9|        |0FE666;
+                       dw CODE_0FE666                       ;0AB6D9|        |0FE666;
                        LDA.B r_updateNametable              ;0AB6DB|A525    |000025;
                        STA.W $5105                          ;0AB6DD|8D0551  |0A5105;
                        LDA.W $0781                          ;0AB6E0|AD8107  |0A0781;
@@ -6558,7 +6561,7 @@ gameStateD_substate2_process6bh: LDA.B r_menuSelectIdx                ;0AB7EE|A5
                        BCC CODE_0AB8CF                      ;0AB8E2|90EB    |0AB8CF;
                        db $4C                               ;0AB8E4|        |      ;
  
-                       dw CODE_0FE8DE                       ;0AB8E5|        |0FE8DE;
+                       dw endVRAM_queue                     ;0AB8E5|        |0FE8DE;
  
           CODE_0AB8E7: LDA.B #$F9                           ;0AB8E7|A9F9    |      ;
                        BNE CODE_0AB8DB                      ;0AB8E9|D0F0    |0AB8DB;
@@ -6739,7 +6742,7 @@ gameStateD_substate2_process6bh: LDA.B r_menuSelectIdx                ;0AB7EE|A5
                        DEC.B r_currOAM_Attr                 ;0AB9FD|C610    |000010;
                        BNE CODE_0AB9F9                      ;0AB9FF|D0F8    |0AB9F9;
                        db $20                               ;0ABA01|        |      ;
-                       dw CODE_0FE8DE                       ;0ABA02|        |0FE8DE;
+                       dw endVRAM_queue                     ;0ABA02|        |0FE8DE;
                        INC.W $07A6                          ;0ABA04|EEA607  |0A07A6;
                        CLC                                  ;0ABA07|18      |      ;
                        RTS                                  ;0ABA08|60      |      ;

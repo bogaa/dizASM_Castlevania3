@@ -272,6 +272,9 @@
         <sys:Item Key="119">
           <Value exs:type="ns1:Label" Name="r_spawnerBlock" Comment="&#x9;" />
         </sys:Item>
+        <sys:Item Key="120">
+          <Value exs:type="ns1:Label" Name="r_bossActiveFlag" Comment="" />
+        </sys:Item>
         <sys:Item Key="125">
           <Value exs:type="ns1:Label" Name="r_roomEffect" Comment=" &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" />
         </sys:Item>
@@ -1571,6 +1574,9 @@
         <sys:Item Key="163840">
           <Value exs:type="ns1:Label" Name="bank_84" Comment="" />
         </sys:Item>
+        <sys:Item Key="163841">
+          <Value exs:type="ns1:Label" Name="if_boss_84" Comment="" />
+        </sys:Item>
         <sys:Item Key="177520">
           <Value exs:type="ns1:Label" Name="RLE_tilemap_01_titleScreen" Comment="" />
         </sys:Item>
@@ -1628,6 +1634,9 @@
         <sys:Item Key="425984">
           <Value exs:type="ns1:Label" Name="bank_8c" Comment="" />
         </sys:Item>
+        <sys:Item Key="441841">
+          <Value exs:type="ns1:Label" Name="collusionPointY_scr" Comment="" />
+        </sys:Item>
         <sys:Item Key="491520">
           <Value exs:type="ns1:Label" Name="bank_8e" Comment="" />
         </sys:Item>
@@ -1636,6 +1645,15 @@
         </sys:Item>
         <sys:Item Key="622592">
           <Value exs:type="ns1:Label" Name="bank_92" Comment="" />
+        </sys:Item>
+        <sys:Item Key="622689">
+          <Value exs:type="ns1:Label" Name="initBoss" Comment="" />
+        </sys:Item>
+        <sys:Item Key="622714">
+          <Value exs:type="ns1:Label" Name="skipStuff_09" Comment="" />
+        </sys:Item>
+        <sys:Item Key="623168">
+          <Value exs:type="ns1:Label" Name="endStopWatchAction" Comment="" />
         </sys:Item>
         <sys:Item Key="688128">
           <Value exs:type="ns1:Label" Name="bank_94" Comment="" />
@@ -2022,7 +2040,7 @@
           <Value exs:type="ns1:Label" Name="enemyID__EA" Comment="             " />
         </sys:Item>
         <sys:Item Key="753952">
-          <Value exs:type="ns1:Label" Name="enemy_2_ID_42" Comment=" " />
+          <Value exs:type="ns1:Label" Name="enemy_2_ID_boss_42" Comment="" />
         </sys:Item>
         <sys:Item Key="754003">
           <Value exs:type="ns1:Label" Name="enemyID__DA" Comment="             " />
@@ -4523,8 +4541,14 @@
         <sys:Item Key="951858">
           <Value exs:type="ns1:Label" Name="data_yPos" Comment="" />
         </sys:Item>
+        <sys:Item Key="952162">
+          <Value exs:type="ns1:Label" Name="stopScroll_if_boss_87" Comment="" />
+        </sys:Item>
         <sys:Item Key="952686">
           <Value exs:type="ns1:Label" Name="subtractOneLife" Comment="" />
+        </sys:Item>
+        <sys:Item Key="952739">
+          <Value exs:type="ns1:Label" Name="levelTimer" Comment="" />
         </sys:Item>
         <sys:Item Key="952865">
           <Value exs:type="ns1:Label" Name="IRQ_stuff" Comment="" />
@@ -4545,13 +4569,22 @@
           <Value exs:type="ns1:Label" Name="yPosData03" Comment="" />
         </sys:Item>
         <sys:Item Key="1032192">
-          <Value exs:type="ns1:Label" Name="commonDPCMdata01" Comment="" />
+          <Value exs:type="ns1:Label" Name="commonDPCM_data01" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1034571">
+          <Value exs:type="ns1:Label" Name="bank_roomData" Comment="" />
         </sys:Item>
         <sys:Item Key="1036391">
           <Value exs:type="ns1:Label" Name="coreLoad_03" Comment="" />
         </sys:Item>
+        <sys:Item Key="1036661">
+          <Value exs:type="ns1:Label" Name="scrollXposUpdate" Comment="" />
+        </sys:Item>
         <sys:Item Key="1038194">
           <Value exs:type="ns1:Label" Name="RLE_tilemap_10_ending01" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1039487">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="1040384">
           <Value exs:type="ns1:Label" Name="bank_9e" Comment="" />
@@ -4588,6 +4621,9 @@
         </sys:Item>
         <sys:Item Key="1040935">
           <Value exs:type="ns1:Label" Name="initSound" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1041110">
+          <Value exs:type="ns1:Label" Name="initBoss_00" Comment="" />
         </sys:Item>
         <sys:Item Key="1041114">
           <Value exs:type="ns1:Label" Name="setBank_c000_1E" Comment="" />
@@ -4631,6 +4667,9 @@
         <sys:Item Key="1041967">
           <Value exs:type="ns1:Label" Name="titleScreenThunderMain" Comment="" />
         </sys:Item>
+        <sys:Item Key="1041981">
+          <Value exs:type="ns1:Label" Name="stackRestoreBank" Comment="" />
+        </sys:Item>
         <sys:Item Key="1042047">
           <Value exs:type="ns1:Label" Name="restorePRG" Comment="" />
         </sys:Item>
@@ -4648,6 +4687,24 @@
         </sys:Item>
         <sys:Item Key="1042585">
           <Value exs:type="ns1:Label" Name="updatePointerOffset_00" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042654">
+          <Value exs:type="ns1:Label" Name="endVRAM_queue" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042715">
+          <Value exs:type="ns1:Label" Name="HUD_tileNumber" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1043005">
+          <Value exs:type="ns1:Label" Name="blockDraw" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1043047">
+          <Value exs:type="ns1:Label" Name="collusionBits" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1043365">
+          <Value exs:type="ns1:Label" Name="loadPRG_82" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1043370">
+          <Value exs:type="ns1:Label" Name="levelLoad" Comment="" />
         </sys:Item>
         <sys:Item Key="1043413">
           <Value exs:type="ns1:Label" Name="screenLoadRoutine01" Comment="" />
@@ -5111,8 +5168,32 @@
         <sys:Item Key="1045380">
           <Value exs:type="ns1:Label" Name="gameState_04_MainGame" Comment="" />
         </sys:Item>
+        <sys:Item Key="1045393">
+          <Value exs:type="ns1:Label" Name="mainGameStates" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045817">
+          <Value exs:type="ns1:Label" Name="skip_if_bossFF" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1047009">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
         <sys:Item Key="1047482">
           <Value exs:type="ns1:Label" Name="coreLoad_00" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1047496">
+          <Value exs:type="ns1:Label" Name="loadBank_A" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1047503">
+          <Value exs:type="ns1:Label" Name="loadBank_9" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1047507">
+          <Value exs:type="ns1:Label" Name="loadBank_E" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1047659">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1047884">
+          <Value exs:type="ns1:Label" Name="OAM_attribTableFF" Comment="" />
         </sys:Item>
       </Labels>
       

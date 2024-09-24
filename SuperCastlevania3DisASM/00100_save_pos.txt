@@ -2,7 +2,11 @@
 ;pos=02F800
 r 495 XD
 Xj
-r 1080 XD
+r 859 XD
+Xj
+r 20 XD
+Xj
+r 199 XD
 Xj
 r 341 XD
 Xj

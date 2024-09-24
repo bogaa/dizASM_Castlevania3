@@ -264,7 +264,7 @@
                        db $A5,$03,$29,$03,$A8               ;038510|        |000003;
                        db $B9,$F9,$83,$D0,$E5               ;038515|        |0383F9;
  
-      bossInitRoutine: LDA.B $78                            ;03851A|A578    |000078;
+      bossInitRoutine: LDA.B r_bossActiveFlag               ;03851A|A578    |000078;
                        BNE CODE_03853F                      ;03851C|D021    |03853F;
                        LDA.W $061D,X                        ;03851E|BD1D06  |03061D;
                        BNE CODE_03853E                      ;038521|D01B    |03853E;

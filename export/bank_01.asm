@@ -82,7 +82,7 @@
                        ORA.B r_lvlTimerHi                   ;018089|057F    |00007F;
                        BEQ CODE_01809D                      ;01808B|F010    |01809D;
                        db $20                               ;01808D|        |      ;
-                       dw UNREACH_0FE656                    ;01808E|        |0FE656;
+                       dw DATA8_0FE656                      ;01808E|        |0FE656;
                        JMP.W CODE_0180AA                    ;018090|4CAA80  |0180AA;
  
  
@@ -3166,7 +3166,7 @@ symphaScreenUpdateStatue: STX.B r_coreLoadingFuncAddr          ;019D93|8616    |
                        LDA.B #$1E                           ;01A832|A91E    |      ;
                        LDX.B #$08                           ;01A834|A208    |      ;
                        db $20                               ;01A836|        |      ;
-                       dw UNREACH_0FE5C1                    ;01A837|        |0FE5C1;
+                       dw CODE_0FE5C1                       ;01A837|        |0FE5C1;
                        LDA.B #$80                           ;01A839|A980    |      ;
                        STA.W $0791                          ;01A83B|8D9107  |010791;
                        LDA.B #$01                           ;01A83E|A901    |      ;
