@@ -1063,11 +1063,10 @@ r 14 AD
 AL
 r 16 AD
 AL
-r 21 AD
-+D
-.L
-+D
-.D
+r 22 AD
+AL
+AD
+AD
 +H
 .j
 +D
@@ -1142,7 +1141,7 @@ AP
 AD
 +j
 .D
-AL
+AL0F
 ED0F
 ED0F
 r 11 ED
@@ -1600,18 +1599,18 @@ ED0F
 Aj
 AD
 AD
-Aj
-Ar
-AD
-AD
-AL
-Aj
-AH
-AD
-AD
-AD
-AL
-AD
+Bj
+Br
+BD
+BD
+BL
+Bj
++H
+.D
++D
+.D
++L
+.D
 +H
 .D
 +H

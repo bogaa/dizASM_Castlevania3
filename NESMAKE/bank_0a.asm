@@ -50,7 +50,8 @@
                        STA.B $99                            ;0A8044|8599    |000099;
                        RTS                                  ;0A8046|60      |      ;
  
-                       LDX.B #$00                           ;0A8047|A200    |      ;
+ 
+          CODE_0A8047: LDX.B #$00                           ;0A8047|A200    |      ;
  
           CODE_0A8049: LDA.B #$00                           ;0A8049|A900    |      ;
                        STA.B r_0f0,X                        ;0A804B|95F0    |0000F0;
@@ -88,7 +89,8 @@
  
           CODE_0A8089: RTS                                  ;0A8089|60      |      ;
  
-                       LDY.B r_scrollSpd                    ;0A808A|A46E    |00006E;
+ 
+          CODE_0A808A: LDY.B r_scrollSpd                    ;0A808A|A46E    |00006E;
                        BEQ CODE_0A8089                      ;0A808C|F0FB    |0A8089;
                        DEY                                  ;0A808E|88      |      ;
                        BEQ CODE_0A80B9                      ;0A808F|F028    |0A80B9;
@@ -296,7 +298,8 @@
                        STA.W $05EF,X                        ;0A81F4|9DEF05  |0A05EF;
                        RTS                                  ;0A81F7|60      |      ;
  
-                       JSR.W CODE_0A8369                    ;0A81F8|206983  |0A8369;
+ 
+          CODE_0A81F8: JSR.W CODE_0A8369                    ;0A81F8|206983  |0A8369;
                        LDA.B #$00                           ;0A81FB|A900    |      ;
                        STA.B $79                            ;0A81FD|8579    |000079;
                        STA.B $7A                            ;0A81FF|857A    |00007A;
@@ -968,7 +971,7 @@ zombieSpawnFromGroundSpawnPointer: dw zombieGroundSpawn00               ;0A8629|
  
 fishManSpawnPointer_12: dw fishManSpawn00                    ;0A86BF|        |0A86C9;
                        dw fishManSpawn01                    ;0A86C1|        |0A86EF;
-                       LDA.B r_gameLoadState                ;0A86C3|A52A    |00002A;
+                       LDA.B r_gameTransition               ;0A86C3|A52A    |00002A;
                        CMP.B #$1B                           ;0A86C5|C91B    |      ;
                        BEQ CODE_0A86EE                      ;0A86C7|F025    |0A86EE;
  
@@ -1703,7 +1706,7 @@ redSkelletonSpawnPointer_13: dw redSkelletonSpawn00               ;0A8BAB|      
  
           CODE_0A8BC1: JSR.W CODE_0A9332                    ;0A8BC1|203293  |0A9332;
                        db $20                               ;0A8BC4|        |      ;
-                       dw UNREACH_0FE7EC                    ;0A8BC5|        |0FE7EC;
+                       dw CODE_0FE7EC                       ;0A8BC5|        |0FE7EC;
                        JSR.W CODE_0A8BD5                    ;0A8BC7|20D58B  |0A8BD5;
                        JMP.W CODE_0A85DE                    ;0A8BCA|4CDE85  |0A85DE;
  
@@ -1762,7 +1765,7 @@ CrowAndEyeSpawnPointer_10: dw crowSpawn00                       ;0A8BF9|        
                        JSR.W DATA8_0A8DFF                   ;0A8C22|20FF8D  |0A8DFF;
                        JSR.W CODE_0A9332                    ;0A8C25|203293  |0A9332;
                        db $20                               ;0A8C28|        |      ;
-                       dw UNREACH_0FE7EC                    ;0A8C29|        |0FE7EC;
+                       dw CODE_0FE7EC                       ;0A8C29|        |0FE7EC;
                        TXA                                  ;0A8C2B|8A      |      ;
                        LDX.B r_entityID_processed           ;0A8C2C|A66C    |00006C;
                        STA.W $07E6,X                        ;0A8C2E|9DE607  |0A07E6;
@@ -1895,7 +1898,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        STA.W $04A8,X                        ;0A8D0D|9DA804  |0A04A8;
                        JSR.W CODE_0A9332                    ;0A8D10|203293  |0A9332;
                        db $20                               ;0A8D13|        |      ;
-                       dw UNREACH_0FE7EC                    ;0A8D14|        |0FE7EC;
+                       dw CODE_0FE7EC                       ;0A8D14|        |0FE7EC;
                        LDX.B #$08                           ;0A8D16|A208    |      ;
                        db $20                               ;0A8D18|        |      ;
                        dw CODE_0FFED7                       ;0A8D19|        |0FFED7;
@@ -1920,7 +1923,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        STA.W $04A8,X                        ;0A8D46|9DA804  |0A04A8;
                        JSR.W CODE_0A9332                    ;0A8D49|203293  |0A9332;
                        db $20                               ;0A8D4C|        |      ;
-                       dw UNREACH_0FE7EC                    ;0A8D4D|        |0FE7EC;
+                       dw CODE_0FE7EC                       ;0A8D4D|        |0FE7EC;
                        LDA.B r_entityID_processed           ;0A8D4F|A56C    |00006C;
                        STA.W $0645,X                        ;0A8D51|9D4506  |0A0645;
                        TXA                                  ;0A8D54|8A      |      ;
@@ -2012,7 +2015,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        JSR.W CODE_0A9332                    ;0A8DE1|203293  |0A9332;
                        db $4C                               ;0A8DE4|        |      ;
  
-                       dw UNREACH_0FE7EC                    ;0A8DE5|        |0FE7EC;
+                       dw CODE_0FE7EC                       ;0A8DE5|        |0FE7EC;
  
           CODE_0A8DE7: LDA.W $07DA,X                        ;0A8DE7|BDDA07  |0A07DA;
                        STA.B $00                            ;0A8DEA|8500    |000000;
@@ -2212,7 +2215,8 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
                        db $4C                               ;0A8F26|        |      ;
  
                        dw CODE_0FE33C                       ;0A8F27|        |0FE33C;
-                       LDY.W $054E,X                        ;0A8F29|BC4E05  |0A054E;
+ 
+          CODE_0A8F29: LDY.W $054E,X                        ;0A8F29|BC4E05  |0A054E;
                        JSR.W CODE_0A8F1B                    ;0A8F2C|201B8F  |0A8F1B;
                        JMP.W CODE_0A8F78                    ;0A8F2F|4C788F  |0A8F78;
  
@@ -2262,7 +2266,7 @@ batSleepSpawnPointer_0d: dw batSleepSpawn00                   ;0A8CB2|        |0
  
           CODE_0A8F7D: STX.B r_roomSectionChrBanksDataOffset;0A8F7D|860F    |00000F;
                        db $20                               ;0A8F7F|        |      ;
-                       dw UNREACH_0FE730                    ;0A8F80|        |0FE730;
+                       dw CODE_0FE730                       ;0A8F80|        |0FE730;
                        LDX.B r_roomSectionChrBanksDataOffset;0A8F82|A60F    |00000F;
                        LDA.B r_bossObject                   ;0A8F84|A5C1    |0000C1;
                        BEQ CODE_0A8FA0                      ;0A8F86|F018    |0A8FA0;
@@ -5384,7 +5388,7 @@ luminaryMetadataPointer: dw DATA8_0AA840                      ;0AA644|        |0
                        dw gameStateC_substate14             ;0AB117|        |0AB4CA;
  
          DATA8_0AB119: db $20                               ;0AB119|        |      ;
-                       dw UNREACH_0FE7F7                    ;0AB11A|        |0FE7F7;
+                       dw clearAllEntityButPlayer           ;0AB11A|        |0FE7F7;
  
 gameStateC_substate00: db $20                               ;0AB11C|        |      ;
                        dw setBank_c000_1E                   ;0AB11D|        |0FE2DA;
@@ -5408,7 +5412,7 @@ gameStateC_substate01: JSR.W CODE_0AB5F3                    ;0AB135|20F3B5  |0AB
                        db $20                               ;0AB143|        |      ;
                        dw screenLoadRoutine                 ;0AB144|        |0FECE9;
                        db $20                               ;0AB146|        |      ;
-                       dw UNREACH_0FE716                    ;0AB147|        |0FE716;
+                       dw CODE_0FE716                       ;0AB147|        |0FE716;
                        PLA                                  ;0AB149|68      |      ;
                        STA.B r_15                           ;0AB14A|8515    |000015;
                        db $20                               ;0AB14C|        |      ;
@@ -5429,7 +5433,7 @@ gameStateC_substate02: JSR.W CODE_0AB5F3                    ;0AB157|20F3B5  |0AB
  
 gameStateC_substate03: JSR.W CODE_0AB5F3                    ;0AB160|20F3B5  |0AB5F3;
                        db $20                               ;0AB163|        |      ;
-                       dw UNREACH_0FE7F7                    ;0AB164|        |0FE7F7;
+                       dw clearAllEntityButPlayer           ;0AB164|        |0FE7F7;
                        JSR.W CODE_0AB452                    ;0AB166|2052B4  |0AB452;
                        JSR.W CODE_0AB19B                    ;0AB169|209BB1  |0AB19B;
                        LDA.B #$38                           ;0AB16C|A938    |      ;
@@ -5506,11 +5510,11 @@ gameStateC_substate04: JSR.W CODE_0AB5F3                    ;0AB1BD|20F3B5  |0AB
                        LDA.B #$80                           ;0AB1EA|A980    |      ;
                        db $4C                               ;0AB1EC|        |      ;
  
-                       dw UNREACH_0FE58E                    ;0AB1ED|        |0FE58E;
+                       dw CODE_0FE58E                       ;0AB1ED|        |0FE58E;
  
 gameStateC_substate05: JSR.W CODE_0AB5F3                    ;0AB1EF|20F3B5  |0AB5F3;
                        db $20                               ;0AB1F2|        |      ;
-                       dw UNREACH_0FE579                    ;0AB1F3|        |0FE579;
+                       dw CODE_0FE579                       ;0AB1F3|        |0FE579;
                        BNE CODE_0AB21C                      ;0AB1F5|D025    |0AB21C;
                        LDA.B #$F0                           ;0AB1F7|A9F0    |      ;
                        STA.W $078A                          ;0AB1F9|8D8A07  |0A078A;
@@ -5604,7 +5608,7 @@ gameStateC_inc783_setTimerA: INC.W $0783                          ;0AB2A7|EE8307
                        LDY.B #$00                           ;0AB2AA|A000    |      ;
                        db $4C                               ;0AB2AC|        |      ;
  
-                       dw UNREACH_0FE58E                    ;0AB2AD|        |0FE58E;
+                       dw CODE_0FE58E                       ;0AB2AD|        |0FE58E;
  
           CODE_0AB2AF: LDX.B #$00                           ;0AB2AF|A200    |      ;
                        BEQ DATA8_0AB2B5                     ;0AB2B1|F002    |0AB2B5;
@@ -5615,7 +5619,7 @@ gameStateC_animateAndnext_783_afterTimer: LDX.B #$01                           ;
                        dw CODE_0FEF75                       ;0AB2B6|        |0FEF75;
  
 gameStateC_next_783_afterTimer: db $20                               ;0AB2B8|        |      ;
-                       dw UNREACH_0FE579                    ;0AB2B9|        |0FE579;
+                       dw CODE_0FE579                       ;0AB2B9|        |0FE579;
                        BNE CODE_0AB2C0                      ;0AB2BB|D003    |0AB2C0;
                        INC.W $0783                          ;0AB2BD|EE8307  |0A0783;
  
@@ -5756,7 +5760,7 @@ gameStateC_substate0a: LDY.W $0782                          ;0AB31B|AC8207  |0A0
                        LDA.W DATA8_0AB3CD,Y                 ;0AB3BE|B9CDB3  |0AB3CD;
                        LDY.B $00                            ;0AB3C1|A400    |000000;
                        db $20                               ;0AB3C3|        |      ;
-                       dw UNREACH_0FE58E                    ;0AB3C4|        |0FE58E;
+                       dw CODE_0FE58E                       ;0AB3C4|        |0FE58E;
                        JMP.W gameStateC_incSubstate         ;0AB3C6|4C1AB2  |0AB21A;
  
  
@@ -5768,7 +5772,7 @@ gameStateC_substate0a: LDY.W $0782                          ;0AB31B|AC8207  |0A0
  
 gameStateC_substate0c: JSR.W CODE_0AB390                    ;0AB3D5|2090B3  |0AB390;
                        db $20                               ;0AB3D8|        |      ;
-                       dw UNREACH_0FE579                    ;0AB3D9|        |0FE579;
+                       dw CODE_0FE579                       ;0AB3D9|        |0FE579;
                        BNE CODE_0AB3E8                      ;0AB3DB|D00B    |0AB3E8;
                        INC.B r_gameSubstate                 ;0AB3DD|E619    |000019;
                        LDY.W $0782                          ;0AB3DF|AC8207  |0A0782;
@@ -5818,12 +5822,12 @@ gameStateC_substate0e: LDA.B $B4                            ;0AB3F5|A5B4    |000
                        LDY.B #$00                           ;0AB423|A000    |      ;
                        LDA.B #$40                           ;0AB425|A940    |      ;
                        db $20                               ;0AB427|        |      ;
-                       dw UNREACH_0FE58E                    ;0AB428|        |0FE58E;
+                       dw CODE_0FE58E                       ;0AB428|        |0FE58E;
                        JMP.W gameStateC_incSubstate         ;0AB42A|4C1AB2  |0AB21A;
  
  
 gameStateC_substate0f: db $20                               ;0AB42D|        |      ;
-                       dw UNREACH_0FE579                    ;0AB42E|        |0FE579;
+                       dw CODE_0FE579                       ;0AB42E|        |0FE579;
                        BEQ CODE_0AB433                      ;0AB430|F001    |0AB433;
                        RTS                                  ;0AB432|60      |      ;
  
@@ -5857,17 +5861,17 @@ gameStateC_substate10: LDX.B #$24                           ;0AB457|A224    |   
                        LDY.B #$00                           ;0AB45C|A000    |      ;
                        LDA.B #$78                           ;0AB45E|A978    |      ;
                        db $20                               ;0AB460|        |      ;
-                       dw UNREACH_0FE58E                    ;0AB461|        |0FE58E;
+                       dw CODE_0FE58E                       ;0AB461|        |0FE58E;
                        JMP.W CODE_0AB4D9                    ;0AB463|4CD9B4  |0AB4D9;
  
  
 gameStateC_substate11: db $20                               ;0AB466|        |      ;
-                       dw UNREACH_0FE579                    ;0AB467|        |0FE579;
+                       dw CODE_0FE579                       ;0AB467|        |0FE579;
                        BNE CODE_0AB475                      ;0AB469|D00A    |0AB475;
                        LDY.B #$01                           ;0AB46B|A001    |      ;
                        LDA.B #$00                           ;0AB46D|A900    |      ;
                        db $20                               ;0AB46F|        |      ;
-                       dw UNREACH_0FE58E                    ;0AB470|        |0FE58E;
+                       dw CODE_0FE58E                       ;0AB470|        |0FE58E;
  
           CODE_0AB472: INC.B r_gameSubstate                 ;0AB472|E619    |000019;
  
@@ -5904,7 +5908,7 @@ gameStateC_substate11: db $20                               ;0AB466|        |   
                        dw screenLoadRoutine                 ;0AB4A2|        |0FECE9;
  
 gameStateC_substate12: db $20                               ;0AB4A4|        |      ;
-                       dw UNREACH_0FE579                    ;0AB4A5|        |0FE579;
+                       dw CODE_0FE579                       ;0AB4A5|        |0FE579;
                        BNE CODE_0AB4D8                      ;0AB4A7|D02F    |0AB4D8;
                        JMP.W CODE_0AB4D9                    ;0AB4A9|4CD9B4  |0AB4D9;
  
@@ -6113,9 +6117,9 @@ gameStateC_substate09: LDA.B $B4                            ;0AB4E3|A5B4    |000
                        db $80                               ;0AB61E|        |      ;
                        dw coreLoad_03                       ;0AB61F|        |0FD067;
                        db $00                               ;0AB621|        |      ;
-                       dw CODE_0FD0F8                       ;0AB622|        |0FD0F8;
+                       dw prepRoom                          ;0AB622|        |0FD0F8;
                        db $00                               ;0AB624|        |      ;
-                       dw UNREACH_0FCDB8                    ;0AB625|        |0FCDB8;
+                       dw CODE_0FCDB8                       ;0AB625|        |0FCDB8;
                        db $00                               ;0AB627|        |      ;
                        dw CODE_0090CD                       ;0AB628|        |0090CD;
                        db $80                               ;0AB62A|        |      ;
@@ -6272,7 +6276,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
  
  
          DATA8_0AB712: db $20                               ;0AB712|        |      ;
-                       dw UNREACH_0FE7F7                    ;0AB713|        |0FE7F7;
+                       dw clearAllEntityButPlayer           ;0AB713|        |0FE7F7;
                        LDA.B #$6E                           ;0AB715|A96E    |      ;
                        STA.B r_CHR_BankBG_0800              ;0AB717|854C    |00004C;
                        LDA.B #$30                           ;0AB719|A930    |      ;
@@ -6409,7 +6413,7 @@ gameStateD_setB4wordTo100h: LDY.B #$00                           ;0AB65F|A000   
                        LDA.B #$04                           ;0AB7E5|A904    |      ;
                        STA.B r_gameState                    ;0AB7E7|8518    |000018;
                        LDA.B #$1F                           ;0AB7E9|A91F    |      ;
-                       STA.B r_gameLoadState                ;0AB7EB|852A    |00002A;
+                       STA.B r_gameTransition               ;0AB7EB|852A    |00002A;
                        RTS                                  ;0AB7ED|60      |      ;
  
  
@@ -6436,7 +6440,7 @@ gameStateD_substate2_process6bh: LDA.B r_menuSelectIdx                ;0AB7EE|A5
  
  
          DATA8_0AB813: db $20                               ;0AB813|        |      ;
-                       dw UNREACH_0FE7F7                    ;0AB814|        |0FE7F7;
+                       dw clearAllEntityButPlayer           ;0AB814|        |0FE7F7;
                        JSR.W CODE_0AB95C                    ;0AB816|205CB9  |0AB95C;
                        LDA.B #$B0                           ;0AB819|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;0AB81B|85FF    |0000FF;

@@ -194,7 +194,7 @@
                        RTS                                  ;0B8130|60      |      ;
  
  
-          CODE_0B8131: LDA.B r_gameLoadState                ;0B8131|A52A    |00002A;
+          CODE_0B8131: LDA.B r_gameTransition               ;0B8131|A52A    |00002A;
                        CMP.B #$1B                           ;0B8133|C91B    |      ;
                        BNE CODE_0B814F                      ;0B8135|D018    |0B814F;
                        LDA.W $0470,X                        ;0B8137|BD7004  |0B0470;
@@ -4330,7 +4330,7 @@ enemyID_bleaManDrop_D4: JSR.W enemy_2_ID_boss_42             ;0B9FFB|202081  |0B
                        JSR.W CODE_0BA0FC                    ;0BA062|20FCA0  |0BA0FC;
                        db $4C                               ;0BA065|        |      ;
  
-                       dw UNREACH_0FE76C                    ;0BA066|        |0FE76C;
+                       dw DATA8_0FE76C                      ;0BA066|        |0FE76C;
  
           CODE_0BA068: LDA.B #$00                           ;0BA068|A900    |      ;
                        LDY.W $054E,X                        ;0BA06A|BC4E05  |0B054E;
@@ -4376,7 +4376,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        JSR.W CODE_0BA0FC                    ;0BA0B0|20FCA0  |0BA0FC;
                        db $4C                               ;0BA0B3|        |      ;
  
-                       dw UNREACH_0FE76C                    ;0BA0B4|        |0FE76C;
+                       dw DATA8_0FE76C                      ;0BA0B4|        |0FE76C;
  
           CODE_0BA0B6: LDA.B #$00                           ;0BA0B6|A900    |      ;
                        STA.W $0400,X                        ;0BA0B8|9D0004  |0B0400;
@@ -4540,7 +4540,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        TXA                                  ;0BA1C7|8A      |      ;
                        PHA                                  ;0BA1C8|48      |      ;
                        db $20                               ;0BA1C9|        |      ;
-                       dw UNREACH_0FE7CC                    ;0BA1CA|        |0FE7CC;
+                       dw CODE_0FE7CC                       ;0BA1CA|        |0FE7CC;
                        PLA                                  ;0BA1CC|68      |      ;
                        TAX                                  ;0BA1CD|AA      |      ;
                        LDA.B #$6F                           ;0BA1CE|A96F    |      ;
@@ -4576,7 +4576,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        LDA.B #$00                           ;0BA205|A900    |      ;
                        STA.B $01                            ;0BA207|8501    |000001;
                        db $20                               ;0BA209|        |      ;
-                       dw UNREACH_0FE777                    ;0BA20A|        |0FE777;
+                       dw CODE_0FE777                       ;0BA20A|        |0FE777;
                        LDX.B r_entityID_processed           ;0BA20C|A66C    |00006C;
                        RTS                                  ;0BA20E|60      |      ;
  
@@ -4590,7 +4590,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
           CODE_0BA221: LDA.B #$01                           ;0BA221|A901    |      ;
                        STA.B $D7                            ;0BA223|85D7    |0000D7;
                        db $20                               ;0BA225|        |      ;
-                       dw UNREACH_0FE748                    ;0BA226|        |0FE748;
+                       dw CODE_0FE748                       ;0BA226|        |0FE748;
  
           CODE_0BA228: LDX.B r_entityID_processed           ;0BA228|A66C    |00006C;
                        RTS                                  ;0BA22A|60      |      ;
@@ -4605,7 +4605,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        TAY                                  ;0BA236|A8      |      ;
                        LDA.W CODE_0BA240,Y                  ;0BA237|B940A2  |0BA240;
                        db $20                               ;0BA23A|        |      ;
-                       dw UNREACH_0FE760                    ;0BA23B|        |0FE760;
+                       dw CODE_0FE760                       ;0BA23B|        |0FE760;
                        LDX.B r_entityID_processed           ;0BA23D|A66C    |00006C;
                        RTS                                  ;0BA23F|60      |      ;
  
@@ -4726,7 +4726,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        JSR.W CODE_0BB584                    ;0BA305|2084B5  |0BB584;
                        db $4C                               ;0BA308|        |      ;
  
-                       dw UNREACH_0FFFAA                    ;0BA309|        |0FFFAA;
+                       dw CODE_0FFFAA                       ;0BA309|        |0FFFAA;
  
           CODE_0BA30B: SEC                                  ;0BA30B|38      |      ;
                        SBC.B #$93                           ;0BA30C|E993    |      ;
@@ -6344,7 +6344,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB527: BPL CODE_0BB53D                      ;0BB527|1014    |0BB53D;
  
          DATA8_0BB529: db $20                               ;0BB529|        |      ;
-                       dw UNREACH_0FE7CC                    ;0BB52A|        |0FE7CC;
+                       dw CODE_0FE7CC                       ;0BB52A|        |0FE7CC;
                        db $4C                               ;0BB52C|        |      ;
  
                        dw UNREACH_0FFF7A                    ;0BB52D|        |0FFF7A;
@@ -6385,11 +6385,11 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        BCC DATA8_0BB581                     ;0BB56D|9012    |0BB581;
  
          DATA8_0BB56F: db $20                               ;0BB56F|        |      ;
-                       dw UNREACH_0FE7CC                    ;0BB570|        |0FE7CC;
+                       dw CODE_0FE7CC                       ;0BB570|        |0FE7CC;
                        LDA.B $9E                            ;0BB572|A59E    |00009E;
                        BEQ CODE_0BB57B                      ;0BB574|F005    |0BB57B;
                        db $20                               ;0BB576|        |      ;
-                       dw UNREACH_0FE7DC                    ;0BB577|        |0FE7DC;
+                       dw CODE_0FE7DC                       ;0BB577|        |0FE7DC;
                        BCS CODE_0BB593                      ;0BB579|B018    |0BB593;
  
           CODE_0BB57B: LDA.B r_gameStateLoopCounter         ;0BB57B|A51A    |00001A;
@@ -6397,7 +6397,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        BEQ CODE_0BB59C                      ;0BB57F|F01B    |0BB59C;
  
          DATA8_0BB581: db $20                               ;0BB581|        |      ;
-                       dw UNREACH_0FE7C1                    ;0BB582|        |0FE7C1;
+                       dw CODE_0FE7C1                       ;0BB582|        |0FE7C1;
  
           CODE_0BB584: LDA.B #$00                           ;0BB584|A900    |      ;
                        STA.W $0657,X                        ;0BB586|9D5706  |0B0657;
@@ -6426,7 +6426,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB5A7: LDA.B #$00                           ;0BB5A7|A900    |      ;
                        STA.B r_subweaponKillCount           ;0BB5A9|85CE    |0000CE;
                        db $20                               ;0BB5AB|        |      ;
-                       dw UNREACH_0FE7AB                    ;0BB5AC|        |0FE7AB;
+                       dw CODE_0FE7AB                       ;0BB5AC|        |0FE7AB;
                        LDA.W $054E,X                        ;0BB5AE|BD4E05  |0B054E;
                        JSR.W CODE_0BA30B                    ;0BB5B1|200BA3  |0BA30B;
                        JMP.W CODE_0BB5D1                    ;0BB5B4|4CD1B5  |0BB5D1;

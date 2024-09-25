@@ -90,7 +90,7 @@
           <Value exs:type="ns1:Label" Name="r_Joy2Pe" Comment=" &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" />
         </sys:Item>
         <sys:Item Key="42">
-          <Value exs:type="ns1:Label" Name="r_gameLoadState" Comment=" &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" />
+          <Value exs:type="ns1:Label" Name="r_gameTransition" Comment=" &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" />
         </sys:Item>
         <sys:Item Key="43">
           <Value exs:type="ns1:Label" Name="r_pauseFlag" Comment=" &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;" />
@@ -1025,14 +1025,38 @@
         <sys:Item Key="35259">
           <Value exs:type="ns1:Label" Name="PAL_sprite_alucart" Comment="" />
         </sys:Item>
+        <sys:Item Key="37444">
+          <Value exs:type="ns1:Label" Name="progressionLookUp_stage" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37445">
+          <Value exs:type="ns1:Label" Name="progressionLookUp_block" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37446">
+          <Value exs:type="ns1:Label" Name="progressionLookUp_room" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37447">
+          <Value exs:type="ns1:Label" Name="newProgressionIndex_a4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37542">
+          <Value exs:type="ns1:Label" Name="findBossRoomLoop" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37589">
+          <Value exs:type="ns1:Label" Name="checkBossStage" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37590">
+          <Value exs:type="ns1:Label" Name="getBossProgressIndex" Comment="" />
+        </sys:Item>
+        <sys:Item Key="37602">
+          <Value exs:type="ns1:Label" Name="afterBoss_AutoPlay_Dir" Comment="" />
+        </sys:Item>
         <sys:Item Key="37603">
-          <Value exs:type="ns1:Label" Name="afterBoss_gameState" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="37604">
-          <Value exs:type="ns1:Label" Name="afterBoss_subState" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="37605">
-          <Value exs:type="ns1:Label" Name="afterBoss_Room" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="39140">
           <Value exs:type="ns1:Label" Name="group_layout" Comment="" />
@@ -1154,6 +1178,18 @@
         <sys:Item Key="40335">
           <Value exs:type="ns1:Label" Name="PAL_23" Comment="" />
         </sys:Item>
+        <sys:Item Key="41168">
+          <Value exs:type="ns1:Label" Name="progressionAfterMap" Comment="" />
+        </sys:Item>
+        <sys:Item Key="41245">
+          <Value exs:type="ns1:Label" Name="progressionTableStage" Comment="" />
+        </sys:Item>
+        <sys:Item Key="41246">
+          <Value exs:type="ns1:Label" Name="progressionTableBlock" Comment="" />
+        </sys:Item>
+        <sys:Item Key="41247">
+          <Value exs:type="ns1:Label" Name="progressionTableRoom" Comment="" />
+        </sys:Item>
         <sys:Item Key="41293">
           <Value exs:type="ns1:Label" Name="loadPointerScreenLoad" Comment="" />
         </sys:Item>
@@ -1174,6 +1210,9 @@
         </sys:Item>
         <sys:Item Key="42454">
           <Value exs:type="ns1:Label" Name="gameState8_substate0" Comment="" />
+        </sys:Item>
+        <sys:Item Key="42477">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="42483">
           <Value exs:type="ns1:Label" Name="gameState8_substate1" Comment="" />
@@ -1242,7 +1281,16 @@
           <Value exs:type="ns1:Label" Name="showSelectionSpriteFlag" Comment="" />
         </sys:Item>
         <sys:Item Key="43082">
+          <Value exs:type="ns1:Label" Name="spriteMapPointer00" Comment="" />
+        </sys:Item>
+        <sys:Item Key="43121">
           <Value exs:type="ns1:Label" Name="progre_pathSpriteMap_01" Comment="" />
+        </sys:Item>
+        <sys:Item Key="43123">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
+        <sys:Item Key="43124">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="43211">
           <Value exs:type="ns1:Label" Name="gameState8_substate6" Comment="" />
@@ -1253,8 +1301,14 @@
         <sys:Item Key="43339">
           <Value exs:type="ns1:Label" Name="gameState8_substate8" Comment="" />
         </sys:Item>
+        <sys:Item Key="43362">
+          <Value exs:type="ns1:Label" Name="choosePathProgression" Comment="" />
+        </sys:Item>
         <sys:Item Key="43429">
           <Value exs:type="ns1:Label" Name="progressionPointerTable" Comment="" />
+        </sys:Item>
+        <sys:Item Key="43430">
+          <Value exs:type="ns1:Label" Name="progressionPointerTableHi" Comment="" />
         </sys:Item>
         <sys:Item Key="43435">
           <Value exs:type="ns1:Label" Name="goClockTower" Comment="" />
@@ -1283,8 +1337,47 @@
         <sys:Item Key="43744">
           <Value exs:type="ns1:Label" Name="progressionPathSelecter" Comment="" />
         </sys:Item>
+        <sys:Item Key="44575">
+          <Value exs:type="ns1:Label" Name="progression_780" Comment="" />
+        </sys:Item>
         <sys:Item Key="44593">
           <Value exs:type="ns1:Label" Name="onceAgainPointers" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46058">
+          <Value exs:type="ns1:Label" Name="bossBoneDragonWaterScene" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46099">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_00" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46111">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_02" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46134">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_03" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46234">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_04" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46286">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_05" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46315">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_06" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46337">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_07" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46348">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_08" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46364">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_09" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46390">
+          <Value exs:type="ns1:Label" Name="ram_6bTransit_0a" Comment="" />
+        </sys:Item>
+        <sys:Item Key="46433">
+          <Value exs:type="ns1:Label" Name="ram_6b_boneDragonBossTrans_0b" Comment="" />
         </sys:Item>
         <sys:Item Key="49152">
           <Value exs:type="ns1:Label" Name="commonDPCMdata00" Comment="" />
@@ -4571,14 +4664,26 @@
         <sys:Item Key="1032192">
           <Value exs:type="ns1:Label" Name="commonDPCM_data01" Comment="" />
         </sys:Item>
+        <sys:Item Key="1034496">
+          <Value exs:type="ns1:Label" Name="checkStageStuff" Comment="" />
+        </sys:Item>
         <sys:Item Key="1034571">
           <Value exs:type="ns1:Label" Name="bank_roomData" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1035660">
+          <Value exs:type="ns1:Label" Name="someTransitFunction" Comment="" />
         </sys:Item>
         <sys:Item Key="1036391">
           <Value exs:type="ns1:Label" Name="coreLoad_03" Comment="" />
         </sys:Item>
+        <sys:Item Key="1036536">
+          <Value exs:type="ns1:Label" Name="prepRoom" Comment="" />
+        </sys:Item>
         <sys:Item Key="1036661">
           <Value exs:type="ns1:Label" Name="scrollXposUpdate" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1037202">
+          <Value exs:type="ns1:Label" Name="gameTransit_BG_0A" Comment="" />
         </sys:Item>
         <sys:Item Key="1038194">
           <Value exs:type="ns1:Label" Name="RLE_tilemap_10_ending01" Comment="" />
@@ -4622,6 +4727,9 @@
         <sys:Item Key="1040935">
           <Value exs:type="ns1:Label" Name="initSound" Comment="" />
         </sys:Item>
+        <sys:Item Key="1041046">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
         <sys:Item Key="1041110">
           <Value exs:type="ns1:Label" Name="initBoss_00" Comment="" />
         </sys:Item>
@@ -4664,6 +4772,15 @@
         <sys:Item Key="1041731">
           <Value exs:type="ns1:Label" Name="gameState_07_lvlSelect" Comment="" />
         </sys:Item>
+        <sys:Item Key="1041866">
+          <Value exs:type="ns1:Label" Name="unsetAutoPlayFlag" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1041870">
+          <Value exs:type="ns1:Label" Name="setAutoPlayFlag" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1041875">
+          <Value exs:type="ns1:Label" Name="backupCurrent_bank_swap_00" Comment="" />
+        </sys:Item>
         <sys:Item Key="1041967">
           <Value exs:type="ns1:Label" Name="titleScreenThunderMain" Comment="" />
         </sys:Item>
@@ -4673,8 +4790,26 @@
         <sys:Item Key="1042047">
           <Value exs:type="ns1:Label" Name="restorePRG" Comment="" />
         </sys:Item>
+        <sys:Item Key="1042232">
+          <Value exs:type="ns1:Label" Name="swapBank_14" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042314">
+          <Value exs:type="ns1:Label" Name="stageTransition_69" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042325">
+          <Value exs:type="ns1:Label" Name="swap2Bank_00_Plus" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042336">
+          <Value exs:type="ns1:Label" Name="stageTransition_6B" Comment="" />
+        </sys:Item>
         <sys:Item Key="1042358">
           <Value exs:type="ns1:Label" Name="stopWatchMain" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042423">
+          <Value exs:type="ns1:Label" Name="clearAllEntityButPlayer" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1042427">
+          <Value exs:type="ns1:Label" Name="enityClearLoop" Comment="" />
         </sys:Item>
         <sys:Item Key="1042472">
           <Value exs:type="ns1:Label" Name="clearZeroPage" Comment="" />
@@ -4753,6 +4888,15 @@
         </sys:Item>
         <sys:Item Key="1043814">
           <Value exs:type="ns1:Label" Name="end_RLE_decompRoutine" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1044311">
+          <Value exs:type="ns1:Label" Name="clearAllEntitySprite" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1044320">
+          <Value exs:type="ns1:Label" Name="clearEnitySpriteGroup" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1044339">
+          <Value exs:type="ns1:Label" Name="updateSpriteAnimFrame" Comment="" />
         </sys:Item>
         <sys:Item Key="1044404">
           <Value exs:type="ns1:Label" Name="spriteAnimIndex" Comment="" />
@@ -5169,10 +5313,124 @@
           <Value exs:type="ns1:Label" Name="gameState_04_MainGame" Comment="" />
         </sys:Item>
         <sys:Item Key="1045393">
-          <Value exs:type="ns1:Label" Name="mainGameStates" Comment="" />
+          <Value exs:type="ns1:Label" Name="mainTransitStates" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045457">
+          <Value exs:type="ns1:Label" Name="gameTransit_30" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045472">
+          <Value exs:type="ns1:Label" Name="gameTransit_2f" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045480">
+          <Value exs:type="ns1:Label" Name="gameTransit_2a" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045488">
+          <Value exs:type="ns1:Label" Name="gameTransit_00" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045494">
+          <Value exs:type="ns1:Label" Name="gameTransit_01" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045627">
+          <Value exs:type="ns1:Label" Name="gameTransit_main_03" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045724">
+          <Value exs:type="ns1:Label" Name="gameTransit_unload_20" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045743">
+          <Value exs:type="ns1:Label" Name="gameTransit_2c" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045766">
+          <Value exs:type="ns1:Label" Name="gameTransit_helperTransform_0b" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045782">
+          <Value exs:type="ns1:Label" Name="gameState_black_04" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045786">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="1045817">
           <Value exs:type="ns1:Label" Name="skip_if_bossFF" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045853">
+          <Value exs:type="ns1:Label" Name="autoPlayCheck" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045901">
+          <Value exs:type="ns1:Label" Name="gameState_Vertical_main_05" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1045950">
+          <Value exs:type="ns1:Label" Name="gameState_autoPlay_06" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046025">
+          <Value exs:type="ns1:Label" Name="gameTransit_07" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046040">
+          <Value exs:type="ns1:Label" Name="gameTransit_doors_08" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046041">
+          <Value exs:type="ns1:Label" Name="" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046058">
+          <Value exs:type="ns1:Label" Name="gameTransit_23" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046059">
+          <Value exs:type="ns1:Label" Name="gameTransit_28" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046067">
+          <Value exs:type="ns1:Label" Name="gameTransit_22" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046207">
+          <Value exs:type="ns1:Label" Name="gameTransit_2b" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046215">
+          <Value exs:type="ns1:Label" Name="gameTransit_29" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046223">
+          <Value exs:type="ns1:Label" Name="gameTransit_2d" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046233">
+          <Value exs:type="ns1:Label" Name="gameTransit_bossBoneDragonWaterFall_2e" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046254">
+          <Value exs:type="ns1:Label" Name="gameTransit_24" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046296">
+          <Value exs:type="ns1:Label" Name="gameTransit_25" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046355">
+          <Value exs:type="ns1:Label" Name="nameTable_ff" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046359">
+          <Value exs:type="ns1:Label" Name="nameTable_e4" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046363">
+          <Value exs:type="ns1:Label" Name="nameTable_d8" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046367">
+          <Value exs:type="ns1:Label" Name="nameTable_44" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046371">
+          <Value exs:type="ns1:Label" Name="nameTable_50" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046392">
+          <Value exs:type="ns1:Label" Name="gameTransit_26" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046460">
+          <Value exs:type="ns1:Label" Name="gameTransit_27" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046558">
+          <Value exs:type="ns1:Label" Name="gameTransit_partnerTransform_0c" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046566">
+          <Value exs:type="ns1:Label" Name="gameTransit_freez_0d" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046574">
+          <Value exs:type="ns1:Label" Name="gameTransit_freez_0e" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046582">
+          <Value exs:type="ns1:Label" Name="gameTransit_21" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1046859">
+          <Value exs:type="ns1:Label" Name="gameTransit_09" Comment="" />
         </sys:Item>
         <sys:Item Key="1047009">
           <Value exs:type="ns1:Label" Name="" Comment="" />
@@ -5194,6 +5452,12 @@
         </sys:Item>
         <sys:Item Key="1047884">
           <Value exs:type="ns1:Label" Name="OAM_attribTableFF" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1048035">
+          <Value exs:type="ns1:Label" Name="entitySlotProcessing" Comment="" />
+        </sys:Item>
+        <sys:Item Key="1048190">
+          <Value exs:type="ns1:Label" Name="checkEnitySlotNext" Comment="" />
         </sys:Item>
       </Labels>
       

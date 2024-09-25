@@ -7,6 +7,7 @@
         <sys:Item Key="37589" Value="c6 enity index is y offset " />
         <sys:Item Key="37615" Value="afterMedua" />
         <sys:Item Key="40961" Value="NES PRG 2000" />
+        <sys:Item Key="42477" Value="stage progression 0 1 2" />
         <sys:Item Key="42509" Value="mapScreen Bank" />
         <sys:Item Key="43738" Value="??" />
         <sys:Item Key="49152" Value="NES PRG E000" />
@@ -154,5 +155,6 @@
         <sys:Item Key="1043413" Value="screenLoadSetup??" />
         <sys:Item Key="1043517" Value="bit7 trim unrol byte langth" />
         <sys:Item Key="1044434" Value="start index, speed, numer of frames" />
+        <sys:Item Key="1045627" Value="means no transitions lol" />
       </Comments>
       

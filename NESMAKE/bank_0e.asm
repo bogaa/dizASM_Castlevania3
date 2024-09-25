@@ -179,10 +179,10 @@
  
           CODE_0E8139: LDA.B #$00                           ;0E8139|A900    |      ;
                        STA.B r_powerUpDrop                  ;0E813B|85B7    |0000B7;
-                       LDA.B r_gameLoadState                ;0E813D|A52A    |00002A;
+                       LDA.B r_gameTransition               ;0E813D|A52A    |00002A;
                        STA.B $9F                            ;0E813F|859F    |00009F;
                        LDA.B #$19                           ;0E8141|A919    |      ;
-                       STA.B r_gameLoadState                ;0E8143|852A    |00002A;
+                       STA.B r_gameTransition               ;0E8143|852A    |00002A;
                        LDA.W $0565                          ;0E8145|AD6505  |0E0565;
                        ORA.B #$80                           ;0E8148|0980    |      ;
                        STA.W $0565                          ;0E814A|8D6505  |0E0565;
@@ -224,7 +224,7 @@
                        STA.W $041C                          ;0E8183|8D1C04  |0E041C;
  
           CODE_0E8186: LDA.B #$18                           ;0E8186|A918    |      ;
-                       STA.B r_gameLoadState                ;0E8188|852A    |00002A;
+                       STA.B r_gameTransition               ;0E8188|852A    |00002A;
                        LDA.B #$00                           ;0E818A|A900    |      ;
                        STA.B r_menuSelectIdx                ;0E818C|856B    |00006B;
                        RTS                                  ;0E818E|60      |      ;
@@ -653,7 +653,7 @@
                        RTS                                  ;0E848F|60      |      ;
  
  
-          CODE_0E8490: LDA.B r_gameLoadState                ;0E8490|A52A    |00002A;
+          CODE_0E8490: LDA.B r_gameTransition               ;0E8490|A52A    |00002A;
                        CMP.B #$1B                           ;0E8492|C91B    |      ;
                        BNE CODE_0E849A                      ;0E8494|D004    |0E849A;
                        LDA.B #$00                           ;0E8496|A900    |      ;
@@ -672,7 +672,7 @@
                        RTS                                  ;0E84A9|60      |      ;
  
  
-          CODE_0E84AA: LDA.B r_gameLoadState                ;0E84AA|A52A    |00002A;
+          CODE_0E84AA: LDA.B r_gameTransition               ;0E84AA|A52A    |00002A;
                        CMP.B #$1B                           ;0E84AC|C91B    |      ;
                        BNE CODE_0E84B4                      ;0E84AE|D004    |0E84B4;
                        LDA.B #$00                           ;0E84B0|A900    |      ;
@@ -752,7 +752,8 @@
                        SEC                                  ;0E8527|38      |      ;
                        RTS                                  ;0E8528|60      |      ;
  
-                       JSR.W CODE_0E852D                    ;0E8529|202D85  |0E852D;
+ 
+          CODE_0E8529: JSR.W CODE_0E852D                    ;0E8529|202D85  |0E852D;
                        RTS                                  ;0E852C|60      |      ;
  
  
@@ -793,8 +794,10 @@
  
  
          DATA8_0E8569: db $A5,$80,$C5,$20,$60               ;0E8569|        |      ;
-                       db $B0,$E0,$A5,$68,$C9               ;0E856E|        |      ;
-                       db $82,$B0,$01,$60                   ;0E8573|        |      ;
+                       db $B0,$E0                           ;0E856E|        |      ;
+ 
+         DATA8_0E8570: db $A5,$68,$C9,$82,$B0               ;0E8570|        |      ;
+                       db $01,$60                           ;0E8575|        |      ;
                        LDA.W $041C                          ;0E8577|AD1C04  |0E041C;
                        CLC                                  ;0E857A|18      |      ;
                        ADC.B r_scrollSpd                    ;0E857B|656E    |00006E;
@@ -805,7 +808,8 @@
                        STA.B r_GrantCurrentYpos             ;0E8585|85D3    |0000D3;
                        RTS                                  ;0E8587|60      |      ;
  
-                       LDA.B r_roomOrientation              ;0E8588|A568    |000068;
+ 
+          CODE_0E8588: LDA.B r_roomOrientation              ;0E8588|A568    |000068;
                        BMI CODE_0E85B7                      ;0E858A|302B    |0E85B7;
                        LDA.B r_sceneScrollOffsetHi          ;0E858C|A557    |000057;
                        BMI CODE_0E85A6                      ;0E858E|3016    |0E85A6;
@@ -835,7 +839,8 @@
  
           CODE_0E85B7: RTS                                  ;0E85B7|60      |      ;
  
-                       LDA.B #$00                           ;0E85B8|A900    |      ;
+ 
+          CODE_0E85B8: LDA.B #$00                           ;0E85B8|A900    |      ;
                        STA.B r_subSceneOffsets              ;0E85BA|8558    |000058;
                        LDA.W $0565                          ;0E85BC|AD6505  |0E0565;
                        CMP.B #$16                           ;0E85BF|C916    |      ;
@@ -905,7 +910,8 @@
                        STA.W $0438                          ;0E863E|8D3804  |0E0438;
                        RTS                                  ;0E8641|60      |      ;
  
-                       LDA.B r_roomOrientation              ;0E8642|A568    |000068;
+ 
+          CODE_0E8642: LDA.B r_roomOrientation              ;0E8642|A568    |000068;
                        BMI CODE_0E8636                      ;0E8644|30F0    |0E8636;
                        LDA.W $0438                          ;0E8646|AD3804  |0E0438;
                        BMI CODE_0E867A                      ;0E8649|302F    |0E867A;
@@ -1113,7 +1119,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
           CODE_0E879B: LDX.B #$01                           ;0E879B|A201    |      ;
  
          DATA8_0E879D: db $20                               ;0E879D|        |      ;
-                       dw UNREACH_0FE69A                    ;0E879E|        |0FE69A;
+                       dw CODE_0FE69A                       ;0E879E|        |0FE69A;
                        BCS CODE_0E87D2                      ;0E87A0|B030    |0E87D2;
  
           CODE_0E87A2: LDA.W $0438                          ;0E87A2|AD3804  |0E0438;
@@ -1504,7 +1510,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
                        db $20                               ;0E8B0C|        |      ;
                        dw CODE_0FE25F                       ;0E8B0D|        |0FE25F;
                        db $20                               ;0E8B0F|        |      ;
-                       dw UNREACH_0FE5CE                    ;0E8B10|        |0FE5CE;
+                       dw setAutoPlayFlag                   ;0E8B10|        |0FE5CE;
                        LDA.B #$64                           ;0E8B12|A964    |      ;
                        STA.W $05D4                          ;0E8B14|8DD405  |0E05D4;
                        INC.B r_deathDelay                   ;0E8B17|E6BF    |0000BF;
@@ -1588,7 +1594,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
                        db $20                               ;0E8B9E|        |      ;
                        dw CODE_0FE25F                       ;0E8B9F|        |0FE25F;
                        db $20                               ;0E8BA1|        |      ;
-                       dw UNREACH_0FE5CE                    ;0E8BA2|        |0FE5CE;
+                       dw setAutoPlayFlag                   ;0E8BA2|        |0FE5CE;
                        INC.B r_deathDelay                   ;0E8BA4|E6BF    |0000BF;
                        RTS                                  ;0E8BA6|60      |      ;
  
@@ -1607,7 +1613,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
                        STA.W $0565                          ;0E8BBA|8D6505  |0E0565;
                        db $4C                               ;0E8BBD|        |      ;
  
-                       dw UNREACH_0FE5CA                    ;0E8BBE|        |0FE5CA;
+                       dw unsetAutoPlayFlag                 ;0E8BBE|        |0FE5CA;
  
           CODE_0E8BC0: LDA.B r_deathDelay                   ;0E8BC0|A5BF    |0000BF;
                        BEQ CODE_0E8BC5                      ;0E8BC2|F001    |0E8BC5;
@@ -1615,7 +1621,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
           CODE_0E8BC4: RTS                                  ;0E8BC4|60      |      ;
  
  
-          CODE_0E8BC5: LDA.B r_gameLoadState                ;0E8BC5|A52A    |00002A;
+          CODE_0E8BC5: LDA.B r_gameTransition               ;0E8BC5|A52A    |00002A;
                        CMP.B #$10                           ;0E8BC7|C910    |      ;
                        BEQ CODE_0E8BC4                      ;0E8BC9|F0F9    |0E8BC4;
                        LDA.B r_roomEffect                   ;0E8BCB|A57D    |00007D;
@@ -1773,7 +1779,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
                        RTS                                  ;0E8D12|60      |      ;
  
  
-          CODE_0E8D13: LDA.B r_gameLoadState                ;0E8D13|A52A    |00002A;
+          CODE_0E8D13: LDA.B r_gameTransition               ;0E8D13|A52A    |00002A;
                        CMP.B #$1B                           ;0E8D15|C91B    |      ;
                        BEQ CODE_0E8D89                      ;0E8D17|F070    |0E8D89;
                        LDA.B r_roomEffect                   ;0E8D19|A57D    |00007D;
@@ -1937,7 +1943,7 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
                        SEC                                  ;0E8E83|38      |      ;
                        RTS                                  ;0E8E84|60      |      ;
  
-                       LDA.B r_gameLoadState                ;0E8E85|A52A    |00002A;
+                       LDA.B r_gameTransition               ;0E8E85|A52A    |00002A;
                        CMP.B #$1B                           ;0E8E87|C91B    |      ;
                        BEQ UNREACH_0E8EB5                   ;0E8E89|F02A    |0E8EB5;
                        LDA.B r_conveyaerRoomEffect          ;0E8E8B|A58B    |00008B;
@@ -2762,77 +2768,94 @@ stopScroll_if_boss_87: LDA.W $04C4                          ;0E8762|ADC404  |0E0
                        db $12,$87,$AD,$1D,$06               ;0E9A9D|        |000087;
                        db $F0,$4C,$CE,$1D,$06               ;0E9AA2|        |0E9AF0;
                        db $AD,$7C,$05,$F0,$04               ;0E9AA7|        |0E057C;
-                       db $CE,$7C,$05,$60,$AD               ;0E9AAC|        |0E057C;
-                       db $4E,$05,$C9,$02,$F0               ;0E9AB1|        |0EC905;
-                       db $15,$AD,$93,$05,$0A               ;0E9AB6|        |0000AD;
-                       db $A8,$B9,$EC,$9B,$8D               ;0E9ABB|        |      ;
-                       db $00,$04,$B9,$ED,$9B               ;0E9AC0|        |      ;
-                       db $8D,$7C,$05,$EE,$93               ;0E9AC5|        |0E057C;
-                       db $05,$60,$AD,$93,$05               ;0E9ACA|        |000060;
-                       db $0A,$A8,$B9,$F4,$9B               ;0E9ACF|        |      ;
-                       db $8D,$00,$04,$B9,$F5               ;0E9AD4|        |0E0400;
-                       db $9B,$8D,$7C,$05,$EE               ;0E9AD9|        |      ;
-                       db $93,$05,$60,$AD,$1C               ;0E9ADE|        |000005;
-                       db $04,$38,$E9,$04,$4C               ;0E9AE3|        |000038;
-                       db $06,$9B,$18,$69,$07               ;0E9AE8|        |00009B;
-                       db $4C,$18,$9B,$A9,$00               ;0E9AED|        |0E9B18;
+                       db $CE,$7C,$05,$60                   ;0E9AAC|        |0E057C;
  
-                       db $8D,$C4,$04,$8D,$DB               ;0E9AF2|        |0E04C4;
-                       db $04,$A4,$68,$10,$1F               ;0E9AF7|        |0000A4;
-                       db $AC,$4E,$05,$C0,$02               ;0E9AFC|        |0E054E;
-                       db $F0,$DE,$AD,$1C,$04               ;0E9B01|        |0E9AE1;
-                       db $18,$69,$03,$18,$65               ;0E9B06|        |      ;
-                       db $56,$29,$F8,$38,$E5               ;0E9B0B|        |000029;
-                       db $56,$C0,$02,$F0,$D5               ;0E9B10|        |0000C0;
-                       db $18,$69,$03,$8D,$1C               ;0E9B15|        |      ;
-                       db $04,$AD,$20,$05,$30               ;0E9B1A|        |0000AD;
-                       db $44,$A2,$12,$A9,$02               ;0E9B1F|        |      ;
-                       db $20,$DD,$FC,$D0,$14               ;0E9B24|        |0EFCDD;
-                       db $A2,$12,$A9,$FE,$20               ;0E9B29|        |      ;
-                       db $DD,$FC,$F0,$56,$A2               ;0E9B2E|        |0EF0FC;
-                       db $1A,$A9,$FE,$20,$DD               ;0E9B33|        |      ;
-                       db $FC,$F0,$4D,$D0,$09               ;0E9B38|        |0E4DF0;
-                       db $A2,$1A,$A9,$02,$20               ;0E9B3D|        |      ;
-                       db $DD,$FC,$F0,$42,$20               ;0E9B42|        |0EF0FC;
-                       db $02,$8A,$AD,$4E,$05               ;0E9B47|        |      ;
-                       db $C9,$02,$D0,$09,$AD               ;0E9B4C|        |      ;
-                       db $1C,$04,$18,$69,$04               ;0E9B51|        |0E1804;
-                       db $8D,$1C,$04,$A9,$02               ;0E9B56|        |0E041C;
-                       db $8D,$65,$05,$A9,$02               ;0E9B5B|        |0E0565;
-                       db $8D,$00,$04,$60,$A2               ;0E9B60|        |0E0400;
-                       db $12,$A9,$02,$20,$DD               ;0E9B65|        |0000A9;
-                       db $FC,$D0,$12,$A2,$12               ;0E9B6A|        |0E12D0;
-                       db $A9,$FE,$20,$DD,$FC               ;0E9B6F|        |      ;
-                       db $F0,$12,$A2,$0A,$A9               ;0E9B74|        |0E9B88;
-                       db $FE,$20,$DD,$FC,$F0               ;0E9B79|        |0EDD20;
-                       db $C7,$A2,$0A,$A9,$02               ;0E9B7E|        |0000A2;
-                       db $20,$DD,$FC,$F0,$BE               ;0E9B83|        |0EFCDD;
-                       db $A9,$12,$8D,$65,$05               ;0E9B88|        |      ;
-                       db $60,$A2,$02,$AD,$EF               ;0E9B8D|        |      ;
+          CODE_0E9AB0: LDA.W r_entity_ObjectIdxes           ;0E9AB0|AD4E05  |00054E;
+                       CMP.B #$02                           ;0E9AB3|C902    |      ;
+                       BEQ UNREACH_0E9ACC                   ;0E9AB5|F015    |0E9ACC;
+                       LDA.W r_entity_OamBaseOffset         ;0E9AB7|AD9305  |000593;
+                       ASL A                                ;0E9ABA|0A      |      ;
+                       TAY                                  ;0E9ABB|A8      |      ;
+                       LDA.W UNREACH_0E9BEC,Y               ;0E9ABC|B9EC9B  |0E9BEC;
+                       STA.W r_OamSpecIdxDoubled            ;0E9ABF|8D0004  |000400;
+                       LDA.W UNREACH_0E9BED,Y               ;0E9AC2|B9ED9B  |0E9BED;
+                       STA.W $057C                          ;0E9AC5|8D7C05  |0E057C;
+                       INC.W $0593                          ;0E9AC8|EE9305  |0E0593;
+                       RTS                                  ;0E9ACB|60      |      ;
  
-                       db $05,$8D,$A8,$04,$A0               ;0E9B92|        |00008D;
-                       db $08,$D0,$0C,$A2,$00               ;0E9B97|        |      ;
-                       db $AD,$EF,$05,$49,$01               ;0E9B9C|        |0E05EF;
-                       db $8D,$A8,$04,$A0,$00               ;0E9BA1|        |0E04A8;
-                       db $AD,$A8,$04,$F0,$04               ;0E9BA6|        |0E04A8;
-                       db $C8,$C8,$C8,$C8,$8E               ;0E9BAB|        |      ;
-                       db $93,$05,$B9,$DC,$9B               ;0E9BB0|        |000005;
-                       db $8D,$F2,$04,$B9,$DD               ;0E9BB5|        |0E04F2;
-                       db $9B,$8D,$09,$05,$B9               ;0E9BBA|        |      ;
-                       db $DE,$9B,$8D,$20,$05               ;0E9BBF|        |0E8D9B;
-                       db $B9,$DF,$9B,$8D,$37               ;0E9BC4|        |0E9BDF;
-                       db $05,$A9,$01,$8D,$7C               ;0E9BC9|        |0000A9;
-                       db $05,$AD,$DB,$9B,$8D               ;0E9BCE|        |0000AD;
-                       db $1D,$06,$A9,$14,$8D               ;0E9BD3|        |0EA906;
-                       db $65,$05,$60,$0F,$00               ;0E9BD8|        |000005;
-                       db $80,$00,$80,$FF,$80               ;0E9BDD|        |0E9BDF;
-                       db $00,$80,$00,$80,$FF               ;0E9BE2|        |      ;
-                       db $80,$FF,$80,$FF,$80               ;0E9BE7|        |0E9BE8;
  
-                       db $04,$07,$0A,$FF,$04               ;0E9BEC|        |000007;
-                       db $07,$0C,$FF,$48,$07               ;0E9BF1|        |00000C;
-                       db $0A,$FF,$48,$07,$0C               ;0E9BF6|        |      ;
-                       db $FF                               ;0E9BFB|        |0565AC;
+       UNREACH_0E9ACC: db $AD,$93,$05,$0A,$A8               ;0E9ACC|        |0E0593;
+                       db $B9,$F4,$9B,$8D,$00               ;0E9AD1|        |0E9BF4;
+                       db $04,$B9,$F5,$9B,$8D               ;0E9AD6|        |0000B9;
+                       db $7C,$05,$EE,$93,$05               ;0E9ADB|        |0EEE05;
+                       db $60,$AD,$1C,$04,$38               ;0E9AE0|        |      ;
+ 
+                       db $E9,$04,$4C,$06,$9B               ;0E9AE5|        |      ;
+                       db $18,$69,$07,$4C,$18               ;0E9AEA|        |      ;
+                       db $9B,$A9,$00,$8D,$C4               ;0E9AEF|        |      ;
+                       db $04,$8D,$DB,$04,$A4               ;0E9AF4|        |00008D;
+                       db $68,$10,$1F,$AC,$4E               ;0E9AF9|        |      ;
+                       db $05,$C0,$02,$F0,$DE               ;0E9AFE|        |0000C0;
+                       db $AD,$1C,$04,$18,$69               ;0E9B03|        |0E041C;
+                       db $03,$18,$65,$56,$29               ;0E9B08|        |000018;
+                       db $F8,$38,$E5,$56,$C0               ;0E9B0D|        |      ;
+                       db $02,$F0,$D5,$18,$69               ;0E9B12|        |      ;
+                       db $03,$8D,$1C,$04,$AD               ;0E9B17|        |00008D;
+                       db $20,$05,$30,$44,$A2               ;0E9B1C|        |0E3005;
+                       db $12,$A9,$02,$20,$DD               ;0E9B21|        |0000A9;
+                       db $FC,$D0,$14,$A2,$12               ;0E9B26|        |0E14D0;
+                       db $A9,$FE,$20,$DD,$FC               ;0E9B2B|        |      ;
+                       db $F0,$56,$A2,$1A,$A9               ;0E9B30|        |0E9B88;
+                       db $FE,$20,$DD,$FC,$F0               ;0E9B35|        |0EDD20;
+                       db $4D,$D0,$09,$A2,$1A               ;0E9B3A|        |0E09D0;
+                       db $A9,$02,$20,$DD,$FC               ;0E9B3F|        |      ;
+                       db $F0,$42,$20,$02,$8A               ;0E9B44|        |0E9B88;
+                       db $AD,$4E,$05,$C9,$02               ;0E9B49|        |0E054E;
+                       db $D0,$09,$AD,$1C,$04               ;0E9B4E|        |0E9B59;
+                       db $18,$69,$04,$8D,$1C               ;0E9B53|        |      ;
+                       db $04,$A9,$02,$8D,$65               ;0E9B58|        |0000A9;
+                       db $05,$A9,$02,$8D,$00               ;0E9B5D|        |0000A9;
+                       db $04,$60,$A2,$12,$A9               ;0E9B62|        |000060;
+                       db $02,$20,$DD,$FC,$D0               ;0E9B67|        |      ;
+                       db $12,$A2,$12,$A9,$FE               ;0E9B6C|        |0000A2;
+                       db $20,$DD,$FC,$F0,$12               ;0E9B71|        |0EFCDD;
+                       db $A2,$0A,$A9,$FE,$20               ;0E9B76|        |      ;
+                       db $DD,$FC,$F0,$C7,$A2               ;0E9B7B|        |0EF0FC;
+                       db $0A,$A9,$02,$20,$DD               ;0E9B80|        |      ;
+                       db $FC,$F0,$BE,$A9,$12               ;0E9B85|        |0EBEF0;
+                       db $8D,$65,$05,$60                   ;0E9B8A|        |0E0565;
+ 
+       UNREACH_0E9B8E: db $A2,$02,$AD,$EF,$05               ;0E9B8E|        |      ;
+                       db $8D,$A8,$04,$A0,$08               ;0E9B93|        |0E04A8;
+                       db $D0,$0C                           ;0E9B98|        |0E9BA6;
+ 
+       UNREACH_0E9B9A: db $A2,$00,$AD,$EF,$05               ;0E9B9A|        |      ;
+                       db $49,$01,$8D,$A8,$04               ;0E9B9F|        |      ;
+                       db $A0,$00,$AD,$A8,$04               ;0E9BA4|        |      ;
+                       db $F0,$04,$C8,$C8,$C8               ;0E9BA9|        |0E9BAF;
+                       db $C8                               ;0E9BAE|        |      ;
+ 
+       UNREACH_0E9BAF: db $8E,$93,$05,$B9,$DC               ;0E9BAF|        |0E0593;
+                       db $9B,$8D,$F2,$04,$B9               ;0E9BB4|        |      ;
+                       db $DD,$9B,$8D,$09,$05               ;0E9BB9|        |0E8D9B;
+                       db $B9,$DE,$9B,$8D,$20               ;0E9BBE|        |0E9BDE;
+                       db $05,$B9,$DF,$9B,$8D               ;0E9BC3|        |0000B9;
+                       db $37,$05,$A9,$01,$8D               ;0E9BC8|        |000005;
+                       db $7C,$05,$AD,$DB,$9B               ;0E9BCD|        |0EAD05;
+                       db $8D,$1D,$06,$A9,$14               ;0E9BD2|        |0E061D;
+                       db $8D,$65,$05,$60,$0F               ;0E9BD7|        |0E0565;
+                       db $00,$80,$00,$80,$FF               ;0E9BDC|        |      ;
+                       db $80,$00,$80,$00,$80               ;0E9BE1|        |0E9BE3;
+ 
+                       db $FF,$80,$FF,$80,$FF               ;0E9BE6|        |80FF80;
+                       db $80                               ;0E9BEB|        |0E9BF1;
+ 
+ 
+       UNREACH_0E9BEC: db $04                               ;0E9BEC|        |000007;
+ 
+       UNREACH_0E9BED: db $07,$0A,$FF,$04,$07               ;0E9BED|        |00000A;
+                       db $0C,$FF,$48,$07,$0A               ;0E9BF2|        |0E48FF;
+                       db $FF,$48,$07,$0C,$FF               ;0E9BF7|        |0C0748;
  
        UNREACH_0E9BFC: db $AC,$65,$05,$20,$86               ;0E9BFC|        |0E0565;
                        db $E8,$C5,$8A,$38,$95               ;0E9C01|        |      ;

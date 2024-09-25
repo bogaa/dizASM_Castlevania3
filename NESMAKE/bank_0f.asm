@@ -498,7 +498,7 @@
                        db $FF,$FF,$FF,$FF,$FF               ;0FC8FA|        |FFFFFF;
                        db $FF                               ;0FC8FF|        |4C32A4;
  
-          CODE_0FC900: LDY.B r_stage                        ;0FC900|A432    |000032;
+      checkStageStuff: LDY.B r_stage                        ;0FC900|A432    |000032;
  
           CODE_0FC902: JMP.W CODE_0FC90F                    ;0FC902|4C0FC9  |0FC90F;
  
@@ -800,7 +800,8 @@
           CODE_0FCB06: STY.B $5B                            ;0FCB06|845B    |00005B;
                        JMP.W CODE_0FCAD7                    ;0FCB08|4CD7CA  |0FCAD7;
  
-                       JSR.W CODE_0FCA3E                    ;0FCB0B|203ECA  |0FCA3E;
+ 
+          CODE_0FCB0B: JSR.W CODE_0FCA3E                    ;0FCB0B|203ECA  |0FCA3E;
                        BCC CODE_0FCB1A                      ;0FCB0E|900A    |0FCB1A;
                        JSR.W CODE_0FC905                    ;0FCB10|2005C9  |0FC905;
                        LDY.B r_scrollDirection              ;0FCB13|A465    |000065;
@@ -999,117 +1000,191 @@
                        db $9D,$00,$03,$E8,$A4               ;0FCD28|        |000300;
                        db $63,$B1,$5F,$9D,$00               ;0FCD2D|        |0000B1;
                        db $03,$E8,$86,$1D,$A9               ;0FCD32|        |0000E8;
-                       db $01,$A2,$10,$20,$99               ;0FCD37|        |0000A2;
-                       db $E8,$E6,$B6,$A5,$B6               ;0FCD3C|        |      ;
-                       db $29,$03,$F0,$03,$4C               ;0FCD41|        |      ;
-                       db $7B,$CC,$A5,$B6,$C9               ;0FCD46|        |      ;
-                       db $08,$D0,$06                       ;0FCD4B|        |      ;
+                       db $01                               ;0FCD37|        |0000A2;
+ 
+       UNREACH_0FCD38: db $A2,$10,$20,$99,$E8               ;0FCD38|        |      ;
+                       db $E6,$B6,$A5,$B6,$29               ;0FCD3D|        |0000B6;
+                       db $03,$F0,$03,$4C,$7B               ;0FCD42|        |0000F0;
+                       db $CC,$A5,$B6,$C9,$08               ;0FCD47|        |00B6A5;
+                       db $D0,$06                           ;0FCD4C|        |0FCD54;
  
           CODE_0FCD4E: LDA.B #$00                           ;0FCD4E|A900    |      ;
                        STA.B r_verticleRoomTileCounter      ;0FCD50|85B6    |0000B6;
                        INC.B $5A                            ;0FCD52|E65A    |00005A;
                        DEC.B r_tranitionTimer               ;0FCD54|C664    |000064;
-                       BNE UNREACH_0FCD5A                   ;0FCD56|D002    |0FCD5A;
+                       BNE CODE_0FCD5A                      ;0FCD56|D002    |0FCD5A;
                        SEC                                  ;0FCD58|38      |      ;
                        RTS                                  ;0FCD59|60      |      ;
  
  
-       UNREACH_0FCD5A: db $18,$60,$C0,$C8,$D0               ;0FCD5A|        |      ;
-                       db $D8,$E0,$E8,$F0,$F8               ;0FCD5F|        |      ;
-                       db $A5,$65,$D0,$0A,$A5               ;0FCD64|        |000065;
-                       db $71,$0A,$0A,$0A,$18               ;0FCD69|        |00000A;
-                       db $69,$07,$D0,$02,$A9               ;0FCD6E|        |      ;
-                       db $00,$85,$5A,$A9,$0A               ;0FCD73|        |      ;
-                       db $85,$64,$60,$A9,$00               ;0FCD78|        |000064;
-                       db $85,$B6,$A9,$10,$D0               ;0FCD7D|        |0000B6;
-                       db $02,$A9,$0C,$85,$64               ;0FCD82|        |      ;
-                       db $A5,$59,$85,$5A,$60               ;0FCD87|        |000059;
-                       db $A9,$03,$85,$07,$A0               ;0FCD8C|        |      ;
-                       db $00,$A5,$64,$29,$01               ;0FCD91|        |      ;
-                       db $F0,$02,$A0,$03,$84               ;0FCD96|        |0FCD9A;
-                       db $5C,$A5,$65,$D0,$08               ;0FCD9B|        |D065A5;
-                       db $A5,$71,$29,$01,$D0               ;0FCDA0|        |000071;
-                       db $1A,$F0,$06,$A5,$57               ;0FCDA5|        |      ;
-                       db $29,$01,$D0,$12,$A5               ;0FCDAA|        |      ;
-                       db $75,$29,$01,$D0,$1C               ;0FCDAF|        |000029;
-                       db $A2,$08,$D0,$1A                   ;0FCDB4|        |      ;
+          CODE_0FCD5A: CLC                                  ;0FCD5A|18      |      ;
+                       RTS                                  ;0FCD5B|60      |      ;
  
-       UNREACH_0FCDB8: db $A9,$00,$85,$5C,$A9               ;0FCDB8|        |      ;
-                       db $06,$85,$07,$A5,$75               ;0FCDBD|        |000085;
-                       db $29,$01,$D0,$EE,$F0               ;0FCDC2|        |      ;
-                       db $08,$A9,$00,$85,$5C               ;0FCDC7|        |      ;
-                       db $A9,$06,$85,$07,$A2               ;0FCDCC|        |      ;
-                       db $00,$86,$08,$20,$05               ;0FCDD1|        |      ;
-                       db $C9,$A5,$5A,$10,$03               ;0FCDD6|        |      ;
-                       db $4C,$27,$CF,$C5,$7B               ;0FCDDB|        |0FCF27;
-                       db $90,$03,$4C,$27,$CF               ;0FCDE0|        |0FCDE5;
-                       db $4A,$4A,$4A,$A8,$A9               ;0FCDE5|        |      ;
-                       db $00,$85,$10,$85,$11               ;0FCDEA|        |      ;
-                       db $88,$30,$0A,$A9,$30               ;0FCDEF|        |      ;
-                       db $A2,$10,$20,$99,$E8               ;0FCDF4|        |      ;
-                       db $4C,$EF,$CD,$A5,$5C               ;0FCDF9|        |0FCDEF;
-                       db $0A,$0A,$0A,$A2,$10               ;0FCDFE|        |      ;
-                       db $20,$99,$E8,$A5,$5A               ;0FCE03|        |0FE899;
-                       db $29,$07,$A8,$C8,$98               ;0FCE08|        |      ;
-                       db $A2,$10,$20,$99,$E8               ;0FCE0D|        |      ;
-                       db $A2,$20,$A5,$5A,$29               ;0FCE12|        |      ;
-                       db $08,$45,$08,$F0,$02               ;0FCE17|        |      ;
-                       db $A2,$24,$86,$62,$A5               ;0FCE1C|        |      ;
-                       db $5A,$29,$07,$0A,$0A               ;0FCE21|        |      ;
-                       db $18,$69,$C0,$85,$61               ;0FCE26|        |      ;
-                       db $A5,$5C,$F0,$0D,$A5               ;0FCE2B|        |00005C;
-                       db $61,$18,$69,$40,$85               ;0FCE30|        |000018;
-                       db $61,$A5,$62,$69,$01               ;0FCE35|        |0000A5;
-                       db $85,$62,$A5,$50,$18               ;0FCE3A|        |000062;
-                       db $65,$10,$85,$10,$A5               ;0FCE3F|        |000010;
-                       db $51,$65,$11,$85,$11               ;0FCE44|        |000065;
-                       db $20,$6C,$CF,$A5,$5C               ;0FCE49|        |0FCF6C;
-                       db $0A,$85,$00,$A5,$5A               ;0FCE4E|        |      ;
-                       db $C9,$0C,$90,$05,$E9               ;0FCE53|        |      ;
-                       db $0C,$4C,$53,$CE,$A8               ;0FCE58|        |00534C;
-                       db $B9,$4C,$FD,$18,$65               ;0FCE5D|        |00FD4C;
-                       db $00,$85,$12,$A5,$5C               ;0FCE62|        |      ;
-                       db $D0,$1A,$A9,$00,$A4               ;0FCE67|        |0FCE83;
-                       db $12,$99,$E0,$06,$E6               ;0FCE6C|        |000099;
-                       db $12,$A2,$02,$A9,$08               ;0FCE71|        |0000A2;
-                       db $20,$99,$E8,$A9,$02               ;0FCE76|        |0FE899;
-                       db $85,$06,$20,$C0,$E8               ;0FCE7B|        |000006;
-                       db $4C,$90,$CE,$A9,$04               ;0FCE80|        |0FCE90;
-                       db $85,$06,$20,$C6,$E8               ;0FCE85|        |000006;
-                       db $4C,$90,$CE,$20,$BB               ;0FCE8A|        |0FCE90;
-                       db $E8,$A0,$00,$B1,$02               ;0FCE8F|        |      ;
-                       db $9D,$00,$03,$E8,$C8               ;0FCE94|        |000300;
-                       db $C0,$04,$D0,$F5,$86               ;0FCE99|        |      ;
-                       db $1D,$A5,$06,$29,$01               ;0FCE9E|        |0006A5;
-                       db $D0,$1D,$BD,$FC,$02               ;0FCEA3|        |0FCEC2;
-                       db $20,$B9,$D3,$98,$0A               ;0FCEA8|        |0FD3B9;
-                       db $0A,$0A,$0A,$85,$13               ;0FCEAD|        |      ;
-                       db $BD,$FE,$02,$20,$B9               ;0FCEB2|        |0002FE;
-                       db $D3,$98,$05,$13,$A4               ;0FCEB7|        |000098;
-                       db $12,$99,$E0,$06,$E6               ;0FCEBC|        |000099;
-                       db $12,$A9,$04,$A2,$02               ;0FCEC1|        |0000A9;
-                       db $20,$99,$E8,$A9,$20               ;0FCEC6|        |0FE899;
-                       db $A2,$61,$20,$99,$E8               ;0FCECB|        |      ;
-                       db $C6,$06,$D0,$B9,$A6               ;0FCED0|        |000006;
-                       db $5C,$A5,$5A,$29,$07               ;0FCED5|        |295AA5;
-                       db $18,$7D,$1F,$D3,$85               ;0FCEDA|        |      ;
-                       db $04,$A5,$5A,$29,$08               ;0FCEDF|        |0000A5;
-                       db $45,$08,$F0,$04,$A9               ;0FCEE4|        |000008;
-                       db $27,$D0,$02,$A9,$23               ;0FCEE9|        |0000D0;
-                       db $85,$05,$A6,$1D,$A5               ;0FCEEE|        |000005;
-                       db $04,$9D,$00,$03,$E8               ;0FCEF3|        |00009D;
-                       db $A5,$05,$9D,$00,$03               ;0FCEF8|        |000005;
-                       db $E8,$A4,$63,$B1,$5F               ;0FCEFD|        |      ;
-                       db $A4,$5C,$F0,$1C,$9D               ;0FCF02|        |00005C;
-                       db $00,$03,$E8,$86,$1D               ;0FCF07|        |      ;
-                       db $A9,$08,$A2,$10,$20               ;0FCF0C|        |      ;
-                       db $99,$E8,$E6,$5C,$A5               ;0FCF11|        |00E6E8;
-                       db $5C,$C9,$06,$F0,$0C               ;0FCF16|        |F006C9;
-                       db $C6,$07,$F0,$0A,$4C               ;0FCF1B|        |000007;
-                       db $49,$CE,$29,$F0,$4C               ;0FCF20|        |      ;
-                       db $06,$CF,$E6,$5A,$C6               ;0FCF25|        |0000CF;
-                       db $64,$D0,$02,$38,$60               ;0FCF2A|        |0000D0;
-                       db $18,$60                           ;0FCF2F|        |      ;
+ 
+          CODE_0FCD5C: CPY.B #$C8                           ;0FCD5C|C0C8    |      ;
+                       BNE UNREACH_0FCD38                   ;0FCD5E|D0D8    |0FCD38;
+                       CPX.B #$E8                           ;0FCD60|E0E8    |      ;
+                       BEQ CODE_0FCD5C                      ;0FCD62|F0F8    |0FCD5C;
+ 
+          CODE_0FCD64: LDA.B r_scrollDirection              ;0FCD64|A565    |000065;
+                       BNE CODE_0FCD72                      ;0FCD66|D00A    |0FCD72;
+                       LDA.B r_scroolLock                   ;0FCD68|A571    |000071;
+                       ASL A                                ;0FCD6A|0A      |      ;
+                       ASL A                                ;0FCD6B|0A      |      ;
+                       ASL A                                ;0FCD6C|0A      |      ;
+                       CLC                                  ;0FCD6D|18      |      ;
+                       ADC.B #$07                           ;0FCD6E|6907    |      ;
+                       BNE CODE_0FCD74                      ;0FCD70|D002    |0FCD74;
+ 
+          CODE_0FCD72: LDA.B #$00                           ;0FCD72|A900    |      ;
+ 
+          CODE_0FCD74: STA.B $5A                            ;0FCD74|855A    |00005A;
+                       LDA.B #$0A                           ;0FCD76|A90A    |      ;
+                       STA.B r_tranitionTimer               ;0FCD78|8564    |000064;
+                       RTS                                  ;0FCD7A|60      |      ;
+ 
+ 
+          CODE_0FCD7B: LDA.B #$00                           ;0FCD7B|A900    |      ;
+                       STA.B r_verticleRoomTileCounter      ;0FCD7D|85B6    |0000B6;
+                       LDA.B #$10                           ;0FCD7F|A910    |      ;
+                       BNE CODE_0FCD85                      ;0FCD81|D002    |0FCD85;
+ 
+          CODE_0FCD83: LDA.B #$0C                           ;0FCD83|A90C    |      ;
+ 
+          CODE_0FCD85: STA.B r_tranitionTimer               ;0FCD85|8564    |000064;
+                       LDA.B $59                            ;0FCD87|A559    |000059;
+                       STA.B $5A                            ;0FCD89|855A    |00005A;
+                       RTS                                  ;0FCD8B|60      |      ;
+ 
+ 
+  someTransitFunction: LDA.B #$03                           ;0FCD8C|A903    |      ;
+                       STA.B $07                            ;0FCD8E|8507    |000007;
+                       LDY.B #$00                           ;0FCD90|A000    |      ;
+                       LDA.B r_tranitionTimer               ;0FCD92|A564    |000064;
+                       AND.B #$01                           ;0FCD94|2901    |      ;
+                       BEQ CODE_0FCD9A                      ;0FCD96|F002    |0FCD9A;
+                       LDY.B #$03                           ;0FCD98|A003    |      ;
+ 
+          CODE_0FCD9A: STY.B $5C                            ;0FCD9A|845C    |00005C;
+                       LDA.B r_scrollDirection              ;0FCD9C|A565    |000065;
+                       BNE CODE_0FCDA8                      ;0FCD9E|D008    |0FCDA8;
+                       LDA.B r_scroolLock                   ;0FCDA0|A571    |000071;
+                       AND.B #$01                           ;0FCDA2|2901    |      ;
+                       BNE CODE_0FCDC0                      ;0FCDA4|D01A    |0FCDC0;
+                       BEQ CODE_0FCDAE                      ;0FCDA6|F006    |0FCDAE;
+ 
+          CODE_0FCDA8: LDA.B r_sceneScrollOffsetHi          ;0FCDA8|A557    |000057;
+                       AND.B #$01                           ;0FCDAA|2901    |      ;
+                       BNE CODE_0FCDC0                      ;0FCDAC|D012    |0FCDC0;
+ 
+          CODE_0FCDAE: LDA.B r_075                          ;0FCDAE|A575    |000075;
+                       AND.B #$01                           ;0FCDB0|2901    |      ;
+                       BNE CODE_0FCDD0                      ;0FCDB2|D01C    |0FCDD0;
+ 
+          CODE_0FCDB4: LDX.B #$08                           ;0FCDB4|A208    |      ;
+                       BNE CODE_0FCDD2                      ;0FCDB6|D01A    |0FCDD2;
+ 
+          CODE_0FCDB8: LDA.B #$00                           ;0FCDB8|A900    |      ;
+                       STA.B $5C                            ;0FCDBA|855C    |00005C;
+                       LDA.B #$06                           ;0FCDBC|A906    |      ;
+                       STA.B $07                            ;0FCDBE|8507    |000007;
+ 
+          CODE_0FCDC0: LDA.B r_075                          ;0FCDC0|A575    |000075;
+                       AND.B #$01                           ;0FCDC2|2901    |      ;
+                       BNE CODE_0FCDB4                      ;0FCDC4|D0EE    |0FCDB4;
+                       BEQ CODE_0FCDD0                      ;0FCDC6|F008    |0FCDD0;
+ 
+          CODE_0FCDC8: LDA.B #$00                           ;0FCDC8|A900    |      ;
+                       STA.B $5C                            ;0FCDCA|855C    |00005C;
+                       LDA.B #$06                           ;0FCDCC|A906    |      ;
+                       STA.B $07                            ;0FCDCE|8507    |000007;
+ 
+          CODE_0FCDD0: LDX.B #$00                           ;0FCDD0|A200    |      ;
+ 
+          CODE_0FCDD2: STX.B r_pointerQueue_VRAM            ;0FCDD2|8608    |000008;
+                       JSR.W CODE_0FC905                    ;0FCDD4|2005C9  |0FC905;
+                       LDA.B $5A                            ;0FCDD7|A55A    |00005A;
+                       BPL UNREACH_0FCDDE                   ;0FCDD9|1003    |0FCDDE;
+                       JMP.W CODE_0FCF27                    ;0FCDDB|4C27CF  |0FCF27;
+ 
+ 
+       UNREACH_0FCDDE: db $C5,$7B,$90,$03,$4C               ;0FCDDE|        |00007B;
+                       db $27,$CF,$4A,$4A,$4A               ;0FCDE3|        |0000CF;
+                       db $A8,$A9,$00,$85,$10               ;0FCDE8|        |      ;
+                       db $85,$11,$88,$30,$0A               ;0FCDED|        |000011;
+                       db $A9,$30,$A2,$10,$20               ;0FCDF2|        |      ;
+                       db $99,$E8,$4C,$EF,$CD               ;0FCDF7|        |004CE8;
+                       db $A5,$5C,$0A,$0A,$0A               ;0FCDFC|        |00005C;
+                       db $A2,$10,$20,$99,$E8               ;0FCE01|        |      ;
+                       db $A5,$5A,$29,$07,$A8               ;0FCE06|        |00005A;
+                       db $C8,$98,$A2,$10,$20               ;0FCE0B|        |      ;
+                       db $99,$E8,$A2,$20,$A5               ;0FCE10|        |00A2E8;
+                       db $5A,$29,$08,$45,$08               ;0FCE15|        |      ;
+                       db $F0,$02,$A2,$24,$86               ;0FCE1A|        |0FCE1E;
+                       db $62,$A5,$5A,$29,$07               ;0FCE1F|        |0F28C7;
+                       db $0A,$0A,$18,$69,$C0               ;0FCE24|        |      ;
+                       db $85,$61,$A5,$5C,$F0               ;0FCE29|        |000061;
+                       db $0D,$A5,$61,$18,$69               ;0FCE2E|        |0061A5;
+                       db $40,$85,$61,$A5,$62               ;0FCE33|        |      ;
+                       db $69,$01,$85,$62,$A5               ;0FCE38|        |      ;
+                       db $50,$18,$65,$10,$85               ;0FCE3D|        |0FCE57;
+                       db $10,$A5,$51,$65,$11               ;0FCE42|        |0FCDE9;
+                       db $85,$11,$20,$6C,$CF               ;0FCE47|        |000011;
+                       db $A5,$5C,$0A,$85,$00               ;0FCE4C|        |00005C;
+                       db $A5,$5A,$C9,$0C,$90               ;0FCE51|        |00005A;
+                       db $05,$E9,$0C,$4C,$53               ;0FCE56|        |0000E9;
+                       db $CE,$A8,$B9,$4C,$FD               ;0FCE5B|        |00B9A8;
+                       db $18,$65,$00,$85,$12               ;0FCE60|        |      ;
+                       db $A5,$5C,$D0,$1A,$A9               ;0FCE65|        |00005C;
+                       db $00,$A4,$12,$99,$E0               ;0FCE6A|        |      ;
+                       db $06,$E6,$12,$A2,$02               ;0FCE6F|        |0000E6;
+                       db $A9,$08,$20,$99,$E8               ;0FCE74|        |      ;
+                       db $A9,$02,$85,$06,$20               ;0FCE79|        |      ;
+                       db $C0,$E8,$4C,$90,$CE               ;0FCE7E|        |      ;
+                       db $A9,$04,$85,$06,$20               ;0FCE83|        |      ;
+                       db $C6,$E8,$4C,$90,$CE               ;0FCE88|        |0000E8;
+                       db $20,$BB,$E8,$A0,$00               ;0FCE8D|        |0FE8BB;
+                       db $B1,$02,$9D,$00,$03               ;0FCE92|        |000002;
+                       db $E8,$C8,$C0,$04,$D0               ;0FCE97|        |      ;
+                       db $F5,$86,$1D,$A5,$06               ;0FCE9C|        |000086;
+                       db $29,$01,$D0,$1D,$BD               ;0FCEA1|        |      ;
+                       db $FC,$02,$20,$B9,$D3               ;0FCEA6|        |0F2002;
+                       db $98,$0A,$0A,$0A,$0A               ;0FCEAB|        |      ;
+                       db $85,$13,$BD,$FE,$02               ;0FCEB0|        |000013;
+                       db $20,$B9,$D3,$98,$05               ;0FCEB5|        |0FD3B9;
+                       db $13,$A4,$12,$99,$E0               ;0FCEBA|        |0000A4;
+                       db $06,$E6,$12,$A9,$04               ;0FCEBF|        |0000E6;
+                       db $A2,$02,$20,$99,$E8               ;0FCEC4|        |      ;
+                       db $A9,$20,$A2,$61,$20               ;0FCEC9|        |      ;
+                       db $99,$E8,$C6,$06,$D0               ;0FCECE|        |00C6E8;
+                       db $B9,$A6,$5C,$A5,$5A               ;0FCED3|        |005CA6;
+                       db $29,$07,$18,$7D,$1F               ;0FCED8|        |      ;
+                       db $D3,$85,$04,$A5,$5A               ;0FCEDD|        |000085;
+                       db $29,$08,$45,$08,$F0               ;0FCEE2|        |      ;
+                       db $04,$A9,$27,$D0,$02               ;0FCEE7|        |0000A9;
+                       db $A9,$23,$85,$05,$A6               ;0FCEEC|        |      ;
+                       db $1D,$A5,$04,$9D,$00               ;0FCEF1|        |0004A5;
+                       db $03,$E8,$A5,$05,$9D               ;0FCEF6|        |0000E8;
+                       db $00,$03,$E8,$A4,$63               ;0FCEFB|        |      ;
+                       db $B1,$5F,$A4,$5C,$F0               ;0FCF00|        |00005F;
+                       db $1C,$9D,$00,$03,$E8               ;0FCF05|        |00009D;
+                       db $86,$1D,$A9,$08,$A2               ;0FCF0A|        |00001D;
+                       db $10,$20,$99,$E8,$E6               ;0FCF0F|        |0FCF31;
+                       db $5C,$A5,$5C,$C9,$06               ;0FCF14|        |C95CA5;
+                       db $F0,$0C,$C6,$07,$F0               ;0FCF19|        |0FCF27;
+                       db $0A,$4C,$49,$CE,$29               ;0FCF1E|        |      ;
+                       db $F0,$4C,$06,$CF                   ;0FCF23|        |0FCF71;
+ 
+          CODE_0FCF27: INC.B $5A                            ;0FCF27|E65A    |00005A;
+                       DEC.B r_tranitionTimer               ;0FCF29|C664    |000064;
+                       BNE CODE_0FCF2F                      ;0FCF2B|D002    |0FCF2F;
+                       SEC                                  ;0FCF2D|38      |      ;
+                       RTS                                  ;0FCF2E|60      |      ;
+ 
+ 
+          CODE_0FCF2F: CLC                                  ;0FCF2F|18      |      ;
+                       RTS                                  ;0FCF30|60      |      ;
+ 
  
           CODE_0FCF31: LDY.B r_bridgeTimer                  ;0FCF31|A4B3    |0000B3;
                        BEQ CODE_0FCF6C                      ;0FCF33|F037    |0FCF6C;
@@ -1223,7 +1298,8 @@
  
           CODE_0FCFF8: RTS                                  ;0FCFF8|60      |      ;
  
-                       LDA.B #$01                           ;0FCFF9|A901    |      ;
+ 
+          CODE_0FCFF9: LDA.B #$01                           ;0FCFF9|A901    |      ;
                        LDX.B #$2E                           ;0FCFFB|A22E    |      ;
                        JSR.W CODE_0FE5C1                    ;0FCFFD|20C1E5  |0FE5C1;
                        LDA.B #$01                           ;0FD000|A901    |      ;
@@ -1282,14 +1358,14 @@
           CODE_0FD057: LDA.B $04                            ;0FD057|A504    |000004;
                        CLC                                  ;0FD059|18      |      ;
                        ADC.B r_sceneAddr                    ;0FD05A|6550    |000050;
-                       STA.W r_sceneAddrLeft,Y              ;0FD05C|995200  |000052;
+                       STA.W $0052,Y                        ;0FD05C|995200  |0F0052;
                        LDA.B $05                            ;0FD05F|A505    |000005;
                        ADC.B $51                            ;0FD061|6551    |000051;
-                       STA.W $0053,Y                        ;0FD063|995300  |000053;
+                       STA.W $0053,Y                        ;0FD063|995300  |0F0053;
                        RTS                                  ;0FD066|60      |      ;
  
  
-          coreLoad_03: JSR.W CODE_0FC900                    ;0FD067|2000C9  |0FC900;
+          coreLoad_03: JSR.W checkStageStuff                ;0FD067|2000C9  |0FC900;
                        LDA.B r_roomOrientation              ;0FD06A|A568    |000068;
                        STA.B r_PrevRoomOrientation          ;0FD06C|8573    |000073;
                        LDA.B r_stage                        ;0FD06E|A532    |000032;
@@ -1348,7 +1424,7 @@
                        db $34,$C9,$01,$D0,$B5               ;0FD0EF|        |0000C9;
                        db $A0,$02,$D0,$B3                   ;0FD0F4|        |      ;
  
-          CODE_0FD0F8: LDA.B r_roomOrientation              ;0FD0F8|A568    |000068;
+             prepRoom: LDA.B r_roomOrientation              ;0FD0F8|A568    |000068;
                        BPL CODE_0FD13B                      ;0FD0FA|103F    |0FD13B;
                        LDA.W r_entity_YposSpeed             ;0FD0FC|AD2005  |000520;
                        ORA.W r_entity_YposSubSpeed          ;0FD0FF|0D3705  |000537;
@@ -1687,9 +1763,9 @@
                        JMP.W CODE_0FD330                    ;0FD38F|4C30D3  |0FD330;
  
  
-          CODE_0FD392: LDA.B r_tranitionTimer               ;0FD392|A564    |000064;
+    gameTransit_BG_0A: LDA.B r_tranitionTimer               ;0FD392|A564    |000064;
                        CMP.B #$08                           ;0FD394|C908    |      ;
-                       BEQ UNREACH_0FD3A5                   ;0FD396|F00D    |0FD3A5;
+                       BEQ CODE_0FD3A5                      ;0FD396|F00D    |0FD3A5;
                        LDA.B #$02                           ;0FD398|A902    |      ;
                        STA.B r_counter_ShowSprBg            ;0FD39A|851C    |00001C;
                        JSR.W CODE_0FD4C7                    ;0FD39C|20C7D4  |0FD4C7;
@@ -1700,10 +1776,17 @@
           CODE_0FD3A2: JMP.W CODE_0FD57E                    ;0FD3A2|4C7ED5  |0FD57E;
  
  
-       UNREACH_0FD3A5: db $A9,$00,$85,$1C,$20               ;0FD3A5|        |      ;
-                       db $53,$F7,$A9,$0C,$85               ;0FD3AA|        |0000F7;
-                       db $64,$A9,$00,$85,$8D               ;0FD3AF|        |0000A9;
-                       db $A9,$02,$85,$2A,$60               ;0FD3B4|        |      ;
+          CODE_0FD3A5: LDA.B #$00                           ;0FD3A5|A900    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FD3A7|851C    |00001C;
+                       JSR.W nameTable_ff                   ;0FD3A9|2053F7  |0FF753;
+                       LDA.B #$0C                           ;0FD3AC|A90C    |      ;
+                       STA.B r_tranitionTimer               ;0FD3AE|8564    |000064;
+                       LDA.B #$00                           ;0FD3B0|A900    |      ;
+                       STA.B r_roomInit                     ;0FD3B2|858D    |00008D;
+                       LDA.B #$02                           ;0FD3B4|A902    |      ;
+                       STA.B r_gameTransition               ;0FD3B6|852A    |00002A;
+                       RTS                                  ;0FD3B8|60      |      ;
+ 
  
           CODE_0FD3B9: BMI CODE_0FD3C8                      ;0FD3B9|300D    |0FD3C8;
                        LDY.B #$00                           ;0FD3BB|A000    |      ;
@@ -1755,38 +1838,110 @@
           CODE_0FD3F8: LDY.B #$00                           ;0FD3F8|A000    |      ;
                        RTS                                  ;0FD3FA|60      |      ;
  
-                       db $20,$00,$C9,$20,$9B               ;0FD3FB|        |0FC900;
-                       db $D4,$A0,$00,$B1,$0A               ;0FD400|        |0000A0;
-                       db $18,$69,$01,$C8,$84               ;0FD405|        |      ;
-                       db $00,$0A,$18,$65,$00               ;0FD40A|        |      ;
-                       db $85,$00,$A5,$34,$0A               ;0FD40F|        |000000;
-                       db $18,$65,$00,$A8,$A2               ;0FD414|        |      ;
-                       db $00,$AD,$20,$05,$10               ;0FD419|        |      ;
-                       db $02,$E8,$C8,$B1,$0A               ;0FD41E|        |      ;
-                       db $29,$F0,$C9,$D0,$F0               ;0FD423|        |      ;
-                       db $37,$C9,$80,$F0,$2A               ;0FD428|        |0000C9;
-                       db $A5,$68,$30,$11,$A5               ;0FD42D|        |000068;
-                       db $57,$18,$71,$0A,$85               ;0FD432|        |000018;
-                       db $57,$CA,$F0,$04,$C6               ;0FD437|        |0000CA;
-                       db $34,$10,$02,$E6,$34               ;0FD43C|        |000010;
-                       db $60,$B1,$0A,$4A,$4A               ;0FD441|        |      ;
-                       db $4A,$4A,$85,$34,$B1               ;0FD446|        |      ;
-                       db $0A,$29,$0F,$85,$57               ;0FD44B|        |      ;
-                       db $A9,$00,$85,$56,$85               ;0FD450|        |      ;
-                       db $58,$60,$B1,$0A,$29               ;0FD455|        |      ;
-                       db $0F,$85,$34,$4C,$41               ;0FD45A|        |4C3485;
-                       db $D4,$B1,$0A,$29,$0F               ;0FD45F|        |0000B1;
-                       db $0A,$A8,$B9,$5A,$D7               ;0FD464|        |      ;
-                       db $85,$0A,$B9,$5B,$D7               ;0FD469|        |00000A;
-                       db $85,$0B,$A0,$00,$B1               ;0FD46E|        |00000B;
-                       db $0A,$C8,$C9,$F0,$F0               ;0FD473|        |      ;
-                       db $16,$C9,$F1,$F0,$03               ;0FD478|        |0000C9;
-                       db $4C,$41,$D4,$E6,$33               ;0FD47D|        |0FD441;
-                       db $B1,$0A,$85,$57,$A9               ;0FD482|        |00000A;
-                       db $00,$85,$56,$85,$34               ;0FD487|        |      ;
-                       db $4C,$41,$D4,$A5,$57               ;0FD48C|        |0FD441;
-                       db $D1,$0A,$90,$02,$C8               ;0FD491|        |00000A;
-                       db $C8,$C8,$4C,$18,$D4               ;0FD496|        |      ;
+ 
+          CODE_0FD3FB: JSR.W checkStageStuff                ;0FD3FB|2000C9  |0FC900;
+                       JSR.W CODE_0FD49B                    ;0FD3FE|209BD4  |0FD49B;
+                       LDY.B #$00                           ;0FD401|A000    |      ;
+                       LDA.B (r_temp_Xpos),Y                ;0FD403|B10A    |00000A;
+                       CLC                                  ;0FD405|18      |      ;
+                       ADC.B #$01                           ;0FD406|6901    |      ;
+                       INY                                  ;0FD408|C8      |      ;
+                       STY.B $00                            ;0FD409|8400    |000000;
+                       ASL A                                ;0FD40B|0A      |      ;
+                       CLC                                  ;0FD40C|18      |      ;
+                       ADC.B $00                            ;0FD40D|6500    |000000;
+                       STA.B $00                            ;0FD40F|8500    |000000;
+                       LDA.B r_roomIdx                      ;0FD411|A534    |000034;
+                       ASL A                                ;0FD413|0A      |      ;
+                       CLC                                  ;0FD414|18      |      ;
+                       ADC.B $00                            ;0FD415|6500    |000000;
+                       TAY                                  ;0FD417|A8      |      ;
+ 
+          CODE_0FD418: LDX.B #$00                           ;0FD418|A200    |      ;
+                       LDA.W r_entity_YposSpeed             ;0FD41A|AD2005  |000520;
+                       BPL CODE_0FD421                      ;0FD41D|1002    |0FD421;
+                       INX                                  ;0FD41F|E8      |      ;
+                       INY                                  ;0FD420|C8      |      ;
+ 
+          CODE_0FD421: LDA.B (r_temp_Xpos),Y                ;0FD421|B10A    |00000A;
+                       AND.B #$F0                           ;0FD423|29F0    |      ;
+                       CMP.B #$D0                           ;0FD425|C9D0    |      ;
+                       BEQ CODE_0FD460                      ;0FD427|F037    |0FD460;
+                       CMP.B #$80                           ;0FD429|C980    |      ;
+                       BEQ CODE_0FD457                      ;0FD42B|F02A    |0FD457;
+                       LDA.B r_roomOrientation              ;0FD42D|A568    |000068;
+                       BMI CODE_0FD442                      ;0FD42F|3011    |0FD442;
+                       LDA.B r_sceneScrollOffsetHi          ;0FD431|A557    |000057;
+                       CLC                                  ;0FD433|18      |      ;
+                       ADC.B (r_temp_Xpos),Y                ;0FD434|710A    |00000A;
+                       STA.B r_sceneScrollOffsetHi          ;0FD436|8557    |000057;
+                       DEX                                  ;0FD438|CA      |      ;
+                       BEQ CODE_0FD43F                      ;0FD439|F004    |0FD43F;
+                       DEC.B r_roomIdx                      ;0FD43B|C634    |000034;
+                       BPL CODE_0FD441                      ;0FD43D|1002    |0FD441;
+ 
+          CODE_0FD43F: INC.B r_roomIdx                      ;0FD43F|E634    |000034;
+ 
+          CODE_0FD441: RTS                                  ;0FD441|60      |      ;
+ 
+ 
+          CODE_0FD442: LDA.B (r_temp_Xpos),Y                ;0FD442|B10A    |00000A;
+                       LSR A                                ;0FD444|4A      |      ;
+                       LSR A                                ;0FD445|4A      |      ;
+                       LSR A                                ;0FD446|4A      |      ;
+                       LSR A                                ;0FD447|4A      |      ;
+                       STA.B r_roomIdx                      ;0FD448|8534    |000034;
+                       LDA.B (r_temp_Xpos),Y                ;0FD44A|B10A    |00000A;
+                       AND.B #$0F                           ;0FD44C|290F    |      ;
+                       STA.B r_sceneScrollOffsetHi          ;0FD44E|8557    |000057;
+                       LDA.B #$00                           ;0FD450|A900    |      ;
+                       STA.B r_sceneScrollOffsetLo          ;0FD452|8556    |000056;
+                       STA.B r_subSceneOffsets              ;0FD454|8558    |000058;
+                       RTS                                  ;0FD456|60      |      ;
+ 
+ 
+          CODE_0FD457: LDA.B (r_temp_Xpos),Y                ;0FD457|B10A    |00000A;
+                       AND.B #$0F                           ;0FD459|290F    |      ;
+                       STA.B r_roomIdx                      ;0FD45B|8534    |000034;
+                       JMP.W CODE_0FD441                    ;0FD45D|4C41D4  |0FD441;
+ 
+ 
+          CODE_0FD460: LDA.B (r_temp_Xpos),Y                ;0FD460|B10A    |00000A;
+                       AND.B #$0F                           ;0FD462|290F    |      ;
+                       ASL A                                ;0FD464|0A      |      ;
+                       TAY                                  ;0FD465|A8      |      ;
+                       LDA.W DATA8_00D75A,Y                 ;0FD466|B95AD7  |00D75A;
+                       STA.B r_temp_Xpos                    ;0FD469|850A    |00000A;
+                       LDA.W DATA8_00D75B,Y                 ;0FD46B|B95BD7  |00D75B;
+                       STA.B $0B                            ;0FD46E|850B    |00000B;
+                       LDY.B #$00                           ;0FD470|A000    |      ;
+                       LDA.B (r_temp_Xpos),Y                ;0FD472|B10A    |00000A;
+                       INY                                  ;0FD474|C8      |      ;
+                       CMP.B #$F0                           ;0FD475|C9F0    |      ;
+                       BEQ CODE_0FD48F                      ;0FD477|F016    |0FD48F;
+                       CMP.B #$F1                           ;0FD479|C9F1    |      ;
+                       BEQ CODE_0FD480                      ;0FD47B|F003    |0FD480;
+                       JMP.W CODE_0FD441                    ;0FD47D|4C41D4  |0FD441;
+ 
+ 
+          CODE_0FD480: INC.B r_blockLevel                   ;0FD480|E633    |000033;
+                       LDA.B (r_temp_Xpos),Y                ;0FD482|B10A    |00000A;
+                       STA.B r_sceneScrollOffsetHi          ;0FD484|8557    |000057;
+                       LDA.B #$00                           ;0FD486|A900    |      ;
+                       STA.B r_sceneScrollOffsetLo          ;0FD488|8556    |000056;
+                       STA.B r_roomIdx                      ;0FD48A|8534    |000034;
+                       JMP.W CODE_0FD441                    ;0FD48C|4C41D4  |0FD441;
+ 
+ 
+          CODE_0FD48F: LDA.B r_sceneScrollOffsetHi          ;0FD48F|A557    |000057;
+                       CMP.B (r_temp_Xpos),Y                ;0FD491|D10A    |00000A;
+                       BCC CODE_0FD497                      ;0FD493|9002    |0FD497;
+                       INY                                  ;0FD495|C8      |      ;
+                       INY                                  ;0FD496|C8      |      ;
+ 
+          CODE_0FD497: INY                                  ;0FD497|C8      |      ;
+                       JMP.W CODE_0FD418                    ;0FD498|4C18D4  |0FD418;
+ 
  
           CODE_0FD49B: LDA.B r_stage                        ;0FD49B|A532    |000032;
                        ASL A                                ;0FD49D|0A      |      ;
@@ -1938,7 +2093,8 @@
                        BNE CODE_0FD5AF                      ;0FD5B4|D0F9    |0FD5AF;
                        JMP.W endVRAM_queue                  ;0FD5B6|4CDEE8  |0FE8DE;
  
-                       LDA.B #$03                           ;0FD5B9|A903    |      ;
+ 
+          CODE_0FD5B9: LDA.B #$03                           ;0FD5B9|A903    |      ;
                        STA.B r_HUD_CHR_overwrite            ;0FD5BB|8572    |000072;
                        JSR.W CODE_0FD5C3                    ;0FD5BD|20C3D5  |0FD5C3;
                        JMP.W CODE_0FD004                    ;0FD5C0|4C04D0  |0FD004;
@@ -2582,7 +2738,7 @@ RLE_tilemap_10_ending01: dw $2800                             ;0FD772|        | 
                        LDA.B r_sceneScrollOffsetHi          ;0FE09C|A557    |000057;
                        STA.B r_scrollStartOffsetHi          ;0FE09E|8570    |000070;
                        JSR.W CODE_0FE24E                    ;0FE0A0|204EE2  |0FE24E;
-                       JSR.W UNREACH_0FE27A                 ;0FE0A3|207AE2  |0FE27A;
+                       JSR.W CODE_0FE27A                    ;0FE0A3|207AE2  |0FE27A;
                        JSR.W gameState_1a_main              ;0FE0A6|207BE3  |0FE37B;
                        LDA.B #$9A                           ;0FE0A9|A99A    |      ;
                        JSR.W swapPRGbankStore               ;0FE0AB|20E6E2  |0FE2E6;
@@ -2820,25 +2976,60 @@ RLE_tilemap_10_ending01: dw $2800                             ;0FD772|        | 
                        JMP.W swapPRGbankStore               ;0FE277|4CE6E2  |0FE2E6;
  
  
-       UNREACH_0FE27A: db $A2,$00,$20,$B1,$E2               ;0FE27A|        |      ;
-                       db $A2,$02,$20,$B1,$E2               ;0FE27F|        |      ;
-                       db $A5,$00,$C5,$02,$D0               ;0FE284|        |000000;
-                       db $1C,$A5,$01,$C5,$03               ;0FE289|        |0F01A5;
-                       db $D0,$16,$A2,$00,$20               ;0FE28E|        |0FE2A6;
-                       db $96,$E2,$E8,$B5,$00               ;0FE293|        |0000E2;
-                       db $A8,$55,$FA,$35,$00               ;0FE298|        |      ;
-                       db $95,$26,$95,$F8,$94               ;0FE29D|        |000026;
-                       db $28,$94,$FA,$60,$A9               ;0FE2A2|        |      ;
-                       db $00,$85,$26,$85,$F8               ;0FE2A7|        |      ;
-                       db $85,$27,$85,$F9,$60               ;0FE2AC|        |000027;
-                       db $A0,$01,$8C,$16,$40               ;0FE2B1|        |      ;
-                       db $88,$8C,$16,$40,$A0               ;0FE2B6|        |      ;
-                       db $08,$AD,$16,$40,$85               ;0FE2BB|        |      ;
-                       db $04,$4A,$05,$04,$4A               ;0FE2C0|        |00004A;
-                       db $36,$00,$AD,$17,$40               ;0FE2C5|        |000000;
-                       db $85,$05,$4A,$05,$05               ;0FE2CA|        |000005;
-                       db $4A,$36,$01,$88,$D0               ;0FE2CF|        |      ;
-                       db $E7,$60                           ;0FE2D4|        |000060;
+          CODE_0FE27A: LDX.B #$00                           ;0FE27A|A200    |      ;
+                       JSR.W CODE_0FE2B1                    ;0FE27C|20B1E2  |0FE2B1;
+                       LDX.B #$02                           ;0FE27F|A202    |      ;
+                       JSR.W CODE_0FE2B1                    ;0FE281|20B1E2  |0FE2B1;
+                       LDA.B $00                            ;0FE284|A500    |000000;
+                       CMP.B $02                            ;0FE286|C502    |000002;
+                       BNE CODE_0FE2A6                      ;0FE288|D01C    |0FE2A6;
+                       LDA.B $01                            ;0FE28A|A501    |000001;
+                       CMP.B $03                            ;0FE28C|C503    |000003;
+                       BNE CODE_0FE2A6                      ;0FE28E|D016    |0FE2A6;
+                       LDX.B #$00                           ;0FE290|A200    |      ;
+                       JSR.W $E296                          ;0FE292|2096E2  |0FE296;
+                       INX                                  ;0FE295|E8      |      ;
+                       LDA.B $00,X                          ;0FE296|B500    |000000;
+                       TAY                                  ;0FE298|A8      |      ;
+                       EOR.B r_button_joy1Pe,X              ;0FE299|55FA    |0000FA;
+                       AND.B $00,X                          ;0FE29B|3500    |000000;
+                       STA.B r_curJoyPe1,X                  ;0FE29D|9526    |000026;
+                       STA.B r_button_curJoyPe1,X           ;0FE29F|95F8    |0000F8;
+                       STY.B r_Joy1Pe,X                     ;0FE2A1|9428    |000028;
+                       STY.B r_button_joy1Pe,X              ;0FE2A3|94FA    |0000FA;
+                       RTS                                  ;0FE2A5|60      |      ;
+ 
+ 
+          CODE_0FE2A6: LDA.B #$00                           ;0FE2A6|A900    |      ;
+                       STA.B r_curJoyPe1                    ;0FE2A8|8526    |000026;
+                       STA.B r_button_curJoyPe1             ;0FE2AA|85F8    |0000F8;
+                       STA.B r_curJoyPe2                    ;0FE2AC|8527    |000027;
+                       STA.B r_button_curJoyPe2             ;0FE2AE|85F9    |0000F9;
+                       RTS                                  ;0FE2B0|60      |      ;
+ 
+ 
+          CODE_0FE2B1: LDY.B #$01                           ;0FE2B1|A001    |      ;
+                       STY.W $4016                          ;0FE2B3|8C1640  |0F4016;
+                       DEY                                  ;0FE2B6|88      |      ;
+                       STY.W $4016                          ;0FE2B7|8C1640  |0F4016;
+                       LDY.B #$08                           ;0FE2BA|A008    |      ;
+ 
+          CODE_0FE2BC: LDA.W $4016                          ;0FE2BC|AD1640  |0F4016;
+                       STA.B $04                            ;0FE2BF|8504    |000004;
+                       LSR A                                ;0FE2C1|4A      |      ;
+                       ORA.B $04                            ;0FE2C2|0504    |000004;
+                       LSR A                                ;0FE2C4|4A      |      ;
+                       ROL.B $00,X                          ;0FE2C5|3600    |000000;
+                       LDA.W $4017                          ;0FE2C7|AD1740  |0F4017;
+                       STA.B $05                            ;0FE2CA|8505    |000005;
+                       LSR A                                ;0FE2CC|4A      |      ;
+                       ORA.B $05                            ;0FE2CD|0505    |000005;
+                       LSR A                                ;0FE2CF|4A      |      ;
+                       ROL.B $01,X                          ;0FE2D0|3601    |000001;
+                       DEY                                  ;0FE2D2|88      |      ;
+                       BNE CODE_0FE2BC                      ;0FE2D3|D0E7    |0FE2BC;
+                       RTS                                  ;0FE2D5|60      |      ;
+ 
  
           initBoss_00: LDA.B #$87                           ;0FE2D6|A987    |      ;
                        BNE CODE_0FE2DC                      ;0FE2D8|D002    |0FE2DC;
@@ -2856,7 +3047,7 @@ RLE_tilemap_10_ending01: dw $2800                             ;0FD772|        | 
  
      swapPRGbankStore: STA.B r_PrgBank_8000                 ;0FE2E6|8521    |000021;
  
-          swapPRGbank: STA.W $5115                          ;0FE2E8|8D1551  |0A5115;
+          swapPRGbank: STA.W $5115                          ;0FE2E8|8D1551  |0F5115;
                        RTS                                  ;0FE2EB|60      |      ;
  
  
@@ -3002,29 +3193,48 @@ RLE_tilemap_10_ending01: dw $2800                             ;0FD772|        | 
                        INY                                  ;0FE3DF|C8      |      ;
                        STY.B r_CHR_BankBG_0c00              ;0FE3E0|844D    |00004D;
                        INC.B r_gameSubstate                 ;0FE3E2|E619    |000019;
-                       JMP.W CODE_0FF75F                    ;0FE3E4|4C5FF7  |0FF75F;
+                       JMP.W nameTable_44                   ;0FE3E4|4C5FF7  |0FF75F;
  
  
           CODE_0FE3E7: DEX                                  ;0FE3E7|CA      |      ;
-                       BNE UNREACH_0FE3FC                   ;0FE3E8|D012    |0FE3FC;
+                       BNE CODE_0FE3FC                      ;0FE3E8|D012    |0FE3FC;
                        JSR.W CODE_0FEBB9                    ;0FE3EA|20B9EB  |0FEBB9;
-                       db $20,$8A,$E5,$E6,$19               ;0FE3ED|        |0FE58A;
-                       db $60,$A9,$00,$F0,$02               ;0FE3F2|        |      ;
+                       JSR.W CODE_0FE58A                    ;0FE3ED|208AE5  |0FE58A;
+                       INC.B r_gameSubstate                 ;0FE3F0|E619    |000019;
+                       RTS                                  ;0FE3F2|60      |      ;
  
-                       db $A9,$0F,$4C,$74,$E5               ;0FE3F7|        |      ;
  
-       UNREACH_0FE3FC: db $CA,$D0,$23,$20,$79               ;0FE3FC|        |      ;
-                       db $E5,$F0,$EF,$A9,$80               ;0FE401|        |0000F0;
-                       db $20,$E6,$E2,$20,$55               ;0FE406|        |0FE2E6;
-                       db $8B,$20,$5B,$E5,$A5               ;0FE40B|        |      ;
-                       db $F8,$29,$10,$F0,$0C               ;0FE410|        |      ;
-                       db $A5,$28,$29,$C0,$D0               ;0FE415|        |000028;
-                       db $DC,$A9,$80,$85,$30               ;0FE41A|        |0080A9;
-                       db $E6,$19                           ;0FE41F|        |000019;
+          CODE_0FE3F3: LDA.B #$00                           ;0FE3F3|A900    |      ;
+                       BEQ CODE_0FE3F9                      ;0FE3F5|F002    |0FE3F9;
+ 
+          CODE_0FE3F7: LDA.B #$0F                           ;0FE3F7|A90F    |      ;
+ 
+          CODE_0FE3F9: JMP.W CODE_0FE574                    ;0FE3F9|4C74E5  |0FE574;
+ 
+ 
+          CODE_0FE3FC: DEX                                  ;0FE3FC|CA      |      ;
+                       BNE CODE_0FE422                      ;0FE3FD|D023    |0FE422;
+                       JSR.W CODE_0FE579                    ;0FE3FF|2079E5  |0FE579;
+                       BEQ CODE_0FE3F3                      ;0FE402|F0EF    |0FE3F3;
+                       LDA.B #$80                           ;0FE404|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FE406|20E6E2  |0FE2E6;
+                       db $20                               ;0FE409|        |      ;
+                       dw DATA8_008B55                      ;0FE40A|        |008B55;
+                       JSR.W CODE_0FE55B                    ;0FE40C|205BE5  |0FE55B;
+                       LDA.B r_button_curJoyPe1             ;0FE40F|A5F8    |0000F8;
+                       AND.B #$10                           ;0FE411|2910    |      ;
+                       BEQ gameState_01_empty               ;0FE413|F00C    |0FE421;
+                       LDA.B r_Joy1Pe                       ;0FE415|A528    |000028;
+                       AND.B #$C0                           ;0FE417|29C0    |      ;
+                       BNE CODE_0FE3F7                      ;0FE419|D0DC    |0FE3F7;
+                       LDA.B #$80                           ;0FE41B|A980    |      ;
+                       STA.B r_timerGenerel                 ;0FE41D|8530    |000030;
+                       INC.B r_gameSubstate                 ;0FE41F|E619    |000019;
  
    gameState_01_empty: RTS                                  ;0FE421|60      |      ;
  
-                       LDY.B r_menuSelectIdx                ;0FE422|A46B    |00006B;
+ 
+          CODE_0FE422: LDY.B r_menuSelectIdx                ;0FE422|A46B    |00006B;
                        LDA.B r_timerGenerel                 ;0FE424|A530    |000030;
                        AND.B #$08                           ;0FE426|2908    |      ;
                        BEQ CODE_0FE431                      ;0FE428|F007    |0FE431;
@@ -3055,11 +3265,12 @@ RLE_tilemap_10_ending01: dw $2800                             ;0FD772|        | 
  
  
 gameState_03_loadMainGame: LDA.B #$00                           ;0FE454|A900    |      ;
-                       STA.B r_gameLoadState                ;0FE456|852A    |00002A;
+                       STA.B r_gameTransition               ;0FE456|852A    |00002A;
                        JSR.W clearZeroPage                  ;0FE458|2028E8  |0FE828;
                        JSR.W CODE_0FE782                    ;0FE45B|2082E7  |0FE782;
-                       db $20,$8F,$E6,$4C,$6D               ;0FE45E|        |0FE68F;
-                       db $E5                               ;0FE463|        |0000A9;
+                       JSR.W CODE_0FE68F                    ;0FE45E|208FE6  |0FE68F;
+                       JMP.W CODE_0FE56D                    ;0FE461|4C6DE5  |0FE56D;
+ 
  
 gameState_05_deathLoad: LDA.B #$02                           ;0FE464|A902    |      ;
                        STA.B r_counter_ShowSprBg            ;0FE466|851C    |00001C;
@@ -3070,7 +3281,7 @@ gameState_05_deathLoad: LDA.B #$02                           ;0FE464|A902    |  
  
  
           CODE_0FE46F: DEY                                  ;0FE46F|88      |      ;
-                       BNE UNREACH_0FE49A                   ;0FE470|D028    |0FE49A;
+                       BNE CODE_0FE49A                      ;0FE470|D028    |0FE49A;
                        JSR.W CODE_0FE819                    ;0FE472|2019E8  |0FE819;
                        LDA.B r_stage                        ;0FE475|A532    |000032;
                        CMP.B #$0E                           ;0FE477|C90E    |      ;
@@ -3093,12 +3304,20 @@ gameState_05_deathLoad: LDA.B #$02                           ;0FE464|A902    |  
                        RTS                                  ;0FE499|60      |      ;
  
  
-       UNREACH_0FE49A: db $88,$D0,$07,$A9,$01               ;0FE49A|        |      ;
-                       db $85,$30,$E6,$19,$60               ;0FE49F|        |000030;
-                       db $C6,$30,$D0,$FB                   ;0FE4A4|        |000030;
+          CODE_0FE49A: DEY                                  ;0FE49A|88      |      ;
+                       BNE CODE_0FE4A4                      ;0FE49B|D007    |0FE4A4;
+                       LDA.B #$01                           ;0FE49D|A901    |      ;
+                       STA.B r_timerGenerel                 ;0FE49F|8530    |000030;
+                       INC.B r_gameSubstate                 ;0FE4A1|E619    |000019;
+ 
+          CODE_0FE4A3: RTS                                  ;0FE4A3|60      |      ;
+ 
+ 
+          CODE_0FE4A4: DEC.B r_timerGenerel                 ;0FE4A4|C630    |000030;
+                       BNE CODE_0FE4A3                      ;0FE4A6|D0FB    |0FE4A3;
  
           CODE_0FE4A8: LDA.B #$00                           ;0FE4A8|A900    |      ;
-                       STA.B r_gameLoadState                ;0FE4AA|852A    |00002A;
+                       STA.B r_gameTransition               ;0FE4AA|852A    |00002A;
                        LDA.B #$04                           ;0FE4AC|A904    |      ;
                        STA.B r_gameState                    ;0FE4AE|8518    |000018;
                        RTS                                  ;0FE4B0|60      |      ;
@@ -3221,7 +3440,8 @@ gameState_07_lvlSelect: LDA.B #$80                           ;0FE543|A980    |  
  
           CODE_0FE56C: RTS                                  ;0FE56C|60      |      ;
  
-                       INC.B r_gameState                    ;0FE56D|E618    |000018;
+ 
+          CODE_0FE56D: INC.B r_gameState                    ;0FE56D|E618    |000018;
  
           CODE_0FE56F: LDA.B #$00                           ;0FE56F|A900    |      ;
                        STA.B r_gameSubstate                 ;0FE571|8519    |000019;
@@ -3232,27 +3452,53 @@ gameState_07_lvlSelect: LDA.B #$80                           ;0FE543|A980    |  
                        JMP.W CODE_0FE56F                    ;0FE576|4C6FE5  |0FE56F;
  
  
-       UNREACH_0FE579: db $A5,$30,$05,$31,$F0               ;0FE579|        |000030;
-                       db $0A,$A5,$30,$D0,$02               ;0FE57E|        |      ;
-                       db $C6,$31,$C6,$30,$A9               ;0FE583|        |000031;
-                       db $01,$60,$A9,$00,$A0               ;0FE588|        |000060;
-                       db $01                               ;0FE58D|        |000085;
+          CODE_0FE579: LDA.B r_timerGenerel                 ;0FE579|A530    |000030;
+                       ORA.B $31                            ;0FE57B|0531    |000031;
+                       BEQ CODE_0FE589                      ;0FE57D|F00A    |0FE589;
+                       LDA.B r_timerGenerel                 ;0FE57F|A530    |000030;
+                       BNE CODE_0FE585                      ;0FE581|D002    |0FE585;
+                       DEC.B $31                            ;0FE583|C631    |000031;
  
-       UNREACH_0FE58E: db $85,$30,$84,$31,$60               ;0FE58E|        |000030;
+          CODE_0FE585: DEC.B r_timerGenerel                 ;0FE585|C630    |000030;
+                       LDA.B #$01                           ;0FE587|A901    |      ;
  
-       UNREACH_0FE593: db $A9,$80,$20,$E6,$E2               ;0FE593|        |      ;
-                       db $20,$05,$90,$A9,$82               ;0FE598|        |0F9005;
-                       db $4C,$E6,$E2,$48,$A9               ;0FE59D|        |0FE2E6;
- 
-                       db $8A,$20,$E6,$E2,$68               ;0FE5A2|        |      ;
-                       db $20,$B6,$BE,$A9,$92               ;0FE5A7|        |0FBEB6;
-                       db $4C,$E6,$E2                       ;0FE5AC|        |0FE2E6;
+          CODE_0FE589: RTS                                  ;0FE589|60      |      ;
  
  
-       UNREACH_0FE5AF: db $AD,$00,$80,$48,$A9               ;0FE5AF|        |0F8000;
-                       db $9C,$20,$E6,$E2,$20               ;0FE5B4|        |0FE620;
-                       db $58,$8C,$68,$4C,$E6               ;0FE5B9|        |      ;
-                       db $E2                               ;0FE5BE|        |      ;
+          CODE_0FE58A: LDA.B #$00                           ;0FE58A|A900    |      ;
+                       LDY.B #$01                           ;0FE58C|A001    |      ;
+ 
+          CODE_0FE58E: STA.B r_timerGenerel                 ;0FE58E|8530    |000030;
+                       STY.B $31                            ;0FE590|8431    |000031;
+                       RTS                                  ;0FE592|60      |      ;
+ 
+ 
+          CODE_0FE593: LDA.B #$80                           ;0FE593|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FE595|20E6E2  |0FE2E6;
+                       db $20                               ;0FE598|        |      ;
+                       dw CODE_009005                       ;0FE599|        |009005;
+                       LDA.B #$82                           ;0FE59B|A982    |      ;
+                       JMP.W swapPRGbankStore               ;0FE59D|4CE6E2  |0FE2E6;
+ 
+                       PHA                                  ;0FE5A0|48      |      ;
+                       LDA.B #$8A                           ;0FE5A1|A98A    |      ;
+                       JSR.W swapPRGbankStore               ;0FE5A3|20E6E2  |0FE2E6;
+                       PLA                                  ;0FE5A6|68      |      ;
+                       db $20                               ;0FE5A7|        |      ;
+                       dw UNREACH_05BEB6                    ;0FE5A8|        |05BEB6;
+                       LDA.B #$92                           ;0FE5AA|A992    |      ;
+                       JMP.W swapPRGbankStore               ;0FE5AC|4CE6E2  |0FE2E6;
+ 
+ 
+          CODE_0FE5AF: LDA.W bank_8a                        ;0FE5AF|AD0080  |058000;
+                       PHA                                  ;0FE5B2|48      |      ;
+                       LDA.B #$9C                           ;0FE5B3|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FE5B5|20E6E2  |0FE2E6;
+                       db $20                               ;0FE5B8|        |      ;
+                       dw CODE_0E8C58                       ;0FE5B9|        |0E8C58;
+                       PLA                                  ;0FE5BB|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE5BC|4CE6E2  |0FE2E6;
+ 
  
           CODE_0FE5BF: STY.B r_scannlineTarget              ;0FE5BF|8442    |000042;
  
@@ -3263,19 +3509,44 @@ gameState_07_lvlSelect: LDA.B #$80                           ;0FE543|A980    |  
                        RTS                                  ;0FE5C9|60      |      ;
  
  
-       UNREACH_0FE5CA: db $A9,$00,$F0,$02                   ;0FE5CA|        |      ;
+    unsetAutoPlayFlag: LDA.B #$00                           ;0FE5CA|A900    |      ;
+                       BEQ CODE_0FE5D0                      ;0FE5CC|F002    |0FE5D0;
  
-       UNREACH_0FE5CE: db $A9,$01,$85,$2C,$60               ;0FE5CE|        |      ;
-                       db $AD,$00,$80,$48,$A9               ;0FE5D3|        |0F8000;
-                       db $80,$20,$E6,$E2,$20               ;0FE5D8|        |0FE5FA;
-                       db $2C,$85,$20,$01,$80               ;0FE5DD|        |0F2085;
-                       db $20,$13,$80,$20,$EE               ;0FE5E2|        |0F8013;
-                       db $83,$68,$4C,$E6,$E2               ;0FE5E7|        |000068;
-                       db $A9,$94,$20,$E6,$E2               ;0FE5EC|        |      ;
-                       db $20,$47,$80,$A9,$96               ;0FE5F1|        |0F8047;
-                       db $20,$E6,$E2,$20,$E3               ;0FE5F6|        |0FE2E6;
-                       db $FD,$A9,$84,$20,$E6               ;0FE5FB|        |0F84A9;
-                       db $E2,$4C,$30,$9D                   ;0FE600|        |      ;
+      setAutoPlayFlag: LDA.B #$01                           ;0FE5CE|A901    |      ;
+ 
+          CODE_0FE5D0: STA.B r_autoPlay                     ;0FE5D0|852C    |00002C;
+                       RTS                                  ;0FE5D2|60      |      ;
+ 
+ 
+backupCurrent_bank_swap_00: LDA.W bank_80                        ;0FE5D3|AD0080  |008000;
+                       PHA                                  ;0FE5D6|48      |      ;
+                       LDA.B #$80                           ;0FE5D7|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FE5D9|20E6E2  |0FE2E6;
+                       db $20                               ;0FE5DC|        |      ;
+                       dw CODE_00852C                       ;0FE5DD|        |00852C;
+                       db $20                               ;0FE5DF|        |      ;
+                       dw loadPlayerCHRBank                 ;0FE5E0|        |008001;
+                       db $20                               ;0FE5E2|        |      ;
+                       dw getCurrRoomsChrBanks              ;0FE5E3|        |008013;
+                       db $20                               ;0FE5E5|        |      ;
+                       dw DATA8_0083EE                      ;0FE5E6|        |0083EE;
+                       PLA                                  ;0FE5E8|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE5E9|4CE6E2  |0FE2E6;
+ 
+ 
+          CODE_0FE5EC: LDA.B #$94                           ;0FE5EC|A994    |      ;
+                       JSR.W swapPRGbankStore               ;0FE5EE|20E6E2  |0FE2E6;
+                       db $20                               ;0FE5F1|        |      ;
+                       dw CODE_0A8047                       ;0FE5F2|        |0A8047;
+                       LDA.B #$96                           ;0FE5F4|A996    |      ;
+                       JSR.W swapPRGbankStore               ;0FE5F6|20E6E2  |0FE2E6;
+                       db $20                               ;0FE5F9|        |      ;
+                       dw entitySlotProcessing              ;0FE5FA|        |0FFDE3;
+                       LDA.B #$84                           ;0FE5FC|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FE5FE|20E6E2  |0FE2E6;
+                       db $4C                               ;0FE601|        |      ;
+ 
+                       dw UNREACH_029D30                    ;0FE602|        |029D30;
  
           CODE_0FE604: LDA.B #$90                           ;0FE604|A990    |      ;
                        JSR.W swapPRGbankStore               ;0FE606|20E6E2  |0FE2E6;
@@ -3372,78 +3643,152 @@ titleScreenThunderMain: STA.B r_tempCurrRoomIdx              ;0FE62F|850E    |00
                        JMP.W restorePRG                     ;0FE697|4C7FE6  |0FE67F;
  
  
-       UNREACH_0FE69A: db $A9,$8E,$20,$E0,$E2               ;0FE69A|        |      ;
-                       db $20,$AE,$B4,$4C,$7F               ;0FE69F|        |0FB4AE;
-                       db $E6,$AD,$00,$80,$48               ;0FE6A4|        |0000AD;
-                       db $A9,$88,$20,$E6,$E2               ;0FE6A9|        |      ;
-                       db $20,$96,$BA,$68,$4C               ;0FE6AE|        |0FBA96;
-                       db $E6,$E2,$AD,$00,$80               ;0FE6B3|        |0000E2;
-                       db $48,$A9,$92,$20,$E6               ;0FE6B8|        |      ;
-                       db $E2,$20,$98,$AB,$68               ;0FE6BD|        |      ;
-                       db $4C,$E6,$E2                       ;0FE6C2|        |0FE2E6;
+          CODE_0FE69A: LDA.B #$8E                           ;0FE69A|A98E    |      ;
+                       JSR.W backupPRGSwap                  ;0FE69C|20E0E2  |0FE2E0;
+                       db $20                               ;0FE69F|        |      ;
+                       dw UNREACH_07B4AE                    ;0FE6A0|        |07B4AE;
+                       JMP.W restorePRG                     ;0FE6A2|4C7FE6  |0FE67F;
+ 
+                       LDA.W bank_8e                        ;0FE6A5|AD0080  |078000;
+                       PHA                                  ;0FE6A8|48      |      ;
+                       LDA.B #$88                           ;0FE6A9|A988    |      ;
+                       JSR.W swapPRGbankStore               ;0FE6AB|20E6E2  |0FE2E6;
+                       db $20                               ;0FE6AE|        |      ;
+                       dw UNREACH_04BA96                    ;0FE6AF|        |04BA96;
+                       PLA                                  ;0FE6B1|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE6B2|4CE6E2  |0FE2E6;
+ 
+                       LDA.W bank_88                        ;0FE6B5|AD0080  |048000;
+                       PHA                                  ;0FE6B8|48      |      ;
+                       LDA.B #$92                           ;0FE6B9|A992    |      ;
+                       JSR.W swapPRGbankStore               ;0FE6BB|20E6E2  |0FE2E6;
+                       db $20                               ;0FE6BE|        |      ;
+                       dw UNREACH_09AB98                    ;0FE6BF|        |09AB98;
+                       PLA                                  ;0FE6C1|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE6C2|4CE6E2  |0FE2E6;
  
  
-       UNREACH_0FE6C5: db $A5,$21,$48,$A9,$9C               ;0FE6C5|        |000021;
-                       db $20,$E6,$E2,$20,$21               ;0FE6CA|        |0FE2E6;
-                       db $8A,$68,$4C,$E6,$E2               ;0FE6CF|        |      ;
- 
-       UNREACH_0FE6D4: db $A9,$8E,$20,$E0,$E2               ;0FE6D4|        |      ;
-                       db $20,$F2,$B5,$4C,$7F               ;0FE6D9|        |0FB5F2;
-                       db $E6                               ;0FE6DE|        |0000A9;
- 
-       UNREACH_0FE6DF: db $A9,$8E,$20,$E0,$E2               ;0FE6DF|        |      ;
-                       db $20,$F6,$B5,$4C,$7F               ;0FE6E4|        |0FB5F6;
-                       db $E6                               ;0FE6E9|        |0000A9;
- 
-       UNREACH_0FE6EA: db $A9,$9C,$20,$E0,$E2               ;0FE6EA|        |      ;
-                       db $20,$B0,$9A,$4C,$7F               ;0FE6EF|        |0F9AB0;
-                       db $E6                               ;0FE6F4|        |0000A9;
- 
-       UNREACH_0FE6F5: db $A9,$9C,$20,$E0,$E2               ;0FE6F5|        |      ;
-                       db $20,$8E,$9B,$4C,$7F               ;0FE6FA|        |0F9B8E;
-                       db $E6                               ;0FE6FF|        |0000A9;
- 
-       UNREACH_0FE700: db $A9,$9C,$20,$E0,$E2               ;0FE700|        |      ;
-                       db $20,$9A,$9B,$4C,$7F               ;0FE705|        |0F9B9A;
-                       db $E6                               ;0FE70A|        |0000A9;
- 
-       UNREACH_0FE70B: db $A9,$9C,$20,$E0,$E2               ;0FE70B|        |      ;
-                       db $20,$AF,$9B,$4C,$7F               ;0FE710|        |0F9BAF;
-                       db $E6                               ;0FE715|        |0000A5;
- 
-       UNREACH_0FE716: db $A5,$21,$48,$A9,$80               ;0FE716|        |000021;
-                       db $20,$E6,$E2,$20,$BB               ;0FE71B|        |0FE2E6;
-                       db $85,$68,$4C,$E6,$E2               ;0FE720|        |000068;
-                       db $A9,$80,$20,$E0,$E2               ;0FE725|        |      ;
-                       db $20,$74,$85,$4C,$7F               ;0FE72A|        |0F8574;
-                       db $E6                               ;0FE72F|        |0000A9;
- 
-       UNREACH_0FE730: db $A9,$80,$20,$E6,$E2               ;0FE730|        |      ;
-                       db $20,$9E,$85,$A9,$94               ;0FE735|        |0F859E;
-                       db $4C,$E6,$E2                       ;0FE73A|        |0FE2E6;
+          CODE_0FE6C5: LDA.B r_PrgBank_8000                 ;0FE6C5|A521    |000021;
+                       PHA                                  ;0FE6C7|48      |      ;
+                       LDA.B #$9C                           ;0FE6C8|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FE6CA|20E6E2  |0FE2E6;
+                       db $20                               ;0FE6CD|        |      ;
+                       dw IRQ_stuff                         ;0FE6CE|        |0E8A21;
+                       PLA                                  ;0FE6D0|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE6D1|4CE6E2  |0FE2E6;
  
  
-       UNREACH_0FE73D: db $A9,$80,$20,$E0,$E2               ;0FE73D|        |      ;
-                       db $20,$01,$80,$4C,$7F               ;0FE742|        |0F8001;
-                       db $E6                               ;0FE747|        |0000A9;
+          CODE_0FE6D4: LDA.B #$8E                           ;0FE6D4|A98E    |      ;
+                       JSR.W backupPRGSwap                  ;0FE6D6|20E0E2  |0FE2E0;
+                       db $20                               ;0FE6D9|        |      ;
+                       dw UNREACH_07B5F2                    ;0FE6DA|        |07B5F2;
+                       JMP.W restorePRG                     ;0FE6DC|4C7FE6  |0FE67F;
  
-       UNREACH_0FE748: db $A9,$80,$20,$E0,$E2               ;0FE748|        |      ;
-                       db $20,$1A,$8C,$4C,$7F               ;0FE74D|        |0F8C1A;
-                       db $E6,$48,$A9,$80,$20               ;0FE752|        |000048;
-                       db $E0,$E2,$68,$20,$2F               ;0FE757|        |      ;
-                       db $8C,$4C,$7F,$E6                   ;0FE75C|        |0F7F4C;
  
-       UNREACH_0FE760: db $AA,$A9,$80,$20,$E0               ;0FE760|        |      ;
-                       db $E2,$20,$59,$8C,$4C               ;0FE765|        |      ;
-                       db $7F,$E6                           ;0FE76A|        |80A9E6;
+          CODE_0FE6DF: LDA.B #$8E                           ;0FE6DF|A98E    |      ;
+                       JSR.W backupPRGSwap                  ;0FE6E1|20E0E2  |0FE2E0;
+                       db $20                               ;0FE6E4|        |      ;
+                       dw UNREACH_07B5F6                    ;0FE6E5|        |07B5F6;
+                       JMP.W restorePRG                     ;0FE6E7|4C7FE6  |0FE67F;
  
-       UNREACH_0FE76C: db $A9,$80,$20,$E0,$E2               ;0FE76C|        |      ;
-                       db $20,$61,$8E,$4C,$7F               ;0FE771|        |0F8E61;
-                       db $E6                               ;0FE776|        |0000A9;
  
-       UNREACH_0FE777: db $A9,$80,$20,$E0,$E2               ;0FE777|        |      ;
-                       db $20,$E3,$8B,$4C,$7F               ;0FE77C|        |0F8BE3;
-                       db $E6                               ;0FE781|        |0000A9;
+          CODE_0FE6EA: LDA.B #$9C                           ;0FE6EA|A99C    |      ;
+                       JSR.W backupPRGSwap                  ;0FE6EC|20E0E2  |0FE2E0;
+                       db $20                               ;0FE6EF|        |      ;
+                       dw CODE_0E9AB0                       ;0FE6F0|        |0E9AB0;
+                       JMP.W restorePRG                     ;0FE6F2|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE6F5: LDA.B #$9C                           ;0FE6F5|A99C    |      ;
+                       JSR.W backupPRGSwap                  ;0FE6F7|20E0E2  |0FE2E0;
+                       db $20                               ;0FE6FA|        |      ;
+                       dw UNREACH_0E9B8E                    ;0FE6FB|        |0E9B8E;
+                       JMP.W restorePRG                     ;0FE6FD|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE700: LDA.B #$9C                           ;0FE700|A99C    |      ;
+                       JSR.W backupPRGSwap                  ;0FE702|20E0E2  |0FE2E0;
+                       db $20                               ;0FE705|        |      ;
+                       dw UNREACH_0E9B9A                    ;0FE706|        |0E9B9A;
+                       JMP.W restorePRG                     ;0FE708|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE70B: LDA.B #$9C                           ;0FE70B|A99C    |      ;
+                       JSR.W backupPRGSwap                  ;0FE70D|20E0E2  |0FE2E0;
+                       db $20                               ;0FE710|        |      ;
+                       dw UNREACH_0E9BAF                    ;0FE711|        |0E9BAF;
+                       JMP.W restorePRG                     ;0FE713|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE716: LDA.B r_PrgBank_8000                 ;0FE716|A521    |000021;
+                       PHA                                  ;0FE718|48      |      ;
+                       LDA.B #$80                           ;0FE719|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FE71B|20E6E2  |0FE2E6;
+                       db $20                               ;0FE71E|        |      ;
+                       dw CODE_0085BB                       ;0FE71F|        |0085BB;
+                       PLA                                  ;0FE721|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE722|4CE6E2  |0FE2E6;
+ 
+                       LDA.B #$80                           ;0FE725|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE727|20E0E2  |0FE2E0;
+                       db $20                               ;0FE72A|        |      ;
+                       dw CODE_008574                       ;0FE72B|        |008574;
+                       JMP.W restorePRG                     ;0FE72D|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE730: LDA.B #$80                           ;0FE730|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FE732|20E6E2  |0FE2E6;
+                       db $20                               ;0FE735|        |      ;
+                       dw CODE_00859E                       ;0FE736|        |00859E;
+ 
+          swapBank_14: LDA.B #$94                           ;0FE738|A994    |      ;
+                       JMP.W swapPRGbankStore               ;0FE73A|4CE6E2  |0FE2E6;
+ 
+ 
+          CODE_0FE73D: LDA.B #$80                           ;0FE73D|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE73F|20E0E2  |0FE2E0;
+                       db $20                               ;0FE742|        |      ;
+                       dw loadPlayerCHRBank                 ;0FE743|        |008001;
+                       JMP.W restorePRG                     ;0FE745|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE748: LDA.B #$80                           ;0FE748|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE74A|20E0E2  |0FE2E0;
+                       db $20                               ;0FE74D|        |      ;
+                       dw CODE_008C1A                       ;0FE74E|        |008C1A;
+                       JMP.W restorePRG                     ;0FE750|4C7FE6  |0FE67F;
+ 
+                       PHA                                  ;0FE753|48      |      ;
+                       LDA.B #$80                           ;0FE754|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE756|20E0E2  |0FE2E0;
+                       PLA                                  ;0FE759|68      |      ;
+                       db $20                               ;0FE75A|        |      ;
+                       dw CODE_008C2F                       ;0FE75B|        |008C2F;
+                       JMP.W restorePRG                     ;0FE75D|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE760: TAX                                  ;0FE760|AA      |      ;
+                       LDA.B #$80                           ;0FE761|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE763|20E0E2  |0FE2E0;
+                       db $20                               ;0FE766|        |      ;
+                       dw CODE_008C59                       ;0FE767|        |008C59;
+                       JMP.W restorePRG                     ;0FE769|4C7FE6  |0FE67F;
+ 
+ 
+         DATA8_0FE76C: db $A9                               ;0FE76C|        |      ;
+                       dw $2080                             ;0FE76D|        |002080;
+                       CPX.B #$E2                           ;0FE76F|E0E2    |      ;
+                       db $20                               ;0FE771|        |      ;
+                       dw CODE_008E61                       ;0FE772|        |008E61;
+                       JMP.W restorePRG                     ;0FE774|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE777: LDA.B #$80                           ;0FE777|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE779|20E0E2  |0FE2E0;
+                       db $20                               ;0FE77C|        |      ;
+                       dw CODE_008BE3                       ;0FE77D|        |008BE3;
+                       JMP.W restorePRG                     ;0FE77F|4C7FE6  |0FE67F;
+ 
  
           CODE_0FE782: LDA.B #$80                           ;0FE782|A980    |      ;
                        JSR.W swapPRGbankStore               ;0FE784|20E6E2  |0FE2E6;
@@ -3451,19 +3796,33 @@ titleScreenThunderMain: STA.B r_tempCurrRoomIdx              ;0FE62F|850E    |00
  
                        dw CODE_00907F                       ;0FE788|        |00907F;
  
-       UNREACH_0FE78A: db $A9,$80,$20,$E0,$E2               ;0FE78A|        |      ;
-                       db $20,$E2,$90,$4C,$7F               ;0FE78F|        |0F90E2;
-                       db $E6                               ;0FE794|        |0000A9;
+   stageTransition_69: LDA.B #$80                           ;0FE78A|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE78C|20E0E2  |0FE2E0;
+                       db $20                               ;0FE78F|        |      ;
+                       dw CODE_0090E2                       ;0FE790|        |0090E2;
+                       JMP.W restorePRG                     ;0FE792|4C7FE6  |0FE67F;
  
-       UNREACH_0FE795: db $A9,$80,$20,$E0,$E2               ;0FE795|        |      ;
-                       db $20,$07,$91,$4C,$7F               ;0FE79A|        |0F9107;
-                       db $E6,$A9,$80,$20,$E0               ;0FE79F|        |0000A9;
-                       db $E2,$20,$17,$91,$4C               ;0FE7A4|        |      ;
-                       db $7F,$E6                           ;0FE7A9|        |88A9E6;
  
-       UNREACH_0FE7AB: db $A9,$88,$20,$E0,$E2               ;0FE7AB|        |      ;
-                       db $20,$B7,$B5,$4C,$7F               ;0FE7B0|        |0FB5B7;
-                       db $E6                               ;0FE7B5|        |0000A9;
+    swap2Bank_00_Plus: LDA.B #$80                           ;0FE795|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE797|20E0E2  |0FE2E0;
+                       db $20                               ;0FE79A|        |      ;
+                       dw CODE_009107                       ;0FE79B|        |009107;
+                       JMP.W restorePRG                     ;0FE79D|4C7FE6  |0FE67F;
+ 
+ 
+   stageTransition_6B: LDA.B #$80                           ;0FE7A0|A980    |      ;
+                       JSR.W backupPRGSwap                  ;0FE7A2|20E0E2  |0FE2E0;
+                       db $20                               ;0FE7A5|        |      ;
+                       dw CODE_009117                       ;0FE7A6|        |009117;
+                       JMP.W restorePRG                     ;0FE7A8|4C7FE6  |0FE67F;
+ 
+ 
+          CODE_0FE7AB: LDA.B #$88                           ;0FE7AB|A988    |      ;
+                       JSR.W backupPRGSwap                  ;0FE7AD|20E0E2  |0FE2E0;
+                       db $20                               ;0FE7B0|        |      ;
+                       dw UNREACH_04B5B7                    ;0FE7B1|        |04B5B7;
+                       JMP.W restorePRG                     ;0FE7B3|4C7FE6  |0FE67F;
+ 
  
         stopWatchMain: LDA.B #$88                           ;0FE7B6|A988    |      ;
                        JSR.W backupPRGSwap                  ;0FE7B8|20E0E2  |0FE2E0;
@@ -3472,31 +3831,56 @@ titleScreenThunderMain: STA.B r_tempCurrRoomIdx              ;0FE62F|850E    |00
                        JMP.W restorePRG                     ;0FE7BE|4C7FE6  |0FE67F;
  
  
-       UNREACH_0FE7C1: db $A9,$88,$20,$E0,$E2               ;0FE7C1|        |      ;
-                       db $20,$8E,$B6,$4C,$7F               ;0FE7C6|        |0FB68E;
-                       db $E6                               ;0FE7CB|        |0000AD;
+          CODE_0FE7C1: LDA.B #$88                           ;0FE7C1|A988    |      ;
+                       JSR.W backupPRGSwap                  ;0FE7C3|20E0E2  |0FE2E0;
+                       db $20                               ;0FE7C6|        |      ;
+                       dw UNREACH_04B68E                    ;0FE7C7|        |04B68E;
+                       JMP.W restorePRG                     ;0FE7C9|4C7FE6  |0FE67F;
  
-       UNREACH_0FE7CC: db $AD,$00,$80,$48,$A9               ;0FE7CC|        |0F8000;
-                       db $88,$20,$E6,$E2,$20               ;0FE7D1|        |      ;
-                       db $11,$B7,$68,$4C,$E6               ;0FE7D6|        |0000B7;
-                       db $E2                               ;0FE7DB|        |      ;
  
-       UNREACH_0FE7DC: db $AD,$00,$80,$48,$A9               ;0FE7DC|        |0F8000;
-                       db $8C,$20,$E6,$E2,$20               ;0FE7E1|        |0FE620;
-                       db $21,$BE,$68,$4C,$E6               ;0FE7E6|        |0000BE;
-                       db $E2                               ;0FE7EB|        |      ;
+          CODE_0FE7CC: LDA.W bank_80                        ;0FE7CC|AD0080  |008000;
+                       PHA                                  ;0FE7CF|48      |      ;
+                       LDA.B #$88                           ;0FE7D0|A988    |      ;
+                       JSR.W swapPRGbankStore               ;0FE7D2|20E6E2  |0FE2E6;
+                       db $20                               ;0FE7D5|        |      ;
+                       dw UNREACH_04B711                    ;0FE7D6|        |04B711;
+                       PLA                                  ;0FE7D8|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE7D9|4CE6E2  |0FE2E6;
  
-       UNREACH_0FE7EC: db $A9,$96,$20,$E0,$E2               ;0FE7EC|        |      ;
-                       db $20,$C9,$9F,$4C,$7F               ;0FE7F1|        |0F9FC9;
-                       db $E6                               ;0FE7F6|        |0000A2;
  
-       UNREACH_0FE7F7: db $A2,$01,$A9,$00,$9D               ;0FE7F7|        |      ;
-                       db $00,$04,$9D,$1C,$04               ;0FE7FC|        |      ;
-                       db $9D,$38,$04,$9D,$54               ;0FE801|        |0F0438;
-                       db $04,$9D,$70,$04,$9D               ;0FE806|        |00009D;
-                       db $8C,$04,$9D,$A8,$04               ;0FE80B|        |0F9D04;
-                       db $9D,$4E,$05,$E8,$E0               ;0FE810|        |0F054E;
-                       db $17,$90,$E3,$60                   ;0FE815|        |000090;
+          CODE_0FE7DC: LDA.W bank_80                        ;0FE7DC|AD0080  |008000;
+                       PHA                                  ;0FE7DF|48      |      ;
+                       LDA.B #$8C                           ;0FE7E0|A98C    |      ;
+                       JSR.W swapPRGbankStore               ;0FE7E2|20E6E2  |0FE2E6;
+                       db $20                               ;0FE7E5|        |      ;
+                       dw UNREACH_06BE21                    ;0FE7E6|        |06BE21;
+                       PLA                                  ;0FE7E8|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FE7E9|4CE6E2  |0FE2E6;
+ 
+ 
+          CODE_0FE7EC: LDA.B #$96                           ;0FE7EC|A996    |      ;
+                       JSR.W backupPRGSwap                  ;0FE7EE|20E0E2  |0FE2E0;
+                       db $20                               ;0FE7F1|        |      ;
+                       dw CODE_0B9FC9                       ;0FE7F2|        |0B9FC9;
+                       JMP.W restorePRG                     ;0FE7F4|4C7FE6  |0FE67F;
+ 
+ 
+clearAllEntityButPlayer: LDX.B #$01                           ;0FE7F7|A201    |      ;
+                       LDA.B #$00                           ;0FE7F9|A900    |      ;
+ 
+       enityClearLoop: STA.W r_OamSpecIdxDoubled,X          ;0FE7FB|9D0004  |000400;
+                       STA.W r_entity_YPos,X                ;0FE7FE|9D1C04  |00041C;
+                       STA.W r_entity_XPos,X                ;0FE801|9D3804  |000438;
+                       STA.W r_entity_PaletteOverride,X     ;0FE804|9D5404  |000454;
+                       STA.W r_entity_Effect,X              ;0FE807|9D7004  |000470;
+                       STA.W r_entity_OamSpecGroupDoubled,X ;0FE80A|9D8C04  |00048C;
+                       STA.W r_entity_FacingLeft,X          ;0FE80D|9DA804  |0004A8;
+                       STA.W r_entity_ObjectIdxes,X         ;0FE810|9D4E05  |00054E;
+                       INX                                  ;0FE813|E8      |      ;
+                       CPX.B #$17                           ;0FE814|E017    |      ;
+                       BCC enityClearLoop                   ;0FE816|90E3    |0FE7FB;
+                       RTS                                  ;0FE818|60      |      ;
+ 
  
           CODE_0FE819: LDA.B #$80                           ;0FE819|A980    |      ;
                        JSR.W backupPRGSwap                  ;0FE81B|20E0E2  |0FE2E0;
@@ -3641,7 +4025,8 @@ updatePointerOffset_00: CLC                                  ;0FE899|18      |  
         endVRAM_queue: STX.B r_sceneDrawQueue               ;0FE8DE|861D    |00001D;
                        JMP.W CODE_0FED12                    ;0FE8E0|4C12ED  |0FED12;
  
-                       LDA.B #$80                           ;0FE8E3|A980    |      ;
+ 
+          CODE_0FE8E3: LDA.B #$80                           ;0FE8E3|A980    |      ;
                        STA.B r_VRAM_QueueDest               ;0FE8E5|8561    |000061;
                        LDA.B #$27                           ;0FE8E7|A927    |      ;
                        STA.B $62                            ;0FE8E9|8562    |000062;
@@ -3649,7 +4034,7 @@ updatePointerOffset_00: CLC                                  ;0FE899|18      |  
                        LDY.B #$40                           ;0FE8EE|A040    |      ;
                        LDA.B #$00                           ;0FE8F0|A900    |      ;
  
-          CODE_0FE8F2: STA.W $0300,X                        ;0FE8F2|9D0003  |0F0300;
+          CODE_0FE8F2: STA.W $0300,X                        ;0FE8F2|9D0003  |020300;
                        INX                                  ;0FE8F5|E8      |      ;
                        DEY                                  ;0FE8F6|88      |      ;
                        BNE CODE_0FE8F2                      ;0FE8F7|D0F9    |0FE8F2;
@@ -3684,7 +4069,7 @@ updatePointerOffset_00: CLC                                  ;0FE899|18      |  
                        STY.B r_15                           ;0FE933|8415    |000015;
                        LDA.W bank_80                        ;0FE935|AD0080  |008000;
                        PHA                                  ;0FE938|48      |      ;
-                       JSR.W CODE_0FC900                    ;0FE939|2000C9  |0FC900;
+                       JSR.W checkStageStuff                ;0FE939|2000C9  |0FC900;
                        LDA.B r_collisionPointAbsoluteXRoom  ;0FE93C|A514    |000014;
                        SEC                                  ;0FE93E|38      |      ;
                        SBC.B #$28                           ;0FE93F|E928    |      ;
@@ -4502,26 +4887,26 @@ end_RLE_decompRoutine: LDA.B r_PPUCtrl                      ;0FED66|A5FF    |000
                        RTS                                  ;0FEF56|60      |      ;
  
  
-          CODE_0FEF57: LDX.B #$00                           ;0FEF57|A200    |      ;
-                       JMP.W CODE_0FEF60                    ;0FEF59|4C60EF  |0FEF60;
+ clearAllEntitySprite: LDX.B #$00                           ;0FEF57|A200    |      ;
+                       JMP.W clearEnitySpriteGroup          ;0FEF59|4C60EF  |0FEF60;
  
  
-          CODE_0FEF5C: STA.W $048C,X                        ;0FEF5C|9D8C04  |0F048C;
+          CODE_0FEF5C: STA.W r_entity_OamSpecGroupDoubled,X ;0FEF5C|9D8C04  |00048C;
                        TYA                                  ;0FEF5F|98      |      ;
  
-          CODE_0FEF60: STA.W $05AA,X                        ;0FEF60|9DAA05  |0F05AA;
+clearEnitySpriteGroup: STA.W r_entity_AnimGroup,X           ;0FEF60|9DAA05  |0005AA;
                        LDA.B #$00                           ;0FEF63|A900    |      ;
-                       STA.W $0593,X                        ;0FEF65|9D9305  |0F0593;
+                       STA.W r_entity_OamBaseOffset,X       ;0FEF65|9D9305  |000593;
                        LDA.B #$01                           ;0FEF68|A901    |      ;
-                       STA.W $057C,X                        ;0FEF6A|9D7C05  |0F057C;
+                       STA.W r_entity_AnimTimer,X           ;0FEF6A|9D7C05  |00057C;
                        RTS                                  ;0FEF6D|60      |      ;
  
                        JSR.W CODE_0FEF5C                    ;0FEF6E|205CEF  |0FEF5C;
                        BNE CODE_0FEF75                      ;0FEF71|D002    |0FEF75;
  
-          CODE_0FEF73: LDX.B #$00                           ;0FEF73|A200    |      ;
+updateSpriteAnimFrame: LDX.B #$00                           ;0FEF73|A200    |      ;
  
-          CODE_0FEF75: DEC.W $057C,X                        ;0FEF75|DE7C05  |0F057C;
+          CODE_0FEF75: DEC.W r_entity_AnimTimer,X           ;0FEF75|DE7C05  |00057C;
                        BEQ CODE_0FEF7B                      ;0FEF78|F001    |0FEF7B;
                        RTS                                  ;0FEF7A|60      |      ;
  
@@ -4957,44 +5342,44 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        RTS                                  ;0FF38B|60      |      ;
  
  
-          CODE_0FF38C: LDA.B r_gameLoadState                ;0FF38C|A52A    |00002A;
+          CODE_0FF38C: LDA.B r_gameTransition               ;0FF38C|A52A    |00002A;
                        JSR.W jumpFromStackYXpreserved       ;0FF38E|206DE8  |0FE86D;
  
-       mainGameStates: dw UNREACH_0FF3F0                    ;0FF391|        |0FF3F0;
-                       dw UNREACH_0FF3F6                    ;0FF393|        |0FF3F6;
-                       dw UNREACH_0FF47B                    ;0FF395|        |0FF47B;
-                       dw CODE_0FF516                       ;0FF397|        |0FF516;
-                       dw CODE_0FF58D                       ;0FF399|        |0FF58D;
-                       dw UNREACH_0FF5BE                    ;0FF39B|        |0FF5BE;
-                       dw UNREACH_0FF609                    ;0FF39D|        |0FF609;
-                       dw UNREACH_0FF618                    ;0FF39F|        |0FF618;
-                       dw UNREACH_0FF94B                    ;0FF3A1|        |0FF94B;
-                       dw CODE_0FD392                       ;0FF3A3|        |0FD392;
-                       dw UNREACH_0FF506                    ;0FF3A5|        |0FF506;
-                       dw UNREACH_0FF81E                    ;0FF3A7|        |0FF81E;
-                       dw UNREACH_0FF826                    ;0FF3A9|        |0FF826;
-                       dw UNREACH_0FF82E                    ;0FF3AB|        |0FF82E;
-                       dw UNREACH_0FF82E                    ;0FF3AD|        |0FF82E;
-                       dw CODE_0FF4DC                       ;0FF3AF|        |0FF4DC;
+    mainTransitStates: dw gameTransit_00                    ;0FF391|        |0FF3F0;
+                       dw gameTransit_01                    ;0FF393|        |0FF3F6;
+                       dw gameTransit_main_03               ;0FF395|        |0FF47B;
+                       dw gameState_black_04                ;0FF397|        |0FF516;
+                       dw gameState_Vertical_main_05        ;0FF399|        |0FF58D;
+                       dw gameState_autoPlay_06             ;0FF39B|        |0FF5BE;
+                       dw gameTransit_07                    ;0FF39D|        |0FF609;
+                       dw gameTransit_doors_08              ;0FF39F|        |0FF618;
+                       dw gameTransit_09                    ;0FF3A1|        |0FF94B;
+                       dw gameTransit_BG_0A                 ;0FF3A3|        |0FD392;
+                       dw gameTransit_helperTransform_0b    ;0FF3A5|        |0FF506;
+                       dw gameTransit_partnerTransform_0c   ;0FF3A7|        |0FF81E;
+                       dw gameTransit_freez_0d              ;0FF3A9|        |0FF826;
+                       dw gameTransit_freez_0e              ;0FF3AB|        |0FF82E;
+                       dw gameTransit_freez_0e              ;0FF3AD|        |0FF82E;
+                       dw gameTransit_unload_20             ;0FF3AF|        |0FF4DC;
  
-                       dw UNREACH_0FF836                    ;0FF3B1|        |0FF836;
-                       dw UNREACH_0FF633                    ;0FF3B3|        |0FF633;
-                       dw UNREACH_0FF62A                    ;0FF3B5|        |0FF62A;
-                       dw UNREACH_0FF6EE                    ;0FF3B7|        |0FF6EE;
-                       dw UNREACH_0FF718                    ;0FF3B9|        |0FF718;
-                       dw CODE_0FF778                       ;0FF3BB|        |0FF778;
-                       dw UNREACH_0FF7BC                    ;0FF3BD|        |0FF7BC;
-                       dw UNREACH_0FF62B                    ;0FF3BF|        |0FF62B;
-                       dw UNREACH_0FF6C7                    ;0FF3C1|        |0FF6C7;
-                       dw UNREACH_0FF3E8                    ;0FF3C3|        |0FF3E8;
-                       dw UNREACH_0FF6BF                    ;0FF3C5|        |0FF6BF;
-                       dw UNREACH_0FF4EF                    ;0FF3C7|        |0FF4EF;
-                       dw UNREACH_0FF6CF                    ;0FF3C9|        |0FF6CF;
-                       dw UNREACH_0FF6D9                    ;0FF3CB|        |0FF6D9;
-                       dw UNREACH_0FF3E0                    ;0FF3CD|        |0FF3E0;
-                       dw CODE_0FF3D1                       ;0FF3CF|        |0FF3D1;
+                       dw gameTransit_21                    ;0FF3B1|        |0FF836;
+                       dw gameTransit_22                    ;0FF3B3|        |0FF633;
+                       dw gameTransit_23                    ;0FF3B5|        |0FF62A;
+                       dw gameTransit_24                    ;0FF3B7|        |0FF6EE;
+                       dw gameTransit_25                    ;0FF3B9|        |0FF718;
+                       dw gameTransit_26                    ;0FF3BB|        |0FF778;
+                       dw gameTransit_27                    ;0FF3BD|        |0FF7BC;
+                       dw gameTransit_28                    ;0FF3BF|        |0FF62B;
+                       dw gameTransit_29                    ;0FF3C1|        |0FF6C7;
+                       dw gameTransit_2a                    ;0FF3C3|        |0FF3E8;
+                       dw gameTransit_2b                    ;0FF3C5|        |0FF6BF;
+                       dw gameTransit_2c                    ;0FF3C7|        |0FF4EF;
+                       dw gameTransit_2d                    ;0FF3C9|        |0FF6CF;
+                       dw gameTransit_bossBoneDragonWaterFall_2e;0FF3CB|        |0FF6D9;
+                       dw gameTransit_2f                    ;0FF3CD|        |0FF3E0;
+                       dw gameTransit_30                    ;0FF3CF|        |0FF3D1;
  
-          CODE_0FF3D1: LDA.B #$02                           ;0FF3D1|A902    |      ;
+       gameTransit_30: LDA.B #$02                           ;0FF3D1|A902    |      ;
                        STA.B r_counter_ShowSprBg            ;0FF3D3|851C    |00001C;
                        LDA.B #$80                           ;0FF3D5|A980    |      ;
                        JSR.W swapPRGbankStore               ;0FF3D7|20E6E2  |0FE2E6;
@@ -5003,51 +5388,103 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        JMP.W CODE_0FE68F                    ;0FF3DD|4C8FE6  |0FE68F;
  
  
-       UNREACH_0FF3E0: db $A9,$80,$20,$E6,$E2               ;0FF3E0|        |      ;
-                       db $4C,$15,$92                       ;0FF3E5|        |0F9215;
+       gameTransit_2f: LDA.B #$80                           ;0FF3E0|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF3E2|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF3E5|        |      ;
+ 
+                       dw CODE_009215                       ;0FF3E6|        |009215;
+ 
+       gameTransit_2a: LDA.B #$80                           ;0FF3E8|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF3EA|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF3ED|        |      ;
+ 
+                       dw CODE_0091B2                       ;0FF3EE|        |0091B2;
+ 
+       gameTransit_00: JSR.W setNameTableMapping_E4         ;0FF3F0|20FDEB  |0FEBFD;
+                       INC.B r_gameTransition               ;0FF3F3|E62A    |00002A;
+                       RTS                                  ;0FF3F5|60      |      ;
  
  
-       UNREACH_0FF3E8: db $A9,$80,$20,$E6,$E2               ;0FF3E8|        |      ;
-                       db $4C,$B2,$91                       ;0FF3ED|        |0F91B2;
+       gameTransit_01: JSR.W nameTable_ff                   ;0FF3F6|2053F7  |0FF753;
+                       JSR.W setBank_c000_1E                ;0FF3F9|20DAE2  |0FE2DA;
+                       JSR.W backupCurrent_bank_swap_00     ;0FF3FC|20D3E5  |0FE5D3;
+                       JSR.W coreLoad_03                    ;0FF3FF|2067D0  |0FD067;
+                       LDA.B #$9C                           ;0FF402|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF404|20E6E2  |0FE2E6;
+                       db $20                               ;0FF407|        |      ;
+                       dw CODE_0E8588                       ;0FF408|        |0E8588;
+                       db $20                               ;0FF40A|        |      ;
+                       dw CODE_0E85B8                       ;0FF40B|        |0E85B8;
+                       db $20                               ;0FF40D|        |      ;
+                       dw CODE_0E8642                       ;0FF40E|        |0E8642;
+                       JSR.W prepRoom                       ;0FF410|20F8D0  |0FD0F8;
+                       LDA.B #$8E                           ;0FF413|A98E    |      ;
+                       JSR.W swapPRGbankStore               ;0FF415|20E6E2  |0FE2E6;
+                       db $20                               ;0FF418|        |      ;
+                       dw UNREACH_07B53F                    ;0FF419|        |07B53F;
+                       LDA.B #$80                           ;0FF41B|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF41D|20E6E2  |0FE2E6;
+                       db $20                               ;0FF420|        |      ;
+                       dw CODE_009702                       ;0FF421|        |009702;
+                       BCS CODE_0FF43E                      ;0FF423|B019    |0FF43E;
+ 
+          CODE_0FF425: LDA.B r_roomOrientation              ;0FF425|A568    |000068;
+                       BMI CODE_0FF433                      ;0FF427|300A    |0FF433;
+                       JSR.W CODE_0FCD83                    ;0FF429|2083CD  |0FCD83;
+                       LDA.B #$00                           ;0FF42C|A900    |      ;
+                       STA.B r_roomInit                     ;0FF42E|858D    |00008D;
+                       INC.B r_gameTransition               ;0FF430|E62A    |00002A;
+                       RTS                                  ;0FF432|60      |      ;
  
  
-       UNREACH_0FF3F0: db $20,$FD,$EB,$E6,$2A               ;0FF3F0|        |0FEBFD;
-                       db $60                               ;0FF3F5|        |      ;
+          CODE_0FF433: JSR.W CODE_0FCD7B                    ;0FF433|207BCD  |0FCD7B;
+                       LDA.B #$00                           ;0FF436|A900    |      ;
+                       STA.B r_roomInit                     ;0FF438|858D    |00008D;
+                       LDA.B #$04                           ;0FF43A|A904    |      ;
+                       BNE CODE_0FF474                      ;0FF43C|D036    |0FF474;
+ 
+          CODE_0FF43E: LDA.B r_roomEffect                   ;0FF43E|A57D    |00007D;
+                       AND.B #$F0                           ;0FF440|29F0    |      ;
+                       CMP.B #$10                           ;0FF442|C910    |      ;
+                       BEQ CODE_0FF464                      ;0FF444|F01E    |0FF464;
+                       CMP.B #$20                           ;0FF446|C920    |      ;
+                       BEQ CODE_0FF425                      ;0FF448|F0DB    |0FF425;
+                       CMP.B #$30                           ;0FF44A|C930    |      ;
+                       BEQ CODE_0FF425                      ;0FF44C|F0D7    |0FF425;
+                       CMP.B #$40                           ;0FF44E|C940    |      ;
+                       BEQ CODE_0FF459                      ;0FF450|F007    |0FF459;
+                       CMP.B #$70                           ;0FF452|C970    |      ;
+                       BEQ CODE_0FF477                      ;0FF454|F021    |0FF477;
+                       JMP.W CODE_0FF425                    ;0FF456|4C25F4  |0FF425;
  
  
-       UNREACH_0FF3F6: db $20,$53,$F7,$20,$DA               ;0FF3F6|        |0FF753;
-                       db $E2,$20,$D3,$E5,$20               ;0FF3FB|        |      ;
-                       db $67,$D0,$A9,$9C,$20               ;0FF400|        |0000D0;
-                       db $E6,$E2,$20,$88,$85               ;0FF405|        |0000E2;
-                       db $20,$B8,$85,$20,$42               ;0FF40A|        |0F85B8;
-                       db $86,$20,$F8,$D0,$A9               ;0FF40F|        |000020;
-                       db $8E,$20,$E6,$E2,$20               ;0FF414|        |0FE620;
-                       db $3F,$B5,$A9,$80,$20               ;0FF419|        |80A9B5;
-                       db $E6,$E2,$20,$02,$97               ;0FF41E|        |0000E2;
-                       db $B0,$19,$A5,$68,$30               ;0FF423|        |0FF43E;
-                       db $0A,$20,$83,$CD,$A9               ;0FF428|        |      ;
-                       db $00,$85,$8D,$E6,$2A               ;0FF42D|        |      ;
-                       db $60,$20,$7B,$CD,$A9               ;0FF432|        |      ;
+          CODE_0FF459: LDY.B #$00                           ;0FF459|A000    |      ;
+                       STY.W r_soundModeSongSelected        ;0FF45B|8C8007  |000780;
+                       INY                                  ;0FF45E|C8      |      ;
+                       STY.W r_animTimerBG_CHR              ;0FF45F|8C8107  |000781;
+                       BNE CODE_0FF425                      ;0FF462|D0C1    |0FF425;
  
-                       db $00,$85,$8D,$A9,$04               ;0FF437|        |      ;
-                       db $D0,$36,$A5,$7D,$29               ;0FF43C|        |0FF474;
-                       db $F0,$C9,$10,$F0,$1E               ;0FF441|        |0FF40C;
-                       db $C9,$20,$F0,$DB,$C9               ;0FF446|        |      ;
-                       db $30,$F0,$D7,$C9,$40               ;0FF44B|        |0FF43D;
-                       db $F0,$07,$C9,$70,$F0               ;0FF450|        |0FF459;
-                       db $21,$4C,$25,$F4,$A0               ;0FF455|        |00004C;
-                       db $00,$8C,$80,$07,$C8               ;0FF45A|        |      ;
-                       db $8C,$81,$07,$D0,$C1               ;0FF45F|        |0F0781;
-                       db $A9,$02,$85,$1C,$20               ;0FF464|        |      ;
-                       db $83,$CD,$20,$57,$F7               ;0FF469|        |0000CD;
-                       db $A9,$00,$85,$64,$A9               ;0FF46E|        |      ;
-                       db $09,$85,$2A,$60,$A9               ;0FF473|        |      ;
-                       db $13,$D0,$F9                       ;0FF478|        |0000D0;
+          CODE_0FF464: LDA.B #$02                           ;0FF464|A902    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FF466|851C    |00001C;
+                       JSR.W CODE_0FCD83                    ;0FF468|2083CD  |0FCD83;
+                       JSR.W nameTable_e4                   ;0FF46B|2057F7  |0FF757;
+                       LDA.B #$00                           ;0FF46E|A900    |      ;
+                       STA.B r_tranitionTimer               ;0FF470|8564    |000064;
+                       LDA.B #$09                           ;0FF472|A909    |      ;
  
-       UNREACH_0FF47B: db $A9,$02,$85,$1C,$A5               ;0FF47B|        |      ;
-                       db $8D,$D0,$0E                       ;0FF480|        |0F0ED0;
+          CODE_0FF474: STA.B r_gameTransition               ;0FF474|852A    |00002A;
+                       RTS                                  ;0FF476|60      |      ;
  
-          CODE_0FF483: JSR.W CODE_0FF757                    ;0FF483|2057F7  |0FF757;
+ 
+          CODE_0FF477: LDA.B #$13                           ;0FF477|A913    |      ;
+                       BNE CODE_0FF474                      ;0FF479|D0F9    |0FF474;
+ 
+  gameTransit_main_03: LDA.B #$02                           ;0FF47B|A902    |      ; means no transitions lol
+                       STA.B r_counter_ShowSprBg            ;0FF47D|851C    |00001C;
+                       LDA.B r_roomInit                     ;0FF47F|A58D    |00008D;
+                       BNE CODE_0FF491                      ;0FF481|D00E    |0FF491;
+ 
+          CODE_0FF483: JSR.W nameTable_e4                   ;0FF483|2057F7  |0FF757;
  
           CODE_0FF486: LDA.B #$80                           ;0FF486|A980    |      ;
                        JSR.W swapPRGbankStore               ;0FF488|20E6E2  |0FE2E6;
@@ -5056,21 +5493,27 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        INC.B r_roomInit                     ;0FF48E|E68D    |00008D;
                        RTS                                  ;0FF490|60      |      ;
  
-                       db $20,$C8,$CD,$B0,$01               ;0FF491|        |0FCDC8;
-                       db $60,$A9,$00,$85,$1C               ;0FF496|        |      ;
  
-                       db $20,$F9,$CF,$20,$EC               ;0FF49B|        |0FCFF9;
-                       db $E5,$20,$D4,$F4,$A5               ;0FF4A0|        |000020;
-                       db $7D,$29,$F0,$C9,$10               ;0FF4A5|        |0FF029;
-                       db $F0,$1B,$C9,$20,$F0               ;0FF4AA|        |0FF4C7;
-                       db $12,$C9,$30,$F0,$03               ;0FF4AF|        |0000C9;
-                       db $E6,$2A,$60,$A9,$80               ;0FF4B4|        |00002A;
-                       db $20,$E6,$E2,$20,$E1               ;0FF4B9|        |0FE2E6;
-                       db $97,$4C,$B4,$F4,$A9               ;0FF4BE|        |00004C;
-                       db $0F,$85,$2A,$60,$A9               ;0FF4C3|        |602A85;
-                       db $80,$20,$E6,$E2,$20               ;0FF4C8|        |0FF4EA;
-                       db $02,$98,$A9,$0A,$85               ;0FF4CD|        |      ;
-                       db $2A,$60                           ;0FF4D2|        |      ;
+          CODE_0FF491: JSR.W CODE_0FCDC8                    ;0FF491|20C8CD  |0FCDC8;
+                       BCS CODE_0FF497                      ;0FF494|B001    |0FF497;
+                       RTS                                  ;0FF496|60      |      ;
+ 
+ 
+          CODE_0FF497: LDA.B #$00                           ;0FF497|A900    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FF499|851C    |00001C;
+                       JSR.W CODE_0FCFF9                    ;0FF49B|20F9CF  |0FCFF9;
+                       db $20,$EC,$E5,$20,$D4               ;0FF49E|        |0FE5EC;
+                       db $F4,$A5,$7D,$29,$F0               ;0FF4A3|        |0F7DA5;
+                       db $C9,$10,$F0,$1B,$C9               ;0FF4A8|        |      ;
+                       db $20,$F0,$12,$C9,$30               ;0FF4AD|        |0F12F0;
+                       db $F0,$03,$E6,$2A,$60               ;0FF4B2|        |0FF4B7;
+                       db $A9,$80,$20,$E6,$E2               ;0FF4B7|        |      ;
+                       db $20,$E1,$97,$4C,$B4               ;0FF4BC|        |0F97E1;
+                       db $F4,$A9,$0F,$85,$2A               ;0FF4C1|        |0F0FA9;
+                       db $60,$A9,$80,$20,$E6               ;0FF4C6|        |      ;
+ 
+                       db $E2,$20,$02,$98,$A9               ;0FF4CB|        |      ;
+                       db $0A,$85,$2A,$60                   ;0FF4D0|        |      ;
  
           CODE_0FF4D4: LDA.B #$9C                           ;0FF4D4|A99C    |      ;
                        JSR.W swapPRGbankStore               ;0FF4D6|20E6E2  |0FE2E6;
@@ -5078,54 +5521,81 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
  
                        dw UNREACH_06BC29                    ;0FF4DA|        |06BC29;
  
-          CODE_0FF4DC: LDA.B #$80                           ;0FF4DC|A980    |      ;
+gameTransit_unload_20: LDA.B #$80                           ;0FF4DC|A980    |      ;
                        JSR.W swapPRGbankStore               ;0FF4DE|20E6E2  |0FE2E6;
                        db $20                               ;0FF4E1|        |      ;
                        dw CODE_0096D0                       ;0FF4E2|        |0096D0;
-                       BCC CODE_0FF516                      ;0FF4E4|9030    |0FF516;
+                       BCC gameState_black_04               ;0FF4E4|9030    |0FF516;
                        LDA.B #$10                           ;0FF4E6|A910    |      ;
-                       STA.B r_gameLoadState                ;0FF4E8|852A    |00002A;
+                       STA.B r_gameTransition               ;0FF4E8|852A    |00002A;
                        LDA.B #$00                           ;0FF4EA|A900    |      ;
                        STA.B r_menuSelectIdx                ;0FF4EC|856B    |00006B;
                        RTS                                  ;0FF4EE|60      |      ;
  
  
-       UNREACH_0FF4EF: db $A5,$C7,$F0,$08,$C6               ;0FF4EF|        |0000C7;
-                       db $C7,$D0,$1F,$A9,$00               ;0FF4F4|        |0000D0;
-                       db $85,$6B,$A9,$80,$20               ;0FF4F9|        |00006B;
-                       db $E6,$E2,$20,$46,$BA               ;0FF4FE|        |0000E2;
-                       db $4C,$16,$F5                       ;0FF503|        |0FF516;
+       gameTransit_2c: LDA.B $C7                            ;0FF4EF|A5C7    |0000C7;
+                       BEQ CODE_0FF4FB                      ;0FF4F1|F008    |0FF4FB;
+                       DEC.B $C7                            ;0FF4F3|C6C7    |0000C7;
+                       BNE gameState_black_04               ;0FF4F5|D01F    |0FF516;
+                       LDA.B #$00                           ;0FF4F7|A900    |      ;
+                       STA.B r_menuSelectIdx                ;0FF4F9|856B    |00006B;
+ 
+          CODE_0FF4FB: LDA.B #$80                           ;0FF4FB|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF4FD|20E6E2  |0FE2E6;
+                       db $20                               ;0FF500|        |      ;
+                       dw CODE_00BA46                       ;0FF501|        |00BA46;
+                       JMP.W gameState_black_04             ;0FF503|4C16F5  |0FF516;
  
  
-       UNREACH_0FF506: db $A9,$98,$20,$E6,$E2               ;0FF506|        |      ;
-                       db $20,$FE,$A3,$A9,$9C               ;0FF50B|        |0FA3FE;
-                       db $20,$E6,$E2,$20,$29               ;0FF510|        |0FE2E6;
-                       db $85                               ;0FF515|        |000020;
+gameTransit_helperTransform_0b: LDA.B #$98                           ;0FF506|A998    |      ;
+                       JSR.W swapPRGbankStore               ;0FF508|20E6E2  |0FE2E6;
+                       db $20                               ;0FF50B|        |      ;
+                       dw UNREACH_0CA3FE                    ;0FF50C|        |0CA3FE;
+                       LDA.B #$9C                           ;0FF50E|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF510|20E6E2  |0FE2E6;
+                       db $20                               ;0FF513|        |      ;
+                       dw CODE_0E8529                       ;0FF514|        |0E8529;
  
-          CODE_0FF516: JSR.W CODE_0FF55D                    ;0FF516|205DF5  |0FF55D;
-                       db $B0,$41,$A9,$80,$20               ;0FF519|        |0FF55C;
-                       db $E6,$E2,$20,$0B,$8F               ;0FF51E|        |0000E2;
-                       db $A9,$9C,$20,$E6,$E2               ;0FF523|        |      ;
-                       db $20,$21,$8A,$A5,$BF               ;0FF528|        |0F8A21;
-                       db $0D,$65,$05,$30,$2A               ;0FF52D|        |0F0565;
+   gameState_black_04: JSR.W autoPlayCheck                  ;0FF516|205DF5  |0FF55D;
+                       BCS UNREACH_0FF55C                   ;0FF519|B041    |0FF55C;
+                       LDA.B #$80                           ;0FF51B|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF51D|20E6E2  |0FE2E6;
+                       db $20                               ;0FF520|        |      ;
+                       dw CODE_008F0B                       ;0FF521|        |008F0B;
+                       LDA.B #$9C                           ;0FF523|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF525|20E6E2  |0FE2E6;
+                       db $20                               ;0FF528|        |      ;
+                       dw IRQ_stuff                         ;0FF529|        |0E8A21;
+                       LDA.B r_deathDelay                   ;0FF52B|A5BF    |0000BF;
+                       ORA.W r_Player_StateDoubled          ;0FF52D|0D6505  |000565;
+                       BMI UNREACH_0FF55C                   ;0FF530|302A    |0FF55C;
                        LDA.B r_bossActiveFlag               ;0FF532|A578    |000078;
                        BNE skip_if_bossFF                   ;0FF534|D003    |0FF539;
                        JSR.W scrollXposUpdate               ;0FF536|2075D1  |0FD175;
  
        skip_if_bossFF: LDA.B #$84                           ;0FF539|A984    |      ;
-                       db $20,$E6,$E2,$20,$9D               ;0FF53B|        |0FE2E6;
-                       db $AF,$A9,$94,$20,$E6               ;0FF540|        |2094A9;
-                       db $E2,$20,$8A,$80,$A9               ;0FF545|        |      ;
-                       db $96,$20,$E6,$E2,$20               ;0FF54A|        |000020;
-                       db $E3,$FD,$A9,$84,$20               ;0FF54F|        |0000FD;
-                       db $E6,$E2,$20,$AA,$9F               ;0FF554|        |0000E2;
+                       JSR.W swapPRGbankStore               ;0FF53B|20E6E2  |0FE2E6;
+                       db $20                               ;0FF53E|        |      ;
+                       dw UNREACH_02AF9D                    ;0FF53F|        |02AF9D;
+                       LDA.B #$94                           ;0FF541|A994    |      ;
+                       JSR.W swapPRGbankStore               ;0FF543|20E6E2  |0FE2E6;
+                       db $20                               ;0FF546|        |      ;
+                       dw CODE_0A808A                       ;0FF547|        |0A808A;
+                       LDA.B #$96                           ;0FF549|A996    |      ;
+                       JSR.W swapPRGbankStore               ;0FF54B|20E6E2  |0FE2E6;
+                       JSR.W entitySlotProcessing           ;0FF54E|20E3FD  |0FFDE3;
+                       LDA.B #$84                           ;0FF551|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FF553|20E6E2  |0FE2E6;
+                       db $20                               ;0FF556|        |      ;
+                       dw UNREACH_029FAA                    ;0FF557|        |029FAA;
                        db $4C                               ;0FF559|        |      ;
  
                        dw CODE_02800C                       ;0FF55A|        |02800C;
-                       db $60                               ;0FF55C|        |      ;
+ 
+       UNREACH_0FF55C: db $60                               ;0FF55C|        |      ;
  
  
-          CODE_0FF55D: LDA.B r_autoPlay                     ;0FF55D|A52C    |00002C;
+        autoPlayCheck: LDA.B r_autoPlay                     ;0FF55D|A52C    |00002C;
                        BNE CODE_0FF58B                      ;0FF55F|D02A    |0FF58B;
                        LDA.B r_curJoyPe1                    ;0FF561|A526    |000026;
                        AND.B #$20                           ;0FF563|2920    |      ;
@@ -5135,7 +5605,7 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        db $20                               ;0FF56C|        |      ;
                        dw CODE_04B8EB                       ;0FF56D|        |04B8EB;
                        BCS CODE_0FF58B                      ;0FF56F|B01A    |0FF58B;
-                       LDA.B r_gameLoadState                ;0FF571|A52A    |00002A;
+                       LDA.B r_gameTransition               ;0FF571|A52A    |00002A;
                        CMP.B #$1B                           ;0FF573|C91B    |      ;
                        BEQ CODE_0FF58B                      ;0FF575|F014    |0FF58B;
                        LDA.B #$88                           ;0FF577|A988    |      ;
@@ -5155,11 +5625,11 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        RTS                                  ;0FF58C|60      |      ;
  
  
-          CODE_0FF58D: LDA.B #$02                           ;0FF58D|A902    |      ;
+gameState_Vertical_main_05: LDA.B #$02                           ;0FF58D|A902    |      ;
                        STA.B r_counter_ShowSprBg            ;0FF58F|851C    |00001C;
                        LDA.B r_roomInit                     ;0FF591|A58D    |00008D;
                        BNE CODE_0FF59B                      ;0FF593|D006    |0FF59B;
-                       JSR.W CODE_0FF75B                    ;0FF595|205BF7  |0FF75B;
+                       JSR.W nameTable_d8                   ;0FF595|205BF7  |0FF75B;
                        JMP.W CODE_0FF486                    ;0FF598|4C86F4  |0FF486;
  
  
@@ -5172,60 +5642,115 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        STA.B r_counter_ShowSprBg            ;0FF5A3|851C    |00001C;
                        JSR.W CODE_0FF4D4                    ;0FF5A5|20D4F4  |0FF4D4;
                        JSR.W CODE_0FCF8C                    ;0FF5A8|208CCF  |0FCF8C;
-                       db $A9,$94,$20,$E6,$E2               ;0FF5AB|        |      ;
-                       db $20,$F8,$81,$A9,$84               ;0FF5B0|        |0F81F8;
-                       db $20,$E6,$E2,$20,$17               ;0FF5B5|        |0FE2E6;
-                       db $9D,$E6,$2A,$60                   ;0FF5BA|        |0F2AE6;
- 
-       UNREACH_0FF5BE: db $20,$5D,$F5,$B0,$45               ;0FF5BE|        |0FF55D;
-                       db $A9,$80,$20,$E6,$E2               ;0FF5C3|        |      ;
-                       db $20,$0B,$8F,$A9,$9C               ;0FF5C8|        |0F8F0B;
-                       db $20,$E6,$E2,$20,$21               ;0FF5CD|        |0FE2E6;
-                       db $8A,$AD,$65,$05,$05               ;0FF5D2|        |      ;
-                       db $BF,$30,$2E,$20,$0B               ;0FF5D7|        |202E30;
-                       db $CB,$A9,$9C,$20,$E6               ;0FF5DC|        |      ;
-                       db $E2,$20,$70,$85,$A9               ;0FF5E1|        |      ;
-                       db $84,$20,$E6,$E2,$20               ;0FF5E6|        |000020;
-                       db $9D,$AF,$A9,$96,$20               ;0FF5EB|        |0FA9AF;
-                       db $E6,$E2,$20,$E3,$FD               ;0FF5F0|        |0000E2;
-                       db $A9,$94,$20,$E6,$E2               ;0FF5F5|        |      ;
-                       db $20,$62,$82,$A9,$84               ;0FF5FA|        |0F8262;
-                       db $20,$E6,$E2,$20,$D6               ;0FF5FF|        |0FE2E6;
-                       db $9E,$20,$0C,$80,$60               ;0FF604|        |0F0C20;
- 
-       UNREACH_0FF609: db $A9,$02,$85,$1C,$20               ;0FF609|        |      ;
-                       db $DA,$E2,$20,$FB,$D3               ;0FF60E|        |      ;
-                       db $A9,$07,$85,$2A,$60               ;0FF613|        |      ;
- 
-       UNREACH_0FF618: db $A9,$02,$85,$1C,$20               ;0FF618|        |      ;
-                       db $A0,$E7,$20,$5F,$F7               ;0FF61D|        |      ;
-                       db $20,$E3,$E8,$A9,$01               ;0FF622|        |0FE8E3;
-                       db $85,$2A,$60                       ;0FF627|        |00002A;
- 
-       UNREACH_0FF62A: db $60                               ;0FF62A|        |      ;
+                       LDA.B #$94                           ;0FF5AB|A994    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5AD|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5B0|        |      ;
+                       dw CODE_0A81F8                       ;0FF5B1|        |0A81F8;
+                       LDA.B #$84                           ;0FF5B3|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5B5|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5B8|        |      ;
+                       dw UNREACH_029D17                    ;0FF5B9|        |029D17;
+                       INC.B r_gameTransition               ;0FF5BB|E62A    |00002A;
+                       RTS                                  ;0FF5BD|60      |      ;
  
  
-       UNREACH_0FF62B: db $A9,$80,$20,$E6,$E2               ;0FF62B|        |      ;
-                       db $4C,$DB,$9D                       ;0FF630|        |0F9DDB;
+gameState_autoPlay_06: JSR.W autoPlayCheck                  ;0FF5BE|205DF5  |0FF55D;
+                       BCS CODE_0FF608                      ;0FF5C1|B045    |0FF608;
+                       LDA.B #$80                           ;0FF5C3|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5C5|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5C8|        |      ;
+                       dw CODE_008F0B                       ;0FF5C9|        |008F0B;
+                       LDA.B #$9C                           ;0FF5CB|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5CD|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5D0|        |      ;
+                       dw IRQ_stuff                         ;0FF5D1|        |0E8A21;
+                       LDA.W $0565                          ;0FF5D3|AD6505  |0E0565;
+                       ORA.B r_deathDelay                   ;0FF5D6|05BF    |0000BF;
+                       BMI CODE_0FF608                      ;0FF5D8|302E    |0FF608;
+                       JSR.W CODE_0FCB0B                    ;0FF5DA|200BCB  |0FCB0B;
+                       LDA.B #$9C                           ;0FF5DD|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5DF|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5E2|        |      ;
+                       dw DATA8_0E8570                      ;0FF5E3|        |0E8570;
+                       LDA.B #$84                           ;0FF5E5|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5E7|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5EA|        |      ;
+                       dw UNREACH_02AF9D                    ;0FF5EB|        |02AF9D;
+                       LDA.B #$96                           ;0FF5ED|A996    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5EF|20E6E2  |0FE2E6;
+                       JSR.W entitySlotProcessing           ;0FF5F2|20E3FD  |0FFDE3;
+                       LDA.B #$94                           ;0FF5F5|A994    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5F7|20E6E2  |0FE2E6;
+                       db $20                               ;0FF5FA|        |      ;
+                       dw UNREACH_078262                    ;0FF5FB|        |078262;
+                       LDA.B #$84                           ;0FF5FD|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FF5FF|20E6E2  |0FE2E6;
+                       db $20                               ;0FF602|        |      ;
+                       dw UNREACH_029ED6                    ;0FF603|        |029ED6;
+                       db $20                               ;0FF605|        |      ;
+                       dw CODE_02800C                       ;0FF606|        |02800C;
+ 
+          CODE_0FF608: RTS                                  ;0FF608|60      |      ;
  
  
-       UNREACH_0FF633: db $A9,$82,$20,$E6,$E2               ;0FF633|        |      ;
-                       db $AE,$EC,$07,$D0,$1A               ;0FF638|        |0F07EC;
-                       db $20,$01,$80,$AD,$EC               ;0FF63D|        |0F8001;
-                       db $07,$D0,$11,$AD,$ED               ;0FF642|        |0000D0;
-                       db $07,$29,$7F,$C9,$0C               ;0FF647|        |000029;
-                       db $B0,$08,$A9,$80,$20               ;0FF64C|        |0FF656;
-                       db $E6,$E2,$20,$0B,$8F               ;0FF651|        |0000E2;
-                       db $60,$CA,$D0,$06,$20               ;0FF656|        |      ;
+       gameTransit_07: LDA.B #$02                           ;0FF609|A902    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FF60B|851C    |00001C;
+                       JSR.W setBank_c000_1E                ;0FF60D|20DAE2  |0FE2DA;
+                       JSR.W CODE_0FD3FB                    ;0FF610|20FBD3  |0FD3FB;
+                       LDA.B #$07                           ;0FF613|A907    |      ;
+                       STA.B r_gameTransition               ;0FF615|852A    |00002A;
+                       RTS                                  ;0FF617|60      |      ;
  
-                       db $8E,$82,$4C,$6F,$F6               ;0FF65B|        |0F4C82;
-                       db $CA,$D0,$06,$20,$CF               ;0FF660|        |      ;
-                       db $83,$4C,$6F,$F6,$CA               ;0FF665|        |00004C;
-                       db $D0,$03,$20,$5E,$84               ;0FF66A|        |0FF66F;
-                       db $AD,$EE,$07,$F0,$0C               ;0FF66F|        |0F07EE;
-                       db $A9,$00,$8D,$ED,$07               ;0FF674|        |      ;
-                       db $8D,$EE,$07,$EE,$EC               ;0FF679|        |0F07EE;
-                       db $07,$60,$4C,$B8,$94               ;0FF67E|        |000060;
+ 
+ gameTransit_doors_08: LDA.B #$02                           ;0FF618|A902    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FF61A|851C    |00001C;
+                       JSR.W stageTransition_6B             ;0FF61C|20A0E7  |0FE7A0;
+                       JSR.W nameTable_44                   ;0FF61F|205FF7  |0FF75F;
+                       JSR.W CODE_0FE8E3                    ;0FF622|20E3E8  |0FE8E3;
+                       LDA.B #$01                           ;0FF625|A901    |      ;
+                       STA.B r_gameTransition               ;0FF627|852A    |00002A;
+                       RTS                                  ;0FF629|60      |      ;
+ 
+ 
+       gameTransit_23: RTS                                  ;0FF62A|60      |      ;
+ 
+ 
+       gameTransit_28: LDA.B #$80                           ;0FF62B|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF62D|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF630|        |      ;
+ 
+                       dw DATA8_009DDB                      ;0FF631|        |009DDB;
+ 
+       gameTransit_22: LDA.B #$82                           ;0FF633|A982    |      ;
+                       JSR.W swapPRGbankStore               ;0FF635|20E6E2  |0FE2E6;
+                       LDX.W $07EC                          ;0FF638|AEEC07  |0107EC;
+                       BNE UNREACH_0FF657                   ;0FF63B|D01A    |0FF657;
+                       db $20                               ;0FF63D|        |      ;
+                       dw orbCollectedRoutine               ;0FF63E|        |018001;
+                       LDA.W $07EC                          ;0FF640|ADEC07  |0107EC;
+                       BNE UNREACH_0FF656                   ;0FF643|D011    |0FF656;
+                       LDA.W $07ED                          ;0FF645|ADED07  |0107ED;
+                       AND.B #$7F                           ;0FF648|297F    |      ;
+                       CMP.B #$0C                           ;0FF64A|C90C    |      ;
+                       BCS UNREACH_0FF656                   ;0FF64C|B008    |0FF656;
+                       LDA.B #$80                           ;0FF64E|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF650|20E6E2  |0FE2E6;
+                       db $20,$0B,$8F                       ;0FF653|        |0F8F0B;
+ 
+       UNREACH_0FF656: db $60                               ;0FF656|        |      ;
+ 
+ 
+       UNREACH_0FF657: db $CA,$D0,$06,$20,$8E               ;0FF657|        |      ;
+                       db $82,$4C,$6F,$F6,$CA               ;0FF65C|        |0F65AB;
+                       db $D0,$06,$20,$CF,$83               ;0FF661|        |0FF669;
+                       db $4C,$6F,$F6,$CA,$D0               ;0FF666|        |0FF66F;
+ 
+                       db $03,$20,$5E,$84,$AD               ;0FF66B|        |000020;
+                       db $EE,$07,$F0,$0C,$A9               ;0FF670|        |0FF007;
+                       db $00,$8D,$ED,$07,$8D               ;0FF675|        |      ;
+                       db $EE,$07,$EE,$EC,$07               ;0FF67A|        |0FEE07;
+                       db $60,$4C,$B8,$94                   ;0FF67F|        |      ;
+ 
  
           CODE_0FF683: LDA.B r_updateNametable              ;0FF683|A525    |000025;
                        CMP.B #$FF                           ;0FF685|C9FF    |      ;
@@ -5255,174 +5780,309 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
        UNREACH_0FF6BE: db $60                               ;0FF6BE|        |      ;
  
  
-       UNREACH_0FF6BF: db $A9,$80,$20,$E6,$E2               ;0FF6BF|        |      ;
-                       db $4C,$1A,$BB                       ;0FF6C4|        |0FBB1A;
+       gameTransit_2b: LDA.B #$80                           ;0FF6BF|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF6C1|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF6C4|        |      ;
+ 
+                       dw DATA8_00BB1A                      ;0FF6C5|        |00BB1A;
+ 
+       gameTransit_29: LDA.B #$80                           ;0FF6C7|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF6C9|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF6CC|        |      ;
+ 
+                       dw CODE_009288                       ;0FF6CD|        |009288;
+ 
+       gameTransit_2d: LDA.B #$00                           ;0FF6CF|A900    |      ;
+                       STA.B r_menuSelectIdx                ;0FF6D1|856B    |00006B;
+                       JSR.W setBank_c000_1E                ;0FF6D3|20DAE2  |0FE2DA;
+                       INC.B r_gameTransition               ;0FF6D6|E62A    |00002A;
+                       RTS                                  ;0FF6D8|60      |      ;
  
  
-       UNREACH_0FF6C7: db $A9,$80,$20,$E6,$E2               ;0FF6C7|        |      ;
-                       db $4C,$88,$92                       ;0FF6CC|        |0F9288;
+gameTransit_bossBoneDragonWaterFall_2e: LDA.B #$80                           ;0FF6D9|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF6DB|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF6DE|        |      ;
+ 
+                       dw bossBoneDragonWaterScene          ;0FF6DF|        |00B3EA;
+ 
+          CODE_0FF6E1: INC.B r_menuSelectIdx                ;0FF6E1|E66B    |00006B;
+                       LDA.B #$03                           ;0FF6E3|A903    |      ;
+                       STA.B r_sceneScrollOffsetHi          ;0FF6E5|8557    |000057;
+                       LDA.B #$00                           ;0FF6E7|A900    |      ;
+                       STA.B r_sceneScrollOffsetLo          ;0FF6E9|8556    |000056;
+                       JMP.W CODE_0FF6F7                    ;0FF6EB|4CF7F6  |0FF6F7;
  
  
-       UNREACH_0FF6CF: db $A9,$00,$85,$6B,$20               ;0FF6CF|        |      ;
-                       db $DA,$E2,$E6,$2A,$60               ;0FF6D4|        |      ;
+       gameTransit_24: LDA.B #$03                           ;0FF6EE|A903    |      ;
+                       STA.B r_blockLevel                   ;0FF6F0|8533    |000033;
+                       JSR.W CODE_0FE68F                    ;0FF6F2|208FE6  |0FE68F;
+                       INC.B r_gameTransition               ;0FF6F5|E62A    |00002A;
  
-       UNREACH_0FF6D9: db $A9,$80,$20,$E6,$E2               ;0FF6D9|        |      ;
-                       db $4C,$EA,$B3,$E6,$6B               ;0FF6DE|        |0FB3EA;
+          CODE_0FF6F7: JSR.W nameTable_e4                   ;0FF6F7|2057F7  |0FF757;
+                       LDA.B #$00                           ;0FF6FA|A900    |      ;
+                       STA.B $C9                            ;0FF6FC|85C9    |0000C9;
  
-                       db $A9,$03,$85,$57,$A9               ;0FF6E3|        |      ;
-                       db $00,$85,$56,$4C,$F7               ;0FF6E8|        |      ;
-                       db $F6                               ;0FF6ED|        |0000A9;
+          CODE_0FF6FE: LDA.B #$02                           ;0FF6FE|A902    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FF700|851C    |00001C;
+                       RTS                                  ;0FF702|60      |      ;
  
-       UNREACH_0FF6EE: db $A9,$03,$85,$33,$20               ;0FF6EE|        |      ;
-                       db $8F,$E6,$E6,$2A,$20               ;0FF6F3|        |2AE6E6;
-                       db $57,$F7,$A9,$00,$85               ;0FF6F8|        |0000F7;
-                       db $C9,$A9,$02,$85,$1C               ;0FF6FD|        |      ;
-                       db $60,$A5,$2A,$48,$20               ;0FF702|        |      ;
  
-                       db $18,$F7,$68,$C5,$2A               ;0FF707|        |      ;
-                       db $F0,$07,$E6,$6B,$A0               ;0FF70C|        |0FF715;
-                       db $80,$8C,$38,$04,$85               ;0FF711|        |0FF69F;
-                       db $2A,$60                           ;0FF716|        |      ;
+          CODE_0FF703: LDA.B r_gameTransition               ;0FF703|A52A    |00002A;
+                       PHA                                  ;0FF705|48      |      ;
+                       JSR.W gameTransit_25                 ;0FF706|2018F7  |0FF718;
+                       PLA                                  ;0FF709|68      |      ;
+                       CMP.B r_gameTransition               ;0FF70A|C52A    |00002A;
+                       BEQ CODE_0FF715                      ;0FF70C|F007    |0FF715;
+                       INC.B r_menuSelectIdx                ;0FF70E|E66B    |00006B;
+                       LDY.B #$80                           ;0FF710|A080    |      ;
+                       STY.W $0438                          ;0FF712|8C3804  |0F0438;
  
-       UNREACH_0FF718: db $A9,$80,$20,$E6,$E2               ;0FF718|        |      ;
-                       db $20,$3E,$B6,$90,$DC               ;0FF71D|        |0FB63E;
-                       db $20,$53,$F7,$20,$D3               ;0FF722|        |0FF753;
-                       db $E5,$20,$67,$D0,$A9               ;0FF727|        |000020;
-                       db $9C,$20,$E6,$E2,$20               ;0FF72C|        |0FE620;
-                       db $88,$85,$20,$B8,$85               ;0FF731|        |      ;
-                       db $20,$F8,$D0,$A9,$8E               ;0FF736|        |0FD0F8;
-                       db $20,$E6,$E2,$20,$3F               ;0FF73B|        |0FE2E6;
-                       db $B5,$A9,$80,$20,$E6               ;0FF740|        |0000A9;
-                       db $E2,$20,$02,$97,$20               ;0FF745|        |      ;
-                       db $83,$CD,$A9,$00,$85               ;0FF74A|        |0000CD;
-                       db $8D,$E6,$2A,$60,$A9               ;0FF74F|        |0F2AE6;
-                       db $FF,$D0,$0E                       ;0FF754|        |A90ED0;
+          CODE_0FF715: STA.B r_gameTransition               ;0FF715|852A    |00002A;
+                       RTS                                  ;0FF717|60      |      ;
  
-          CODE_0FF757: LDA.B #$E4                           ;0FF757|A9E4    |      ;
+ 
+       gameTransit_25: LDA.B #$80                           ;0FF718|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF71A|20E6E2  |0FE2E6;
+                       db $20                               ;0FF71D|        |      ;
+                       dw CODE_00B63E                       ;0FF71E|        |00B63E;
+                       BCC CODE_0FF6FE                      ;0FF720|90DC    |0FF6FE;
+                       JSR.W nameTable_ff                   ;0FF722|2053F7  |0FF753;
+                       JSR.W backupCurrent_bank_swap_00     ;0FF725|20D3E5  |0FE5D3;
+                       JSR.W coreLoad_03                    ;0FF728|2067D0  |0FD067;
+                       LDA.B #$9C                           ;0FF72B|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF72D|20E6E2  |0FE2E6;
+                       db $20                               ;0FF730|        |      ;
+                       dw CODE_0E8588                       ;0FF731|        |0E8588;
+                       db $20                               ;0FF733|        |      ;
+                       dw CODE_0E85B8                       ;0FF734|        |0E85B8;
+                       JSR.W prepRoom                       ;0FF736|20F8D0  |0FD0F8;
+                       LDA.B #$8E                           ;0FF739|A98E    |      ;
+                       JSR.W swapPRGbankStore               ;0FF73B|20E6E2  |0FE2E6;
+                       db $20                               ;0FF73E|        |      ;
+                       dw UNREACH_07B53F                    ;0FF73F|        |07B53F;
+                       LDA.B #$80                           ;0FF741|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF743|20E6E2  |0FE2E6;
+                       db $20                               ;0FF746|        |      ;
+                       dw CODE_009702                       ;0FF747|        |009702;
+                       JSR.W CODE_0FCD83                    ;0FF749|2083CD  |0FCD83;
+                       LDA.B #$00                           ;0FF74C|A900    |      ;
+                       STA.B r_roomInit                     ;0FF74E|858D    |00008D;
+                       INC.B r_gameTransition               ;0FF750|E62A    |00002A;
+                       RTS                                  ;0FF752|60      |      ;
+ 
+ 
+         nameTable_ff: LDA.B #$FF                           ;0FF753|A9FF    |      ;
+                       BNE CODE_0FF765                      ;0FF755|D00E    |0FF765;
+ 
+         nameTable_e4: LDA.B #$E4                           ;0FF757|A9E4    |      ;
                        BNE CODE_0FF765                      ;0FF759|D00A    |0FF765;
  
-          CODE_0FF75B: LDA.B #$D8                           ;0FF75B|A9D8    |      ;
+         nameTable_d8: LDA.B #$D8                           ;0FF75B|A9D8    |      ;
                        BNE CODE_0FF765                      ;0FF75D|D006    |0FF765;
  
-          CODE_0FF75F: LDA.B #$44                           ;0FF75F|A944    |      ;
+         nameTable_44: LDA.B #$44                           ;0FF75F|A944    |      ;
                        BNE CODE_0FF765                      ;0FF761|D002    |0FF765;
-                       LDA.B #$50                           ;0FF763|A950    |      ;
+ 
+         nameTable_50: LDA.B #$50                           ;0FF763|A950    |      ;
  
           CODE_0FF765: STA.B r_updateNametable              ;0FF765|8525    |000025;
                        RTS                                  ;0FF767|60      |      ;
  
-                       LDA.B r_gameLoadState                ;0FF768|A52A    |00002A;
+ 
+          CODE_0FF768: LDA.B r_gameTransition               ;0FF768|A52A    |00002A;
                        PHA                                  ;0FF76A|48      |      ;
-                       JSR.W CODE_0FF778                    ;0FF76B|2078F7  |0FF778;
+                       JSR.W gameTransit_26                 ;0FF76B|2078F7  |0FF778;
                        PLA                                  ;0FF76E|68      |      ;
-                       CMP.B r_gameLoadState                ;0FF76F|C52A    |00002A;
+                       CMP.B r_gameTransition               ;0FF76F|C52A    |00002A;
                        BEQ CODE_0FF775                      ;0FF771|F002    |0FF775;
                        INC.B r_menuSelectIdx                ;0FF773|E66B    |00006B;
  
-          CODE_0FF775: STA.B r_gameLoadState                ;0FF775|852A    |00002A;
+          CODE_0FF775: STA.B r_gameTransition               ;0FF775|852A    |00002A;
                        RTS                                  ;0FF777|60      |      ;
  
  
-          CODE_0FF778: LDA.B #$02                           ;0FF778|A902    |      ;
+       gameTransit_26: LDA.B #$02                           ;0FF778|A902    |      ;
                        STA.B r_counter_ShowSprBg            ;0FF77A|851C    |00001C;
                        LDA.B r_roomInit                     ;0FF77C|A58D    |00008D;
-                       BNE UNREACH_0FF783                   ;0FF77E|D003    |0FF783;
+                       BNE CODE_0FF783                      ;0FF77E|D003    |0FF783;
                        JMP.W CODE_0FF483                    ;0FF780|4C83F4  |0FF483;
  
  
-       UNREACH_0FF783: db $20,$C8,$CD,$B0,$01               ;0FF783|        |0FCDC8;
-                       db $60,$A9,$00,$85,$1C               ;0FF788|        |      ;
- 
-                       db $20,$B9,$D5,$20,$EC               ;0FF78D|        |0FD5B9;
-                       db $E5,$20,$89,$FB,$A5               ;0FF792|        |000020;
-                       db $74,$D0,$07,$E6,$74               ;0FF797|        |0000D0;
-                       db $A9,$6A,$20,$5F,$E2               ;0FF79C|        |      ;
-                       db $E6,$2A,$60,$A9,$08               ;0FF7A1|        |00002A;
-                       db $85,$28,$85,$26,$20               ;0FF7A6|        |000028;
-                       db $C5,$E6,$AD,$65,$05               ;0FF7AB|        |0000E6;
-                       db $C9,$02,$D0,$30,$20               ;0FF7B0|        |      ;
-                       db $CA,$E5,$A9,$16,$85               ;0FF7B5|        |      ;
-                       db $2A,$60                           ;0FF7BA|        |      ;
- 
-       UNREACH_0FF7BC: db $A9,$80,$20,$E6,$E2               ;0FF7BC|        |      ;
-                       db $20,$D0,$96,$90,$09               ;0FF7C1|        |0F96D0;
-                       db $A9,$10,$85,$2A,$A9               ;0FF7C6|        |      ;
-                       db $08,$85,$6B,$60,$20               ;0FF7CB|        |      ;
-                       db $5D,$F5,$B0,$49,$A9               ;0FF7D0|        |0FB0F5;
-                       db $80,$20,$E6,$E2,$20               ;0FF7D5|        |0FF7F7;
-                       db $0B,$8F,$A9,$9C,$20               ;0FF7DA|        |      ;
-                       db $E6,$E2,$20,$21,$8A               ;0FF7DF|        |0000E2;
-                       db $AD,$65,$05,$05,$BF               ;0FF7E4|        |0F0565;
-                       db $30,$32,$A5,$78,$D0               ;0FF7E9|        |0FF81D;
-                       db $03,$20,$75,$D1,$A9               ;0FF7EE|        |000020;
-                       db $80,$20,$E6,$E2,$20               ;0FF7F3|        |0FF815;
-                       db $83,$B5,$A9,$84,$20               ;0FF7F8|        |0000B5;
-                       db $E6,$E2,$20,$9D,$AF               ;0FF7FD|        |0000E2;
-                       db $A9,$94,$20,$E6,$E2               ;0FF802|        |      ;
-                       db $20,$8A,$80,$A9,$96               ;0FF807|        |0F808A;
-                       db $20,$E6,$E2,$20,$E3               ;0FF80C|        |0FE2E6;
-                       db $FD,$A9,$84,$20,$E6               ;0FF811|        |0F84A9;
-                       db $E2,$20,$AA,$9F,$20               ;0FF816|        |      ;
-                       db $0C,$80,$60                       ;0FF81B|        |0F6080;
- 
-       UNREACH_0FF81E: db $A9,$80,$20,$E6,$E2               ;0FF81E|        |      ;
-                       db $4C,$8B,$94                       ;0FF823|        |0F948B;
+          CODE_0FF783: JSR.W CODE_0FCDC8                    ;0FF783|20C8CD  |0FCDC8;
+                       BCS CODE_0FF789                      ;0FF786|B001    |0FF789;
+                       RTS                                  ;0FF788|60      |      ;
  
  
-       UNREACH_0FF826: db $A9,$80,$20,$E6,$E2               ;0FF826|        |      ;
-                       db $4C,$6A,$94                       ;0FF82B|        |0F946A;
+          CODE_0FF789: LDA.B #$00                           ;0FF789|A900    |      ;
+                       STA.B r_counter_ShowSprBg            ;0FF78B|851C    |00001C;
+                       JSR.W CODE_0FD5B9                    ;0FF78D|20B9D5  |0FD5B9;
+                       JSR.W CODE_0FE5EC                    ;0FF790|20ECE5  |0FE5EC;
+                       JSR.W UNREACH_0FFB89                 ;0FF793|2089FB  |0FFB89;
+                       LDA.B r_074                          ;0FF796|A574    |000074;
+                       BNE CODE_0FF7A1                      ;0FF798|D007    |0FF7A1;
+                       INC.B r_074                          ;0FF79A|E674    |000074;
+                       LDA.B #$6A                           ;0FF79C|A96A    |      ;
+                       JSR.W CODE_0FE25F                    ;0FF79E|205FE2  |0FE25F;
+ 
+          CODE_0FF7A1: INC.B r_gameTransition               ;0FF7A1|E62A    |00002A;
+                       RTS                                  ;0FF7A3|60      |      ;
  
  
-       UNREACH_0FF82E: db $A9,$80,$20,$E6,$E2               ;0FF82E|        |      ;
-                       db $4C,$CF,$96                       ;0FF833|        |0F96CF;
+          CODE_0FF7A4: LDA.B #$08                           ;0FF7A4|A908    |      ;
+                       STA.B r_Joy1Pe                       ;0FF7A6|8528    |000028;
+                       STA.B r_curJoyPe1                    ;0FF7A8|8526    |000026;
+                       JSR.W CODE_0FE6C5                    ;0FF7AA|20C5E6  |0FE6C5;
+                       LDA.W $0565                          ;0FF7AD|AD6505  |0F0565;
+                       CMP.B #$02                           ;0FF7B0|C902    |      ;
+                       BNE CODE_0FF7E4                      ;0FF7B2|D030    |0FF7E4;
+                       JSR.W unsetAutoPlayFlag              ;0FF7B4|20CAE5  |0FE5CA;
+                       LDA.B #$16                           ;0FF7B7|A916    |      ;
+                       STA.B r_gameTransition               ;0FF7B9|852A    |00002A;
+                       RTS                                  ;0FF7BB|60      |      ;
  
  
-       UNREACH_0FF836: db $A5,$6B,$20,$6D,$E8               ;0FF836|        |00006B;
-                       db $5B,$F8,$70,$F8,$7C               ;0FF83B|        |      ;
-                       db $F8,$86,$F8,$9E,$F8               ;0FF840|        |      ;
-                       db $D2,$F8,$03,$F9,$40               ;0FF845|        |0000F8;
-                       db $F9,$5B,$F8,$64,$F8               ;0FF84A|        |0FF85B;
-                       db $7C,$F8,$86,$F8,$E1               ;0FF84F|        |0F86F8;
+       gameTransit_27: LDA.B #$80                           ;0FF7BC|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF7BE|20E6E2  |0FE2E6;
+                       db $20                               ;0FF7C1|        |      ;
+                       dw CODE_0096D0                       ;0FF7C2|        |0096D0;
+                       BCC CODE_0FF7CF                      ;0FF7C4|9009    |0FF7CF;
+                       LDA.B #$10                           ;0FF7C6|A910    |      ;
+                       STA.B r_gameTransition               ;0FF7C8|852A    |00002A;
+                       LDA.B #$08                           ;0FF7CA|A908    |      ;
+                       STA.B r_menuSelectIdx                ;0FF7CC|856B    |00006B;
+                       RTS                                  ;0FF7CE|60      |      ;
  
-                       db $F6,$03,$F7,$68,$F7               ;0FF854|        |000003;
-                       db $A4,$F7,$20,$CE,$E5               ;0FF859|        |0000F7;
-                       db $20,$F7,$E7,$E6,$6B               ;0FF85E|        |0FE7F7;
-                       db $60,$A9,$08,$85,$28               ;0FF863|        |      ;
  
-                       db $85,$26,$20,$C5,$E6               ;0FF868|        |000026;
-                       db $4C,$75,$D1,$A9,$08               ;0FF86D|        |0FD175;
+          CODE_0FF7CF: JSR.W autoPlayCheck                  ;0FF7CF|205DF5  |0FF55D;
+                       BCS CODE_0FF81D                      ;0FF7D2|B049    |0FF81D;
+                       LDA.B #$80                           ;0FF7D4|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF7D6|20E6E2  |0FE2E6;
+                       db $20                               ;0FF7D9|        |      ;
+                       dw CODE_008F0B                       ;0FF7DA|        |008F0B;
+                       LDA.B #$9C                           ;0FF7DC|A99C    |      ;
+                       JSR.W swapPRGbankStore               ;0FF7DE|20E6E2  |0FE2E6;
+                       db $20                               ;0FF7E1|        |      ;
+                       dw IRQ_stuff                         ;0FF7E2|        |0E8A21;
  
-                       db $85,$28,$85,$26,$20               ;0FF872|        |000028;
-                       db $C5,$E6,$4C,$75,$D1               ;0FF877|        |0000E6;
-                       db $A9,$02,$85,$1C,$20               ;0FF87C|        |      ;
+          CODE_0FF7E4: LDA.W $0565                          ;0FF7E4|AD6505  |0E0565;
+                       ORA.B r_deathDelay                   ;0FF7E7|05BF    |0000BF;
+                       BMI CODE_0FF81D                      ;0FF7E9|3032    |0FF81D;
+                       LDA.B r_bossActiveFlag               ;0FF7EB|A578    |000078;
+                       BNE CODE_0FF7F2                      ;0FF7ED|D003    |0FF7F2;
+                       JSR.W scrollXposUpdate               ;0FF7EF|2075D1  |0FD175;
+ 
+          CODE_0FF7F2: LDA.B #$80                           ;0FF7F2|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF7F4|20E6E2  |0FE2E6;
+                       db $20                               ;0FF7F7|        |      ;
+                       dw CODE_00B583                       ;0FF7F8|        |00B583;
+                       LDA.B #$84                           ;0FF7FA|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FF7FC|20E6E2  |0FE2E6;
+                       db $20                               ;0FF7FF|        |      ;
+                       dw UNREACH_02AF9D                    ;0FF800|        |02AF9D;
+                       LDA.B #$94                           ;0FF802|A994    |      ;
+                       JSR.W swapPRGbankStore               ;0FF804|20E6E2  |0FE2E6;
+                       db $20                               ;0FF807|        |      ;
+                       dw CODE_0A808A                       ;0FF808|        |0A808A;
+                       LDA.B #$96                           ;0FF80A|A996    |      ;
+                       JSR.W swapPRGbankStore               ;0FF80C|20E6E2  |0FE2E6;
+                       JSR.W entitySlotProcessing           ;0FF80F|20E3FD  |0FFDE3;
+                       LDA.B #$84                           ;0FF812|A984    |      ;
+                       JSR.W swapPRGbankStore               ;0FF814|20E6E2  |0FE2E6;
+                       db $20                               ;0FF817|        |      ;
+                       dw UNREACH_029FAA                    ;0FF818|        |029FAA;
+                       db $20                               ;0FF81A|        |      ;
+                       dw LOOSE_OP_0B800C                   ;0FF81B|        |0B800C;
+ 
+          CODE_0FF81D: RTS                                  ;0FF81D|60      |      ;
+ 
+ 
+gameTransit_partnerTransform_0c: LDA.B #$80                           ;0FF81E|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF820|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF823|        |      ;
+ 
+                       dw LOOSE_OP_00948B                   ;0FF824|        |00948B;
+ 
+ gameTransit_freez_0d: LDA.B #$80                           ;0FF826|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF828|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF82B|        |      ;
+ 
+                       dw CODE_00946A                       ;0FF82C|        |00946A;
+ 
+ gameTransit_freez_0e: LDA.B #$80                           ;0FF82E|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF830|20E6E2  |0FE2E6;
+                       db $4C                               ;0FF833|        |      ;
+ 
+                       dw CODE_0096CF                       ;0FF834|        |0096CF;
+ 
+       gameTransit_21: LDA.B r_menuSelectIdx                ;0FF836|A56B    |00006B;
+                       JSR.W jumpFromStackYXpreserved       ;0FF838|206DE8  |0FE86D;
+                       dw CODE_0FF85B                       ;0FF83B|        |0FF85B;
+                       dw UNREACH_0FF870                    ;0FF83D|        |0FF870;
+                       dw UNREACH_0FF87C                    ;0FF83F|        |0FF87C;
+ 
+                       dw UNREACH_0FF886                    ;0FF841|        |0FF886;
+                       dw UNREACH_0FF89E                    ;0FF843|        |0FF89E;
+                       dw UNREACH_0FF8D2                    ;0FF845|        |0FF8D2;
+                       dw UNREACH_0FF903                    ;0FF847|        |0FF903;
+                       dw UNREACH_0FF940                    ;0FF849|        |0FF940;
+ 
+                       dw CODE_0FF85B                       ;0FF84B|        |0FF85B;
+                       dw UNREACH_0FF864                    ;0FF84D|        |0FF864;
+                       dw UNREACH_0FF87C                    ;0FF84F|        |0FF87C;
+ 
+                       dw UNREACH_0FF886                    ;0FF851|        |0FF886;
+                       dw CODE_0FF6E1                       ;0FF853|        |0FF6E1;
+                       dw CODE_0FF703                       ;0FF855|        |0FF703;
+                       dw CODE_0FF768                       ;0FF857|        |0FF768;
+                       dw CODE_0FF7A4                       ;0FF859|        |0FF7A4;
+ 
+          CODE_0FF85B: JSR.W setAutoPlayFlag                ;0FF85B|20CEE5  |0FE5CE;
+                       JSR.W clearAllEntityButPlayer        ;0FF85E|20F7E7  |0FE7F7;
+                       INC.B r_menuSelectIdx                ;0FF861|E66B    |00006B;
+                       RTS                                  ;0FF863|60      |      ;
+ 
+ 
+       UNREACH_0FF864: db $A9,$08,$85,$28,$85               ;0FF864|        |      ;
+                       db $26,$20,$C5,$E6,$4C               ;0FF869|        |000020;
+                       db $75,$D1                           ;0FF86E|        |0000D1;
+ 
+       UNREACH_0FF870: db $A9,$08,$85,$28,$85               ;0FF870|        |      ;
+                       db $26,$20,$C5,$E6,$4C               ;0FF875|        |000020;
+                       db $75,$D1                           ;0FF87A|        |0000D1;
+ 
+       UNREACH_0FF87C: db $A9,$02,$85,$1C,$20               ;0FF87C|        |      ;
                        db $FB,$D3,$E6,$6B,$60               ;0FF881|        |      ;
-                       db $A9,$02,$85,$1C,$20               ;0FF886|        |      ;
+ 
+       UNREACH_0FF886: db $A9,$02,$85,$1C,$20               ;0FF886|        |      ;
                        db $62,$E8,$A9,$80,$20               ;0FF88B|        |0FA276;
                        db $E6,$E2,$20,$D6,$90               ;0FF890|        |0000E2;
                        db $20,$A0,$E7,$20,$CE               ;0FF895|        |0FE7A0;
-                       db $E5,$E6,$6B,$60,$20               ;0FF89A|        |0000E6;
-                       db $53,$F7,$20,$D3,$E5               ;0FF89F|        |0000F7;
-                       db $20,$67,$D0,$A9,$9C               ;0FF8A4|        |0FD067;
-                       db $20,$E6,$E2,$20,$88               ;0FF8A9|        |0FE2E6;
-                       db $85,$20,$B8,$85,$20               ;0FF8AE|        |000020;
-                       db $42,$86,$20,$F8,$D0               ;0FF8B3|        |      ;
-                       db $A9,$8E,$20,$E6,$E2               ;0FF8B8|        |      ;
-                       db $20,$3F,$B5,$A9,$80               ;0FF8BD|        |0FB53F;
-                       db $20,$E6,$E2,$20,$02               ;0FF8C2|        |0FE2E6;
-                       db $97,$20,$83,$CD,$A9               ;0FF8C7|        |000020;
-                       db $00,$85,$8D,$E6,$6B               ;0FF8CC|        |      ;
-                       db $60,$A9,$02,$85,$1C               ;0FF8D1|        |      ;
+                       db $E5,$E6,$6B,$60                   ;0FF89A|        |0000E6;
  
-                       db $A5,$8D,$D0,$03,$4C               ;0FF8D6|        |00008D;
-                       db $83,$F4,$20,$C8,$CD               ;0FF8DB|        |0000F4;
-                       db $B0,$01,$60,$A9,$00               ;0FF8E0|        |0FF8E3;
-                       db $85,$1C,$20,$F9,$CF               ;0FF8E5|        |00001C;
-                       db $A5,$32,$C9,$0C,$D0               ;0FF8EA|        |000032;
-                       db $04,$A0,$CE,$D0,$02               ;0FF8EF|        |0000A0;
-                       db $A0,$BE,$A2,$2E,$A9               ;0FF8F4|        |      ;
-                       db $10,$20,$BF,$E5,$20               ;0FF8F9|        |0FF91B;
-                       db $EC,$E5,$E6,$6B,$60               ;0FF8FE|        |0FE6E5;
-                       db $A9,$08,$85,$28,$85               ;0FF903|        |      ;
+       UNREACH_0FF89E: db $20,$53,$F7,$20,$D3               ;0FF89E|        |0FF753;
+                       db $E5,$20,$67,$D0,$A9               ;0FF8A3|        |000020;
+                       db $9C,$20,$E6,$E2,$20               ;0FF8A8|        |0FE620;
+                       db $88,$85,$20,$B8,$85               ;0FF8AD|        |      ;
+                       db $20,$42,$86,$20,$F8               ;0FF8B2|        |0F8642;
+                       db $D0,$A9,$8E,$20,$E6               ;0FF8B7|        |0FF862;
+                       db $E2,$20,$3F,$B5,$A9               ;0FF8BC|        |      ;
+                       db $80,$20,$E6,$E2,$20               ;0FF8C1|        |0FF8E3;
+                       db $02,$97,$20,$83,$CD               ;0FF8C6|        |      ;
+                       db $A9,$00,$85,$8D,$E6               ;0FF8CB|        |      ;
+                       db $6B,$60                           ;0FF8D0|        |      ;
+ 
+       UNREACH_0FF8D2: db $A9,$02,$85,$1C,$A5               ;0FF8D2|        |      ;
+                       db $8D,$D0,$03,$4C,$83               ;0FF8D7|        |0F03D0;
+                       db $F4,$20,$C8,$CD,$B0               ;0FF8DC|        |0FC820;
+                       db $01,$60,$A9,$00,$85               ;0FF8E1|        |000060;
+                       db $1C,$20,$F9,$CF,$A5               ;0FF8E6|        |0FF920;
+                       db $32,$C9,$0C,$D0,$04               ;0FF8EB|        |0000C9;
+                       db $A0,$CE,$D0,$02,$A0               ;0FF8F0|        |      ;
+                       db $BE,$A2,$2E,$A9,$10               ;0FF8F5|        |0F2EA2;
+                       db $20,$BF,$E5,$20,$EC               ;0FF8FA|        |0FE5BF;
+                       db $E5,$E6,$6B,$60                   ;0FF8FF|        |0000E6;
+ 
+       UNREACH_0FF903: db $A9,$08,$85,$28,$85               ;0FF903|        |      ;
                        db $26,$20,$C5,$E6,$20               ;0FF908|        |000020;
                        db $75,$D1,$A9,$84,$20               ;0FF90D|        |0000D1;
                        db $E6,$E2,$20,$9D,$AF               ;0FF912|        |0000E2;
@@ -5434,134 +6094,298 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        db $0C,$80,$AD,$65,$05               ;0FF930|        |0FAD80;
                        db $C9,$02,$D0,$06,$A9               ;0FF935|        |      ;
                        db $12,$85,$3F,$E6,$6B               ;0FF93A|        |000085;
-                       db $60,$20,$CA,$E5,$20               ;0FF93F|        |      ;
+                       db $60                               ;0FF93F|        |      ;
  
-                       db $F9,$CF,$A9,$03,$85               ;0FF944|        |0FA9CF;
-                       db $2A,$60                           ;0FF949|        |      ;
  
-       UNREACH_0FF94B: db $A5,$6B,$20,$6D,$E8               ;0FF94B|        |00006B;
-                       db $64,$F9,$A8,$F9,$C3               ;0FF950|        |0000F9;
-                       db $F9,$EB,$F9,$99,$FA               ;0FF955|        |0FF9EB;
-                       db $B9,$FA,$E1,$FA,$A8               ;0FF95A|        |0FE1FA;
-                       db $F9,$C3,$F9,$26,$FB               ;0FF95F|        |0FF9C3;
-                       db $E6,$33,$20,$95,$E7               ;0FF964|        |000033;
-                       db $20,$CE,$E5,$A9,$80               ;0FF969|        |0FE5CE;
-                       db $20,$E6,$E2,$20,$96               ;0FF96E|        |0FE2E6;
-                       db $8D,$A9,$00,$8D,$70               ;0FF973|        |0F00A9;
-                       db $04,$20,$67,$D0,$20               ;0FF978|        |000020;
-                       db $F8,$D0,$A9,$8E,$20               ;0FF97D|        |      ;
-                       db $E6,$E2,$20,$3F,$B5               ;0FF982|        |0000E2;
-                       db $20,$64,$CD,$A9,$80               ;0FF987|        |0FCD64;
-                       db $20,$E6,$E2,$20,$02               ;0FF98C|        |0FE2E6;
-                       db $97,$A5,$7D,$29,$F0               ;0FF991|        |0000A5;
-                       db $C9,$30,$F0,$03,$E6               ;0FF996|        |      ;
-                       db $6B,$60,$A9,$80,$20               ;0FF99B|        |      ;
-                       db $E6,$E2,$20,$E1,$97               ;0FF9A0|        |0000E2;
-                       db $4C,$9A,$F9,$20,$8C               ;0FF9A5|        |0FF99A;
+       UNREACH_0FF940: db $20,$CA,$E5,$20,$F9               ;0FF940|        |0FE5CA;
+                       db $CF,$A9,$03,$85,$2A               ;0FF945|        |8503A9;
+                       db $60                               ;0FF94A|        |      ;
  
-                       db $CD,$B0,$0F,$A5,$65               ;0FF9AA|        |0F0FB0;
-                       db $D0,$0A,$A5,$5C,$C9               ;0FF9AF|        |0FF9BB;
-                       db $06,$D0,$04,$C6,$5A               ;0FF9B4|        |0000D0;
-                       db $C6,$5A,$60,$E6,$6B               ;0FF9B9|        |00005A;
-                       db $A5,$65,$F0,$EF,$60               ;0FF9BE|        |000065;
-                       db $A5,$65,$F0,$0F,$AD               ;0FF9C3|        |000065;
-                       db $38,$04,$38,$E9,$01               ;0FF9C8|        |      ;
-                       db $8D,$38,$04,$20,$69               ;0FF9CD|        |0F0438;
-                       db $FB,$4C,$E2,$F9,$AD               ;0FF9D2|        |      ;
-                       db $38,$04,$18,$69,$01               ;0FF9D7|        |      ;
-                       db $8D,$38,$04,$20,$77               ;0FF9DC|        |0F0438;
-                       db $FB,$A5,$56,$29,$7F               ;0FF9E1|        |      ;
-                       db $D0,$02,$E6,$6B,$60               ;0FF9E6|        |0FF9EA;
-                       db $E6,$6B,$A9,$80,$20               ;0FF9EB|        |00006B;
-                       db $E6,$E2,$20,$2C,$85               ;0FF9F0|        |0000E2;
-                       db $20,$13,$80,$20,$EE               ;0FF9F5|        |0F8013;
-                       db $83,$A9,$0C,$20,$5F               ;0FF9FA|        |0000A9;
-                       db $E2,$A9,$3C,$85,$30               ;0FF9FF|        |      ;
-                       db $A9,$0C,$A0,$00,$A2               ;0FFA04|        |      ;
-                       db $13,$20,$5C,$EF,$A9               ;0FFA09|        |000020;
-                       db $00,$9D,$00,$04,$9D               ;0FFA0E|        |      ;
-                       db $54,$04,$9D,$70,$04               ;0FFA13|        |      ;
-                       db $AD,$1C,$04,$69,$08               ;0FFA18|        |0F041C;
-                       db $29,$F0,$9D,$1C,$04               ;0FFA1D|        |      ;
-                       db $A5,$65,$0A,$A8,$B9               ;0FFA22|        |000065;
-                       db $95,$FA,$9D,$38,$04               ;0FFA27|        |0000FA;
-                       db $B9,$96,$FA,$9D,$A8               ;0FFA2C|        |0FFA96;
-                       db $04,$A9,$00,$85,$62               ;0FFA31|        |0000A9;
-                       db $AC,$4E,$05,$AD,$1C               ;0FFA36|        |0F054E;
-                       db $04,$38,$F9,$91,$FA               ;0FFA3B|        |000038;
-                       db $0A,$26,$62,$0A,$26               ;0FFA40|        |      ;
-                       db $62,$29,$E0,$85,$61               ;0FFA45|        |0FDA71;
-                       db $A4,$65,$B9,$8F,$FA               ;0FFA4A|        |000065;
-                       db $18,$65,$61,$85,$61               ;0FFA4F|        |      ;
-                       db $A5,$75,$29,$01,$85               ;0FFA54|        |000075;
-                       db $00,$A5,$65,$D0,$04               ;0FFA59|        |      ;
-                       db $A2,$24,$D0,$02,$A2               ;0FFA5E|        |      ;
-                       db $20,$A5,$57,$29,$01               ;0FFA63|        |0F57A5;
-                       db $45,$00,$F0,$04,$8A               ;0FFA68|        |000000;
-                       db $49,$04,$AA,$8A,$18               ;0FFA6D|        |      ;
-                       db $65,$62,$85,$62,$8D               ;0FFA72|        |000062;
-                       db $EB,$05,$A5,$61,$8D               ;0FFA77|        |      ;
-                       db $D4,$05,$20,$AF,$E8               ;0FFA7C|        |000005;
-                       db $A0,$06,$A9,$00,$9D               ;0FFA81|        |      ;
-                       db $00,$03,$E8,$88,$D0               ;0FFA86|        |      ;
-                       db $F9,$4C,$DE,$E8,$01               ;0FFA8B|        |0FDE4C;
-                       db $1E,$20                           ;0FFA90|        |0F2020;
  
-       UNREACH_0FFA92: db $20,$24,$20,$8C,$01               ;0FFA92|        |0F2024;
-                       db $74,$00,$C6,$30,$D0               ;0FFA97|        |000000;
-                       db $0C,$A9,$00,$20,$57               ;0FFA9C|        |0F00A9;
-                       db $EF,$A9,$30,$85,$30               ;0FFAA1|        |8530A9;
-                       db $E6,$6B,$60,$A2,$13               ;0FFAA6|        |00006B;
-                       db $20,$75,$EF,$BD,$93               ;0FFAAB|        |0FEF75;
-                       db $05,$D0,$F5,$A9,$80               ;0FFAB0|        |0000D0;
-                       db $9D,$7C,$05,$60,$C6               ;0FFAB5|        |0F057C;
-                       db $30,$D0,$0C,$A9,$0C               ;0FFABA|        |0FFA8C;
-                       db $A0,$01,$A2,$13,$20               ;0FFABF|        |      ;
-                       db $5C,$EF,$E6,$6B,$60               ;0FFAC4|        |6BE6EF;
-                       db $A5,$65,$F0,$08,$AD               ;0FFAC9|        |000065;
-                       db $38,$04,$18,$69,$01               ;0FFACE|        |      ;
-                       db $D0,$06,$AD,$38,$04               ;0FFAD3|        |0FFADB;
-                       db $38,$E9,$01,$8D,$38               ;0FFAD8|        |      ;
-                       db $04,$4C,$73,$EF,$A2               ;0FFADD|        |00004C;
-                       db $13,$20,$75,$EF,$BD               ;0FFAE2|        |000020;
-                       db $93,$05,$D0,$07,$BD               ;0FFAE7|        |000005;
-                       db $7C,$05,$C9,$01,$F0               ;0FFAEC|        |0FC905;
-                       db $01,$60,$E6,$6B,$A9               ;0FFAF1|        |000060;
-                       db $0C,$20,$5F,$E2,$A9               ;0FFAF6|        |0F5F20;
-                       db $00,$9D,$00,$04,$20               ;0FFAFB|        |      ;
-                       db $76,$CD,$AD,$D4,$05               ;0FFB00|        |0000CD;
-                       db $85,$61,$AD,$EB,$05               ;0FFB05|        |000061;
-                       db $85,$62,$20,$AF,$E8               ;0FFB0A|        |000062;
-                       db $A0,$00,$B9,$20,$FB               ;0FFB0F|        |      ;
-                       db $9D,$00,$03,$E8,$C8               ;0FFB14|        |0F0300;
-                       db $C0,$06,$D0,$F4,$4C               ;0FFB19|        |      ;
-                       db $DE,$E8,$3C,$3A,$3C               ;0FFB1E|        |0F3CE8;
-                       db $3B,$3A,$3C,$A5,$57               ;0FFB23|        |      ;
-                       db $45,$75,$85,$02,$A9               ;0FFB28|        |000075;
-                       db $00,$85,$56,$85,$58               ;0FFB2D|        |      ;
-                       db $AC,$A8,$04,$F0,$02               ;0FFB32|        |0F04A8;
-                       db $A5,$71,$85,$57,$45               ;0FFB37|        |000071;
-                       db $02,$29,$01,$F0,$04               ;0FFB3C|        |      ;
-                       db $A9,$90,$D0,$02,$A9               ;0FFB41|        |      ;
-                       db $80,$05,$75,$85,$75               ;0FFB46|        |0FFB4D;
-                       db $20,$F9,$CF,$A5,$7D               ;0FFB4B|        |0FCFF9;
-                       db $29,$F0,$C9,$30,$D0               ;0FFB50|        |      ;
-                       db $08,$A9,$80,$20,$E6               ;0FFB55|        |      ;
-                       db $E2,$20,$E1,$97,$20               ;0FFB5A|        |      ;
-                       db $EC,$E5,$20,$CA,$E5               ;0FFB5F|        |0F20E5;
-                       db $A9,$03,$85,$2A,$60               ;0FFB64|        |      ;
-                       db $A5,$56,$18,$69,$01               ;0FFB69|        |000056;
-                       db $85,$56,$A5,$57,$69               ;0FFB6E|        |000056;
-                       db $00,$85,$57,$60,$A5               ;0FFB73|        |      ;
-                       db $56,$38,$E9,$01,$85               ;0FFB78|        |000038;
-                       db $56,$A5,$57,$E9,$00               ;0FFB7D|        |0000A5;
-                       db $85,$57,$60                       ;0FFB82|        |000057;
+       gameTransit_09: LDA.B r_menuSelectIdx                ;0FF94B|A56B    |00006B;
+                       JSR.W jumpFromStackYXpreserved       ;0FF94D|206DE8  |0FE86D;
+                       dw CODE_0FF964                       ;0FF950|        |0FF964;
+                       dw CODE_0FF9A8                       ;0FF952|        |0FF9A8;
+                       dw CODE_0FF9C3                       ;0FF954|        |0FF9C3;
+                       dw CODE_0FF9EB                       ;0FF956|        |0FF9EB;
+                       dw DATA8_0FFA99                      ;0FF958|        |0FFA99;
+                       dw CODE_0FFAB9                       ;0FF95A|        |0FFAB9;
+                       dw UNREACH_0FFAE1                    ;0FF95C|        |0FFAE1;
+                       dw CODE_0FF9A8                       ;0FF95E|        |0FF9A8;
+                       dw CODE_0FF9C3                       ;0FF960|        |0FF9C3;
+                       dw UNREACH_0FFB26                    ;0FF962|        |0FFB26;
  
-       UNREACH_0FFB85: db $A9,$80,$D0,$02,$A9               ;0FFB85|        |      ;
-                       db $00,$8D,$70,$04,$8D               ;0FFB8A|        |      ;
-                       db $88,$04,$8D,$89,$04               ;0FFB8F|        |      ;
-                       db $60                               ;0FFB94|        |      ;
+          CODE_0FF964: INC.B r_blockLevel                   ;0FF964|E633    |000033;
+                       JSR.W swap2Bank_00_Plus              ;0FF966|2095E7  |0FE795;
+                       JSR.W setAutoPlayFlag                ;0FF969|20CEE5  |0FE5CE;
+                       LDA.B #$80                           ;0FF96C|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF96E|20E6E2  |0FE2E6;
+                       db $20                               ;0FF971|        |      ;
+                       dw CODE_008D96                       ;0FF972|        |008D96;
+                       LDA.B #$00                           ;0FF974|A900    |      ;
+                       STA.W r_entity_Effect                ;0FF976|8D7004  |000470;
+                       JSR.W coreLoad_03                    ;0FF979|2067D0  |0FD067;
+                       JSR.W prepRoom                       ;0FF97C|20F8D0  |0FD0F8;
+                       LDA.B #$8E                           ;0FF97F|A98E    |      ;
+                       JSR.W swapPRGbankStore               ;0FF981|20E6E2  |0FE2E6;
+                       db $20                               ;0FF984|        |      ;
+                       dw LOOSE_OP_00B53F                   ;0FF985|        |00B53F;
+                       JSR.W CODE_0FCD64                    ;0FF987|2064CD  |0FCD64;
+                       LDA.B #$80                           ;0FF98A|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF98C|20E6E2  |0FE2E6;
+                       db $20                               ;0FF98F|        |      ;
+                       dw CODE_009702                       ;0FF990|        |009702;
+                       LDA.B r_roomEffect                   ;0FF992|A57D    |00007D;
+                       AND.B #$F0                           ;0FF994|29F0    |      ;
+                       CMP.B #$30                           ;0FF996|C930    |      ;
+                       BEQ CODE_0FF99D                      ;0FF998|F003    |0FF99D;
  
+          CODE_0FF99A: INC.B r_menuSelectIdx                ;0FF99A|E66B    |00006B;
+                       RTS                                  ;0FF99C|60      |      ;
+ 
+ 
+          CODE_0FF99D: LDA.B #$80                           ;0FF99D|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF99F|20E6E2  |0FE2E6;
+                       db $20                               ;0FF9A2|        |      ;
+                       dw CODE_0097E1                       ;0FF9A3|        |0097E1;
+                       JMP.W CODE_0FF99A                    ;0FF9A5|4C9AF9  |0FF99A;
+ 
+ 
+          CODE_0FF9A8: JSR.W someTransitFunction            ;0FF9A8|208CCD  |0FCD8C;
+                       BCS CODE_0FF9BC                      ;0FF9AB|B00F    |0FF9BC;
+                       LDA.B r_scrollDirection              ;0FF9AD|A565    |000065;
+                       BNE CODE_0FF9BB                      ;0FF9AF|D00A    |0FF9BB;
+ 
+          CODE_0FF9B1: LDA.B $5C                            ;0FF9B1|A55C    |00005C;
+                       CMP.B #$06                           ;0FF9B3|C906    |      ;
+                       BNE CODE_0FF9BB                      ;0FF9B5|D004    |0FF9BB;
+                       DEC.B $5A                            ;0FF9B7|C65A    |00005A;
+                       DEC.B $5A                            ;0FF9B9|C65A    |00005A;
+ 
+          CODE_0FF9BB: RTS                                  ;0FF9BB|60      |      ;
+ 
+ 
+          CODE_0FF9BC: INC.B r_menuSelectIdx                ;0FF9BC|E66B    |00006B;
+                       LDA.B r_scrollDirection              ;0FF9BE|A565    |000065;
+                       BEQ CODE_0FF9B1                      ;0FF9C0|F0EF    |0FF9B1;
+                       RTS                                  ;0FF9C2|60      |      ;
+ 
+ 
+          CODE_0FF9C3: LDA.B r_scrollDirection              ;0FF9C3|A565    |000065;
+                       BEQ CODE_0FF9D6                      ;0FF9C5|F00F    |0FF9D6;
+                       LDA.W r_entity_XPos                  ;0FF9C7|AD3804  |000438;
+                       SEC                                  ;0FF9CA|38      |      ;
+                       SBC.B #$01                           ;0FF9CB|E901    |      ;
+                       STA.W r_entity_XPos                  ;0FF9CD|8D3804  |000438;
+                       JSR.W CODE_0FFB69                    ;0FF9D0|2069FB  |0FFB69;
+                       JMP.W CODE_0FF9E2                    ;0FF9D3|4CE2F9  |0FF9E2;
+ 
+ 
+          CODE_0FF9D6: LDA.W r_entity_XPos                  ;0FF9D6|AD3804  |000438;
+                       CLC                                  ;0FF9D9|18      |      ;
+                       ADC.B #$01                           ;0FF9DA|6901    |      ;
+                       STA.W r_entity_XPos                  ;0FF9DC|8D3804  |000438;
+                       JSR.W CODE_0FFB77                    ;0FF9DF|2077FB  |0FFB77;
+ 
+          CODE_0FF9E2: LDA.B r_sceneScrollOffsetLo          ;0FF9E2|A556    |000056;
+                       AND.B #$7F                           ;0FF9E4|297F    |      ;
+                       BNE CODE_0FF9EA                      ;0FF9E6|D002    |0FF9EA;
+                       INC.B r_menuSelectIdx                ;0FF9E8|E66B    |00006B;
+ 
+          CODE_0FF9EA: RTS                                  ;0FF9EA|60      |      ;
+ 
+ 
+          CODE_0FF9EB: INC.B r_menuSelectIdx                ;0FF9EB|E66B    |00006B;
+                       LDA.B #$80                           ;0FF9ED|A980    |      ;
+                       JSR.W swapPRGbankStore               ;0FF9EF|20E6E2  |0FE2E6;
+                       db $20                               ;0FF9F2|        |      ;
+                       dw CODE_00852C                       ;0FF9F3|        |00852C;
+                       db $20                               ;0FF9F5|        |      ;
+                       dw getCurrRoomsChrBanks              ;0FF9F6|        |008013;
+                       db $20                               ;0FF9F8|        |      ;
+                       dw DATA8_0083EE                      ;0FF9F9|        |0083EE;
+                       LDA.B #$0C                           ;0FF9FB|A90C    |      ;
+                       JSR.W CODE_0FE25F                    ;0FF9FD|205FE2  |0FE25F;
+                       LDA.B #$3C                           ;0FFA00|A93C    |      ;
+                       STA.B r_timerGenerel                 ;0FFA02|8530    |000030;
+                       LDA.B #$0C                           ;0FFA04|A90C    |      ;
+                       LDY.B #$00                           ;0FFA06|A000    |      ;
+                       LDX.B #$13                           ;0FFA08|A213    |      ;
+                       JSR.W CODE_0FEF5C                    ;0FFA0A|205CEF  |0FEF5C;
+                       LDA.B #$00                           ;0FFA0D|A900    |      ;
+                       STA.W r_OamSpecIdxDoubled,X          ;0FFA0F|9D0004  |000400;
+                       STA.W r_entity_PaletteOverride,X     ;0FFA12|9D5404  |000454;
+                       STA.W r_entity_Effect,X              ;0FFA15|9D7004  |000470;
+                       LDA.W r_entity_YPos                  ;0FFA18|AD1C04  |00041C;
+                       ADC.B #$08                           ;0FFA1B|6908    |      ;
+                       AND.B #$F0                           ;0FFA1D|29F0    |      ;
+                       STA.W r_entity_YPos,X                ;0FFA1F|9D1C04  |00041C;
+                       LDA.B r_scrollDirection              ;0FFA22|A565    |000065;
+                       ASL A                                ;0FFA24|0A      |      ;
+                       TAY                                  ;0FFA25|A8      |      ;
+                       LDA.W DATA8_0FFA95,Y                 ;0FFA26|B995FA  |0FFA95;
+                       STA.W r_entity_XPos,X                ;0FFA29|9D3804  |000438;
+                       LDA.W DATA8_0FFA96,Y                 ;0FFA2C|B996FA  |0FFA96;
+                       STA.W r_entity_FacingLeft,X          ;0FFA2F|9DA804  |0004A8;
+                       LDA.B #$00                           ;0FFA32|A900    |      ;
+                       STA.B $62                            ;0FFA34|8562    |000062;
+                       LDY.W r_entity_ObjectIdxes           ;0FFA36|AC4E05  |00054E;
+                       LDA.W r_entity_YPos                  ;0FFA39|AD1C04  |00041C;
+                       SEC                                  ;0FFA3C|38      |      ;
+                       SBC.W DATA8_0FFA91,Y                 ;0FFA3D|F991FA  |0FFA91;
+                       ASL A                                ;0FFA40|0A      |      ;
+                       ROL.B $62                            ;0FFA41|2662    |000062;
+                       ASL A                                ;0FFA43|0A      |      ;
+                       ROL.B $62                            ;0FFA44|2662    |000062;
+                       AND.B #$E0                           ;0FFA46|29E0    |      ;
+                       STA.B r_VRAM_QueueDest               ;0FFA48|8561    |000061;
+                       LDY.B r_scrollDirection              ;0FFA4A|A465    |000065;
+                       LDA.W DATA8_0FFA8F,Y                 ;0FFA4C|B98FFA  |0FFA8F;
+                       CLC                                  ;0FFA4F|18      |      ;
+                       ADC.B r_VRAM_QueueDest               ;0FFA50|6561    |000061;
+                       STA.B r_VRAM_QueueDest               ;0FFA52|8561    |000061;
+                       LDA.B r_075                          ;0FFA54|A575    |000075;
+                       AND.B #$01                           ;0FFA56|2901    |      ;
+                       STA.B $00                            ;0FFA58|8500    |000000;
+                       LDA.B r_scrollDirection              ;0FFA5A|A565    |000065;
+                       BNE CODE_0FFA62                      ;0FFA5C|D004    |0FFA62;
+                       LDX.B #$24                           ;0FFA5E|A224    |      ;
+                       BNE CODE_0FFA64                      ;0FFA60|D002    |0FFA64;
+ 
+          CODE_0FFA62: LDX.B #$20                           ;0FFA62|A220    |      ;
+ 
+          CODE_0FFA64: LDA.B r_sceneScrollOffsetHi          ;0FFA64|A557    |000057;
+                       AND.B #$01                           ;0FFA66|2901    |      ;
+                       EOR.B $00                            ;0FFA68|4500    |000000;
+                       BEQ CODE_0FFA70                      ;0FFA6A|F004    |0FFA70;
+                       TXA                                  ;0FFA6C|8A      |      ;
+                       EOR.B #$04                           ;0FFA6D|4904    |      ;
+                       TAX                                  ;0FFA6F|AA      |      ;
+ 
+          CODE_0FFA70: TXA                                  ;0FFA70|8A      |      ;
+                       CLC                                  ;0FFA71|18      |      ;
+                       ADC.B $62                            ;0FFA72|6562    |000062;
+                       STA.B $62                            ;0FFA74|8562    |000062;
+                       STA.W r_stairsStuneTimer             ;0FFA76|8DEB05  |0005EB;
+                       LDA.B r_VRAM_QueueDest               ;0FFA79|A561    |000061;
+                       STA.W $05D4                          ;0FFA7B|8DD405  |0005D4;
+                       JSR.W CODE_0FE8AF                    ;0FFA7E|20AFE8  |0FE8AF;
+                       LDY.B #$06                           ;0FFA81|A006    |      ;
+                       LDA.B #$00                           ;0FFA83|A900    |      ;
+ 
+          CODE_0FFA85: STA.W r_VramQueue,X                  ;0FFA85|9D0003  |000300;
+                       INX                                  ;0FFA88|E8      |      ;
+                       DEY                                  ;0FFA89|88      |      ;
+                       BNE CODE_0FFA85                      ;0FFA8A|D0F9    |0FFA85;
+                       JMP.W endVRAM_queue                  ;0FFA8C|4CDEE8  |0FE8DE;
+ 
+ 
+         DATA8_0FFA8F: db $01,$1E                           ;0FFA8F|        |      ;
+ 
+         DATA8_0FFA91: db $20,$20,$24,$20                   ;0FFA91|        |      ;
+ 
+         DATA8_0FFA95: db $8C                               ;0FFA95|        |      ;
+ 
+         DATA8_0FFA96: db $01,$74,$00                       ;0FFA96|        |      ;
+ 
+         DATA8_0FFA99: db $C6,$30,$D0,$0C,$A9               ;0FFA99|        |      ;
+                       db $00,$20,$57,$EF                   ;0FFA9E|        |      ;
+                       LDA.B #$30                           ;0FFAA2|A930    |      ;
+                       STA.B r_timerGenerel                 ;0FFAA4|8530    |000030;
+                       INC.B r_menuSelectIdx                ;0FFAA6|E66B    |00006B;
+ 
+          CODE_0FFAA8: RTS                                  ;0FFAA8|60      |      ;
+ 
+                       LDX.B #$13                           ;0FFAA9|A213    |      ;
+                       JSR.W CODE_0FEF75                    ;0FFAAB|2075EF  |0FEF75;
+                       LDA.W $0593,X                        ;0FFAAE|BD9305  |0F0593;
+                       BNE CODE_0FFAA8                      ;0FFAB1|D0F5    |0FFAA8;
+                       LDA.B #$80                           ;0FFAB3|A980    |      ;
+                       STA.W $057C,X                        ;0FFAB5|9D7C05  |0F057C;
+                       RTS                                  ;0FFAB8|60      |      ;
+ 
+ 
+          CODE_0FFAB9: DEC.B r_timerGenerel                 ;0FFAB9|C630    |000030;
+                       BNE CODE_0FFAC9                      ;0FFABB|D00C    |0FFAC9;
+                       LDA.B #$0C                           ;0FFABD|A90C    |      ;
+                       LDY.B #$01                           ;0FFABF|A001    |      ;
+                       LDX.B #$13                           ;0FFAC1|A213    |      ;
+                       JSR.W CODE_0FEF5C                    ;0FFAC3|205CEF  |0FEF5C;
+                       INC.B r_menuSelectIdx                ;0FFAC6|E66B    |00006B;
+                       RTS                                  ;0FFAC8|60      |      ;
+ 
+ 
+          CODE_0FFAC9: LDA.B r_scrollDirection              ;0FFAC9|A565    |000065;
+                       BEQ CODE_0FFAD5                      ;0FFACB|F008    |0FFAD5;
+                       LDA.W $0438                          ;0FFACD|AD3804  |0F0438;
+                       CLC                                  ;0FFAD0|18      |      ;
+                       ADC.B #$01                           ;0FFAD1|6901    |      ;
+                       BNE CODE_0FFADB                      ;0FFAD3|D006    |0FFADB;
+ 
+          CODE_0FFAD5: LDA.W $0438                          ;0FFAD5|AD3804  |0F0438;
+                       SEC                                  ;0FFAD8|38      |      ;
+                       SBC.B #$01                           ;0FFAD9|E901    |      ;
+ 
+          CODE_0FFADB: STA.W $0438                          ;0FFADB|8D3804  |0F0438;
+                       JMP.W updateSpriteAnimFrame          ;0FFADE|4C73EF  |0FEF73;
+ 
+ 
+       UNREACH_0FFAE1: db $A2,$13,$20,$75,$EF               ;0FFAE1|        |      ;
+                       db $BD,$93,$05,$D0,$07               ;0FFAE6|        |0F0593;
+                       db $BD,$7C,$05,$C9,$01               ;0FFAEB|        |0F057C;
+                       db $F0,$01,$60,$E6,$6B               ;0FFAF0|        |0FFAF3;
+                       db $A9,$0C,$20,$5F,$E2               ;0FFAF5|        |      ;
+                       db $A9,$00,$9D,$00,$04               ;0FFAFA|        |      ;
+                       db $20,$76,$CD,$AD,$D4               ;0FFAFF|        |0FCD76;
+                       db $05,$85,$61,$AD,$EB               ;0FFB04|        |000085;
+                       db $05,$85,$62,$20,$AF               ;0FFB09|        |000085;
+                       db $E8,$A0,$00,$B9,$20               ;0FFB0E|        |      ;
+                       db $FB,$9D,$00,$03,$E8               ;0FFB13|        |      ;
+                       db $C8,$C0,$06,$D0,$F4               ;0FFB18|        |      ;
+                       db $4C,$DE,$E8,$3C,$3A               ;0FFB1D|        |0FE8DE;
+ 
+                       db $3C,$3B,$3A,$3C                   ;0FFB22|        |0F3A3B;
+ 
+       UNREACH_0FFB26: db $A5,$57,$45,$75,$85               ;0FFB26|        |000057;
+                       db $02,$A9,$00,$85,$56               ;0FFB2B|        |      ;
+                       db $85,$58,$AC,$A8,$04               ;0FFB30|        |000058;
+                       db $F0,$02,$A5,$71,$85               ;0FFB35|        |0FFB39;
+                       db $57,$45,$02,$29,$01               ;0FFB3A|        |000045;
+                       db $F0,$04,$A9,$90,$D0               ;0FFB3F|        |0FFB45;
+                       db $02,$A9,$80,$05,$75               ;0FFB44|        |      ;
+                       db $85,$75,$20,$F9,$CF               ;0FFB49|        |000075;
+                       db $A5,$7D,$29,$F0,$C9               ;0FFB4E|        |00007D;
+                       db $30,$D0,$08,$A9,$80               ;0FFB53|        |0FFB25;
+                       db $20,$E6,$E2,$20,$E1               ;0FFB58|        |0FE2E6;
+                       db $97,$20,$EC,$E5,$20               ;0FFB5D|        |000020;
+                       db $CA,$E5,$A9,$03,$85               ;0FFB62|        |      ;
+                       db $2A,$60                           ;0FFB67|        |      ;
+ 
+          CODE_0FFB69: LDA.B r_sceneScrollOffsetLo          ;0FFB69|A556    |000056;
+                       CLC                                  ;0FFB6B|18      |      ;
+                       ADC.B #$01                           ;0FFB6C|6901    |      ;
+                       STA.B r_sceneScrollOffsetLo          ;0FFB6E|8556    |000056;
+                       LDA.B r_sceneScrollOffsetHi          ;0FFB70|A557    |000057;
+                       ADC.B #$00                           ;0FFB72|6900    |      ;
+                       STA.B r_sceneScrollOffsetHi          ;0FFB74|8557    |000057;
+                       RTS                                  ;0FFB76|60      |      ;
+ 
+ 
+          CODE_0FFB77: LDA.B r_sceneScrollOffsetLo          ;0FFB77|A556    |000056;
+                       SEC                                  ;0FFB79|38      |      ;
+                       SBC.B #$01                           ;0FFB7A|E901    |      ;
+                       STA.B r_sceneScrollOffsetLo          ;0FFB7C|8556    |000056;
+                       LDA.B r_sceneScrollOffsetHi          ;0FFB7E|A557    |000057;
+                       SBC.B #$00                           ;0FFB80|E900    |      ;
+                       STA.B r_sceneScrollOffsetHi          ;0FFB82|8557    |000057;
+                       RTS                                  ;0FFB84|60      |      ;
+ 
+ 
+       UNREACH_0FFB85: db $A9,$80,$D0,$02                   ;0FFB85|        |      ;
+ 
+       UNREACH_0FFB89: db $A9,$00,$8D,$70,$04               ;0FFB89|        |      ;
+                       db $8D,$88,$04,$8D,$89               ;0FFB8E|        |0F0488;
+                       db $04,$60                           ;0FFB93|        |000060;
  
        UNREACH_0FFB95: db $A9,$9C,$20,$E6,$E2               ;0FFB95|        |      ;
                        db $B1,$08,$48,$A9,$94               ;0FFB9A|        |000008;
@@ -5816,13 +6640,16 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        db $63,$6A,$71,$78,$81               ;0FFDD1|        |      ;
                        db $88,$91,$99,$A1,$AB               ;0FFDD6|        |      ;
                        db $B4,$BD,$C7,$D2,$DD               ;0FFDDB|        |      ;
-                       db $E7,$F3,$FF,$E6,$A3               ;0FFDE0|        |      ;
-                       db $A9,$FF,$85,$92,$A2               ;0FFDE5|        |      ;
-                       db $01                               ;0FFDEA|        |      ;
+                       db $E7,$F3,$FF                       ;0FFDE0|        |      ;
  
-          CODE_0FFDEB: LDA.W $054E,X                        ;0FFDEB|BD4E05  |0F054E;
+ entitySlotProcessing: INC.B r_frameCounter                 ;0FFDE3|E6A3    |0000A3;
+                       LDA.B #$FF                           ;0FFDE5|A9FF    |      ;
+                       STA.B $92                            ;0FFDE7|8592    |000092;
+                       LDX.B #$01                           ;0FFDE9|A201    |      ;
+ 
+          CODE_0FFDEB: LDA.W r_entity_ObjectIdxes,X         ;0FFDEB|BD4E05  |00054E;
                        BNE CODE_0FFDF3                      ;0FFDEE|D003    |0FFDF3;
-                       JMP.W CODE_0FFE7E                    ;0FFDF0|4C7EFE  |0FFE7E;
+                       JMP.W checkEnitySlotNext             ;0FFDF0|4C7EFE  |0FFE7E;
  
  
           CODE_0FFDF3: STX.B r_entityID_processed           ;0FFDF3|866C    |00006C;
@@ -5841,9 +6668,9 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        dw CODE_0BB1FB                       ;0FFE0C|        |0BB1FB;
                        LDX.B r_entityID_processed           ;0FFE0E|A66C    |00006C;
                        LDA.W $054E,X                        ;0FFE10|BD4E05  |0B054E;
-                       BEQ CODE_0FFE7E                      ;0FFE13|F069    |0FFE7E;
+                       BEQ checkEnitySlotNext               ;0FFE13|F069    |0FFE7E;
                        CMP.B #$40                           ;0FFE15|C940    |      ;
-                       BCS UNREACH_0FFE24                   ;0FFE17|B00B    |0FFE24;
+                       BCS CODE_0FFE24                      ;0FFE17|B00B    |0FFE24;
                        LDA.B #$92                           ;0FFE19|A992    |      ;
                        JSR.W swapPRGbankStore               ;0FFE1B|20E6E2  |0FE2E6;
                        db $20                               ;0FFE1E|        |      ;
@@ -5851,14 +6678,17 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        JMP.W CODE_0FFE44                    ;0FFE21|4C44FE  |0FFE44;
  
  
-       UNREACH_0FFE24: db $BD,$70,$04,$29,$02               ;0FFE24|        |0F0470;
-                       db $F0,$06,$20,$9A,$FF               ;0FFE29|        |0FFE31;
-                       db $4C,$73,$FE,$BD,$4E               ;0FFE2E|        |0FFE73;
+          CODE_0FFE24: LDA.W r_entity_Effect,X              ;0FFE24|BD7004  |000470;
+                       AND.B #$02                           ;0FFE27|2902    |      ;
+                       BEQ UNREACH_0FFE31                   ;0FFE29|F006    |0FFE31;
+                       JSR.W CODE_0FFF9A                    ;0FFE2B|209AFF  |0FFF9A;
+                       db $4C,$73,$FE                       ;0FFE2E|        |0FFE73;
  
-                       db $05,$C9,$90,$B0,$09               ;0FFE33|        |0000C9;
-                       db $C9,$79,$B0,$0A,$20               ;0FFE38|        |      ;
-                       db $0C,$FF,$B0,$32,$20               ;0FFE3D|        |0FB0FF;
-                       db $F9,$BC                           ;0FFE42|        |0FA6BC;
+ 
+       UNREACH_0FFE31: db $BD,$4E,$05,$C9,$90               ;0FFE31|        |0F054E;
+                       db $B0,$09,$C9,$79,$B0               ;0FFE36|        |0FFE41;
+                       db $0A,$20,$0C,$FF,$B0               ;0FFE3B|        |      ;
+                       db $32,$20,$F9,$BC                   ;0FFE40|        |000020;
  
           CODE_0FFE44: LDX.B r_entityID_processed           ;0FFE44|A66C    |00006C;
                        LDA.W $054E,X                        ;0FFE46|BD4E05  |09054E;
@@ -5878,7 +6708,7 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        dw CODE_0B8001                       ;0FFE62|        |0B8001;
  
           CODE_0FFE64: LDA.W $054E,X                        ;0FFE64|BD4E05  |0B054E;
-                       BEQ CODE_0FFE7E                      ;0FFE67|F015    |0FFE7E;
+                       BEQ checkEnitySlotNext               ;0FFE67|F015    |0FFE7E;
                        LDA.W $0470,X                        ;0FFE69|BD7004  |0B0470;
                        AND.B #$20                           ;0FFE6C|2920    |      ;
                        BNE CODE_0FFE73                      ;0FFE6E|D003    |0FFE73;
@@ -5891,7 +6721,7 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
                        db $20                               ;0FFE7B|        |      ;
                        dw UNREACH_04B857                    ;0FFE7C|        |04B857;
  
-          CODE_0FFE7E: INX                                  ;0FFE7E|E8      |      ;
+   checkEnitySlotNext: INX                                  ;0FFE7E|E8      |      ;
                        CPX.B #$13                           ;0FFE7F|E013    |      ;
                        BCS CODE_0FFE86                      ;0FFE81|B003    |0FFE86;
                        JMP.W CODE_0FFDEB                    ;0FFE83|4CEBFD  |0FFDEB;
@@ -6002,31 +6832,49 @@ gameState_04_MainGame: JSR.W CODE_0FF683                    ;0FF384|2083F6  |0FF
        UNREACH_0FFF8A: db $A9,$04,$9D,$54,$04               ;0FFF8A|        |      ;
                        db $BD,$65,$05,$29,$3F               ;0FFF8F|        |0F0565;
                        db $09,$40,$9D,$65,$05               ;0FFF94|        |      ;
-                       db $60,$AD,$00,$80,$48               ;0FFF99|        |      ;
+                       db $60                               ;0FFF99|        |      ;
  
  
-                       db $A9,$82,$20,$E6,$E2               ;0FFF9E|        |      ;
-                       db $20,$8D,$BC,$68,$4C               ;0FFFA3|        |0FBC8D;
-                       db $E6,$E2                           ;0FFFA8|        |0000E2;
+          CODE_0FFF9A: LDA.W bank_80                        ;0FFF9A|AD0080  |008000;
+                       PHA                                  ;0FFF9D|48      |      ;
  
-       UNREACH_0FFFAA: db $AD,$00,$80,$48,$A9               ;0FFFAA|        |0F8000;
-                       db $82,$20,$E6,$E2,$20               ;0FFFAF|        |0FE5D2;
-                       db $12,$BD,$68,$4C,$E6               ;0FFFB4|        |0000BD;
-                       db $E2                               ;0FFFB9|        |      ;
+                       LDA.B #$82                           ;0FFF9E|A982    |      ;
+                       JSR.W swapPRGbankStore               ;0FFFA0|20E6E2  |0FE2E6;
+                       db $20                               ;0FFFA3|        |      ;
+                       dw UNREACH_01BC8D                    ;0FFFA4|        |01BC8D;
+                       PLA                                  ;0FFFA6|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FFFA7|4CE6E2  |0FE2E6;
  
-       UNREACH_0FFFBA: db $AD,$00,$80,$48,$A9               ;0FFFBA|        |0F8000;
-                       db $94,$20,$E6,$E2,$20               ;0FFFBF|        |000020;
-                       db $29,$8F,$68,$4C,$E6               ;0FFFC4|        |      ;
-                       db $E2,$FF,$FF,$FF,$FF               ;0FFFC9|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;0FFFCE|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0FFFD3|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0FFFD8|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0FFFDD|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0FFFE2|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0FFFE7|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$4D               ;0FFFEC|        |FFFFFF;
-                       db $41,$53,$54,$39,$30               ;0FFFF1|        |000053;
-                       db $30,$30,$30,$30                   ;0FFFF6|        |0F0028;
+ 
+          CODE_0FFFAA: LDA.W bank_80                        ;0FFFAA|AD0080  |008000;
+                       PHA                                  ;0FFFAD|48      |      ;
+                       LDA.B #$82                           ;0FFFAE|A982    |      ;
+                       JSR.W swapPRGbankStore               ;0FFFB0|20E6E2  |0FE2E6;
+                       db $20                               ;0FFFB3|        |      ;
+                       dw UNREACH_01BD12                    ;0FFFB4|        |01BD12;
+                       PLA                                  ;0FFFB6|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FFFB7|4CE6E2  |0FE2E6;
+ 
+ 
+          CODE_0FFFBA: LDA.W bank_82                        ;0FFFBA|AD0080  |018000;
+                       PHA                                  ;0FFFBD|48      |      ;
+                       LDA.B #$94                           ;0FFFBE|A994    |      ;
+                       JSR.W swapPRGbankStore               ;0FFFC0|20E6E2  |0FE2E6;
+                       db $20                               ;0FFFC3|        |      ;
+                       dw CODE_0A8F29                       ;0FFFC4|        |0A8F29;
+                       PLA                                  ;0FFFC6|68      |      ;
+                       JMP.W swapPRGbankStore               ;0FFFC7|4CE6E2  |0FE2E6;
+ 
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFCA|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFCF|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFD4|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFD9|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFDE|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFE3|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF               ;0FFFE8|        |FFFFFF;
+                       db $FF,$FF,$FF,$4D,$41               ;0FFFED|        |4DFFFF;
+                       db $53,$54,$39,$30,$30               ;0FFFF2|        |000054;
+                       db $30,$30,$30                       ;0FFFF7|        |0F0029;
                        dw NMIVectorStart                    ;0FFFFA|        |0FE053;
                        dw resetVector                       ;0FFFFC|        |0FE00B;
                        dw IRQVectorStart                    ;0FFFFE|        |0FE11A;
