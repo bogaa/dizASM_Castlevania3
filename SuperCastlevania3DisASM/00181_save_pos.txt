@@ -1334,14 +1334,14 @@ ED0F
 +D0B
 .D0B
 .D0B
-+D0B
++D
 .D0B
 .D0B
 +D0B
 .D0B
 +D0B
 .D0B
-+D0B
++D
 .D0B
 .D0B
 +X0B
@@ -1352,7 +1352,7 @@ ED0F
 .D0B
 +H0B
 .D0B
-+D0B
++D
 .D0B
 .D0B
 +L0B

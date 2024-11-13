@@ -20,7 +20,7 @@
                        ASL A                                ;008015|0A      |      ;
                        TAY                                  ;008016|A8      |      ;
                        LDA.W roomCHRbanks,Y                 ;008017|B96680  |008066;
-                       STA.B r_pointerQueue_VRAM            ;00801A|8508    |000008;
+                       STA.B r_pointerQueue                 ;00801A|8508    |000008;
                        LDA.W PTR16_008067,Y                 ;00801C|B96780  |008067;
                        STA.B $09                            ;00801F|8509    |000009;
                        LDA.B r_blockLevel                   ;008021|A533    |000033;
@@ -28,10 +28,10 @@
                        ASL A                                ;008024|0A      |      ;
                        STA.B r_roomSectionChrBanksDataOffset;008025|850F    |00000F;
                        TAY                                  ;008027|A8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;008028|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;008028|B108    |000008;
                        STA.B r_temp_Xpos                    ;00802A|850A    |00000A;
                        INY                                  ;00802C|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00802D|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00802D|B108    |000008;
                        STA.B $0B                            ;00802F|850B    |00000B;
                        LDA.B r_roomIdx                      ;008031|A534    |000034;
                        ASL A                                ;008033|0A      |      ;
@@ -49,10 +49,10 @@
                        LDY.B r_roomSectionChrBanksDataOffset;008046|A40F    |00000F;
                        INY                                  ;008048|C8      |      ;
                        INY                                  ;008049|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00804A|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00804A|B108    |000008;
                        STA.B r_temp_Xpos                    ;00804C|850A    |00000A;
                        INY                                  ;00804E|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00804F|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00804F|B108    |000008;
                        STA.B $0B                            ;008051|850B    |00000B;
                        LDA.B r_roomIdx                      ;008053|A534    |000034;
  
@@ -69,488 +69,437 @@
  
                        dw CODE_0FE35D                       ;008064|        |0FE35D;
  
-         roomCHRbanks: dw chrGroup00                        ;008066|        |008084;
-                       dw chrGroup01                        ;008068|        |008094;
-                       dw PTR16_0080AC                      ;00806A|        |0080AC;
-                       dw chrGroup03                        ;00806C|        |0080C0;
-                       dw chrGroup04                        ;00806E|        |0080D4;
-                       dw chrGroup05                        ;008070|        |0080E0;
-                       dw chrGroup06                        ;008072|        |0080F0;
-                       dw chrGroup07                        ;008074|        |0080FC;
- 
-                       dw chrGroup08                        ;008076|        |008118;
- 
-                       dw chrGroup09                        ;008078|        |00812C;
-                       dw chrGroup0a                        ;00807A|        |008134;
-                       dw chrGroup0b                        ;00807C|        |008150;
-                       dw chrGroup0c                        ;00807E|        |00815C;
- 
-                       dw chrGroup0d                        ;008080|        |008168;
-                       dw chrGroup0e                        ;008082|        |008178;
- 
-           chrGroup00: dw chrGroupData00                    ;008084|        |008184;
-                       dw DATA8_0082E0                      ;008086|        |0082E0;
-                       dw chrGroupData01                    ;008088|        |008187;
-                       dw DATA8_0082E2                      ;00808A|        |0082E2;
-                       dw chrGroupData02                    ;00808C|        |008193;
-                       dw DATA8_0082EA                      ;00808E|        |0082EA;
-                       dw chrGroupData03                    ;008090|        |008199;
-                       dw DATA8_0082EE                      ;008092|        |0082EE;
- 
-           chrGroup01: dw DATA8_00819C                      ;008094|        |00819C;
-                       dw DATA8_0082F0                      ;008096|        |0082F0;
-                       dw DATA8_0081A5                      ;008098|        |0081A5;
-                       dw DATA8_0082F6                      ;00809A|        |0082F6;
-                       dw DATA8_0081AE                      ;00809C|        |0081AE;
-                       dw DATA8_0082FC                      ;00809E|        |0082FC;
-                       dw DATA8_0081AE                      ;0080A0|        |0081AE;
-                       dw DATA8_008302                      ;0080A2|        |008302;
-                       dw DATA8_0081A5                      ;0080A4|        |0081A5;
-                       dw DATA8_008308                      ;0080A6|        |008308;
-                       dw DATA8_00819C                      ;0080A8|        |00819C;
-                       dw DATA8_00830E                      ;0080AA|        |00830E;
- 
-         PTR16_0080AC: dw DATA8_0081B7                      ;0080AC|        |0081B7;
-                       dw DATA8_008314                      ;0080AE|        |008314;
-                       dw DATA8_0081BD                      ;0080B0|        |0081BD;
-                       dw DATA8_008318                      ;0080B2|        |008318;
-                       dw DATA8_0081C0                      ;0080B4|        |0081C0;
-                       dw DATA8_00831A                      ;0080B6|        |00831A;
-                       dw DATA8_0081C6                      ;0080B8|        |0081C6;
-                       dw DATA8_00831E                      ;0080BA|        |00831E;
- 
-                       dw DATA8_0081CF                      ;0080BC|        |0081CF;
-                       dw DATA8_008324                      ;0080BE|        |008324;
- 
-           chrGroup03: dw DATA8_0081D5                      ;0080C0|        |0081D5;
- 
-                       dw DATA8_008328                      ;0080C2|        |008328;
-                       dw DATA8_0081DE                      ;0080C4|        |0081DE;
-                       dw DATA8_00832E                      ;0080C6|        |00832E;
-                       dw DATA8_0081E4                      ;0080C8|        |0081E4;
-                       dw DATA8_008332                      ;0080CA|        |008332;
-                       dw DATA8_0081EA                      ;0080CC|        |0081EA;
-                       dw DATA8_008336                      ;0080CE|        |008336;
-                       dw DATA8_0081F0                      ;0080D0|        |0081F0;
-                       dw DATA8_00833A                      ;0080D2|        |00833A;
- 
-           chrGroup04: dw DATA8_0081F9                      ;0080D4|        |0081F9;
-                       dw DATA8_008340                      ;0080D6|        |008340;
-                       dw DATA8_0081F9                      ;0080D8|        |0081F9;
-                       dw DATA8_008346                      ;0080DA|        |008346;
-                       dw DATA8_008202                      ;0080DC|        |008202;
-                       dw DATA8_00834C                      ;0080DE|        |00834C;
- 
-           chrGroup05: dw DATA8_00820B                      ;0080E0|        |00820B;
-                       dw DATA8_008352                      ;0080E2|        |008352;
-                       dw DATA8_00820B                      ;0080E4|        |00820B;
- 
-                       dw DATA8_008354                      ;0080E6|        |008354;
- 
-                       dw DATA8_00820E                      ;0080E8|        |00820E;
-                       dw DATA8_008356                      ;0080EA|        |008356;
-                       dw DATA8_00820E                      ;0080EC|        |00820E;
-                       dw DATA8_00835A                      ;0080EE|        |00835A;
- 
-           chrGroup06: dw DATA8_008214                      ;0080F0|        |008214;
-                       dw DATA8_00835E                      ;0080F2|        |00835E;
-                       dw DATA8_00821A                      ;0080F4|        |00821A;
-                       dw DATA8_008362                      ;0080F6|        |008362;
-                       dw DATA8_00821D                      ;0080F8|        |00821D;
-                       dw DATA8_008364                      ;0080FA|        |008364;
- 
-           chrGroup07: dw DATA8_008226                      ;0080FC|        |008226;
-                       dw DATA8_00836A                      ;0080FE|        |00836A;
-                       dw DATA8_00822C                      ;008100|        |00822C;
-                       dw DATA8_00836E                      ;008102|        |00836E;
-                       dw DATA8_00822C                      ;008104|        |00822C;
-                       dw DATA8_008370                      ;008106|        |008370;
-                       dw DATA8_00822C                      ;008108|        |00822C;
-                       dw DATA8_008372                      ;00810A|        |008372;
-                       dw DATA8_00822F                      ;00810C|        |00822F;
-                       dw DATA8_008374                      ;00810E|        |008374;
-                       dw DATA8_008235                      ;008110|        |008235;
-                       dw DATA8_008378                      ;008112|        |008378;
-                       dw DATA8_00823B                      ;008114|        |00823B;
-                       dw DATA8_00837C                      ;008116|        |00837C;
- 
-           chrGroup08: dw DATA8_00823E                      ;008118|        |00823E;
-                       dw DATA8_00837E                      ;00811A|        |00837E;
-                       dw DATA8_008244                      ;00811C|        |008244;
-                       dw DATA8_008382                      ;00811E|        |008382;
-                       dw DATA8_008247                      ;008120|        |008247;
-                       dw DATA8_008384                      ;008122|        |008384;
-                       dw DATA8_008244                      ;008124|        |008244;
-                       dw DATA8_008388                      ;008126|        |008388;
-                       dw DATA8_008244                      ;008128|        |008244;
-                       dw DATA8_00838A                      ;00812A|        |00838A;
- 
-           chrGroup09: dw DATA8_00824D                      ;00812C|        |00824D;
-                       dw DATA8_00838C                      ;00812E|        |00838C;
-                       dw DATA8_008253                      ;008130|        |008253;
-                       dw DATA8_008390                      ;008132|        |008390;
- 
-           chrGroup0a: dw DATA8_00825C                      ;008134|        |00825C;
-                       dw DATA8_008396                      ;008136|        |008396;
-                       dw DATA8_008262                      ;008138|        |008262;
-                       dw DATA8_00839A                      ;00813A|        |00839A;
-                       dw DATA8_008265                      ;00813C|        |008265;
-                       dw DATA8_00839C                      ;00813E|        |00839C;
-                       dw DATA8_008268                      ;008140|        |008268;
-                       dw DATA8_00839E                      ;008142|        |00839E;
-                       dw DATA8_00826E                      ;008144|        |00826E;
-                       dw DATA8_0083A2                      ;008146|        |0083A2;
-                       dw DATA8_008277                      ;008148|        |008277;
-                       dw DATA8_0083A8                      ;00814A|        |0083A8;
-                       dw DATA8_00827D                      ;00814C|        |00827D;
-                       dw DATA8_0083AC                      ;00814E|        |0083AC;
- 
-           chrGroup0b: dw DATA8_008286                      ;008150|        |008286;
-                       dw DATA8_0083B2                      ;008152|        |0083B2;
-                       dw DATA8_00828C                      ;008154|        |00828C;
-                       dw DATA8_0083B6                      ;008156|        |0083B6;
-                       dw DATA8_008292                      ;008158|        |008292;
-                       dw DATA8_0083BA                      ;00815A|        |0083BA;
- 
-           chrGroup0c: dw DATA8_00829B                      ;00815C|        |00829B;
-                       dw DATA8_0083C0                      ;00815E|        |0083C0;
-                       dw DATA8_0082A1                      ;008160|        |0082A1;
-                       dw DATA8_0083C4                      ;008162|        |0083C4;
-                       dw DATA8_0082A7                      ;008164|        |0082A7;
-                       dw DATA8_0083C8                      ;008166|        |0083C8;
+         roomCHRbanks: dw chrStage_00                       ;008066|        |008084;
+                       dw chrStage_01                       ;008068|        |008094;
+                       dw chrStage_02                       ;00806A|        |0080AC;
+                       dw chrStage_03                       ;00806C|        |0080C0;
+                       dw chrStage_04                       ;00806E|        |0080D4;
+                       dw chrStage_05                       ;008070|        |0080E0;
+                       dw chrStage_06                       ;008072|        |0080F0;
+                       dw chrStage_07                       ;008074|        |0080FC;
+ 
+                       dw chrStage_08                       ;008076|        |008118;
+ 
+                       dw chrStage_09                       ;008078|        |00812C;
+                       dw chrStage_0a                       ;00807A|        |008134;
+                       dw chrStage_0b                       ;00807C|        |008150;
+                       dw chrStage_0c                       ;00807E|        |00815C;
+ 
+                       dw chrStage_0d                       ;008080|        |008168;
+                       dw chrStage_0e                       ;008082|        |008178;
+ 
+          chrStage_00: dw stage0_BG_00                      ;008084|        |008184;
+                       dw stage0_SP_00                      ;008086|        |0082E0;
+                       dw stage0_BG_01                      ;008088|        |008187;
+                       dw stage0_SP_01                      ;00808A|        |0082E2;
+                       dw stage0_BG_02                      ;00808C|        |008193;
+                       dw stage0_SP_02                      ;00808E|        |0082EA;
+                       dw stage0_BG_03                      ;008090|        |008199;
+                       dw stage0_SP_03                      ;008092|        |0082EE;
+ 
+          chrStage_01: dw stage1_BG_00                      ;008094|        |00819C;
+                       dw stage1_SP_00                      ;008096|        |0082F0;
+                       dw stage1_BG_01                      ;008098|        |0081A5;
+                       dw stage1_SP_01                      ;00809A|        |0082F6;
+                       dw stage1_BG_02                      ;00809C|        |0081AE;
+                       dw stage1_SP_02                      ;00809E|        |0082FC;
+                       dw stage1_BG_02                      ;0080A0|        |0081AE;
+                       dw stage1_SP_03                      ;0080A2|        |008302;
+                       dw stage1_BG_01                      ;0080A4|        |0081A5;
+                       dw stage1_SP_04                      ;0080A6|        |008308;
+                       dw stage1_BG_00                      ;0080A8|        |00819C;
+                       dw stage1_SP_05                      ;0080AA|        |00830E;
+ 
+          chrStage_02: dw stage2_BG_00                      ;0080AC|        |0081B7;
+                       dw stage2_SP_00                      ;0080AE|        |008314;
+                       dw stage2_BG_01                      ;0080B0|        |0081BD;
+                       dw stage2_SP_01                      ;0080B2|        |008318;
+                       dw stage2_BG_02                      ;0080B4|        |0081C0;
+                       dw stage2_SP_02                      ;0080B6|        |00831A;
+                       dw stage2_BG_03                      ;0080B8|        |0081C6;
+                       dw stage2_SP_03                      ;0080BA|        |00831E;
+ 
+                       dw stage2_BG_04                      ;0080BC|        |0081CF;
+                       dw stage2_SP_04                      ;0080BE|        |008324;
+ 
+          chrStage_03: dw stage3_BG_01                      ;0080C0|        |0081D5;
+ 
+                       dw stage3_SP_01                      ;0080C2|        |008328;
+                       dw stage3_BG_02                      ;0080C4|        |0081DE;
+                       dw stage3_SP_02                      ;0080C6|        |00832E;
+                       dw stage3_BG_03                      ;0080C8|        |0081E4;
+                       dw stage3_SP_03                      ;0080CA|        |008332;
+                       dw stage3_BG_04                      ;0080CC|        |0081EA;
+                       dw stage3_SP_04                      ;0080CE|        |008336;
+                       dw stage3_BG_05                      ;0080D0|        |0081F0;
+                       dw stage3_SP_05                      ;0080D2|        |00833A;
+ 
+          chrStage_04: dw stage4_BG_01                      ;0080D4|        |0081F9;
+                       dw stage4_SP_01                      ;0080D6|        |008340;
+                       dw stage4_BG_01                      ;0080D8|        |0081F9;
+                       dw stage4_SP_02                      ;0080DA|        |008346;
+                       dw stage4_BG_03                      ;0080DC|        |008202;
+                       dw stage4_SP_03                      ;0080DE|        |00834C;
+ 
+          chrStage_05: dw stage5_BG_01                      ;0080E0|        |00820B;
+                       dw stage5_SP_01                      ;0080E2|        |008352;
+                       dw stage5_BG_01                      ;0080E4|        |00820B;
+ 
+                       dw stage5_SP_02                      ;0080E6|        |008354;
+ 
+                       dw stage5_BG_03                      ;0080E8|        |00820E;
+                       dw stage5_SP_03                      ;0080EA|        |008356;
+                       dw stage5_BG_03                      ;0080EC|        |00820E;
+                       dw stage5_SP_04                      ;0080EE|        |00835A;
+ 
+          chrStage_06: dw stage6_BG_01                      ;0080F0|        |008214;
+                       dw stage6_SP_01                      ;0080F2|        |00835E;
+                       dw stage6_BG_02                      ;0080F4|        |00821A;
+                       dw stage6_SP_02                      ;0080F6|        |008362;
+                       dw stage6_BG_03                      ;0080F8|        |00821D;
+                       dw stage6_SP_03                      ;0080FA|        |008364;
+ 
+          chrStage_07: dw stage7_BG_01                      ;0080FC|        |008226;
+                       dw stage7_SP_01                      ;0080FE|        |00836A;
+                       dw stage7_BG_02                      ;008100|        |00822C;
+                       dw stage7_SP_02                      ;008102|        |00836E;
+                       dw stage7_BG_02                      ;008104|        |00822C;
+                       dw stage7_SP_03                      ;008106|        |008370;
+                       dw stage7_BG_02                      ;008108|        |00822C;
+                       dw stage7_SP_04                      ;00810A|        |008372;
+                       dw stage7_BG_05                      ;00810C|        |00822F;
+                       dw stage7_SP_05                      ;00810E|        |008374;
+                       dw stage7_BG_06                      ;008110|        |008235;
+                       dw stage7_SP_06                      ;008112|        |008378;
+                       dw stage7_BG_07                      ;008114|        |00823B;
+                       dw stage7_SP_07                      ;008116|        |00837C;
+ 
+          chrStage_08: dw stage8_BG_01                      ;008118|        |00823E;
+                       dw stage8_SP_01                      ;00811A|        |00837E;
+                       dw stage8_BG_02                      ;00811C|        |008244;
+                       dw stage8_SP_02                      ;00811E|        |008382;
+                       dw stage8_BG_03                      ;008120|        |008247;
+                       dw stage8_SP_03                      ;008122|        |008384;
+                       dw stage8_BG_02                      ;008124|        |008244;
+                       dw stage8_SP_04                      ;008126|        |008388;
+                       dw stage8_BG_02                      ;008128|        |008244;
+                       dw stage8_SP_05                      ;00812A|        |00838A;
  
-           chrGroup0d: dw DATA8_0082AA                      ;008168|        |0082AA;
-                       dw DATA8_0083CA                      ;00816A|        |0083CA;
-                       dw DATA8_0082B3                      ;00816C|        |0082B3;
-                       dw DATA8_0083D0                      ;00816E|        |0083D0;
-                       dw DATA8_0082BC                      ;008170|        |0082BC;
-                       dw DATA8_0083D6                      ;008172|        |0083D6;
-                       dw DATA8_0082C5                      ;008174|        |0082C5;
-                       dw DATA8_0083DC                      ;008176|        |0083DC;
+          chrStage_09: dw stage9_BG_01                      ;00812C|        |00824D;
+                       dw stage9_SP_01                      ;00812E|        |00838C;
+                       dw stage9_BG_02                      ;008130|        |008253;
+                       dw stage9_SP_02                      ;008132|        |008390;
  
-           chrGroup0e: dw DATA8_0082CB                      ;008178|        |0082CB;
-                       dw DATA8_0083E0                      ;00817A|        |0083E0;
-                       dw DATA8_0082D4                      ;00817C|        |0082D4;
-                       dw DATA8_0083E6                      ;00817E|        |0083E6;
+          chrStage_0a: dw stageA_BG_01                      ;008134|        |00825C;
+                       dw stageA_SP_01                      ;008136|        |008396;
+                       dw stageA_BG_02                      ;008138|        |008262;
+                       dw stageA_SP_02                      ;00813A|        |00839A;
+                       dw stageA_BG_03                      ;00813C|        |008265;
+                       dw stageA_SP_03                      ;00813E|        |00839C;
+                       dw stageA_BG_04                      ;008140|        |008268;
+                       dw stageA_SP_04                      ;008142|        |00839E;
+                       dw stageA_BG_05                      ;008144|        |00826E;
+                       dw stageA_SP_05                      ;008146|        |0083A2;
+                       dw stageA_BG_06                      ;008148|        |008277;
+                       dw stageA_SP_06                      ;00814A|        |0083A8;
+                       dw stageA_BG_07                      ;00814C|        |00827D;
+                       dw stageA_SP_07                      ;00814E|        |0083AC;
  
-                       dw DATA8_0082DA                      ;008180|        |0082DA;
-                       dw DATA8_0083EA                      ;008182|        |0083EA;
+          chrStage_0b: dw stageB_BG_01                      ;008150|        |008286;
+                       dw stageB_SP_01                      ;008152|        |0083B2;
+                       dw stageB_BG_02                      ;008154|        |00828C;
+                       dw stageB_SP_02                      ;008156|        |0083B6;
+                       dw stageB_BG_03                      ;008158|        |008292;
+                       dw stageB_SP_03                      ;00815A|        |0083BA;
  
-       chrGroupData00: db $45,$47,$36                       ;008184|        |      ;
+          chrStage_0c: dw stageC_BG_01                      ;00815C|        |00829B;
+                       dw stageC_SP_01                      ;00815E|        |0083C0;
+                       dw stageC_BG_02                      ;008160|        |0082A1;
+                       dw stageC_SP_02                      ;008162|        |0083C4;
+                       dw stageC_BG_03                      ;008164|        |0082A7;
+                       dw stageC_SP_03                      ;008166|        |0083C8;
  
-       chrGroupData01: db $45,$47,$36,$46,$47               ;008187|        |      ;
-                       db $36,$45,$47,$36,$45               ;00818C|        |      ;
-                       db $47,$36                           ;008191|        |      ;
+          chrStage_0d: dw stageD_BG_01                      ;008168|        |0082AA;
+                       dw stageD_SP_01                      ;00816A|        |0083CA;
+                       dw stageD_BG_02                      ;00816C|        |0082B3;
+                       dw stageD_SP_02                      ;00816E|        |0083D0;
+                       dw stageD_BG_03                      ;008170|        |0082BC;
+                       dw stageD_SP_03                      ;008172|        |0083D6;
+                       dw stageD_BG_04                      ;008174|        |0082C5;
+                       dw stageD_SP_04                      ;008176|        |0083DC;
  
-       chrGroupData02: db $48,$47,$36,$48,$47               ;008193|        |      ;
-                       db $36                               ;008198|        |      ;
+          chrStage_0e: dw stageE_BG_01                      ;008178|        |0082CB;
+                       dw stageE_SP_01                      ;00817A|        |0083E0;
+                       dw stageE_BG_02                      ;00817C|        |0082D4;
+                       dw stageE_SP_02                      ;00817E|        |0083E6;
  
-       chrGroupData03: db $48,$47,$36                       ;008199|        |      ;
+                       dw stageE_BG_03                      ;008180|        |0082DA;
+                       dw stageE_SP_03                      ;008182|        |0083EA;
  
-         DATA8_00819C: db $54,$49,$36,$54,$49               ;00819C|        |      ;
-                       db $0B,$54,$4A,$36                   ;0081A1|        |      ;
+         stage0_BG_00: db $45,$47,$36                       ;008184|        |      ;
  
-         DATA8_0081A5: db $54,$4A,$36,$54,$49               ;0081A5|        |      ;
-                       db $36,$54,$4A,$36                   ;0081AA|        |      ;
+         stage0_BG_01: db $45,$47,$36,$46,$47,$36,$45,$47   ;008187|        |      ;
+                       db $36,$45,$47,$36                   ;00818F|        |      ;
  
-         DATA8_0081AE: db $54,$4A,$36,$54,$49               ;0081AE|        |      ;
-                       db $36,$54,$49,$36                   ;0081B3|        |      ;
+         stage0_BG_02: db $48,$47,$36,$48,$47,$36           ;008193|        |      ;
  
-         DATA8_0081B7: db $4B,$4D,$36,$4B,$4D               ;0081B7|        |      ;
-                       db $36                               ;0081BC|        |      ;
+         stage0_BG_03: db $48,$47,$36                       ;008199|        |      ;
  
-         DATA8_0081BD: db $4B,$4D,$36                       ;0081BD|        |      ;
+         stage1_BG_00: db $54,$49,$36,$54,$49,$0B,$54,$4A   ;00819C|        |      ;
+                       db $36                               ;0081A4|        |      ;
  
-         DATA8_0081C0: db $4C,$4D,$36,$4B,$4D               ;0081C0|        |      ;
-                       db $36                               ;0081C5|        |      ;
+         stage1_BG_01: db $54,$4A,$36,$54,$49,$36,$54,$4A   ;0081A5|        |      ;
+                       db $36                               ;0081AD|        |      ;
  
-         DATA8_0081C6: db $4C,$4D,$36,$4B,$4D               ;0081C6|        |      ;
-                       db $36,$4C,$4D,$36                   ;0081CB|        |      ;
+         stage1_BG_02: db $54,$4A,$36,$54,$49,$36,$54,$49   ;0081AE|        |      ;
+                       db $36                               ;0081B6|        |      ;
  
-         DATA8_0081CF: db $4C,$4D,$4C,$4C,$4D               ;0081CF|        |      ;
-                       db $36                               ;0081D4|        |      ;
+         stage2_BG_00: db $4B,$4D,$36,$4B,$4D,$36           ;0081B7|        |      ;
  
-         DATA8_0081D5: db $4F,$50,$36,$4F,$50               ;0081D5|        |      ;
-                       db $36,$4E,$50,$36                   ;0081DA|        |      ;
+         stage2_BG_01: db $4B,$4D,$36                       ;0081BD|        |      ;
  
-         DATA8_0081DE: db $4F,$50,$09,$4F,$50               ;0081DE|        |      ;
-                       db $36                               ;0081E3|        |      ;
+         stage2_BG_02: db $4C,$4D,$36,$4B,$4D,$36           ;0081C0|        |      ;
  
-         DATA8_0081E4: db $4F,$50,$36,$4E,$50               ;0081E4|        |      ;
-                       db $36                               ;0081E9|        |      ;
+         stage2_BG_03: db $4C,$4D,$36,$4B,$4D,$36,$4C,$4D   ;0081C6|        |      ;
+                       db $36                               ;0081CE|        |      ;
  
-         DATA8_0081EA: db $4E,$50,$36,$4E,$50               ;0081EA|        |      ;
-                       db $36                               ;0081EF|        |      ;
+         stage2_BG_04: db $4C,$4D,$4C,$4C,$4D,$36           ;0081CF|        |      ;
  
-         DATA8_0081F0: db $4F,$50,$36,$4E,$50               ;0081F0|        |      ;
-                       db $36,$4E,$50,$36                   ;0081F5|        |      ;
+         stage3_BG_01: db $4F,$50,$36,$4F,$50,$36,$4E,$50   ;0081D5|        |      ;
+                       db $36                               ;0081DD|        |      ;
  
-         DATA8_0081F9: db $6E,$4A,$36,$6E,$4A               ;0081F9|        |      ;
-                       db $36,$6E,$4A,$36                   ;0081FE|        |      ;
+         stage3_BG_02: db $4F,$50,$09,$4F,$50,$36           ;0081DE|        |      ;
  
-         DATA8_008202: db $6E,$4A,$36,$6E,$4A               ;008202|        |      ;
-                       db $36,$53,$4A,$36                   ;008207|        |      ;
+         stage3_BG_03: db $4F,$50,$36,$4E,$50,$36           ;0081E4|        |      ;
  
-         DATA8_00820B: db $54,$57,$54                       ;00820B|        |      ;
+         stage3_BG_04: db $4E,$50,$36,$4E,$50,$36           ;0081EA|        |      ;
  
-         DATA8_00820E: db $54,$57,$36,$54,$57               ;00820E|        |      ;
-                       db $36                               ;008213|        |      ;
+         stage3_BG_05: db $4F,$50,$36,$4E,$50,$36,$4E,$50   ;0081F0|        |      ;
  
-         DATA8_008214: db $59,$5A,$36,$58,$5A               ;008214|        |      ;
-                       db $36                               ;008219|        |      ;
+                       db $36                               ;0081F8|        |      ;
  
-         DATA8_00821A: db $59,$5A,$36                       ;00821A|        |      ;
+         stage4_BG_01: db $6E,$4A,$36,$6E,$4A,$36,$6E,$4A   ;0081F9|        |      ;
+                       db $36                               ;008201|        |      ;
  
-         DATA8_00821D: db $59,$5A,$36,$59,$5A               ;00821D|        |      ;
-                       db $36,$59,$5A,$36                   ;008222|        |      ;
+         stage4_BG_03: db $6E,$4A,$36,$6E,$4A,$36,$53,$4A   ;008202|        |      ;
+                       db $36                               ;00820A|        |      ;
  
-         DATA8_008226: db $5B,$5D,$36,$5B,$5D               ;008226|        |      ;
-                       db $36                               ;00822B|        |      ;
+         stage5_BG_01: db $54,$57,$54                       ;00820B|        |      ;
  
-         DATA8_00822C: db $5B,$5D,$36                       ;00822C|        |      ;
+         stage5_BG_03: db $54,$57,$36,$54,$57,$36           ;00820E|        |      ;
  
-         DATA8_00822F: db $5B,$5D,$36,$5C,$5D               ;00822F|        |      ;
-                       db $5C                               ;008234|        |      ;
+         stage6_BG_01: db $59,$5A,$36,$58,$5A,$36           ;008214|        |      ;
  
-         DATA8_008235: db $5C,$5D,$36,$5C,$5D               ;008235|        |      ;
-                       db $36                               ;00823A|        |      ;
+         stage6_BG_02: db $59,$5A,$36                       ;00821A|        |      ;
  
-         DATA8_00823B: db $5C,$5D,$36                       ;00823B|        |      ;
+         stage6_BG_03: db $59,$5A,$36,$59,$5A,$36,$59,$5A   ;00821D|        |      ;
+                       db $36                               ;008225|        |      ;
  
-         DATA8_00823E: db $5E,$60,$36,$5E,$60               ;00823E|        |      ;
-                       db $36                               ;008243|        |      ;
+         stage7_BG_01: db $5B,$5D,$36,$5B,$5D,$36           ;008226|        |      ;
  
-         DATA8_008244: db $5E,$60,$36                       ;008244|        |      ;
+         stage7_BG_02: db $5B,$5D,$36                       ;00822C|        |      ;
  
-         DATA8_008247: db $5E,$60,$36,$5F,$60               ;008247|        |      ;
-                       db $36                               ;00824C|        |      ;
+         stage7_BG_05: db $5B,$5D,$36,$5C,$5D,$5C           ;00822F|        |      ;
  
-         DATA8_00824D: db $61,$62,$36,$61,$62               ;00824D|        |      ;
-                       db $36                               ;008252|        |      ;
+         stage7_BG_06: db $5C,$5D,$36,$5C,$5D,$36           ;008235|        |      ;
  
-         DATA8_008253: db $61,$62,$36,$61,$62               ;008253|        |      ;
-                       db $36,$61,$62,$36                   ;008258|        |      ;
+         stage7_BG_07: db $5C,$5D,$36                       ;00823B|        |      ;
  
-         DATA8_00825C: db $67,$5D,$36,$67,$5D               ;00825C|        |      ;
-                       db $36                               ;008261|        |      ;
+         stage8_BG_01: db $5E,$60,$36,$5E,$60,$36           ;00823E|        |      ;
  
-         DATA8_008262: db $67,$68,$36                       ;008262|        |      ;
+         stage8_BG_02: db $5E,$60,$36                       ;008244|        |      ;
  
-         DATA8_008265: db $67,$5D,$36                       ;008265|        |      ;
+         stage8_BG_03: db $5E,$60,$36,$5F,$60,$36           ;008247|        |      ;
  
-         DATA8_008268: db $67,$5D,$36,$67,$68               ;008268|        |      ;
-                       db $36                               ;00826D|        |      ;
+         stage9_BG_01: db $61,$62,$36,$61,$62,$36           ;00824D|        |      ;
  
-         DATA8_00826E: db $67,$68,$36,$67,$68               ;00826E|        |      ;
-                       db $36,$67,$68,$36                   ;008273|        |      ;
+         stage9_BG_02: db $61,$62,$36,$61,$62,$36,$61,$62   ;008253|        |      ;
+                       db $36                               ;00825B|        |      ;
  
-         DATA8_008277: db $67,$68,$36,$67,$69               ;008277|        |      ;
-                       db $36                               ;00827C|        |      ;
+         stageA_BG_01: db $67,$5D,$36,$67,$5D,$36           ;00825C|        |      ;
  
-         DATA8_00827D: db $67,$69,$36,$67,$69               ;00827D|        |      ;
-                       db $36,$51,$69,$36                   ;008282|        |      ;
+         stageA_BG_02: db $67,$68,$36                       ;008262|        |      ;
  
-         DATA8_008286: db $65,$66,$36,$65,$66               ;008286|        |      ;
-                       db $36                               ;00828B|        |      ;
+         stageA_BG_03: db $67,$5D,$36                       ;008265|        |      ;
  
-         DATA8_00828C: db $65,$66,$36,$65,$66               ;00828C|        |      ;
-                       db $36                               ;008291|        |      ;
+         stageA_BG_04: db $67,$5D,$36,$67,$68,$36           ;008268|        |      ;
  
-         DATA8_008292: db $51,$66,$36,$65,$66               ;008292|        |      ;
-                       db $36,$65,$66,$36                   ;008297|        |      ;
+         stageA_BG_05: db $67,$68,$36,$67,$68,$36,$67,$68   ;00826E|        |      ;
+                       db $36                               ;008276|        |      ;
  
-         DATA8_00829B: db $52,$6D,$36,$6C,$6D               ;00829B|        |      ;
-                       db $36                               ;0082A0|        |      ;
+         stageA_BG_06: db $67,$68,$36,$67,$69,$36           ;008277|        |      ;
  
-         DATA8_0082A1: db $6C,$6D,$36,$6C,$6D               ;0082A1|        |      ;
-                       db $36                               ;0082A6|        |      ;
+         stageA_BG_07: db $67,$69,$36,$67,$69,$36,$51,$69   ;00827D|        |      ;
+                       db $36                               ;008285|        |      ;
  
-         DATA8_0082A7: db $6C,$6D,$36                       ;0082A7|        |      ;
+         stageB_BG_01: db $65,$66,$36,$65,$66,$36           ;008286|        |      ;
  
-         DATA8_0082AA: db $4B,$4D,$36,$4B,$4D               ;0082AA|        |      ;
-                       db $36,$54,$64,$36                   ;0082AF|        |      ;
+         stageB_BG_02: db $65,$66,$36,$65,$66,$36           ;00828C|        |      ;
  
-         DATA8_0082B3: db $54,$64,$36,$54,$64               ;0082B3|        |      ;
-                       db $36,$54,$64,$36                   ;0082B8|        |      ;
+         stageB_BG_03: db $51,$66,$36,$65,$66,$36,$65,$66   ;008292|        |      ;
  
-         DATA8_0082BC: db $54,$64,$36,$63,$64               ;0082BC|        |      ;
+                       db $36                               ;00829A|        |      ;
  
-                       db $36,$54,$57,$36                   ;0082C1|        |      ;
+         stageC_BG_01: db $52,$6D,$36,$6C,$6D,$36           ;00829B|        |      ;
  
-         DATA8_0082C5: db $54,$57,$54,$63,$64               ;0082C5|        |      ;
-                       db $36                               ;0082CA|        |      ;
+         stageC_BG_02: db $6C,$6D,$36,$6C,$6D,$36           ;0082A1|        |      ;
  
-         DATA8_0082CB: db $6A,$6B,$36,$54,$49               ;0082CB|        |      ;
-                       db $36,$6A,$6B,$36                   ;0082D0|        |      ;
+         stageC_BG_03: db $6C,$6D,$36                       ;0082A7|        |      ;
  
-         DATA8_0082D4: db $6A,$6B,$36,$6A,$6B               ;0082D4|        |      ;
-                       db $36                               ;0082D9|        |      ;
+         stageD_BG_01: db $4B,$4D,$36,$4B,$4D,$36,$54,$64   ;0082AA|        |      ;
+                       db $36                               ;0082B2|        |      ;
  
-         DATA8_0082DA: db $6A,$68,$36,$6A,$33               ;0082DA|        |      ;
-                       db $36                               ;0082DF|        |      ;
+         stageD_BG_02: db $54,$64,$36,$54,$64,$36,$54,$64   ;0082B3|        |      ;
  
-         DATA8_0082E0: db $08,$0B                           ;0082E0|        |      ;
+                       db $36                               ;0082BB|        |      ;
  
-         DATA8_0082E2: db $08,$13,$08,$09,$12               ;0082E2|        |      ;
+         stageD_BG_03: db $54,$64,$36,$63,$64,$36,$54,$57   ;0082BC|        |      ;
+                       db $36                               ;0082C4|        |      ;
  
-                       db $0F,$08,$13                       ;0082E7|        |      ;
+         stageD_BG_04: db $54,$57,$54,$63,$64,$36           ;0082C5|        |      ;
  
-         DATA8_0082EA: db $0A,$0B,$08,$09                   ;0082EA|        |      ;
+         stageE_BG_01: db $6A,$6B,$36,$54,$49,$36,$6A,$6B   ;0082CB|        |      ;
+                       db $36                               ;0082D3|        |      ;
  
-         DATA8_0082EE: db $08,$09                           ;0082EE|        |      ;
+         stageE_BG_02: db $6A,$6B,$36,$6A,$6B,$36           ;0082D4|        |      ;
  
-         DATA8_0082F0: db $14,$13,$14,$13,$12               ;0082F0|        |      ;
-                       db $09                               ;0082F5|        |      ;
+         stageE_BG_03: db $6A,$68,$36,$6A,$33,$36           ;0082DA|        |      ;
  
-         DATA8_0082F6: db $14,$0B,$14,$0F,$18               ;0082F6|        |      ;
+         stage0_SP_00: db $08,$0B                           ;0082E0|        |      ;
  
-                       db $19                               ;0082FB|        |      ;
+         stage0_SP_01: db $08,$13,$08,$09,$12,$0F,$08,$13   ;0082E2|        |      ;
  
-         DATA8_0082FC: db $14,$09,$14,$0F,$08               ;0082FC|        |      ;
-                       db $0B                               ;008301|        |      ;
+         stage0_SP_02: db $0A,$0B,$08,$09                   ;0082EA|        |      ;
  
-         DATA8_008302: db $14,$09,$14,$0F,$08               ;008302|        |      ;
-                       db $0B                               ;008307|        |      ;
+         stage0_SP_03: db $08,$09                           ;0082EE|        |      ;
  
-         DATA8_008308: db $14,$0B,$14,$0F,$18               ;008308|        |      ;
-                       db $19                               ;00830D|        |      ;
+         stage1_SP_00: db $14,$13,$14,$13,$12,$09           ;0082F0|        |      ;
  
-         DATA8_00830E: db $14,$13,$14,$13,$12               ;00830E|        |      ;
+         stage1_SP_01: db $14,$0B,$14,$0F,$18,$19           ;0082F6|        |      ;
  
-                       db $09                               ;008313|        |      ;
+         stage1_SP_02: db $14,$09,$14,$0F,$08,$0B           ;0082FC|        |      ;
  
-         DATA8_008314: db $08,$0F,$0C,$13                   ;008314|        |      ;
+         stage1_SP_03: db $14,$09,$14,$0F,$08,$0B           ;008302|        |      ;
  
-         DATA8_008318: db $0C,$0D                           ;008318|        |      ;
+         stage1_SP_04: db $14,$0B,$14,$0F,$18,$19           ;008308|        |      ;
  
-         DATA8_00831A: db $0A,$13,$0A,$7B                   ;00831A|        |      ;
+         stage1_SP_05: db $14,$13,$14,$13,$12,$09           ;00830E|        |      ;
  
-         DATA8_00831E: db $0A,$13,$0C,$0D,$08               ;00831E|        |      ;
+         stage2_SP_00: db $08,$0F,$0C,$13                   ;008314|        |      ;
  
-                       db $19                               ;008323|        |      ;
+         stage2_SP_01: db $0C,$0D                           ;008318|        |      ;
  
-         DATA8_008324: db $1C,$13,$0C,$13                   ;008324|        |      ;
+         stage2_SP_02: db $0A,$13,$0A,$7B                   ;00831A|        |      ;
  
-         DATA8_008328: db $08,$0F,$0E,$0F,$12               ;008328|        |      ;
-                       db $09                               ;00832D|        |      ;
+         stage2_SP_03: db $0A,$13,$0C,$0D,$08,$19           ;00831E|        |      ;
  
-         DATA8_00832E: db $08,$13,$08,$13                   ;00832E|        |      ;
+         stage2_SP_04: db $1C,$13,$0C,$13                   ;008324|        |      ;
  
-         DATA8_008332: db $08,$09,$18,$19                   ;008332|        |      ;
+         stage3_SP_01: db $08,$0F,$0E,$0F,$12,$09           ;008328|        |      ;
  
-         DATA8_008336: db $08,$0F,$12,$19                   ;008336|        |      ;
+         stage3_SP_02: db $08,$13,$08,$13                   ;00832E|        |      ;
  
-         DATA8_00833A: db $08,$13,$08,$0F,$08               ;00833A|        |      ;
-                       db $19                               ;00833F|        |      ;
+         stage3_SP_03: db $08,$09,$18,$19                   ;008332|        |      ;
  
-         DATA8_008340: db $12,$15,$0A,$0B,$08               ;008340|        |      ;
-                       db $09                               ;008345|        |      ;
+         stage3_SP_04: db $08,$0F,$12,$19                   ;008336|        |      ;
  
-         DATA8_008346: db $0A,$0B,$14,$0B,$12               ;008346|        |      ;
-                       db $0B                               ;00834B|        |      ;
+         stage3_SP_05: db $08,$13,$08,$0F,$08,$19           ;00833A|        |      ;
  
-         DATA8_00834C: db $08,$09,$0A,$0B,$08               ;00834C|        |      ;
-                       db $09                               ;008351|        |      ;
+         stage4_SP_01: db $12,$15,$0A,$0B,$08,$09           ;008340|        |      ;
  
-         DATA8_008352: db $0A,$09                           ;008352|        |      ;
+         stage4_SP_02: db $0A,$0B,$14,$0B,$12,$0B           ;008346|        |      ;
  
-         DATA8_008354: db $0A,$17                           ;008354|        |      ;
+         stage4_SP_03: db $08,$09,$0A,$0B,$08,$09           ;00834C|        |      ;
  
-         DATA8_008356: db $0A,$09,$0A,$09                   ;008356|        |      ;
+         stage5_SP_01: db $0A,$09                           ;008352|        |      ;
  
-         DATA8_00835A: db $0A,$0B,$0A,$17                   ;00835A|        |      ;
+         stage5_SP_02: db $0A,$17                           ;008354|        |      ;
  
-         DATA8_00835E: db $10,$09,$10,$17                   ;00835E|        |      ;
+         stage5_SP_03: db $0A,$09,$0A,$09                   ;008356|        |      ;
  
-         DATA8_008362: db $10,$09                           ;008362|        |      ;
+         stage5_SP_04: db $0A,$0B,$0A,$17                   ;00835A|        |      ;
  
-         DATA8_008364: db $18,$19,$10,$09,$08               ;008364|        |      ;
-                       db $13                               ;008369|        |      ;
+         stage6_SP_01: db $10,$09,$10,$17                   ;00835E|        |      ;
  
-         DATA8_00836A: db $08,$15,$0E,$15                   ;00836A|        |      ;
+         stage6_SP_02: db $10,$09                           ;008362|        |      ;
  
-         DATA8_00836E: db $0E,$0B                           ;00836E|        |      ;
+         stage6_SP_03: db $18,$19,$10,$09,$08,$13           ;008364|        |      ;
  
-         DATA8_008370: db $18,$15                           ;008370|        |      ;
+         stage7_SP_01: db $08,$15,$0E,$15                   ;00836A|        |      ;
  
-         DATA8_008372: db $08,$15                           ;008372|        |      ;
+         stage7_SP_02: db $0E,$0B                           ;00836E|        |      ;
  
-         DATA8_008374: db $08,$15,$0E,$15                   ;008374|        |      ;
+         stage7_SP_03: db $18,$15                           ;008370|        |      ;
  
-         DATA8_008378: db $0E,$15,$0E,$13                   ;008378|        |      ;
+         stage7_SP_04: db $08,$15                           ;008372|        |      ;
  
-         DATA8_00837C: db $08,$13                           ;00837C|        |      ;
+         stage7_SP_05: db $08,$15,$0E,$15                   ;008374|        |      ;
  
-         DATA8_00837E: db $0A,$09,$14,$0B                   ;00837E|        |      ;
+         stage7_SP_06: db $0E,$15,$0E,$13                   ;008378|        |      ;
  
-         DATA8_008382: db $0A,$11                           ;008382|        |      ;
+         stage7_SP_07: db $08,$13                           ;00837C|        |      ;
  
-         DATA8_008384: db $0A,$11,$0A,$11                   ;008384|        |      ;
+         stage8_SP_01: db $0A,$09,$14,$0B                   ;00837E|        |      ;
  
-         DATA8_008388: db $0A,$11                           ;008388|        |      ;
+         stage8_SP_02: db $0A,$11                           ;008382|        |      ;
  
-         DATA8_00838A: db $0A,$11                           ;00838A|        |      ;
+         stage8_SP_03: db $0A,$11,$0A,$11                   ;008384|        |      ;
  
-         DATA8_00838C: db $0A,$09,$0E,$0B                   ;00838C|        |      ;
+         stage8_SP_04: db $0A,$11                           ;008388|        |      ;
  
-         DATA8_008390: db $0E,$13,$14,$09,$0A               ;008390|        |      ;
-                       db $13                               ;008395|        |      ;
+         stage8_SP_05: db $0A,$11                           ;00838A|        |      ;
  
-         DATA8_008396: db $08,$0F,$0A,$15                   ;008396|        |      ;
+         stage9_SP_01: db $0A,$09,$0E,$0B                   ;00838C|        |      ;
  
-         DATA8_00839A: db $0A,$09                           ;00839A|        |      ;
+         stage9_SP_02: db $0E,$13,$14,$09,$0A,$13           ;008390|        |      ;
  
-         DATA8_00839C: db $0A,$15                           ;00839C|        |      ;
+         stageA_SP_01: db $08,$0F,$0A,$15                   ;008396|        |      ;
  
-         DATA8_00839E: db $0A,$0B,$0E,$0B                   ;00839E|        |      ;
+         stageA_SP_02: db $0A,$09                           ;00839A|        |      ;
  
-         DATA8_0083A2: db $0A,$0B,$0C,$13,$08               ;0083A2|        |      ;
-                       db $0F                               ;0083A7|        |      ;
+         stageA_SP_03: db $0A,$15                           ;00839C|        |      ;
  
-         DATA8_0083A8: db $0A,$09,$12,$0F                   ;0083A8|        |      ;
+         stageA_SP_04: db $0A,$0B,$0E,$0B                   ;00839E|        |      ;
  
-         DATA8_0083AC: db $0C,$0F,$14,$0B,$0E               ;0083AC|        |      ;
-                       db $09                               ;0083B1|        |      ;
+         stageA_SP_05: db $0A,$0B,$0C,$13,$08,$0F           ;0083A2|        |      ;
  
-         DATA8_0083B2: db $0A,$0B,$0A,$2F                   ;0083B2|        |      ;
+         stageA_SP_06: db $0A,$09,$12,$0F                   ;0083A8|        |      ;
  
-         DATA8_0083B6: db $0A                               ;0083B6|        |      ;
+         stageA_SP_07: db $0C,$0F,$14,$0B,$0E,$09           ;0083AC|        |      ;
  
-         DATA8_0083B7: db $09,$12,$09                       ;0083B7|        |      ;
+         stageB_SP_01: db $0A,$0B,$0A,$2F                   ;0083B2|        |      ;
  
-         DATA8_0083BA: db $0A,$13,$14,$0F,$08               ;0083BA|        |      ;
-                       db $13                               ;0083BF|        |      ;
+         stageB_SP_02: db $0A,$09,$12,$09                   ;0083B6|        |      ;
  
-         DATA8_0083C0: db $08,$09,$0C,$0F                   ;0083C0|        |      ;
+         stageB_SP_03: db $0A,$13,$14,$0F,$08,$13           ;0083BA|        |      ;
  
-         DATA8_0083C4: db $0E,$13,$0E,$09                   ;0083C4|        |      ;
+         stageC_SP_01: db $08,$09,$0C,$0F                   ;0083C0|        |      ;
  
-         DATA8_0083C8: db $14,$09                           ;0083C8|        |      ;
+         stageC_SP_02: db $0E,$13,$0E,$09                   ;0083C4|        |      ;
  
-         DATA8_0083CA: db $63,$64,$0A,$2F,$63               ;0083CA|        |      ;
-                       db $64                               ;0083CF|        |      ;
+         stageC_SP_03: db $14,$09                           ;0083C8|        |      ;
  
-         DATA8_0083D0: db $63,$64,$0A,$0B,$0A               ;0083D0|        |      ;
+         stageD_SP_01: db $63,$64,$0A,$2F,$63,$64           ;0083CA|        |      ;
  
-                       db $09                               ;0083D5|        |      ;
+         stageD_SP_02: db $63,$64,$0A,$0B,$0A,$09           ;0083D0|        |      ;
  
-         DATA8_0083D6: db $14,$13,$14,$0B,$08               ;0083D6|        |      ;
-                       db $09                               ;0083DB|        |      ;
+         stageD_SP_03: db $14,$13,$14,$0B,$08,$09           ;0083D6|        |      ;
  
-         DATA8_0083DC: db $0A,$17,$12,$0F                   ;0083DC|        |      ;
+         stageD_SP_04: db $0A,$17,$12,$0F                   ;0083DC|        |      ;
  
-         DATA8_0083E0: db $0A,$09,$14,$0F,$08               ;0083E0|        |      ;
-                       db $13                               ;0083E5|        |      ;
+         stageE_SP_01: db $0A,$09,$14,$0F,$08,$13           ;0083E0|        |      ;
  
-         DATA8_0083E6: db $0C,$13,$12,$09                   ;0083E6|        |      ;
+         stageE_SP_02: db $0C,$13,$12,$09                   ;0083E6|        |      ;
  
-         DATA8_0083EA: db $61,$62,$61,$62                   ;0083EA|        |      ;
+         stageE_SP_03: db $61,$62,$61,$62                   ;0083EA|        |      ;
  
-         DATA8_0083EE: db $A2,$00,$A5,$4B,$20               ;0083EE|        |      ;
-                       db $F9,$83                           ;0083F3|        |      ;
-                       LDX.B #$08                           ;0083F5|A208    |      ;
+getCollisonBitBothSlots: LDX.B #$00                           ;0083EE|A200    |      ;
+                       LDA.B r_CHR_BankBG_0400              ;0083F0|A54B    |00004B;
+                       JSR.W getCollusionBits2ndSlot        ;0083F2|20F983  |0083F9;
+                       LDX.B #$08                           ;0083F5|A208    |      ; 3d slot offset
                        LDA.B r_CHR_BankBG_0800              ;0083F7|A54C    |00004C;
-                       LDY.B #$00                           ;0083F9|A000    |      ;
+ 
+getCollusionBits2ndSlot: LDY.B #$00                           ;0083F9|A000    |      ;
                        CMP.B #$33                           ;0083FB|C933    |      ;
                        BEQ CODE_008432                      ;0083FD|F033    |008432;
                        LDY.B #$02                           ;0083FF|A002    |      ;
@@ -565,21 +514,21 @@
                        SBC.B #$44                           ;00840C|E944    |      ;
                        ASL A                                ;00840E|0A      |      ;
                        TAY                                  ;00840F|A8      |      ;
-                       LDA.W PTR16_00843D,Y                 ;008410|B93D84  |00843D;
-                       STA.B r_pointerQueue_VRAM            ;008413|8508    |000008;
-                       LDA.W PTR16_00843E,Y                 ;008415|B93E84  |00843E;
+                       LDA.W collusioBitLo,Y                ;008410|B93D84  |00843D;
+                       STA.B r_pointerQueue                 ;008413|8508    |000008;
+                       LDA.W collusioBitHi,Y                ;008415|B93E84  |00843E;
  
           CODE_008418: STA.B $09                            ;008418|8509    |000009;
                        LDY.B #$00                           ;00841A|A000    |      ;
  
-          CODE_00841C: LDA.B (r_pointerQueue_VRAM),Y        ;00841C|B108    |000008;
+          CODE_00841C: LDA.B (r_pointerQueue),Y             ;00841C|B108    |000008;
                        INY                                  ;00841E|C8      |      ;
                        STA.B r_temp_Xpos                    ;00841F|850A    |00000A;
  
-                       LDA.B (r_pointerQueue_VRAM),Y        ;008421|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;008421|B108    |000008;
                        INY                                  ;008423|C8      |      ;
  
-          CODE_008424: STA.W r_collisionTypeOffsetsCurr,X   ;008424|9D7007  |000770;
+          CODE_008424: STA.W r_collisionTypeCHR400,X        ;008424|9D7007  |000770;
                        INX                                  ;008427|E8      |      ;
                        DEC.B r_temp_Xpos                    ;008428|C60A    |00000A;
                        BNE CODE_008424                      ;00842A|D0F8    |008424;
@@ -589,116 +538,108 @@
                        RTS                                  ;008431|60      |      ;
  
  
-          CODE_008432: LDA.W PTR16_008493,Y                 ;008432|B99384  |008493;
-                       STA.B r_pointerQueue_VRAM            ;008435|8508    |000008;
-                       LDA.W PTR16_008494,Y                 ;008437|B99484  |008494;
+          CODE_008432: LDA.W cullusion_CHR_33_36_37,Y       ;008432|B99384  |008493;
+                       STA.B r_pointerQueue                 ;008435|8508    |000008;
+                       LDA.W cullusion_CHR_33_36_37Hi,Y     ;008437|B99484  |008494;
                        JMP.W CODE_008418                    ;00843A|4C1884  |008418;
  
  
-         PTR16_00843D: dw DATA8_008499                      ;00843D|        |008499;
-                       dw DATA8_0084A3                      ;00843F|        |0084A3;
-                       dw DATA8_008499                      ;008441|        |008499;
-                       dw DATA8_0084A7                      ;008443|        |0084A7;
-                       dw DATA8_008499                      ;008445|        |008499;
-                       dw DATA8_0084B3                      ;008447|        |0084B3;
-                       dw DATA8_0084AB                      ;008449|        |0084AB;
-                       dw DATA8_008499                      ;00844B|        |008499;
+        collusioBitLo: dw no_col                            ;00843D|        |008499; CHR 44 is base value
+                       dw collusion_45                      ;00843F|        |0084A3;
+                       dw no_col                            ;008441|        |008499;
+                       dw collusion_47                      ;008443|        |0084A7;
+                       dw no_col                            ;008445|        |008499;
+                       dw collusion_49                      ;008447|        |0084B3;
+                       dw collusion_4a                      ;008449|        |0084AB;
+                       dw no_col                            ;00844B|        |008499;
  
-                       dw DATA8_008499                      ;00844D|        |008499;
-                       dw DATA8_0084AF                      ;00844F|        |0084AF;
-                       dw DATA8_008499                      ;008451|        |008499;
-                       dw DATA8_008499                      ;008453|        |008499;
-                       dw DATA8_0084B3                      ;008455|        |0084B3;
-                       dw DATA8_008499                      ;008457|        |008499;
-                       dw DATA8_008499                      ;008459|        |008499;
-                       dw DATA8_0084B9                      ;00845B|        |0084B9;
-                       dw DATA8_0084BD                      ;00845D|        |0084BD;
-                       dw DATA8_0084BD                      ;00845F|        |0084BD;
-                       dw DATA8_0084BD                      ;008461|        |0084BD;
-                       dw DATA8_0084C1                      ;008463|        |0084C1;
+                       dw no_col                            ;00844D|        |008499;
+                       dw collusion_4d                      ;00844F|        |0084AF;
+                       dw no_col                            ;008451|        |008499;
+                       dw no_col                            ;008453|        |008499;
+                       dw collusion_49                      ;008455|        |0084B3;
+                       dw no_col                            ;008457|        |008499;
+                       dw no_col                            ;008459|        |008499;
+                       dw collusion_53                      ;00845B|        |0084B9;
+                       dw collusion_54                      ;00845D|        |0084BD;
+                       dw collusion_54                      ;00845F|        |0084BD;
+                       dw collusion_54                      ;008461|        |0084BD;
+                       dw collusion_57                      ;008463|        |0084C1;
  
-                       dw DATA8_008499                      ;008465|        |008499;
-                       dw DATA8_0084C9                      ;008467|        |0084C9;
-                       dw DATA8_0084CD                      ;008469|        |0084CD;
-                       dw DATA8_008499                      ;00846B|        |008499;
+                       dw no_col                            ;008465|        |008499;
+                       dw collusion_59                      ;008467|        |0084C9;
+                       dw collusion_5a                      ;008469|        |0084CD;
+                       dw no_col                            ;00846B|        |008499;
  
-                       dw DATA8_008499                      ;00846D|        |008499;
-                       dw DATA8_0084D3                      ;00846F|        |0084D3;
-                       dw DATA8_008499                      ;008471|        |008499;
-                       dw DATA8_008499                      ;008473|        |008499;
+                       dw no_col                            ;00846D|        |008499;
+                       dw collusion_unused                  ;00846F|        |0084D3;
+                       dw no_col                            ;008471|        |008499;
+                       dw no_col                            ;008473|        |008499;
  
-                       dw DATA8_0084D9                      ;008475|        |0084D9;
-                       dw DATA8_008499                      ;008477|        |008499;
-                       dw DATA8_0084DF                      ;008479|        |0084DF;
-                       dw DATA8_008499                      ;00847B|        |008499;
+                       dw collusion_60                      ;008475|        |0084D9;
+                       dw no_col                            ;008477|        |008499;
+                       dw collusion_62                      ;008479|        |0084DF;
+                       dw no_col                            ;00847B|        |008499;
  
-                       dw DATA8_0084E3                      ;00847D|        |0084E3;
-                       dw DATA8_0084E7                      ;00847F|        |0084E7;
-                       dw DATA8_0084EB                      ;008481|        |0084EB;
-                       dw DATA8_008499                      ;008483|        |008499;
-                       dw DATA8_0084F1                      ;008485|        |0084F1;
-                       dw DATA8_0084F1                      ;008487|        |0084F1;
-                       dw DATA8_008499                      ;008489|        |008499;
-                       dw DATA8_0084F7                      ;00848B|        |0084F7;
-                       dw DATA8_008499                      ;00848D|        |008499;
-                       dw DATA8_0084FD                      ;00848F|        |0084FD;
-                       dw DATA8_00849F                      ;008491|        |00849F;
+                       dw collusion_64                      ;00847D|        |0084E3;
+                       dw collusion_65                      ;00847F|        |0084E7;
+                       dw collusion_66                      ;008481|        |0084EB;
+                       dw no_col                            ;008483|        |008499;
+                       dw collusion_68                      ;008485|        |0084F1;
+                       dw collusion_68                      ;008487|        |0084F1;
+                       dw no_col                            ;008489|        |008499;
+                       dw collusion_6b                      ;00848B|        |0084F7;
+                       dw no_col                            ;00848D|        |008499;
+                       dw collusion_6d                      ;00848F|        |0084FD;
+                       dw collusion_6e                      ;008491|        |00849F;
  
-         PTR16_008493: dw DATA8_00849B                      ;008493|        |00849B;
-                       dw DATA8_00849B                      ;008495|        |00849B;
-                       dw DATA8_00849B                      ;008497|        |00849B;
+cullusion_CHR_33_36_37: dw collusion_33                      ;008493|        |00849B;
+                       dw collusion_33                      ;008495|        |00849B;
+                       dw collusion_33                      ;008497|        |00849B;
  
-         DATA8_008499: db $08,$80                           ;008499|        |      ;
+               no_col: db $08,$80                           ;008499|        |      ; type, illTileID
  
-         DATA8_00849B: db $06,$BC,$02,$C0                   ;00849B|        |      ;
+         collusion_33: db $06,$BC,$02,$C0                   ;00849B|        |      ;
  
-         DATA8_00849F: db $06,$7B,$02,$80                   ;00849F|        |      ;
+         collusion_6e: db $06,$7B,$02,$80                   ;00849F|        |      ;
  
-         DATA8_0084A3: db $06,$7E,$02,$80                   ;0084A3|        |      ;
+         collusion_45: db $06,$7E,$02,$80                   ;0084A3|        |      ;
  
-         DATA8_0084A7: db $06,$B7,$02,$C0                   ;0084A7|        |      ;
+         collusion_47: db $06,$B7,$02,$C0                   ;0084A7|        |      ;
  
-         DATA8_0084AB: db $06,$B9,$02,$C0                   ;0084AB|        |      ;
+         collusion_4a: db $06,$B9,$02,$C0                   ;0084AB|        |      ;
  
-         DATA8_0084AF: db $06,$B8,$02,$C0                   ;0084AF|        |      ;
+         collusion_4d: db $06,$B8,$02,$C0                   ;0084AF|        |      ;
  
-         DATA8_0084B3: db $04,$B8,$02,$B9,$02               ;0084B3|        |      ;
-                       db $C0                               ;0084B8|        |      ;
+         collusion_49: db $04,$B8,$02,$B9,$02,$C0           ;0084B3|        |      ;
  
-         DATA8_0084B9: db $06,$7A,$02,$80                   ;0084B9|        |      ;
+         collusion_53: db $06,$7A,$02,$80                   ;0084B9|        |      ;
  
-         DATA8_0084BD: db $06,$7C,$02,$80                   ;0084BD|        |      ;
+         collusion_54: db $06,$7C,$02,$80                   ;0084BD|        |      ;
  
-         DATA8_0084C1: db $02,$B6,$01,$B7,$03               ;0084C1|        |      ;
-                       db $B8,$02,$C0                       ;0084C6|        |      ;
+         collusion_57: db $02,$B6,$01,$B7,$03,$B8,$02,$C0   ;0084C1|        |      ;
  
-         DATA8_0084C9: db $06,$78,$02,$80                   ;0084C9|        |      ;
+         collusion_59: db $06,$78,$02,$80                   ;0084C9|        |      ;
  
-         DATA8_0084CD: db $01,$B8,$05,$BA,$02               ;0084CD|        |      ;
-                       db $C0                               ;0084D2|        |      ;
+         collusion_5a: db $01,$B8,$05,$BA,$02,$C0           ;0084CD|        |      ;
  
-         DATA8_0084D3: db $04,$B2,$02,$B4,$02               ;0084D3|        |      ;
-                       db $C0                               ;0084D8|        |      ;
+     collusion_unused: db $04,$B2,$02,$B4,$02,$C0           ;0084D3|        |      ;
  
-         DATA8_0084D9: db $04,$BA,$02,$BB,$02               ;0084D9|        |      ;
-                       db $C0                               ;0084DE|        |      ;
+         collusion_60: db $04,$BA,$02,$BB,$02,$C0           ;0084D9|        |      ;
  
-         DATA8_0084DF: db $06,$A0,$02,$C0                   ;0084DF|        |      ;
+         collusion_62: db $06,$A0,$02,$C0                   ;0084DF|        |      ;
  
-         DATA8_0084E3: db $06,$B8,$02,$C0                   ;0084E3|        |      ;
+         collusion_64: db $06,$B8,$02,$C0                   ;0084E3|        |      ;
  
-         DATA8_0084E7: db $06,$7C,$02,$80                   ;0084E7|        |      ;
+         collusion_65: db $06,$7C,$02,$80                   ;0084E7|        |      ;
  
-         DATA8_0084EB: db $04,$B8,$02,$B9,$02               ;0084EB|        |      ;
-                       db $C0                               ;0084F0|        |      ;
+         collusion_66: db $04,$B8,$02,$B9,$02,$C0           ;0084EB|        |      ;
  
-         DATA8_0084F1: db $04,$B2,$02,$B3,$02               ;0084F1|        |      ;
-                       db $C0                               ;0084F6|        |      ;
+         collusion_68: db $04,$B2,$02,$B3,$02,$C0           ;0084F1|        |      ;
  
-         DATA8_0084F7: db $04,$B7,$02,$B8,$02               ;0084F7|        |      ;
-                       db $C0                               ;0084FC|        |      ;
+         collusion_6b: db $04,$B7,$02,$B8,$02,$C0           ;0084F7|        |      ;
  
-         DATA8_0084FD: db $06,$B8,$02,$C0                   ;0084FD|        |      ;
+         collusion_6d: db $06,$B8,$02,$C0                   ;0084FD|        |      ;
  
           CODE_008501: LDA.B r_stage                        ;008501|A532    |000032;
                        CMP.B #$0C                           ;008503|C90C    |      ;
@@ -711,17 +652,17 @@
           CODE_00850E: ASL A                                ;00850E|0A      |      ;
                        TAY                                  ;00850F|A8      |      ;
                        LDA.W groupPalettePointerList,Y      ;008510|B9CD85  |0085CD;
-                       STA.B r_pointerQueue_VRAM            ;008513|8508    |000008;
+                       STA.B r_pointerQueue                 ;008513|8508    |000008;
                        LDA.W PTR16_0085CE,Y                 ;008515|B9CE85  |0085CE;
                        STA.B $09                            ;008518|8509    |000009;
                        LDA.B r_blockLevel                   ;00851A|A533    |000033;
                        ASL A                                ;00851C|0A      |      ;
                        ASL A                                ;00851D|0A      |      ;
                        TAY                                  ;00851E|A8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00851F|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00851F|B108    |000008;
                        STA.B r_temp_Xpos                    ;008521|850A    |00000A;
                        INY                                  ;008523|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;008524|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;008524|B108    |000008;
                        STA.B $0B                            ;008526|850B    |00000B;
  
                        INY                                  ;008528|C8      |      ;
@@ -778,10 +719,10 @@
  
           CODE_008574: JSR.W CODE_0085BB                    ;008574|20BB85  |0085BB;
                        LDY.B r_tempCurrRoomIdx              ;008577|A40E    |00000E;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;008579|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;008579|B108    |000008;
                        STA.B r_temp_Xpos                    ;00857B|850A    |00000A;
                        INY                                  ;00857D|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00857E|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00857E|B108    |000008;
                        STA.B $0B                            ;008580|850B    |00000B;
                        LDY.B r_roomIdx                      ;008582|A434    |000034;
                        LDA.B (r_temp_Xpos),Y                ;008584|B10A    |00000A;
@@ -1106,102 +1047,65 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_008764: db $21,$22                           ;008764|        |      ;
  
-               PAL_09: db $00,$3F,$0F,$16,$26               ;008766|        |      ;
+               PAL_09: db $00,$3F,$0F,$16,$26,$20,$0F,$16   ;008766|        |      ;
+                       db $26,$20,$0F,$16,$26,$20,$0F,$16   ;00876E|        |      ;
+                       db $26,$20,$FF                       ;008776|        |      ;
  
-                       db $20,$0F,$16,$26,$20               ;00876B|        |      ;
-                       db $0F,$16,$26,$20,$0F               ;008770|        |      ;
-                       db $16,$26,$20,$FF                   ;008775|        |      ;
+         DATA8_008779: db $00,$10,$1A,$00,$0B,$2C,$02,$00   ;008779|        |      ;
+                       db $10,$11,$26,$36,$30,$0C,$2B,$16   ;008781|        |      ;
+                       db $25,$36,$00,$11,$1A,$02,$11,$30   ;008789|        |      ;
  
-         DATA8_008779: db $00,$10,$1A,$00,$0B               ;008779|        |      ;
-                       db $2C,$02,$00,$10,$11               ;00877E|        |      ;
+                       db $02,$08,$38,$00,$10,$1A,$02,$12   ;008791|        |      ;
+                       db $30,$02,$08,$38,$20,$02,$1B,$02   ;008799|        |      ;
+                       db $00,$10,$10,$04,$24,$33,$02,$00   ;0087A1|        |      ;
+                       db $02,$00,$10,$10,$0B,$2C,$0B,$1C   ;0087A9|        |      ;
+                       db $2A,$02,$09,$06,$00,$20,$18,$08   ;0087B1|        |      ;
+                       db $18,$2A,$02,$09,$06,$02,$20,$13   ;0087B9|        |      ;
+                       db $0B,$1C,$2A,$02,$09,$08,$02,$31   ;0087C1|        |      ;
+                       db $12,$10,$08,$18,$00,$20,$10,$02   ;0087C9|        |      ;
+                       db $08,$28,$00,$06,$2C,$00,$34,$22   ;0087D1|        |      ;
+                       db $27,$06,$15,$1B,$02,$2C,$02,$00   ;0087D9|        |      ;
  
-                       db $26,$36,$30,$0C,$2B               ;008783|        |      ;
-                       db $16,$25,$36,$00,$11               ;008788|        |      ;
+                       db $10,$02,$03,$13,$0B,$1B,$01,$02   ;0087E1|        |      ;
+                       db $11,$20,$31,$11,$21,$08,$18,$2A   ;0087E9|        |      ;
+                       db $08,$29,$17,$02,$11,$21,$0C,$00   ;0087F1|        |      ;
+                       db $20,$08,$29,$18,$03,$12,$22,$08   ;0087F9|        |      ;
  
-                       db $1A,$02,$11,$30,$02               ;00878D|        |      ;
-                       db $08,$38,$00,$10,$1A               ;008792|        |      ;
-                       db $02,$12,$30,$02,$08               ;008797|        |      ;
-                       db $38,$20,$02,$1B,$02               ;00879C|        |      ;
-                       db $00,$10,$10,$04,$24               ;0087A1|        |      ;
-                       db $33,$02,$00,$02,$00               ;0087A6|        |      ;
-                       db $10,$10,$0B,$2C,$0B               ;0087AB|        |      ;
-                       db $1C,$2A,$02,$09,$06               ;0087B0|        |      ;
-                       db $00,$20                           ;0087B5|        |      ;
+                       db $10,$20,$08,$0A,$00,$02,$11,$31   ;008801|        |      ;
+                       db $02,$10,$20,$13,$03,$33,$02,$11   ;008809|        |      ;
+                       db $31,$08,$10,$20,$0B,$1B,$2B,$06   ;008811|        |      ;
+                       db $16,$26,$02,$11,$20,$0B,$1C,$3C   ;008819|        |      ;
+                       db $0B,$1B,$02,$02,$11,$20,$08,$18   ;008821|        |      ;
+                       db $38,$08,$18,$02,$01,$11,$2C,$17   ;008829|        |      ;
+                       db $27,$05,$0B,$1C,$3C,$08,$18,$10   ;008831|        |      ;
+                       db $07,$17,$08,$0B,$1C,$3C,$07,$00   ;008839|        |      ;
+                       db $10,$16,$25,$10,$02,$19,$21,$07   ;008841|        |      ;
  
-         DATA8_0087B7: db $18,$08,$18,$2A,$02               ;0087B7|        |      ;
-                       db $09,$06,$02,$20,$13               ;0087BC|        |      ;
-                       db $0B,$1C,$2A,$02,$09               ;0087C1|        |      ;
-                       db $08,$02,$31,$12,$10               ;0087C6|        |      ;
-                       db $08,$18,$00,$20,$10               ;0087CB|        |      ;
-                       db $02,$08,$28,$00,$06               ;0087D0|        |      ;
-                       db $2C,$00,$34,$22,$27               ;0087D5|        |      ;
-                       db $06,$15,$1B,$02,$2C               ;0087DA|        |      ;
-                       db $02,$00,$10,$02,$03               ;0087DF|        |      ;
-                       db $13,$0B,$1B,$01,$02               ;0087E4|        |      ;
-                       db $11,$20,$31,$11,$21               ;0087E9|        |      ;
-                       db $08,$18,$2A,$08,$29               ;0087EE|        |      ;
-                       db $17,$02,$11,$21,$0C               ;0087F3|        |      ;
-                       db $00,$20,$08,$29,$18               ;0087F8|        |      ;
+                       db $00,$10,$1B,$00,$10,$02,$19,$21   ;008849|        |      ;
+                       db $08,$18,$20,$01,$11,$20,$0B,$1B   ;008851|        |      ;
+                       db $20,$08,$18,$0C,$0B,$1B,$0C,$2C   ;008859|        |      ;
+                       db $27,$0C,$08,$18,$0C,$0C,$00,$10   ;008861|        |      ;
+                       db $01,$11,$21,$08,$18,$0C,$0C,$00   ;008869|        |      ;
+                       db $10,$05,$00,$10                   ;008871|        |      ;
  
-                       db $03,$12,$22,$08,$10               ;0087FD|        |      ;
-                       db $20,$08,$0A,$00,$02               ;008802|        |      ;
-                       db $11,$31,$02,$10,$20               ;008807|        |      ;
-                       db $13,$03,$33,$02,$11               ;00880C|        |      ;
-                       db $31,$08,$10,$20,$0B               ;008811|        |      ;
-                       db $1B,$2B,$06,$16,$26               ;008816|        |      ;
-                       db $02,$11,$20,$0B,$1C               ;00881B|        |      ;
- 
-                       db $3C,$0B,$1B,$02,$02               ;008820|        |      ;
-                       db $11,$20,$08,$18,$38               ;008825|        |      ;
-                       db $08,$18,$02,$01,$11               ;00882A|        |      ;
-                       db $2C,$17,$27,$05,$0B               ;00882F|        |      ;
-                       db $1C,$3C,$08,$18,$10               ;008834|        |      ;
-                       db $07,$17,$08,$0B,$1C               ;008839|        |      ;
-                       db $3C,$07,$00,$10,$16               ;00883E|        |      ;
-                       db $25,$10,$02,$19,$21               ;008843|        |      ;
- 
-                       db $07,$00,$10,$1B,$00               ;008848|        |      ;
-                       db $10,$02,$19,$21,$08               ;00884D|        |      ;
-                       db $18,$20,$01,$11,$20               ;008852|        |      ;
-                       db $0B,$1B,$20,$08,$18               ;008857|        |      ;
-                       db $0C,$0B,$1B,$0C,$2C               ;00885C|        |      ;
-                       db $27,$0C,$08,$18,$0C               ;008861|        |      ;
-                       db $0C,$00,$10,$01,$11               ;008866|        |      ;
-                       db $21,$08,$18,$0C,$0C               ;00886B|        |      ;
-                       db $00,$10,$05,$00,$10               ;008870|        |      ;
- 
-         DATA8_008875: db $0C,$17,$1C,$0C,$00               ;008875|        |      ;
-                       db $10,$15,$27,$20,$00               ;00887A|        |      ;
- 
-                       db $22,$1A,$18,$28,$20               ;00887F|        |      ;
- 
-                       db $22,$20,$02,$20,$0C               ;008884|        |      ;
-                       db $2C,$11,$00,$20,$00               ;008889|        |      ;
-                       db $08,$18,$00,$2C,$1A               ;00888E|        |      ;
-                       db $00,$10,$20,$08,$18               ;008893|        |      ;
-                       db $0C,$00,$2C,$1A,$00               ;008898|        |      ;
-                       db $10,$20,$08,$18,$27               ;00889D|        |      ;
-                       db $00,$05,$1A,$0C,$10               ;0088A2|        |      ;
-                       db $27,$22,$20,$02,$10               ;0088A7|        |      ;
-                       db $05,$01,$0C,$10,$27               ;0088AC|        |      ;
-                       db $00,$05,$1A,$00,$04               ;0088B1|        |      ;
-                       db $10,$0C,$2C,$19,$02               ;0088B6|        |      ;
-                       db $04,$14,$00,$04,$10               ;0088BB|        |      ;
-                       db $02,$14,$27,$02,$04               ;0088C0|        |      ;
-                       db $14,$0B,$1B,$2A,$02               ;0088C5|        |      ;
-                       db $0A,$08,$02,$32,$13               ;0088CA|        |      ;
-                       db $01,$11,$21,$00,$10               ;0088CF|        |      ;
-                       db $23,$0B,$1A,$3A,$01               ;0088D4|        |      ;
-                       db $11,$21,$00,$10,$23               ;0088D9|        |      ;
-                       db $05,$25,$10,$0B,$1B               ;0088DE|        |      ;
-                       db $0F,$00,$10,$37,$0B               ;0088E3|        |      ;
- 
-                       db $1A,$3A,$0B,$12,$05               ;0088E8|        |      ;
-                       db $01,$11,$20,$31,$11               ;0088ED|        |      ;
-                       db $21,$01,$22,$21,$0B               ;0088F2|        |      ;
-                       db $1A,$3A,$00,$10,$23               ;0088F7|        |      ;
-                       db $0B,$1C,$2C,$08,$29               ;0088FC|        |      ;
-                       db $17,$02,$11,$22                   ;008901|        |      ;
+         DATA8_008875: db $0C,$17,$1C,$0C,$00,$10,$15,$27   ;008875|        |      ;
+                       db $20,$00,$22,$1A,$18,$28,$20,$22   ;00887D|        |      ;
+                       db $20,$02,$20,$0C,$2C,$11,$00,$20   ;008885|        |      ;
+                       db $00,$08,$18,$00,$2C,$1A,$00,$10   ;00888D|        |      ;
+                       db $20,$08,$18,$0C,$00,$2C,$1A,$00   ;008895|        |      ;
+                       db $10,$20,$08,$18,$27,$00,$05,$1A   ;00889D|        |      ;
+                       db $0C,$10,$27,$22,$20,$02,$10,$05   ;0088A5|        |      ;
+                       db $01,$0C,$10,$27,$00,$05,$1A,$00   ;0088AD|        |      ;
+                       db $04,$10,$0C,$2C,$19,$02,$04,$14   ;0088B5|        |      ;
+                       db $00,$04,$10,$02,$14,$27,$02,$04   ;0088BD|        |      ;
+                       db $14,$0B,$1B,$2A,$02,$0A,$08,$02   ;0088C5|        |      ;
+                       db $32,$13,$01,$11,$21,$00,$10,$23   ;0088CD|        |      ;
+                       db $0B,$1A,$3A,$01,$11,$21,$00,$10   ;0088D5|        |      ;
+                       db $23,$05,$25,$10,$0B,$1B,$0F,$00   ;0088DD|        |      ;
+                       db $10,$37,$0B,$1A,$3A,$0B,$12,$05   ;0088E5|        |      ;
+                       db $01,$11,$20,$31,$11,$21,$01,$22   ;0088ED|        |      ;
+                       db $21,$0B,$1A,$3A,$00,$10,$23,$0B   ;0088F5|        |      ;
+                       db $1C,$2C,$08,$29,$17,$02,$11,$22   ;0088FD|        |      ;
  
          DATA8_008905: db $04                               ;008905|        |      ;
  
@@ -1323,120 +1227,80 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_008980: db $19,$0B                           ;008980|        |      ;
  
-    PAL_sprite_trevor: db $10,$3F,$0F,$08,$26               ;008982|        |      ;
-                       db $37,$0F,$0F,$22,$34               ;008987|        |      ;
-                       db $0F,$0F,$0F,$0F,$0F               ;00898C|        |      ;
-                       db $0F,$16,$25,$FF                   ;008991|        |      ;
+    PAL_sprite_trevor: db $10,$3F,$0F,$08,$26,$37,$0F,$0F   ;008982|        |      ;
+                       db $22,$34,$0F,$0F,$0F,$0F,$0F,$0F   ;00898A|        |      ;
+                       db $16,$25,$FF                       ;008992|        |      ;
  
-     PAL_sprite_grant: db $10,$3F,$0F,$08,$15               ;008995|        |      ;
-                       db $38,$0F,$0F,$22,$34               ;00899A|        |      ;
-                       db $0F,$0F,$0F,$0F,$0F               ;00899F|        |      ;
-                       db $0F,$16,$25,$FF                   ;0089A4|        |      ;
+     PAL_sprite_grant: db $10,$3F,$0F,$08,$15,$38,$0F,$0F   ;008995|        |      ;
+                       db $22,$34,$0F,$0F,$0F,$0F,$0F,$0F   ;00899D|        |      ;
+                       db $16,$25,$FF                       ;0089A5|        |      ;
  
-    PAL_sprite_sympha: db $10,$3F,$0F,$21,$11               ;0089A8|        |      ;
-                       db $20,$0F,$0F,$22,$34               ;0089AD|        |      ;
-                       db $0F,$0F,$0F,$0F,$0F               ;0089B2|        |      ;
-                       db $0F,$16,$25,$FF                   ;0089B7|        |      ;
+    PAL_sprite_sympha: db $10,$3F,$0F,$21,$11,$20,$0F,$0F   ;0089A8|        |      ;
+                       db $22,$34,$0F,$0F,$0F,$0F,$0F,$0F   ;0089B0|        |      ;
+                       db $16,$25,$FF                       ;0089B8|        |      ;
  
-   PAL_sprite_alucart: db $10,$3F,$0F,$0F,$15               ;0089BB|        |      ;
-                       db $36,$0F,$0F,$22,$34               ;0089C0|        |      ;
-                       db $0F,$0F,$0F,$0F,$0F               ;0089C5|        |      ;
-                       db $0F,$16,$25,$FF                   ;0089CA|        |      ;
+   PAL_sprite_alucart: db $10,$3F,$0F,$0F,$15,$36,$0F,$0F   ;0089BB|        |      ;
+                       db $22,$34,$0F,$0F,$0F,$0F,$0F,$0F   ;0089C3|        |      ;
+                       db $16,$25,$FF                       ;0089CB|        |      ;
  
-         DATA8_0089CE: db $0F,$32,$26,$0F,$20               ;0089CE|        |      ;
-                       db $14,$26,$0F,$1B,$28               ;0089D3|        |      ;
-                       db $0F,$1B,$0F,$13,$25               ;0089D8|        |      ;
+         DATA8_0089CE: db $0F,$32,$26,$0F,$20,$14,$26,$0F   ;0089CE|        |      ;
+                       db $1B,$28,$0F,$1B,$0F,$13,$25,$0F   ;0089D6|        |      ;
+                       db $17,$36,$0F,$15,$35,$0F,$00,$39   ;0089DE|        |      ;
+                       db $0F,$13,$17,$0B,$2A,$39,$0B,$2A   ;0089E6|        |      ;
+                       db $3B,$0F,$14,$32,$0F,$18,$28,$10   ;0089EE|        |      ;
+                       db $00,$23,$0F,$08,$38,$02,$08,$38   ;0089F6|        |      ;
+                       db $34,$00,$22,$16,$26,$20,$0F,$14   ;0089FE|        |      ;
+                       db $35,$0F,$13,$25,$0F,$08,$38,$0F   ;008A06|        |      ;
+                       db $04,$37,$0F,$00,$10,$07,$00,$10   ;008A0E|        |      ;
  
-                       db $0F,$17,$36,$0F,$15               ;0089DD|        |      ;
-                       db $35,$0F,$00,$39,$0F               ;0089E2|        |      ;
-                       db $13,$17,$0B,$2A,$39               ;0089E7|        |      ;
-                       db $0B,$2A,$3B,$0F,$14               ;0089EC|        |      ;
-                       db $32,$0F,$18,$28,$10               ;0089F1|        |      ;
-                       db $00,$23,$0F,$08,$38               ;0089F6|        |      ;
-                       db $02,$08,$38,$34,$00               ;0089FB|        |      ;
-                       db $22,$16,$26,$20,$0F               ;008A00|        |      ;
-                       db $14,$35,$0F,$13,$25               ;008A05|        |      ;
-                       db $0F,$08,$38,$0F,$04               ;008A0A|        |      ;
-                       db $37,$0F,$00,$10,$07               ;008A0F|        |      ;
-                       db $00,$10,$00,$10,$32               ;008A14|        |      ;
-                       db $0F,$17,$23                       ;008A19|        |      ;
+                       db $00,$10,$32,$0F,$17,$23           ;008A16|        |      ;
  
-         DATA8_008A1C: db $A4,$19,$D0,$15,$20               ;008A1C|        |      ;
-                       db $19,$E8,$A0,$00,$84               ;008A21|        |      ;
-                       db $46,$C8,$84,$47,$A9               ;008A26|        |      ;
-                       db $41,$85,$4B,$A9,$00               ;008A2B|        |      ;
-                       db $85,$6B,$E6,$19,$60               ;008A30|        |      ;
-                       db $88,$D0,$05,$E6,$19               ;008A35|        |      ;
-                       db $4C,$FD,$EB,$88,$D0               ;008A3A|        |      ;
-                       db $22,$E6,$19,$A0,$00               ;008A3F|        |      ;
-                       db $A5,$32,$20,$1A,$8B               ;008A44|        |      ;
-                       db $A0,$02,$A5,$33,$20               ;008A49|        |      ;
-                       db $1A,$8B,$A0,$04,$A5               ;008A4E|        |      ;
-                       db $34,$20,$1A,$8B,$A0               ;008A53|        |      ;
-                       db $06,$AD,$4E,$05,$20               ;008A58|        |      ;
-                       db $1A,$8B,$4C,$32,$8B               ;008A5D|        |      ;
-                       db $A5,$26,$29,$10,$D0               ;008A62|        |      ;
-                       db $78,$A5,$26,$29,$20               ;008A67|        |      ;
-                       db $F0,$0E,$A4,$6B,$C8               ;008A6C|        |      ;
-                       db $C0,$04,$D0,$02,$A0               ;008A71|        |      ;
-                       db $00,$84,$6B,$4C,$42               ;008A76|        |      ;
-                       db $8A,$A5,$26,$29,$80               ;008A7B|        |      ;
-                       db $F0,$26,$A4,$6B,$F0               ;008A80|        |      ;
-                       db $1D,$88,$F0,$15,$88               ;008A85|        |      ;
-                       db $F0,$0D,$AC,$4E,$05               ;008A8A|        |      ;
+         DATA8_008A1C: db $A4,$19,$D0,$15,$20,$19,$E8,$A0   ;008A1C|        |      ;
+                       db $00,$84,$46,$C8,$84,$47,$A9,$41   ;008A24|        |      ;
+                       db $85,$4B,$A9,$00,$85,$6B,$E6,$19   ;008A2C|        |      ;
+                       db $60,$88,$D0,$05,$E6,$19,$4C,$FD   ;008A34|        |      ;
+                       db $EB,$88,$D0,$22,$E6,$19,$A0,$00   ;008A3C|        |      ;
+                       db $A5,$32,$20,$1A,$8B,$A0,$02,$A5   ;008A44|        |      ;
+                       db $33,$20,$1A,$8B,$A0,$04,$A5,$34   ;008A4C|        |      ;
+                       db $20,$1A,$8B,$A0,$06,$AD,$4E,$05   ;008A54|        |      ;
+                       db $20,$1A,$8B,$4C,$32,$8B,$A5,$26   ;008A5C|        |      ;
+                       db $29,$10,$D0,$78,$A5,$26,$29,$20   ;008A64|        |      ;
+                       db $F0,$0E,$A4,$6B,$C8,$C0,$04,$D0   ;008A6C|        |      ;
+                       db $02,$A0,$00,$84,$6B,$4C,$42,$8A   ;008A74|        |      ;
+                       db $A5,$26,$29,$80,$F0,$26,$A4,$6B   ;008A7C|        |      ;
+                       db $F0,$1D,$88,$F0,$15,$88,$F0,$0D   ;008A84|        |      ;
+                       db $AC,$4E,$05,$C8,$98,$29,$03,$8D   ;008A8C|        |      ;
+                       db $4E,$05,$4C,$42,$8A,$E6,$34,$4C   ;008A94|        |      ;
+                       db $42,$8A,$E6,$33,$4C,$42,$8A,$E6   ;008A9C|        |      ;
+                       db $32,$4C,$42,$8A,$A5,$26,$29,$40   ;008AA4|        |      ;
+                       db $F0,$94,$A4,$6B,$F0,$25,$88,$F0   ;008AAC|        |      ;
+                       db $19,$88,$F0,$0D,$AC,$4E,$05,$88   ;008AB4|        |      ;
+                       db $98,$29,$03,$8D,$4E,$05,$4C,$42   ;008ABC|        |      ;
+                       db $8A,$A5,$34,$F0,$02,$C6,$34,$4C   ;008AC4|        |      ;
+                       db $42,$8A,$A5,$33,$F0,$02,$C6,$33   ;008ACC|        |      ;
+                       db $4C,$42,$8A,$A5,$32,$F0,$02,$C6   ;008AD4|        |      ;
+                       db $32,$4C,$42,$8A,$20,$19,$E8,$20   ;008ADC|        |      ;
+                       db $84,$E6,$A9,$00,$85,$39,$AD,$4E   ;008AE4|        |      ;
+                       db $05,$D0,$06,$A0,$00,$A9,$FF,$D0   ;008AEC|        |      ;
+                       db $02,$A0,$01,$84,$3B,$85,$3A,$A9   ;008AF4|        |      ;
+                       db $04,$85,$18,$A9,$00,$85,$2A,$60   ;008AFC|        |      ;
+                       db $0E,$8B,$10,$8B,$0A,$8B,$60,$70   ;008B04|        |      ;
+                       db $80,$90,$30,$88,$A4,$BC,$90,$21   ;008B0C|        |      ;
+                       db $D0,$21,$10,$22,$50,$22,$85,$08   ;008B14|        |      ;
+                       db $B9,$12,$8B,$85,$61,$B9,$13,$8B   ;008B1C|        |      ;
+                       db $85,$62,$20,$FC,$E8               ;008B24|        |      ;
  
-                       db $C8,$98,$29,$03,$8D               ;008A8F|        |      ;
-                       db $4E,$05,$4C,$42,$8A               ;008A94|        |      ;
-                       db $E6,$34,$4C,$42,$8A               ;008A99|        |      ;
-                       db $E6,$33,$4C,$42,$8A               ;008A9E|        |      ;
-                       db $E6,$32,$4C,$42,$8A               ;008AA3|        |      ;
-                       db $A5,$26,$29,$40,$F0               ;008AA8|        |      ;
-                       db $94,$A4,$6B,$F0,$25               ;008AAD|        |      ;
-                       db $88,$F0,$19,$88,$F0               ;008AB2|        |      ;
-                       db $0D,$AC,$4E,$05,$88               ;008AB7|        |      ;
-                       db $98,$29,$03,$8D,$4E               ;008ABC|        |      ;
-                       db $05,$4C,$42,$8A,$A5               ;008AC1|        |      ;
-                       db $34,$F0,$02,$C6,$34               ;008AC6|        |      ;
- 
-                       db $4C,$42,$8A,$A5,$33               ;008ACB|        |      ;
-                       db $F0,$02,$C6,$33,$4C               ;008AD0|        |      ;
-                       db $42,$8A,$A5,$32,$F0               ;008AD5|        |      ;
- 
-                       db $02,$C6,$32,$4C,$42               ;008ADA|        |      ;
-                       db $8A,$20,$19,$E8,$20               ;008ADF|        |      ;
-                       db $84,$E6,$A9,$00,$85               ;008AE4|        |      ;
-                       db $39,$AD,$4E,$05,$D0               ;008AE9|        |      ;
-                       db $06,$A0,$00,$A9,$FF               ;008AEE|        |      ;
-                       db $D0,$02,$A0,$01,$84               ;008AF3|        |      ;
-                       db $3B,$85,$3A,$A9,$04               ;008AF8|        |      ;
-                       db $85,$18,$A9,$00,$85               ;008AFD|        |      ;
-                       db $2A,$60,$0E,$8B,$10               ;008B02|        |      ;
-                       db $8B,$0A,$8B,$60,$70               ;008B07|        |      ;
-                       db $80,$90,$30,$88,$A4               ;008B0C|        |      ;
-                       db $BC,$90,$21,$D0,$21               ;008B11|        |      ;
-                       db $10,$22,$50,$22,$85               ;008B16|        |      ;
-                       db $08,$B9,$12,$8B,$85               ;008B1B|        |      ;
-                       db $61,$B9,$13,$8B,$85               ;008B20|        |      ;
-                       db $62,$20,$FC,$E8                   ;008B25|        |      ;
- 
-         DATA8_008B29: db $A9,$58,$8D,$38,$04               ;008B29|        |      ;
-                       db $A0,$02,$D0,$07,$A9               ;008B2E|        |      ;
-                       db $70,$8D,$38,$04,$A0               ;008B33|        |      ;
-                       db $04,$B9,$04,$8B,$85               ;008B38|        |      ;
- 
-                       db $08,$B9,$05,$8B,$85               ;008B3D|        |      ;
-                       db $09,$A4,$6B,$B1,$08               ;008B42|        |      ;
-                       db $8D,$1C,$04,$A9,$00               ;008B47|        |      ;
- 
-                       db $8D,$8C,$04,$A9,$40               ;008B4C|        |      ;
+         DATA8_008B29: db $A9,$58,$8D,$38,$04,$A0,$02,$D0   ;008B29|        |      ;
+                       db $07,$A9,$70,$8D,$38,$04,$A0,$04   ;008B31|        |      ;
+                       db $B9,$04,$8B,$85,$08,$B9,$05,$8B   ;008B39|        |      ;
+                       db $85,$09,$A4,$6B,$B1,$08,$8D,$1C   ;008B41|        |      ;
+                       db $04,$A9,$00,$8D,$8C,$04,$A9,$40   ;008B49|        |      ;
                        db $8D,$00,$04,$60                   ;008B51|        |      ;
  
-         DATA8_008B55: db $A9,$CB,$8D,$1C,$04               ;008B55|        |      ;
-                       db $A0,$00,$B9,$04,$8B               ;008B5A|        |      ;
-                       db $85,$08,$B9,$05,$8B               ;008B5F|        |      ;
-                       db $85,$09,$A4,$6B,$B1               ;008B64|        |      ;
-                       db $08,$8D,$38,$04,$4C               ;008B69|        |      ;
-                       db $4A,$8B                           ;008B6E|        |      ;
+         DATA8_008B55: db $A9,$CB,$8D,$1C,$04,$A0,$00,$B9   ;008B55|        |      ;
+                       db $04,$8B,$85,$08,$B9,$05,$8B,$85   ;008B5D|        |      ;
+                       db $09,$A4,$6B,$B1,$08,$8D,$38,$04   ;008B65|        |      ;
+                       db $4C,$4A,$8B                       ;008B6D|        |      ;
                        LDY.B #$02                           ;008B70|A002    |      ;
                        BNE CODE_008B76                      ;008B72|D002    |008B76;
                        LDY.B #$00                           ;008B74|A000    |      ;
@@ -1456,11 +1320,11 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.B $B5                            ;008B88|85B5    |0000B5;
  
           CODE_008B8A: LDA.W PTR16_008BD1,Y                 ;008B8A|B9D18B  |008BD1;
-                       STA.B r_currOAM_Attr                 ;008B8D|8510    |000010;
+                       STA.B r_index                        ;008B8D|8510    |000010;
                        LDA.W PTR16_008BD2,Y                 ;008B8F|B9D28B  |008BD2;
                        STA.B r_collisionPointYinScreen      ;008B92|8511    |000011;
                        LDY.B $B4                            ;008B94|A4B4    |0000B4;
-                       LDA.B (r_currOAM_Attr),Y             ;008B96|B110    |000010;
+                       LDA.B (r_index),Y                    ;008B96|B110    |000010;
                        CMP.B #$FF                           ;008B98|C9FF    |      ;
                        BEQ CODE_008B7C                      ;008B9A|F0E0    |008B7C;
  
@@ -1483,8 +1347,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.B r_collisionPointAbsoluteXRoom  ;008BB2|8514    |000014;
  
           CODE_008BB4: LDA.W r_VramQueue,X                  ;008BB4|BD0003  |000300;
- 
-          CODE_008BB7: CLC                                  ;008BB7|18      |      ;
+                       CLC                                  ;008BB7|18      |      ;
                        ADC.B r_collisionPointXvalDiv32      ;008BB8|6512    |000012;
                        BPL CODE_008BBE                      ;008BBA|1002    |008BBE;
                        LDA.B #$0F                           ;008BBC|A90F    |      ;
@@ -1506,11 +1369,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        dw DATA8_008BD5                      ;008BD3|        |008BD5;
  
-         DATA8_008BD5: db $00,$C0,$D0,$E0,$F0               ;008BD5|        |      ;
-                       db $00,$FF                           ;008BDA|        |      ;
+         DATA8_008BD5: db $00,$C0,$D0,$E0,$F0,$00,$FF       ;008BD5|        |      ;
  
-         DATA8_008BDC: db $00,$00,$F0,$E0,$D0               ;008BDC|        |      ;
-                       db $C0,$FF                           ;008BE1|        |      ;
+         DATA8_008BDC: db $00,$00,$F0,$E0,$D0,$C0,$FF       ;008BDC|        |      ;
  
           CODE_008BE3: LDX.B #$01                           ;008BE3|A201    |      ;
                        LDY.B #$00                           ;008BE5|A000    |      ;
@@ -1557,7 +1418,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.B r_lifes                        ;008C24|8535    |000035;
                        LDA.B #$4B                           ;008C26|A94B    |      ;
                        db $20                               ;008C28|        |      ;
-                       dw CODE_0FE25F                       ;008C29|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;008C29|        |0FE25F;
                        JSR.W CODE_008E3C                    ;008C2B|203C8E  |008E3C;
  
           CODE_008C2E: RTS                                  ;008C2E|60      |      ;
@@ -1638,7 +1499,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$77                           ;008C9B|A977    |      ;
                        STA.B r_VRAM_QueueDest               ;008C9D|8561    |000061;
                        LDA.B r_hearts                       ;008C9F|A584    |000084;
-                       STA.B r_pointerQueue_VRAM            ;008CA1|8508    |000008;
+                       STA.B r_pointerQueue                 ;008CA1|8508    |000008;
                        db $4C                               ;008CA3|        |      ;
  
                        dw CODE_0FE8FC                       ;008CA4|        |0FE8FC;
@@ -1648,7 +1509,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$67                           ;008CAA|A967    |      ;
                        STA.B r_VRAM_QueueDest               ;008CAC|8561    |000061;
                        LDA.B r_HUD_healthPlayer             ;008CAE|A53C    |00003C;
-                       STA.B r_pointerQueue_VRAM            ;008CB0|8508    |000008;
+                       STA.B r_pointerQueue                 ;008CB0|8508    |000008;
                        LDA.B #$83                           ;008CB2|A983    |      ;
                        STA.B r_temp_Xpos                    ;008CB4|850A    |00000A;
                        LDA.B #$84                           ;008CB6|A984    |      ;
@@ -1660,7 +1521,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$87                           ;008CC1|A987    |      ;
                        STA.B r_VRAM_QueueDest               ;008CC3|8561    |000061;
                        LDA.B r_HUD_healthBoss               ;008CC5|A53D    |00003D;
-                       STA.B r_pointerQueue_VRAM            ;008CC7|8508    |000008;
+                       STA.B r_pointerQueue                 ;008CC7|8508    |000008;
  
                        LDA.B #$93                           ;008CC9|A993    |      ;
  
@@ -1674,7 +1535,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$08                           ;008CD4|A908    |      ;
                        STA.B $09                            ;008CD6|8509    |000009;
  
-          CODE_008CD8: LDA.B r_pointerQueue_VRAM            ;008CD8|A508    |000008;
+          CODE_008CD8: LDA.B r_pointerQueue                 ;008CD8|A508    |000008;
                        BEQ CODE_008D0D                      ;008CDA|F031    |008D0D;
                        CMP.B #$08                           ;008CDC|C908    |      ;
                        BCC CODE_008CF3                      ;008CDE|9013    |008CF3;
@@ -1682,10 +1543,10 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.W r_VramQueue,X                  ;008CE2|9D0003  |000300;
  
                        INX                                  ;008CE5|E8      |      ;
-                       LDA.B r_pointerQueue_VRAM            ;008CE6|A508    |000008;
+                       LDA.B r_pointerQueue                 ;008CE6|A508    |000008;
                        SEC                                  ;008CE8|38      |      ;
                        SBC.B #$08                           ;008CE9|E908    |      ;
-                       STA.B r_pointerQueue_VRAM            ;008CEB|8508    |000008;
+                       STA.B r_pointerQueue                 ;008CEB|8508    |000008;
                        DEC.B $09                            ;008CED|C609    |000009;
                        BEQ CODE_008D18                      ;008CEF|F027    |008D18;
                        BNE CODE_008CD8                      ;008CF1|D0E5    |008CD8;
@@ -1725,14 +1586,14 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$52                           ;008D25|A952    |      ;
                        STA.B r_VRAM_QueueDest               ;008D27|8561    |000061;
                        LDA.B r_lvlTimerHi                   ;008D29|A57F    |00007F;
-                       STA.B r_pointerQueue_VRAM            ;008D2B|8508    |000008;
+                       STA.B r_pointerQueue                 ;008D2B|8508    |000008;
                        db $20                               ;008D2D|        |      ;
                        dw CODE_0FE8FC                       ;008D2E|        |0FE8FC;
  
                        INC.B r_VRAM_QueueDest               ;008D30|E661    |000061;
                        INC.B r_VRAM_QueueDest               ;008D32|E661    |000061;
                        LDA.B r_lvlTimerLo                   ;008D34|A57E    |00007E;
-                       STA.B r_pointerQueue_VRAM            ;008D36|8508    |000008;
+                       STA.B r_pointerQueue                 ;008D36|8508    |000008;
                        db $4C                               ;008D38|        |      ;
  
                        dw CODE_0FE8FC                       ;008D39|        |0FE8FC;
@@ -1742,19 +1603,19 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$46                           ;008D3F|A946    |      ;
                        STA.B r_VRAM_QueueDest               ;008D41|8561    |000061;
                        LDA.B r_scoreHi                      ;008D43|A538    |000038;
-                       STA.B r_pointerQueue_VRAM            ;008D45|8508    |000008;
+                       STA.B r_pointerQueue                 ;008D45|8508    |000008;
                        db $20                               ;008D47|        |      ;
                        dw CODE_0FE8FC                       ;008D48|        |0FE8FC;
                        INC.B r_VRAM_QueueDest               ;008D4A|E661    |000061;
                        INC.B r_VRAM_QueueDest               ;008D4C|E661    |000061;
                        LDA.B r_scoreMid                     ;008D4E|A537    |000037;
-                       STA.B r_pointerQueue_VRAM            ;008D50|8508    |000008;
+                       STA.B r_pointerQueue                 ;008D50|8508    |000008;
                        db $20                               ;008D52|        |      ;
                        dw CODE_0FE8FC                       ;008D53|        |0FE8FC;
                        INC.B r_VRAM_QueueDest               ;008D55|E661    |000061;
                        INC.B r_VRAM_QueueDest               ;008D57|E661    |000061;
                        LDA.B r_scoreLo                      ;008D59|A536    |000036;
-                       STA.B r_pointerQueue_VRAM            ;008D5B|8508    |000008;
+                       STA.B r_pointerQueue                 ;008D5B|8508    |000008;
                        db $4C                               ;008D5D|        |      ;
  
                        dw CODE_0FE8FC                       ;008D5E|        |0FE8FC;
@@ -1792,7 +1653,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        ASL A                                ;008D98|0A      |      ;
                        TAY                                  ;008D99|A8      |      ;
                        LDA.W PTR16_008DCF,Y                 ;008D9A|B9CF8D  |008DCF;
-                       STA.B r_pointerQueue_VRAM            ;008D9D|8508    |000008;
+                       STA.B r_pointerQueue                 ;008D9D|8508    |000008;
                        LDA.W PTR16_008DD0,Y                 ;008D9F|B9D08D  |008DD0;
                        STA.B $09                            ;008DA2|8509    |000009;
                        LDA.B #$20                           ;008DA4|A920    |      ;
@@ -1802,7 +1663,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        db $20                               ;008DAC|        |      ;
                        dw CODE_0FE8B5                       ;008DAD|        |0FE8B5;
                        LDY.B #$00                           ;008DAF|A000    |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;008DB1|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;008DB1|B108    |000008;
                        STA.W r_VramQueue,X                  ;008DB3|9D0003  |000300;
                        db $20                               ;008DB6|        |      ;
                        dw CODE_0FE8DD                       ;008DB7|        |0FE8DD;
@@ -1816,7 +1677,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        LDY.B r_blockLevel                   ;008DC4|A433    |000033;
                        INY                                  ;008DC6|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;008DC7|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;008DC7|B108    |000008;
                        STA.W r_VramQueue,X                  ;008DC9|9D0003  |000300;
                        db $4C                               ;008DCC|        |      ;
  
@@ -1842,14 +1703,11 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_008DED: db $42,$42,$43,$44,$45               ;008DED|        |      ;
  
-         DATA8_008DF2: db $43,$42,$43,$44,$45               ;008DF2|        |      ;
-                       db $46,$47                           ;008DF7|        |      ;
+         DATA8_008DF2: db $43,$42,$43,$44,$45,$46,$47       ;008DF2|        |      ;
  
-         DATA8_008DF9: db $44,$41,$42,$43,$44               ;008DF9|        |      ;
-                       db $45                               ;008DFE|        |      ;
+         DATA8_008DF9: db $44,$41,$42,$43,$44,$45           ;008DF9|        |      ;
  
-         DATA8_008DFF: db $45,$50,$51,$52,$53               ;008DFF|        |      ;
-                       db $54                               ;008E04|        |      ;
+         DATA8_008DFF: db $45,$50,$51,$52,$53,$54           ;008DFF|        |      ;
  
          DATA8_008E05: db $46,$50,$51,$52                   ;008E05|        |      ;
  
@@ -1857,16 +1715,13 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_008E0E: db $45,$42,$43,$44                   ;008E0E|        |      ;
  
-         DATA8_008E12: db $46,$42,$43,$44,$45               ;008E12|        |      ;
-                       db $46,$47,$48                       ;008E17|        |      ;
+         DATA8_008E12: db $46,$42,$43,$44,$45,$46,$47,$48   ;008E12|        |      ;
  
-         DATA8_008E1A: db $47,$42,$43,$44,$45               ;008E1A|        |      ;
-                       db $46                               ;008E1F|        |      ;
+         DATA8_008E1A: db $47,$42,$43,$44,$45,$46           ;008E1A|        |      ;
  
          DATA8_008E20: db $47,$42,$43                       ;008E20|        |      ;
  
-         DATA8_008E23: db $48,$42,$43,$44,$45               ;008E23|        |      ;
-                       db $46,$47,$48                       ;008E28|        |      ;
+         DATA8_008E23: db $48,$42,$43,$44,$45,$46,$47,$48   ;008E23|        |      ;
  
          DATA8_008E2B: db $48,$50,$51,$52                   ;008E2B|        |      ;
  
@@ -1881,7 +1736,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        LDA.B #$97                           ;008E40|A997    |      ;
                        STA.B r_VRAM_QueueDest               ;008E42|8561    |000061;
                        LDY.B r_lifes                        ;008E44|A435    |000035;
-                       STY.B r_pointerQueue_VRAM            ;008E46|8408    |000008;
+                       STY.B r_pointerQueue                 ;008E46|8408    |000008;
                        db $4C                               ;008E48|        |      ;
  
                        dw CODE_0FE8FC                       ;008E49|        |0FE8FC;
@@ -1969,20 +1824,14 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_008ED2: db $00                               ;008ED2|        |      ;
  
-         DATA8_008ED3: db $00,$46,$00,$90,$24               ;008ED3|        |      ;
-                       db $00,$42,$00,$90,$24               ;008ED8|        |      ;
-                       db $00,$4E,$00,$90,$24               ;008EDD|        |      ;
-                       db $00,$50,$00,$90,$24               ;008EE2|        |      ;
-                       db $00,$52,$02,$90,$24               ;008EE7|        |      ;
+         DATA8_008ED3: db $00,$46,$00,$90,$24,$00,$42,$00   ;008ED3|        |      ;
+                       db $90,$24,$00,$4E,$00,$90,$24,$00   ;008EDB|        |      ;
+                       db $50,$00,$90,$24,$00,$52,$02,$90   ;008EE3|        |      ;
+                       db $24,$03,$54,$02,$90,$24,$00,$4E   ;008EEB|        |      ;
+                       db $02,$90,$24,$00,$4E,$00,$90,$24   ;008EF3|        |      ;
+                       db $00,$46,$00,$90,$24,$00,$50,$00   ;008EFB|        |      ;
  
-                       db $03,$54,$02,$90,$24               ;008EEC|        |      ;
-                       db $00,$4E,$02,$90,$24               ;008EF1|        |      ;
-                       db $00,$4E,$00,$90,$24               ;008EF6|        |      ;
-                       db $00,$46,$00,$90,$24               ;008EFB|        |      ;
-                       db $00,$50,$00,$90,$24               ;008F00|        |      ;
- 
-                       db $00,$68,$0E,$90,$24               ;008F05|        |      ;
-                       db $00                               ;008F0A|        |      ;
+                       db $90,$24,$00,$68,$0E,$90,$24,$00   ;008F03|        |      ;
  
           CODE_008F0B: LDA.B r_rosseryFlashTimer            ;008F0B|A5B2    |0000B2;
                        BEQ CODE_008F35                      ;008F0D|F026    |008F35;
@@ -2082,11 +1931,9 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;008F9D|60      |      ;
  
  
-         DATA8_008F9E: db $00,$10,$13,$20,$21               ;008F9E|        |      ;
-                       db $30,$40,$50,$60,$70               ;008FA3|        |      ;
- 
-                       db $75,$80,$90,$A0,$B0               ;008FA8|        |      ;
-                       db $C0,$D0,$E0                       ;008FAD|        |      ;
+         DATA8_008F9E: db $00,$10,$13,$20,$21,$30,$40,$50   ;008F9E|        |      ;
+                       db $60,$70,$75,$80,$90,$A0,$B0,$C0   ;008FA6|        |      ;
+                       db $D0,$E0                           ;008FAE|        |      ;
  
           CODE_008FB0: LDA.B r_stage                        ;008FB0|A532    |000032;
                        ASL A                                ;008FB2|0A      |      ;
@@ -2113,33 +1960,30 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
          DATA8_008FD1: db $10                               ;008FD1|        |      ;
  
-         DATA8_008FD2: db $00,$00,$02,$01,$02               ;008FD2|        |      ;
-                       db $10,$03,$04,$10,$05               ;008FD7|        |      ;
-                       db $05,$10,$06,$06,$10               ;008FDC|        |      ;
-                       db $07,$07,$10,$08,$08               ;008FE1|        |      ;
-                       db $04,$09,$0A,$10,$0B               ;008FE6|        |      ;
-                       db $0B,$10,$0C,$0C,$10               ;008FEB|        |      ;
-                       db $0D,$0D,$10,$0E,$0E               ;008FF0|        |      ;
-                       db $10,$0F,$0F,$10,$10               ;008FF5|        |      ;
+         DATA8_008FD2: db $00,$00,$02,$01,$02,$10,$03,$04   ;008FD2|        |      ;
+                       db $10,$05,$05,$10,$06,$06,$10,$07   ;008FDA|        |      ;
+                       db $07,$10,$08,$08,$04,$09,$0A,$10   ;008FE2|        |      ;
+                       db $0B,$0B,$10,$0C,$0C,$10,$0D,$0D   ;008FEA|        |      ;
+                       db $10,$0E,$0E,$10,$0F,$0F,$10,$10   ;008FF2|        |      ;
                        db $10,$10,$11,$11                   ;008FFA|        |      ;
  
           CODE_008FFE: LDY.B #$00                           ;008FFE|A000    |      ;
  
-                       JSR.W CODE_009031                    ;009000|203190  |009031;
+                       JSR.W bonusNameCheckCS               ;009000|203190  |009031;
                        BCS CODE_00902E                      ;009003|B029    |00902E;
  
           CODE_009005: LDY.B #$02                           ;009005|A002    |      ;
-                       JSR.W CODE_009031                    ;009007|203190  |009031;
+                       JSR.W bonusNameCheckCS               ;009007|203190  |009031;
                        BCS CODE_00902B                      ;00900A|B01F    |00902B;
                        LDY.B #$04                           ;00900C|A004    |      ;
-                       JSR.W CODE_009031                    ;00900E|203190  |009031;
+                       JSR.W bonusNameCheckCS               ;00900E|203190  |009031;
                        BCS CODE_009022                      ;009011|B00F    |009022;
                        LDY.B #$06                           ;009013|A006    |      ;
-                       JSR.W CODE_009031                    ;009015|203190  |009031;
+                       JSR.W bonusNameCheckCS               ;009015|203190  |009031;
  
                        BCS CODE_009025                      ;009018|B00B    |009025;
                        LDY.B #$08                           ;00901A|A008    |      ;
-                       JSR.W CODE_009031                    ;00901C|203190  |009031;
+                       JSR.W bonusNameCheckCS               ;00901C|203190  |009031;
                        BCS CODE_009028                      ;00901F|B007    |009028;
                        RTS                                  ;009021|60      |      ;
  
@@ -2165,16 +2009,16 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;009030|60      |      ;
  
  
-          CODE_009031: LDA.W DATA8_00904D,Y                 ;009031|B94D90  |00904D;
+     bonusNameCheckCS: LDA.W extraNameCheckLo,Y             ;009031|B94D90  |00904D;
  
-                       STA.B r_pointerQueue_VRAM            ;009034|8508    |000008;
-                       LDA.W DATA8_00904E,Y                 ;009036|B94E90  |00904E;
+                       STA.B r_pointerQueue                 ;009034|8508    |000008;
+                       LDA.W extraNameCheckHi,Y             ;009036|B94E90  |00904E;
                        STA.B $09                            ;009039|8509    |000009;
                        LDY.B #$00                           ;00903B|A000    |      ;
  
           CODE_00903D: LDA.W $07F8,Y                        ;00903D|B9F807  |0007F8;
-                       CMP.B (r_pointerQueue_VRAM),Y        ;009040|D108    |000008;
-                       BNE DATA8_00904B                     ;009042|D007    |00904B;
+                       CMP.B (r_pointerQueue),Y             ;009040|D108    |000008;
+                       BNE CODE_00904B                      ;009042|D007    |00904B;
                        INY                                  ;009044|C8      |      ;
                        CPY.B #$08                           ;009045|C008    |      ;
                        BNE CODE_00903D                      ;009047|D0F4    |00903D;
@@ -2182,26 +2026,30 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;00904A|60      |      ;
  
  
-         DATA8_00904B: db $18,$60                           ;00904B|        |      ;
+          CODE_00904B: CLC                                  ;00904B|18      |      ;
+                       RTS                                  ;00904C|60      |      ;
  
-         DATA8_00904D: db $57                               ;00904D|        |      ;
  
-         DATA8_00904E: db $90,$5F,$90,$67,$90               ;00904E|        |      ;
-                       db $6F,$90,$77,$90,$57               ;009053|        |      ;
+     extraNameCheckLo: dw DATA8_009057                      ;00904D|        |009057;
+                       dw DATA8_00905F                      ;00904F|        |00905F;
+                       dw DATA8_009067                      ;009051|        |009067;
+                       dw DATA8_00906F                      ;009053|        |00906F;
+                       dw DATA8_009077                      ;009055|        |009077;
  
-                       db $54,$5B,$5F,$00,$5C               ;009058|        |      ;
-                       db $54,$00,$50,$5A,$50               ;00905D|        |      ;
-                       db $5C,$50,$00,$00,$00               ;009062|        |      ;
-                       db $5E,$5A,$64,$53,$50               ;009067|        |      ;
-                       db $00,$00,$00,$64,$61               ;00906C|        |      ;
-                       db $50,$63,$50,$00,$00               ;009071|        |      ;
-                       db $00,$55,$64,$59,$58               ;009076|        |      ;
-                       db $5C,$5E,$63,$5E                   ;00907B|        |      ;
+         DATA8_009057: db $57,$54,$5B,$5F,$00,$5C,$54,$00   ;009057|        |      ;
+ 
+         DATA8_00905F: db $50,$5A,$50,$5C,$50,$00,$00,$00   ;00905F|        |      ;
+ 
+         DATA8_009067: db $5E,$5A,$64,$53,$50,$00,$00,$00   ;009067|        |      ;
+ 
+         DATA8_00906F: db $64,$61,$50,$63,$50,$00,$00,$00   ;00906F|        |      ;
+ 
+         DATA8_009077: db $55,$64,$59,$58,$5C,$5E,$63,$5E   ;009077|        |      ;
  
           CODE_00907F: LDA.B #$B0                           ;00907F|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;009081|85FF    |0000FF;
-                       JSR.W CODE_0090CD                    ;009083|20CD90  |0090CD;
-                       JSR.W CODE_0090C0                    ;009086|20C090  |0090C0;
+                       JSR.W setDefaultCHR                  ;009083|20CD90  |0090CD;
+                       JSR.W startingStats                  ;009086|20C090  |0090C0;
                        LDA.B #$02                           ;009089|A902    |      ;
  
                        STA.B r_score4ExtraLive              ;00908B|853E    |00003E;
@@ -2244,24 +2092,24 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_0090BC: LDA.B #$10                           ;0090BC|A910    |      ;
                        BNE CODE_0090B9                      ;0090BE|D0F9    |0090B9;
  
-          CODE_0090C0: LDA.B #$05                           ;0090C0|A905    |      ;
+        startingStats: LDA.B #$05                           ;0090C0|A905    |      ;
                        STA.B r_hearts                       ;0090C2|8584    |000084;
                        LDA.B #$40                           ;0090C4|A940    |      ;
                        STA.B r_HUD_healthPlayer             ;0090C6|853C    |00003C;
  
-          CODE_0090C8: LDA.B #$40                           ;0090C8|A940    |      ;
+     bossHealthRefill: LDA.B #$40                           ;0090C8|A940    |      ;
                        STA.B r_HUD_healthBoss               ;0090CA|853D    |00003D;
                        RTS                                  ;0090CC|60      |      ;
  
  
-          CODE_0090CD: LDA.B #$40                           ;0090CD|A940    |      ;
+        setDefaultCHR: LDA.B #$40                           ;0090CD|A940    |      ;
                        STA.B r_CHR_BankBG_0000              ;0090CF|854A    |00004A;
                        LDA.B #$43                           ;0090D1|A943    |      ;
                        STA.B r_CHR_BankBG_0c00              ;0090D3|854D    |00004D;
                        RTS                                  ;0090D5|60      |      ;
  
  
-          CODE_0090D6: LDA.B #$00                           ;0090D6|A900    |      ;
+clearStopWatchActions: LDA.B #$00                           ;0090D6|A900    |      ;
                        STA.B r_stopWatchActive              ;0090D8|85AB    |0000AB;
                        STA.B r_stopWatchTimer               ;0090DA|85AC    |0000AC;
                        STA.W r_sound_musicStop              ;0090DC|8DC906  |0006C9;
@@ -2272,8 +2120,8 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_0090E2: LDA.B #$B0                           ;0090E2|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;0090E4|85FF    |0000FF;
                        db $20                               ;0090E6|        |      ;
-                       dw CODE_0FE666                       ;0090E7|        |0FE666;
-                       JSR.W CODE_0090C8                    ;0090E9|20C890  |0090C8;
+                       dw initClearScreen_clearIRQfunc      ;0090E7|        |0FE666;
+                       JSR.W bossHealthRefill               ;0090E9|20C890  |0090C8;
                        LDA.B #$00                           ;0090EC|A900    |      ;
                        STA.W r_OamSpecIdxDoubled            ;0090EE|8D0004  |000400;
                        STA.W $0418                          ;0090F1|8D1804  |000418;
@@ -2281,7 +2129,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        STA.B r_074                          ;0090F7|8574    |000074;
                        STA.B r_075                          ;0090F9|8575    |000075;
                        STA.W r_Player_StateDoubled          ;0090FB|8D6505  |000565;
-                       JSR.W CODE_0090D6                    ;0090FE|20D690  |0090D6;
+                       JSR.W clearStopWatchActions          ;0090FE|20D690  |0090D6;
                        db $20                               ;009101|        |      ;
                        dw CODE_0FE862                       ;009102|        |0FE862;
                        JMP.W CODE_009130                    ;009104|4C3091  |009130;
@@ -2290,7 +2138,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_009107: LDA.B #$00                           ;009107|A900    |      ;
                        STA.W r_entity_YposSpeed             ;009109|8D2005  |000520;
                        STA.W r_entity_YposSubSpeed          ;00910C|8D3705  |000537;
-                       JSR.W CODE_0090D6                    ;00910F|20D690  |0090D6;
+                       JSR.W clearStopWatchActions          ;00910F|20D690  |0090D6;
                        db $20                               ;009112|        |      ;
                        dw CODE_0FE862                       ;009113|        |0FE862;
                        BCS CODE_009130                      ;009115|B019    |009130;
@@ -2304,12 +2152,12 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_009122: LDA.B #$B0                           ;009122|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;009124|85FF    |0000FF;
                        db $20                               ;009126|        |      ;
-                       dw CODE_0FE666                       ;009127|        |0FE666;
+                       dw initClearScreen_clearIRQfunc      ;009127|        |0FE666;
                        LDA.B #$00                           ;009129|A900    |      ;
                        STA.B r_075                          ;00912B|8575    |000075;
-                       JSR.W CODE_00917F                    ;00912D|207F91  |00917F;
+                       JSR.W clearCollisionMap              ;00912D|207F91  |00917F;
  
-          CODE_009130: JSR.W CODE_0090CD                    ;009130|20CD90  |0090CD;
+          CODE_009130: JSR.W setDefaultCHR                  ;009130|20CD90  |0090CD;
                        LDA.B #$B0                           ;009133|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;009135|85FF    |0000FF;
                        LDA.W r_Player_StateDoubled          ;009137|AD6505  |000565;
@@ -2349,10 +2197,10 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        RTS                                  ;00917E|60      |      ;
  
  
-          CODE_00917F: LDA.B #$00                           ;00917F|A900    |      ;
+    clearCollisionMap: LDA.B #$00                           ;00917F|A900    |      ;
                        TAX                                  ;009181|AA      |      ;
  
-          CODE_009182: STA.W r_collisionMapValues90,X       ;009182|9DE006  |0006E0;
+          CODE_009182: STA.W r_collisionMap,X               ;009182|9DE006  |0006E0;
                        INX                                  ;009185|E8      |      ;
  
                        CPX.B #$90                           ;009186|E090    |      ;
@@ -2363,8 +2211,8 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
           CODE_00918B: LDA.B #$B0                           ;00918B|A9B0    |      ;
                        STA.B r_PPUCtrl                      ;00918D|85FF    |0000FF;
                        db $20                               ;00918F|        |      ;
-                       dw CODE_0FE666                       ;009190|        |0FE666;
-                       JSR.W CODE_0090CD                    ;009192|20CD90  |0090CD;
+                       dw initClearScreen_clearIRQfunc      ;009190|        |0FE666;
+                       JSR.W setDefaultCHR                  ;009192|20CD90  |0090CD;
                        db $20                               ;009195|        |      ;
                        dw unsetAutoPlayFlag                 ;009196|        |0FE5CA;
                        LDA.W r_entity_ObjectIdxes           ;009198|AD4E05  |00054E;
@@ -2384,7 +2232,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
  
                        PLA                                  ;0091AB|68      |      ;
                        STA.W r_entity_ObjectIdxes           ;0091AC|8D4E05  |00054E;
-                       JMP.W CODE_0090C0                    ;0091AF|4CC090  |0090C0;
+                       JMP.W startingStats                  ;0091AF|4CC090  |0090C0;
  
  
           CODE_0091B2: LDA.B #$00                           ;0091B2|A900    |      ;
@@ -2423,7 +2271,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        CMP.B #$0E                           ;0091EA|C90E    |      ;
                        BEQ CODE_0091FB                      ;0091EC|F00D    |0091FB;
  
-          CODE_0091EE: JSR.W CODE_0090C0                    ;0091EE|20C090  |0090C0;
+          CODE_0091EE: JSR.W startingStats                  ;0091EE|20C090  |0090C0;
  
           CODE_0091F1: LDA.B #$00                           ;0091F1|A900    |      ;
                        STA.W r_Player_StateDoubled          ;0091F3|8D6505  |000565;
@@ -2445,7 +2293,7 @@ palettePointerGroup10: dw DATA8_008980                      ;0086EF|        |008
                        CMP.B #$03                           ;00920B|C903    |      ;
                        BNE CODE_0091EE                      ;00920D|D0DF    |0091EE;
  
-          CODE_00920F: JSR.W CODE_0090C8                    ;00920F|20C890  |0090C8;
+          CODE_00920F: JSR.W bossHealthRefill               ;00920F|20C890  |0090C8;
                        JMP.W CODE_0091F1                    ;009212|4CF191  |0091F1;
  
  
@@ -2485,21 +2333,16 @@ progressionLookUp_block: db $00                               ;009245|        | 
  
 progressionLookUp_room: db $00                               ;009246|        |      ;
  
-newProgressionIndex_a4: db $00,$01,$02,$02,$01               ;009247|        |      ;
-                       db $01,$05,$00,$02,$02               ;00924C|        |      ;
-                       db $04,$00,$03,$03,$04               ;009251|        |      ;
-                       db $01,$04,$04,$02,$02               ;009256|        |      ;
-                       db $05,$05,$03,$00,$06               ;00925B|        |      ;
-                       db $06,$02,$00,$07,$07               ;009260|        |      ;
-                       db $04,$01,$08,$07,$06               ;009265|        |      ;
+newProgressionIndex_a4: db $00,$01,$02,$02,$01,$01,$05,$00   ;009247|        |      ;
+                       db $02,$02,$04,$00,$03,$03,$04,$01   ;00924F|        |      ;
+                       db $04,$04,$02,$02,$05,$05,$03,$00   ;009257|        |      ;
+                       db $06,$06,$02,$00,$07,$07,$04,$01   ;00925F|        |      ;
+                       db $08,$07,$06,$00,$09,$08,$04,$00   ;009267|        |      ;
  
-                       db $00,$09,$08,$04,$00               ;00926A|        |      ;
- 
-                       db $0A,$09,$01,$02,$0B               ;00926F|        |      ;
-                       db $0A,$06,$02,$0C,$0B               ;009274|        |      ;
-                       db $02,$00,$0D,$0C,$02               ;009279|        |      ;
-                       db $00,$0E,$0D,$03,$01               ;00927E|        |      ;
-                       db $0F,$FF,$00,$00,$00               ;009283|        |      ;
+                       db $0A,$09,$01,$02,$0B,$0A,$06,$02   ;00926F|        |      ;
+                       db $0C,$0B,$02,$00,$0D,$0C,$02,$00   ;009277|        |      ;
+                       db $0E,$0D,$03,$01,$0F,$FF,$00,$00   ;00927F|        |      ;
+                       db $00                               ;009287|        |      ;
  
           CODE_009288: LDA.B r_menuSelectIdx                ;009288|A56B    |00006B;
                        db $20                               ;00928A|        |      ;
@@ -2550,15 +2393,18 @@ newProgressionIndex_a4: db $00,$01,$02,$02,$01               ;009247|        |  
  
        checkBossStage: db $01                               ;0092D5|        |      ; c6 enity index is y offset
  
- getBossProgressIndex: db $00,$02,$01,$07,$02               ;0092D6|        |      ;
-                       db $03,$03,$0A,$04,$0E               ;0092DB|        |      ;
-                       db $05,$FF                           ;0092E0|        |      ;
+ getBossProgressIndex: db $00,$02,$01,$07,$02,$03,$03,$0A   ;0092D6|        |      ;
+                       db $04,$0E,$05,$FF                   ;0092DE|        |      ;
  
-afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |      ;
-                       db $08,$00,$00,$01,$08               ;0092E7|        |      ;
-                       db $00,$00,$00,$04,$1F               ;0092EC|        |      ;
-                       db $01,$00,$04,$1F,$01               ;0092F1|        |      ;
-                       db $01,$04,$1F,$01                   ;0092F6|        |      ;
+afterBoss_AutoPlay_Dir: db $01                               ;0092E2|        |      ;
+ 
+         DATA8_0092E3: db $04                               ;0092E3|        |      ;
+ 
+         DATA8_0092E4: db $1E                               ;0092E4|        |      ;
+ 
+         DATA8_0092E5: db $00,$00,$08,$00,$00,$01,$08,$00   ;0092E5|        |      ;
+                       db $00,$00,$04,$1F,$01,$00,$04,$1F   ;0092ED|        |      ;
+                       db $01,$01,$04,$1F,$01               ;0092F5|        |      ;
  
           CODE_0092FA: LDA.W r_entity_XPos                  ;0092FA|AD3804  |000438;
                        LDY.W r_entity_FacingLeft            ;0092FD|ACA804  |0004A8;
@@ -2593,14 +2439,14 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        LDA.B #$63                           ;00932C|A963    |      ;
                        db $4C                               ;00932E|        |      ;
  
-                       dw CODE_0FE25F                       ;00932F|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00932F|        |0FE25F;
  
           CODE_009331: LDA.B r_gameStateLoopCounter         ;009331|A51A    |00001A;
                        AND.B #$0F                           ;009333|290F    |      ;
                        BNE CODE_00933C                      ;009335|D005    |00933C;
                        LDA.B #$09                           ;009337|A909    |      ;
                        db $20                               ;009339|        |      ;
-                       dw CODE_0FE25F                       ;00933A|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00933A|        |0FE25F;
  
           CODE_00933C: LDA.W r_entity_FacingLeft            ;00933C|ADA804  |0004A8;
                        BEQ CODE_009353                      ;00933F|F012    |009353;
@@ -2629,7 +2475,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        LDA.B #$0C                           ;009367|A90C    |      ;
                        db $20                               ;009369|        |      ;
  
-                       dw CODE_0FE25F                       ;00936A|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00936A|        |0FE25F;
                        LDA.B #$3C                           ;00936C|A93C    |      ;
                        STA.B r_timerGenerel                 ;00936E|8530    |000030;
                        LDA.B #$0C                           ;009370|A90C    |      ;
@@ -2769,13 +2615,13 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        STA.W $0418                          ;00944B|8D1804  |000418;
                        STA.W $0419                          ;00944E|8D1904  |000419;
                        LDY.B r_autoWalkPlayer               ;009451|A4C6    |0000C6;
-                       LDA.W $92E3,Y                        ;009453|B9E392  |0092E3;
+                       LDA.W DATA8_0092E3,Y                 ;009453|B9E392  |0092E3;
                        STA.B r_gameState                    ;009456|8518    |000018;
-                       LDA.W $92E4,Y                        ;009458|B9E492  |0092E4;
+                       LDA.W DATA8_0092E4,Y                 ;009458|B9E492  |0092E4;
                        STA.B r_gameTransition               ;00945B|852A    |00002A;
                        LDA.B r_blockLevel                   ;00945D|A533    |000033;
                        CLC                                  ;00945F|18      |      ;
-                       ADC.W $92E5,Y                        ;009460|79E592  |0092E5;
+                       ADC.W DATA8_0092E5,Y                 ;009460|79E592  |0092E5;
                        STA.B r_blockLevel                   ;009463|8533    |000033;
                        LDA.B #$00                           ;009465|A900    |      ;
                        STA.B r_gameSubstate                 ;009467|8519    |000019;
@@ -2803,25 +2649,26 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
  
                        db $20                               ;00948D|        |      ;
                        dw jumpFromStackYXpreserved          ;00948E|        |0FE86D;
-                       dw CODE_0094AC                       ;009490|        |0094AC;
-                       dw CODE_0094BB                       ;009492|        |0094BB;
-                       dw CODE_0094CF                       ;009494|        |0094CF;
-                       dw CODE_00951B                       ;009496|        |00951B;
-                       dw CODE_00959B                       ;009498|        |00959B;
-                       dw DATA8_0095E8                      ;00949A|        |0095E8;
-                       dw CODE_009625                       ;00949C|        |009625;
-                       dw CODE_009682                       ;00949E|        |009682;
-                       dw CODE_00969F                       ;0094A0|        |00969F;
-                       dw CODE_009598                       ;0094A2|        |009598;
-                       dw CODE_0095E5                       ;0094A4|        |0095E5;
-                       dw CODE_009622                       ;0094A6|        |009622;
-                       dw CODE_009692                       ;0094A8|        |009692;
  
-                       dw CODE_00969F                       ;0094AA|        |00969F;
+   characterSwapState: dw characterSwapState_00             ;009490|        |0094AC;
+                       dw characterSwapState_01             ;009492|        |0094BB;
+                       dw characterSwapState_02             ;009494|        |0094CF;
+                       dw characterSwapState_03             ;009496|        |00951B;
+                       dw characterSwapState_04             ;009498|        |00959B;
+                       dw characterSwapState_05             ;00949A|        |0095E8;
+                       dw characterSwapState_06             ;00949C|        |009625;
+                       dw characterSwapState_07             ;00949E|        |009682;
+                       dw characterSwapState_08             ;0094A0|        |00969F;
+                       dw characterSwapState_09             ;0094A2|        |009598;
+                       dw characterSwapState_0a             ;0094A4|        |0095E5;
+                       dw characterSwapState_0b             ;0094A6|        |009622;
+                       dw characterSwapState_0c             ;0094A8|        |009692;
  
-          CODE_0094AC: LDA.B #$46                           ;0094AC|A946    |      ;
+                       dw characterSwapState_08             ;0094AA|        |00969F;
+ 
+characterSwapState_00: LDA.B #$46                           ;0094AC|A946    |      ;
                        db $20                               ;0094AE|        |      ;
-                       dw CODE_0FE25F                       ;0094AF|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0094AF|        |0FE25F;
                        db $20                               ;0094B1|        |      ;
                        dw setAutoPlayFlag                   ;0094B2|        |0FE5CE;
                        LDA.B #$3C                           ;0094B4|A93C    |      ;
@@ -2830,7 +2677,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;0094BA|60      |      ;
  
  
-          CODE_0094BB: DEC.B r_timerGenerel                 ;0094BB|C630    |000030;
+characterSwapState_01: DEC.B r_timerGenerel                 ;0094BB|C630    |000030;
                        BEQ CODE_0094C7                      ;0094BD|F008    |0094C7;
                        LDA.B r_gameStateLoopCounter         ;0094BF|A51A    |00001A;
                        AND.B #$03                           ;0094C1|2903    |      ;
@@ -2844,7 +2691,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;0094CE|60      |      ;
  
  
-          CODE_0094CF: LDA.B #$4C                           ;0094CF|A94C    |      ;
+characterSwapState_02: LDA.B #$4C                           ;0094CF|A94C    |      ;
                        STA.B r_timerGenerel                 ;0094D1|8530    |000030;
                        LDA.W r_entity_XPos                  ;0094D3|AD3804  |000438;
                        STA.W $05D4                          ;0094D6|8DD405  |0005D4;
@@ -2861,7 +2708,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;0094F0|60      |      ;
  
  
-          CODE_0094F1: LDA.B r_partnerSwapStateBackup       ;0094F1|A5AA    |0000AA;
+    partnerState16Fix: LDA.B r_partnerSwapStateBackup       ;0094F1|A5AA    |0000AA;
                        CMP.B #$16                           ;0094F3|C916    |      ;
                        BEQ CODE_009509                      ;0094F5|F012    |009509;
                        LDA.B r_bossSecondFace               ;0094F7|A5C2    |0000C2;
@@ -2895,7 +2742,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;00951A|60      |      ;
  
  
-          CODE_00951B: JSR.W CODE_0094F1                    ;00951B|20F194  |0094F1;
+characterSwapState_03: JSR.W partnerState16Fix              ;00951B|20F194  |0094F1;
                        BCS CODE_009534                      ;00951E|B014    |009534;
  
                        LDA.W r_entity_YPos                  ;009520|AD1C04  |00041C;
@@ -2933,7 +2780,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;009554|60      |      ;
  
  
-          CODE_009555: LDA.B #$00                           ;009555|A900    |      ;
+        swapEffect_00: LDA.B #$00                           ;009555|A900    |      ;
                        STA.W r_entity_Effect                ;009557|8D7004  |000470;
                        LDA.W $0505                          ;00955A|AD0505  |000505;
                        BMI CODE_009589                      ;00955D|302A    |009589;
@@ -2969,9 +2816,9 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;009597|60      |      ;
  
  
-          CODE_009598: JSR.W CODE_009555                    ;009598|205595  |009555;
+characterSwapState_09: JSR.W swapEffect_00                  ;009598|205595  |009555;
  
-          CODE_00959B: DEC.B r_timerGenerel                 ;00959B|C630    |000030;
+characterSwapState_04: DEC.B r_timerGenerel                 ;00959B|C630    |000030;
                        BEQ CODE_0095D8                      ;00959D|F039    |0095D8;
                        LDA.W $051C                          ;00959F|AD1C05  |00051C;
                        CLC                                  ;0095A2|18      |      ;
@@ -3014,9 +2861,9 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;0095E4|60      |      ;
  
  
-          CODE_0095E5: JSR.W CODE_009555                    ;0095E5|205595  |009555;
+characterSwapState_0a: JSR.W swapEffect_00                  ;0095E5|205595  |009555;
  
-         DATA8_0095E8: db $20                               ;0095E8|        |      ;
+characterSwapState_05: db $20                               ;0095E8|        |      ;
                        dw CODE_0FE677                       ;0095E9|        |0FE677;
                        LDA.W r_OamSpecIdxDoubled            ;0095EB|AD0004  |000400;
                        CMP.B #$48                           ;0095EE|C948    |      ;
@@ -3049,9 +2896,9 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;009621|60      |      ;
  
  
-          CODE_009622: JSR.W CODE_009555                    ;009622|205595  |009555;
+characterSwapState_0b: JSR.W swapEffect_00                  ;009622|205595  |009555;
  
-          CODE_009625: LDA.W $051C                          ;009625|AD1C05  |00051C;
+characterSwapState_06: LDA.W $051C                          ;009625|AD1C05  |00051C;
                        SEC                                  ;009628|38      |      ;
                        SBC.W r_stairsStuneTimer             ;009629|EDEB05  |0005EB;
                        STA.W $051C                          ;00962C|8D1C05  |00051C;
@@ -3105,7 +2952,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        JMP.W CODE_0096AD                    ;00967F|4CAD96  |0096AD;
  
  
-          CODE_009682: LDA.B r_partnerSwapDrawingBackup     ;009682|A5A6    |0000A6;
+characterSwapState_07: LDA.B r_partnerSwapDrawingBackup     ;009682|A5A6    |0000A6;
                        STA.B r_IRQFuncIdx                   ;009684|853F    |00003F;
                        LDA.B r_partnerSwapDrawingIRQPointer ;009686|A5A7    |0000A7;
                        STA.B r_IRQCmpVal                    ;009688|8541    |000041;
@@ -3115,7 +2962,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        LDA.B r_partnerSwapDrawingLatch      ;00968E|A5A9    |0000A9;
                        STA.B r_IRQStatus                    ;009690|8540    |000040;
  
-          CODE_009692: LDA.W $05D4                          ;009692|ADD405  |0005D4;
+characterSwapState_0c: LDA.W $05D4                          ;009692|ADD405  |0005D4;
                        STA.W r_entity_XPos                  ;009695|8D3804  |000438;
  
                        LDA.B #$3C                           ;009698|A93C    |      ;
@@ -3124,7 +2971,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        RTS                                  ;00969E|60      |      ;
  
  
-          CODE_00969F: DEC.B r_timerGenerel                 ;00969F|C630    |000030;
+characterSwapState_08: DEC.B r_timerGenerel                 ;00969F|C630    |000030;
                        BEQ CODE_0096AB                      ;0096A1|F008    |0096AB;
                        LDA.B r_gameStateLoopCounter         ;0096A3|A51A    |00001A;
                        AND.B #$03                           ;0096A5|2903    |      ;
@@ -3181,8 +3028,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
  
          DATA8_0096FA: db $00                               ;0096FA|        |      ;
  
-         DATA8_0096FB: db $00,$02,$C8,$00,$00               ;0096FB|        |      ;
-                       db $00,$00                           ;009700|        |      ;
+         DATA8_0096FB: db $00,$02,$C8,$00,$00,$00,$00       ;0096FB|        |      ;
  
           CODE_009702: LDY.B #$00                           ;009702|A000    |      ;
  
@@ -3221,44 +3067,28 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
  
          DATA8_009732: db $01                               ;009732|        |      ;
  
-         DATA8_009733: db $10,$02,$03,$01,$11               ;009733|        |      ;
- 
-                       db $0E,$00,$02,$12,$0E               ;009738|        |      ;
-                       db $02,$00,$13,$02,$00               ;00973D|        |      ;
-                       db $01,$20,$0C,$01,$01               ;009742|        |      ;
-                       db $23,$05,$01,$00,$30               ;009747|        |      ;
- 
-                       db $0D,$03,$00,$31,$01               ;00974C|        |      ;
- 
-                       db $00,$00,$40,$01,$01               ;009751|        |      ;
-                       db $00,$40,$01,$01,$01               ;009756|        |      ;
-                       db $40,$01,$01,$02,$40               ;00975B|        |      ;
-                       db $01,$02,$00,$40,$01               ;009760|        |      ;
-                       db $02,$01,$40,$01,$03               ;009765|        |      ;
-                       db $00,$40,$01,$03,$01               ;00976A|        |      ;
-                       db $40,$01,$04,$00,$40               ;00976F|        |      ;
-                       db $01,$04,$01,$40,$01               ;009774|        |      ;
-                       db $04,$02,$40,$01,$05               ;009779|        |      ;
-                       db $00,$40,$0E,$00,$01               ;00977E|        |      ;
-                       db $40,$0D,$01,$00,$41               ;009783|        |      ;
-                       db $0D,$01,$01,$41,$0D               ;009788|        |      ;
-                       db $01,$02,$41,$06,$00               ;00978D|        |      ;
-                       db $01,$32,$06,$00,$00               ;009792|        |      ;
-                       db $33,$06,$01,$00,$34               ;009797|        |      ;
-                       db $06,$02,$01,$35,$06               ;00979C|        |      ;
-                       db $02,$00,$36,$06,$02               ;0097A1|        |      ;
-                       db $02,$37,$08,$00,$00               ;0097A6|        |      ;
-                       db $50,$08,$01,$00,$51               ;0097AB|        |      ;
-                       db $08,$02,$00,$51,$05               ;0097B0|        |      ;
-                       db $03,$00,$51,$09,$00               ;0097B5|        |      ;
-                       db $00,$51,$0A,$01,$00               ;0097BA|        |      ;
-                       db $51,$0A,$02,$00,$51               ;0097BF|        |      ;
-                       db $0A,$03,$00,$51,$02               ;0097C4|        |      ;
-                       db $01,$00,$51,$08,$00               ;0097C9|        |      ;
-                       db $01,$60,$08,$03,$00               ;0097CE|        |      ;
-                       db $71,$08,$04,$00,$71               ;0097D3|        |      ;
-                       db $05,$03,$01,$80,$0C               ;0097D8|        |      ;
-                       db $02,$00,$81,$FF                   ;0097DD|        |      ;
+         DATA8_009733: db $10,$02,$03,$01,$11,$0E,$00,$02   ;009733|        |      ;
+                       db $12,$0E,$02,$00,$13,$02,$00,$01   ;00973B|        |      ;
+                       db $20,$0C,$01,$01,$23,$05,$01,$00   ;009743|        |      ;
+                       db $30,$0D,$03,$00,$31,$01,$00,$00   ;00974B|        |      ;
+                       db $40,$01,$01,$00,$40,$01,$01,$01   ;009753|        |      ;
+                       db $40,$01,$01,$02,$40,$01,$02,$00   ;00975B|        |      ;
+                       db $40,$01,$02,$01,$40,$01,$03,$00   ;009763|        |      ;
+                       db $40,$01,$03,$01,$40,$01,$04,$00   ;00976B|        |      ;
+                       db $40,$01,$04,$01,$40,$01,$04,$02   ;009773|        |      ;
+                       db $40,$01,$05,$00,$40,$0E,$00,$01   ;00977B|        |      ;
+                       db $40,$0D,$01,$00,$41,$0D,$01,$01   ;009783|        |      ;
+                       db $41,$0D,$01,$02,$41,$06,$00,$01   ;00978B|        |      ;
+                       db $32,$06,$00,$00,$33,$06,$01,$00   ;009793|        |      ;
+                       db $34,$06,$02,$01,$35,$06,$02,$00   ;00979B|        |      ;
+                       db $36,$06,$02,$02,$37,$08,$00,$00   ;0097A3|        |      ;
+                       db $50,$08,$01,$00,$51,$08,$02,$00   ;0097AB|        |      ;
+                       db $51,$05,$03,$00,$51,$09,$00,$00   ;0097B3|        |      ;
+                       db $51,$0A,$01,$00,$51,$0A,$02,$00   ;0097BB|        |      ;
+                       db $51,$0A,$03,$00,$51,$02,$01,$00   ;0097C3|        |      ;
+                       db $51,$08,$00,$01,$60,$08,$03,$00   ;0097CB|        |      ;
+                       db $71,$08,$04,$00,$71,$05,$03,$01   ;0097D3|        |      ;
+                       db $80,$0C,$02,$00,$81,$FF           ;0097DB|        |      ;
  
           CODE_0097E1: LDA.B r_roomEffect                   ;0097E1|A57D    |00007D;
                        AND.B #$0F                           ;0097E3|290F    |      ;
@@ -3277,8 +3107,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
  
                        dw CODE_0FE5BF                       ;0097F8|        |0FE5BF;
  
-         DATA8_0097FA: db $7E,$5E,$AE,$AE,$AE               ;0097FA|        |      ;
-                       db $AE,$AE                           ;0097FF|        |      ;
+         DATA8_0097FA: db $7E,$5E,$AE,$AE,$AE,$AE,$AE       ;0097FA|        |      ;
  
                        LDX.W r_playerDirBKP                 ;009801|AEA000  |0000A0;
  
@@ -3486,313 +3315,225 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
  
                        dw PAL_30                            ;009944|        |009D3B;
                        dw PAL_31                            ;009946|        |009D28;
-                       dw $BBEF,$BC16,$BC31                 ;009948|        |      ;
-                       dw $BC50,$BC84,$BCB6                 ;00994E|        |      ;
-                       dw $BCFF,$BAC0,$BAEF                 ;009954|        |      ;
-                       dw $BB0D,$BB29,$BB4B                 ;00995A|        |      ;
-                       dw $BB6B,$BB8C,$BBAE                 ;009960|        |      ;
-                       dw $BBCE,$BBE8,$BBF7                 ;009966|        |      ;
-                       dw $BC10,$BC2E,$BC4E                 ;00996C|        |      ;
-                       dw $9B13,$9AAC,$9AE6                 ;009972|        |      ;
-                       dw $9A60,$9A73,$9A86                 ;009978|        |      ;
-                       dw $BC6C,$BC6C,$BC77                 ;00997E|        |      ;
-                       dw $BC95,$BCB0,$BCCF                 ;009984|        |      ;
-                       dw $BCEC,$BDC0,$BD17                 ;00998A|        |      ;
-                       dw $BD38,$BD52,$BD6F                 ;009990|        |      ;
-                       dw $BD8E,$BDA6,$BDB1                 ;009996|        |      ;
-                       dw $BDD5,$9A4D,$9D4E                 ;00999C|        |      ;
-                       dw $9A3A,$BB29,$BB4B                 ;0099A2|        |      ;
-                       dw $9D61,$BCB6,$BCFF                 ;0099A8|        |      ;
+                       dw $BBEF,$BC16,$BC31,$BC50           ;009948|        |      ;
+                       dw $BC84,$BCB6,$BCFF,$BAC0           ;009950|        |      ;
+                       dw $BAEF,$BB0D,$BB29,$BB4B           ;009958|        |      ;
+                       dw $BB6B,$BB8C,$BBAE,$BBCE           ;009960|        |      ;
+                       dw $BBE8,$BBF7,$BC10,$BC2E           ;009968|        |      ;
+                       dw $BC4E,$9B13,$9AAC,$9AE6           ;009970|        |      ;
+                       dw $9A60,$9A73,$9A86,$BC6C           ;009978|        |      ;
+                       dw $BC6C,$BC77,$BC95,$BCB0           ;009980|        |      ;
+                       dw $BCCF,$BCEC,$BDC0,$BD17           ;009988|        |      ;
+                       dw $BD38,$BD52,$BD6F,$BD8E           ;009990|        |      ;
+                       dw $BDA6,$BDB1,$BDD5,$9A4D           ;009998|        |      ;
+                       dw $9D4E,$9A3A,$BB29,$BB4B           ;0099A0|        |      ;
+                       dw $9D61,$BCB6,$BCFF,$BD2E           ;0099A8|        |      ;
+                       dw $BD5C,$A285                       ;0099B0|        |      ;
  
-                       dw $BD2E,$BD5C,$A285                 ;0099AE|        |      ;
+               PAL_0e: db $40,$20,$62,$52,$5E,$61,$54,$4D   ;0099B4|        |      ;
+                       db $FE,$4D,$20,$63,$58,$5C,$54,$FE   ;0099BC|        |      ;
+                       db $57,$20,$51,$5B,$5A,$00,$00,$4D   ;0099C4|        |      ;
+                       db $41,$FE,$60,$20,$5F,$5B,$50,$68   ;0099CC|        |      ;
+                       db $54,$61,$FE,$80,$20,$54,$5D,$54   ;0099D4|        |      ;
+                       db $5C,$68,$FE,$75,$20,$91,$4C,$FE   ;0099DC|        |      ;
+                       db $95,$20,$5F,$4C,$FE,$70,$20,$80   ;0099E4|        |      ;
+                       db $81,$81,$82,$FE,$90,$20,$90,$00   ;0099EC|        |      ;
+                       db $00,$92,$FE,$B0,$20,$A0,$A1,$A1   ;0099F4|        |      ;
+                       db $A2,$FF                           ;0099FC|        |      ;
  
-               PAL_0e: db $40,$20,$62,$52,$5E               ;0099B4|        |      ;
-                       db $61,$54,$4D,$FE,$4D               ;0099B9|        |      ;
-                       db $20,$63,$58,$5C,$54               ;0099BE|        |      ;
-                       db $FE,$57,$20,$51,$5B               ;0099C3|        |      ;
-                       db $5A,$00,$00,$4D,$41               ;0099C8|        |      ;
-                       db $FE,$60,$20,$5F,$5B               ;0099CD|        |      ;
-                       db $50,$68,$54,$61,$FE               ;0099D2|        |      ;
-                       db $80,$20,$54,$5D,$54               ;0099D7|        |      ;
-                       db $5C,$68,$FE,$75,$20               ;0099DC|        |      ;
-                       db $91,$4C,$FE,$95,$20               ;0099E1|        |      ;
-                       db $5F,$4C,$FE,$70,$20               ;0099E6|        |      ;
-                       db $80,$81,$81,$82,$FE               ;0099EB|        |      ;
-                       db $90,$20,$90,$00,$00               ;0099F0|        |      ;
-                       db $92,$FE,$B0,$20,$A0               ;0099F5|        |      ;
-                       db $A1,$A1,$A2,$FF                   ;0099FA|        |      ;
+               PAL_0f: db $7D,$20,$88,$89,$FE,$9D,$20,$98   ;0099FE|        |      ;
+                       db $99,$FE,$BD,$20,$A8,$A9,$FF       ;009A06|        |      ;
  
-               PAL_0f: db $7D,$20,$88,$89,$FE               ;0099FE|        |      ;
-                       db $9D,$20,$98,$99,$FE               ;009A03|        |      ;
-                       db $BD,$20,$A8,$A9,$FF               ;009A08|        |      ;
+               PAL_11: db $7D,$20,$8A,$8B,$FE,$9D,$20,$9A   ;009A0D|        |      ;
+                       db $9B,$FE,$BD,$20,$AA,$AB,$FF       ;009A15|        |      ;
  
-               PAL_11: db $7D,$20,$8A,$8B,$FE               ;009A0D|        |      ;
-                       db $9D,$20,$9A,$9B,$FE               ;009A12|        |      ;
-                       db $BD,$20,$AA,$AB,$FF               ;009A17|        |      ;
+               PAL_10: db $7D,$20,$8C,$8D,$FE,$9D,$20,$9C   ;009A1C|        |      ;
+                       db $9D,$FE,$BD,$20,$AC,$AD,$FF       ;009A24|        |      ;
  
-               PAL_10: db $7D,$20,$8C,$8D,$FE               ;009A1C|        |      ;
-                       db $9D,$20,$9C,$9D,$FE               ;009A21|        |      ;
-                       db $BD,$20,$AC,$AD,$FF               ;009A26|        |      ;
+               PAL_12: db $7D,$20,$8E,$8F,$FE,$9D,$20,$9E   ;009A2B|        |      ;
+                       db $9F,$FE,$BD,$20,$AE,$AF,$FF,$00   ;009A33|        |      ;
+                       db $3F,$0F,$16,$26,$20,$0F,$00,$04   ;009A3B|        |      ;
+                       db $10,$0F,$02,$14,$27,$0F,$02,$04   ;009A43|        |      ;
+                       db $14,$FF,$00,$3F,$0F,$16,$26,$20   ;009A4B|        |      ;
+                       db $0F,$16,$27,$10,$0F,$07,$0F,$0F   ;009A53|        |      ;
+                       db $0F,$07,$0F,$27,$FF,$00,$3F,$0F   ;009A5B|        |      ;
+                       db $16,$26,$20,$0F,$07,$17,$27,$0F   ;009A63|        |      ;
+                       db $07,$0F,$0F,$0F,$07,$0F,$27,$FF   ;009A6B|        |      ;
+                       db $00,$3F,$0F,$16,$26,$20,$0F,$07   ;009A73|        |      ;
+                       db $27,$37,$0F,$07,$0F,$11,$0F,$07   ;009A7B|        |      ;
+                       db $11,$27,$FF,$00,$3F,$0F,$16,$26   ;009A83|        |      ;
+                       db $20,$0F,$17,$27,$37,$0F,$17,$21   ;009A8B|        |      ;
+                       db $31,$0F,$07,$31,$37,$FF           ;009A93|        |      ;
  
-               PAL_12: db $7D,$20,$8E,$8F,$FE               ;009A2B|        |      ;
-                       db $9D,$20,$9E,$9F,$FE               ;009A30|        |      ;
-                       db $BD,$20,$AE,$AF,$FF               ;009A35|        |      ;
-                       db $00,$3F,$0F,$16,$26               ;009A3A|        |      ;
-                       db $20,$0F,$00,$04,$10               ;009A3F|        |      ;
-                       db $0F,$02,$14,$27,$0F               ;009A44|        |      ;
-                       db $02,$04,$14,$FF,$00               ;009A49|        |      ;
-                       db $3F,$0F,$16,$26,$20               ;009A4E|        |      ;
-                       db $0F,$16,$27,$10,$0F               ;009A53|        |      ;
-                       db $07,$0F,$0F,$0F,$07               ;009A58|        |      ;
-                       db $0F,$27,$FF,$00,$3F               ;009A5D|        |      ;
-                       db $0F,$16,$26,$20,$0F               ;009A62|        |      ;
-                       db $07,$17,$27,$0F,$07               ;009A67|        |      ;
-                       db $0F,$0F,$0F,$07,$0F               ;009A6C|        |      ;
-                       db $27,$FF,$00,$3F,$0F               ;009A71|        |      ;
+               PAL_20: db $00,$3F,$0F,$16,$26,$20,$0F,$22   ;009A99|        |      ;
+                       db $12,$20,$0F,$22,$0F,$0F,$0F,$22   ;009AA1|        |      ;
+                       db $0F,$20,$FF,$0F,$25,$4E,$7D,$7D   ;009AA9|        |      ;
+                       db $4F,$FE,$2E,$25,$5E,$78,$78,$78   ;009AB1|        |      ;
+                       db $78,$5F,$FE,$4E,$25,$6E,$7E,$78   ;009AB9|        |      ;
+                       db $78,$7F,$6F,$FE,$6D,$25,$40,$41   ;009AC1|        |      ;
+                       db $42,$43,$44,$45,$46,$47,$FE,$8D   ;009AC9|        |      ;
+                       db $25,$50,$51,$52,$53,$54,$55,$56   ;009AD1|        |      ;
+                       db $57,$FE,$AD,$25,$60,$61,$62,$63   ;009AD9|        |      ;
+                       db $64,$65,$66,$67,$FF,$CD,$25,$70   ;009AE1|        |      ;
+                       db $71,$72,$73,$74,$75,$76,$77,$FE   ;009AE9|        |      ;
+                       db $EE,$25,$48,$49,$4A,$4B,$4C,$4D   ;009AF1|        |      ;
+                       db $FE,$0E,$26,$58,$59,$5A,$5B,$5C   ;009AF9|        |      ;
+                       db $5D,$FE,$2E,$26,$68,$69,$6A,$6B   ;009B01|        |      ;
+                       db $6C,$6D,$FE,$4F,$26,$79,$7A,$7B   ;009B09|        |      ;
+                       db $7C,$FF,$D3,$27,$55,$55,$55,$FE   ;009B11|        |      ;
+                       db $DB,$27,$59,$7B,$55,$FE,$E3,$27   ;009B19|        |      ;
+                       db $55,$55,$55,$FF                   ;009B21|        |      ;
  
-                       db $16,$26,$20,$0F,$07               ;009A76|        |      ;
-                       db $27,$37,$0F,$07,$0F               ;009A7B|        |      ;
-                       db $11,$0F,$07,$11,$27               ;009A80|        |      ;
-                       db $FF,$00,$3F,$0F,$16               ;009A85|        |      ;
-                       db $26,$20,$0F,$17,$27               ;009A8A|        |      ;
-                       db $37,$0F,$17,$21,$31               ;009A8F|        |      ;
-                       db $0F,$07,$31,$37,$FF               ;009A94|        |      ;
+               PAL_05: db $0E,$22,$47,$41,$4D,$45,$FF       ;009B25|        |      ;
  
-               PAL_20: db $00,$3F,$0F,$16,$26               ;009A99|        |      ;
-                       db $20,$0F,$22,$12,$20               ;009A9E|        |      ;
-                       db $0F,$22,$0F,$0F,$0F               ;009AA3|        |      ;
-                       db $22,$0F,$20,$FF,$0F               ;009AA8|        |      ;
-                       db $25,$4E,$7D,$7D,$4F               ;009AAD|        |      ;
-                       db $FE,$2E,$25,$5E,$78               ;009AB2|        |      ;
-                       db $78,$78,$78,$5F,$FE               ;009AB7|        |      ;
-                       db $4E,$25,$6E,$7E,$78               ;009ABC|        |      ;
-                       db $78,$7F,$6F,$FE,$6D               ;009AC1|        |      ;
-                       db $25,$40,$41,$42,$43               ;009AC6|        |      ;
-                       db $44,$45,$46,$47,$FE               ;009ACB|        |      ;
-                       db $8D,$25,$50,$51,$52               ;009AD0|        |      ;
-                       db $53,$54,$55,$56,$57               ;009AD5|        |      ;
-                       db $FE,$AD,$25,$60,$61               ;009ADA|        |      ;
-                       db $62,$63,$64,$65,$66               ;009ADF|        |      ;
-                       db $67,$FF,$CD,$25,$70               ;009AE4|        |      ;
-                       db $71,$72,$73,$74,$75               ;009AE9|        |      ;
-                       db $76,$77,$FE,$EE,$25               ;009AEE|        |      ;
-                       db $48,$49,$4A,$4B,$4C               ;009AF3|        |      ;
-                       db $4D,$FE,$0E,$26,$58               ;009AF8|        |      ;
-                       db $59,$5A,$5B,$5C,$5D               ;009AFD|        |      ;
-                       db $FE,$2E,$26,$68,$69               ;009B02|        |      ;
-                       db $6A,$6B,$6C,$6D,$FE               ;009B07|        |      ;
-                       db $4F,$26,$79,$7A,$7B               ;009B0C|        |      ;
-                       db $7C,$FF,$D3,$27,$55               ;009B11|        |      ;
-                       db $55,$55,$FE,$DB,$27               ;009B16|        |      ;
-                       db $59,$7B,$55,$FE,$E3               ;009B1B|        |      ;
-                       db $27,$55,$55,$55,$FF               ;009B20|        |      ;
+               PAL_06: db $0E,$22,$44,$45,$4D,$4F,$FF       ;009B2C|        |      ;
  
-               PAL_05: db $0E,$22,$47,$41,$4D               ;009B25|        |      ;
-                       db $45,$FF                           ;009B2A|        |      ;
+               PAL_01: db $CA,$22,$21,$00,$5A,$5E,$5D,$50   ;009B33|        |      ;
+                       db $5C,$58,$00,$42,$4A,$4A,$41,$FF   ;009B3B|        |      ;
  
-               PAL_06: db $0E,$22,$44,$45,$4D               ;009B2C|        |      ;
-                       db $4F,$FF                           ;009B31|        |      ;
+               PAL_00: db $27,$23,$1E,$1F,$14,$1D,$18,$1D   ;009B43|        |      ;
+                       db $16,$FF                           ;009B4B|        |      ;
  
-               PAL_01: db $CA,$22,$21,$00,$5A               ;009B33|        |      ;
-                       db $5E,$5D,$50,$5C,$58               ;009B38|        |      ;
-                       db $00,$42,$4A,$4A,$41               ;009B3D|        |      ;
-                       db $FF                               ;009B42|        |      ;
+               PAL_26: db $32,$23,$1F,$10,$22,$22,$26,$1E   ;009B4D|        |      ;
+                       db $21,$13,$FF                       ;009B55|        |      ;
  
-               PAL_00: db $27,$23,$1E,$1F,$14               ;009B43|        |      ;
-                       db $1D,$18,$1D,$16,$FF               ;009B48|        |      ;
+               PAL_02: db $EC,$21,$56,$50,$5C,$54,$00,$5E   ;009B58|        |      ;
  
-               PAL_26: db $32,$23,$1F,$10,$22               ;009B4D|        |      ;
-                       db $22,$26,$1E,$21,$13               ;009B52|        |      ;
-                       db $FF                               ;009B57|        |      ;
+                       db $65,$54,$61,$FF                   ;009B60|        |      ;
  
-               PAL_02: db $EC,$21,$56,$50,$5C               ;009B58|        |      ;
-                       db $54,$00,$5E,$65,$54               ;009B5D|        |      ;
-                       db $61,$FF                           ;009B62|        |      ;
+               PAL_27: db $8C,$22,$52,$5E,$5D,$63,$58,$5D   ;009B64|        |      ;
+                       db $64,$54,$FF                       ;009B6C|        |      ;
  
-               PAL_27: db $8C,$22,$52,$5E,$5D               ;009B64|        |      ;
+               PAL_28: db $EC,$22,$5F,$50,$62,$62,$66,$5E   ;009B6F|        |      ;
+                       db $61,$53,$FF                       ;009B77|        |      ;
  
-                       db $63,$58,$5D,$64,$54               ;009B69|        |      ;
-                       db $FF                               ;009B6E|        |      ;
+               PAL_08: db $CD,$22,$56,$50,$5C,$54,$00,$62   ;009B7A|        |      ;
+                       db $63,$50,$61,$63,$FF               ;009B82|        |      ;
  
-               PAL_28: db $EC,$22,$5F,$50,$62               ;009B6F|        |      ;
-                       db $62,$66,$5E,$61,$53               ;009B74|        |      ;
-                       db $FF                               ;009B79|        |      ;
+               PAL_04: db $00,$3F,$0F,$16,$05,$20,$0F,$13   ;009B87|        |      ;
+                       db $02,$20,$0F,$14,$03,$3B,$0F,$16   ;009B8F|        |      ;
+                       db $27,$10,$0F,$0C,$26,$30,$0F,$0C   ;009B97|        |      ;
+                       db $2C,$30,$0F,$12,$26,$30,$0F,$06   ;009B9F|        |      ;
+                       db $30,$30,$FE                       ;009BA7|        |      ;
  
-               PAL_08: db $CD,$22,$56,$50,$5C               ;009B7A|        |      ;
-                       db $54,$00,$62,$63,$50               ;009B7F|        |      ;
-                       db $61,$63,$FF                       ;009B84|        |      ;
+               PAL_03: db $00,$3F,$FE,$00,$00,$FF           ;009BAA|        |      ;
  
-               PAL_04: db $00,$3F,$0F,$16,$05               ;009B87|        |      ;
-                       db $20,$0F,$13,$02,$20               ;009B8C|        |      ;
-                       db $0F,$14,$03,$3B,$0F               ;009B91|        |      ;
-                       db $16,$27,$10,$0F,$0C               ;009B96|        |      ;
+               PAL_18: db $00,$3F,$0F,$07,$17,$20,$0F,$07   ;009BB0|        |      ;
+                       db $17,$20,$0F,$01,$09,$08,$0F,$01   ;009BB8|        |      ;
+                       db $0B,$10,$FF                       ;009BC0|        |      ;
  
-                       db $26,$30,$0F,$0C,$2C               ;009B9B|        |      ;
-                       db $30,$0F,$12,$26,$30               ;009BA0|        |      ;
-                       db $0F,$06,$30,$30,$FE               ;009BA5|        |      ;
+               PAL_13: db $00,$3F,$0F,$07,$17,$20,$0F,$01   ;009BC3|        |      ;
  
-               PAL_03: db $00,$3F,$FE,$00,$00               ;009BAA|        |      ;
-                       db $FF                               ;009BAF|        |      ;
+                       db $12,$20,$0F,$01,$09,$08,$0F,$01   ;009BCB|        |      ;
+                       db $0B,$10,$FF                       ;009BD3|        |      ;
  
-               PAL_18: db $00,$3F,$0F,$07,$17               ;009BB0|        |      ;
-                       db $20,$0F                           ;009BB5|        |      ;
+               PAL_15: db $00,$3F,$0F,$07,$17,$20,$0F,$01   ;009BD6|        |      ;
  
-         DATA8_009BB7: db $07,$17,$20,$0F,$01               ;009BB7|        |      ;
-                       db $09,$08,$0F,$01,$0B               ;009BBC|        |      ;
-                       db $10,$FF                           ;009BC1|        |      ;
+                       db $21,$31,$0F,$01,$08,$28,$0F,$08   ;009BDE|        |      ;
+                       db $18,$17,$FF                       ;009BE6|        |      ;
  
-               PAL_13: db $00,$3F,$0F,$07,$17               ;009BC3|        |      ;
-                       db $20,$0F,$01,$12,$20               ;009BC8|        |      ;
-                       db $0F,$01,$09,$08,$0F               ;009BCD|        |      ;
-                       db $01,$0B,$10,$FF                   ;009BD2|        |      ;
+               PAL_16: db $00,$3F,$0F,$07,$17,$20,$0F,$06   ;009BE9|        |      ;
+                       db $0B,$10,$0F,$01,$03,$10,$0F,$01   ;009BF1|        |      ;
+                       db $1B,$3C,$FF                       ;009BF9|        |      ;
  
-               PAL_15: db $00,$3F,$0F,$07,$17               ;009BD6|        |      ;
+               PAL_17: db $2C,$21,$38,$39,$3A,$FE,$4C,$21   ;009BFC|        |      ;
+                       db $55,$56,$FE,$6C,$21,$75,$76,$B1   ;009C04|        |      ;
+                       db $FE,$8D,$21,$87,$FF               ;009C0C|        |      ;
  
-                       db $20,$0F,$01,$21,$31               ;009BDB|        |      ;
-                       db $0F,$01,$08,$28,$0F               ;009BE0|        |      ;
-                       db $08,$18,$17,$FF                   ;009BE5|        |      ;
+               PAL_19: db $00,$3F,$0F,$16,$26,$20,$0F,$0B   ;009C11|        |      ;
+                       db $1B,$01,$0F,$01,$11,$20,$0F,$31   ;009C19|        |      ;
+                       db $11,$21,$FF                       ;009C21|        |      ;
  
-               PAL_16: db $00,$3F,$0F,$07,$17               ;009BE9|        |      ;
-                       db $20,$0F,$06,$0B,$10               ;009BEE|        |      ;
-                       db $0F,$01,$03,$10,$0F               ;009BF3|        |      ;
-                       db $01,$1B,$3C,$FF                   ;009BF8|        |      ;
+               PAL_1a: db $00,$3F,$0F,$16,$26,$20,$0F,$0B   ;009C24|        |      ;
+                       db $1B,$01,$0F,$11,$11,$31,$0F,$31   ;009C2C|        |      ;
+                       db $11,$21,$FF                       ;009C34|        |      ;
  
-               PAL_17: db $2C,$21,$38,$39,$3A               ;009BFC|        |      ;
-                       db $FE,$4C,$21,$55,$56               ;009C01|        |      ;
-                       db $FE,$6C,$21,$75,$76               ;009C06|        |      ;
+               PAL_1b: db $00,$3F,$0F,$16,$26,$20,$0F,$0B   ;009C37|        |      ;
+                       db $1B,$01,$0F,$21,$11,$21,$0F,$31   ;009C3F|        |      ;
  
-                       db $B1,$FE,$8D,$21,$87               ;009C0B|        |      ;
-                       db $FF                               ;009C10|        |      ;
+                       db $11,$21,$FF                       ;009C47|        |      ;
  
-               PAL_19: db $00,$3F,$0F,$16,$26               ;009C11|        |      ;
-                       db $20,$0F,$0B,$1B,$01               ;009C16|        |      ;
-                       db $0F,$01,$11,$20,$0F               ;009C1B|        |      ;
-                       db $31,$11,$21,$FF                   ;009C20|        |      ;
+               PAL_1c: db $00,$3F,$0F,$16,$26,$20,$0F,$0B   ;009C4A|        |      ;
+                       db $1B,$01,$0F,$31,$11,$21,$0F,$31   ;009C52|        |      ;
+                       db $11,$21,$FF                       ;009C5A|        |      ;
  
-               PAL_1a: db $00,$3F,$0F,$16,$26               ;009C24|        |      ;
-                       db $20,$0F,$0B,$1B,$01               ;009C29|        |      ;
-                       db $0F,$11,$11,$31,$0F               ;009C2E|        |      ;
-                       db $31,$11,$21,$FF                   ;009C33|        |      ;
+               PAL_1d: db $00,$3F,$0F,$06,$16,$20,$0F,$0F   ;009C5D|        |      ;
+                       db $00,$0A,$0F,$0F,$0B,$2C,$0F,$00   ;009C65|        |      ;
+                       db $2B,$3C,$FF                       ;009C6D|        |      ;
  
-               PAL_1b: db $00,$3F,$0F,$16,$26               ;009C37|        |      ;
-                       db $20,$0F,$0B,$1B,$01               ;009C3C|        |      ;
+               PAL_1e: db $00,$3F,$0F,$08,$18,$38,$0F,$09   ;009C70|        |      ;
+                       db $0C,$2C,$0F,$09,$00,$10,$0F,$09   ;009C78|        |      ;
+                       db $13,$10,$0F,$0F,$10,$20,$0F,$0F   ;009C80|        |      ;
+                       db $21,$38,$0F,$0F,$0F,$0F,$0F,$0F   ;009C88|        |      ;
+                       db $16,$25,$FF                       ;009C90|        |      ;
  
-                       db $0F,$21,$11,$21,$0F               ;009C41|        |      ;
-                       db $31,$11,$21,$FF                   ;009C46|        |      ;
+               PAL_1f: db $00,$3F,$0F,$16,$26,$20,$0F,$00   ;009C93|        |      ;
+                       db $10,$1A,$0F,$00,$0B,$2C,$0F,$02   ;009C9B|        |      ;
+                       db $00,$10,$0F,$08,$26,$37,$0F,$0F   ;009CA3|        |      ;
+                       db $22,$34,$0F,$0F,$0F,$0F,$0F,$0F   ;009CAB|        |      ;
+                       db $16,$25,$FF                       ;009CB3|        |      ;
  
-               PAL_1c: db $00,$3F,$0F,$16,$26               ;009C4A|        |      ;
+               PAL_2a: db $00,$3F,$0F,$0F,$26,$16,$0F,$0F   ;009CB6|        |      ;
+                       db $07,$27,$0F,$0F,$02,$23,$0F,$0F   ;009CBE|        |      ;
+                       db $19,$39,$FF                       ;009CC6|        |      ;
  
-                       db $20,$0F,$0B,$1B,$01               ;009C4F|        |      ;
-                       db $0F,$31,$11,$21,$0F               ;009C54|        |      ;
-                       db $31,$11,$21,$FF                   ;009C59|        |      ;
+               PAL_2b: db $10,$3F,$38,$08,$27,$38,$38,$0F   ;009CC9|        |      ;
+                       db $0C,$33,$38,$21,$11,$20,$38,$08   ;009CD1|        |      ;
+                       db $18,$28,$FF                       ;009CD9|        |      ;
  
-               PAL_1d: db $00,$3F,$0F,$06,$16               ;009C5D|        |      ;
-                       db $20,$0F,$0F,$00,$0A               ;009C62|        |      ;
+               PAL_2d: db $10,$3F,$38,$08,$27,$38,$38,$0F   ;009CDC|        |      ;
+                       db $0C,$33,$38,$0F,$15,$36,$38,$08   ;009CE4|        |      ;
+                       db $18,$28,$FF                       ;009CEC|        |      ;
  
-                       db $0F,$0F,$0B,$2C,$0F               ;009C67|        |      ;
-                       db $00,$2B,$3C,$FF                   ;009C6C|        |      ;
+               PAL_2c: db $10,$3F,$38,$08,$27,$38,$38,$0F   ;009CEF|        |      ;
+                       db $0C,$33,$38,$08,$15,$38,$38,$08   ;009CF7|        |      ;
  
-               PAL_1e: db $00,$3F,$0F,$08,$18               ;009C70|        |      ;
-                       db $38,$0F,$09,$0C,$2C               ;009C75|        |      ;
-                       db $0F,$09,$00,$10,$0F               ;009C7A|        |      ;
-                       db $09,$13,$10,$0F,$0F               ;009C7F|        |      ;
-                       db $10,$20,$0F,$0F,$21               ;009C84|        |      ;
-                       db $38,$0F,$0F,$0F,$0F               ;009C89|        |      ;
-                       db $0F,$0F,$16,$25,$FF               ;009C8E|        |      ;
+                       db $18,$28,$FF                       ;009CFF|        |      ;
  
-               PAL_1f: db $00,$3F,$0F,$16,$26               ;009C93|        |      ;
-                       db $20,$0F,$00,$10,$1A               ;009C98|        |      ;
-                       db $0F,$00,$0B,$2C,$0F               ;009C9D|        |      ;
-                       db $02,$00,$10,$0F,$08               ;009CA2|        |      ;
-                       db $26,$37,$0F,$0F,$22               ;009CA7|        |      ;
-                       db $34,$0F,$0F,$0F,$0F               ;009CAC|        |      ;
-                       db $0F,$0F,$16,$25,$FF               ;009CB1|        |      ;
+               PAL_2e: db $00,$3F,$0F,$0F,$0F,$20,$0F,$0F   ;009D02|        |      ;
+                       db $0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F   ;009D0A|        |      ;
+                       db $0F,$0F,$FF                       ;009D12|        |      ;
  
-               PAL_2a: db $00,$3F,$0F,$0F,$26               ;009CB6|        |      ;
+               PAL_2f: db $10,$3F,$0F,$08,$27,$38,$0F,$0F   ;009D15|        |      ;
+                       db $0C,$33,$0F,$21,$11,$20,$0F,$08   ;009D1D|        |      ;
+                       db $18,$28,$FF                       ;009D25|        |      ;
  
-                       db $16,$0F,$0F,$07,$27               ;009CBB|        |      ;
-                       db $0F,$0F,$02,$23,$0F               ;009CC0|        |      ;
-                       db $0F,$19,$39,$FF                   ;009CC5|        |      ;
+               PAL_31: db $10,$3F,$0F,$08,$27,$38,$0F,$0F   ;009D28|        |      ;
+                       db $0C,$33,$0F,$0F,$15,$36,$0F,$08   ;009D30|        |      ;
+                       db $18,$28,$FF                       ;009D38|        |      ;
  
-               PAL_2b: db $10,$3F,$38,$08,$27               ;009CC9|        |      ;
+               PAL_30: db $10,$3F,$0F,$08,$27,$38,$0F,$0F   ;009D3B|        |      ;
+                       db $0C,$33,$0F,$08,$15,$38,$0F,$08   ;009D43|        |      ;
+                       db $18,$28,$FF,$00,$3F,$0F,$16,$05   ;009D4B|        |      ;
+                       db $20,$0F,$13,$02,$20,$0F,$14,$03   ;009D53|        |      ;
+                       db $3B,$0F,$0F,$0F,$0F,$FF,$00,$3F   ;009D5B|        |      ;
+                       db $0F,$0F,$0F,$0F,$0F,$10,$05,$01   ;009D63|        |      ;
+                       db $0F,$0F,$0F,$0F,$0F,$0F,$0F,$0F   ;009D6B|        |      ;
+                       db $FF                               ;009D73|        |      ;
  
-                       db $38,$38,$0F,$0C,$33               ;009CCE|        |      ;
-                       db $38,$21,$11,$20,$38               ;009CD3|        |      ;
-                       db $08,$18,$28,$FF                   ;009CD8|        |      ;
+               PAL_21: db $2A,$22,$5D,$5E,$63,$00,$52,$5E   ;009D74|        |      ;
+                       db $5C,$5F,$5B,$54,$63,$54,$FE,$4B   ;009D7C|        |      ;
+                       db $22,$63,$61,$68,$00,$50,$56,$50   ;009D84|        |      ;
+                       db $58,$5D,$FF                       ;009D8C|        |      ;
  
-               PAL_2d: db $10,$3F,$38,$08,$27               ;009CDC|        |      ;
-                       db $38,$38,$0F,$0C,$33               ;009CE1|        |      ;
-                       db $38,$0F,$15,$36,$38               ;009CE6|        |      ;
-                       db $08,$18,$28,$FF                   ;009CEB|        |      ;
+               PAL_23: db $08,$22,$86,$A4,$A4,$A4,$A4,$A4   ;009D8F|        |      ;
+                       db $A4,$A4,$A4,$A4,$A4,$A4,$A4,$A4   ;009D97|        |      ;
+                       db $A4,$87,$FE,$28,$22,$96,$00,$00   ;009D9F|        |      ;
  
-               PAL_2c: db $10,$3F,$38,$08,$27               ;009CEF|        |      ;
-                       db $38,$38,$0F,$0C,$33               ;009CF4|        |      ;
-                       db $38,$08,$15,$38,$38               ;009CF9|        |      ;
-                       db $08,$18,$28,$FF                   ;009CFE|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$00   ;009DA7|        |      ;
+                       db $00,$00,$00,$00,$97,$FE,$48,$22   ;009DAF|        |      ;
+                       db $96,$00,$00,$00,$00,$00,$00,$00   ;009DB7|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$97   ;009DBF|        |      ;
+                       db $FE,$68,$22,$A6,$A5,$A5,$A5,$A5   ;009DC7|        |      ;
+                       db $A5,$A5,$A5,$A5,$A5,$A5,$A5,$A5   ;009DCF|        |      ;
+                       db $A5,$A5,$A7,$FF                   ;009DD7|        |      ;
  
-               PAL_2e: db $00,$3F,$0F,$0F,$0F               ;009D02|        |      ;
-                       db $20,$0F,$0F,$0F,$0F               ;009D07|        |      ;
+         DATA8_009DDB: db $A5,$6B,$20,$6D,$E8,$FA,$9D,$51   ;009DDB|        |      ;
+                       db $9E,$88,$9E,$C5,$9E,$FF,$9E,$19   ;009DE3|        |      ;
+                       db $9F,$50,$9F,$91,$9F,$AC,$9F,$F0   ;009DEB|        |      ;
+                       db $9F,$08,$A0,$28,$A0,$50,$A0,$A9   ;009DF3|        |      ;
  
-                       db $0F,$0F,$0F,$0F,$0F               ;009D0C|        |      ;
-                       db $0F,$0F,$0F,$FF                   ;009D11|        |      ;
- 
-               PAL_2f: db $10,$3F,$0F,$08,$27               ;009D15|        |      ;
-                       db $38,$0F,$0F,$0C,$33               ;009D1A|        |      ;
-                       db $0F,$21,$11,$20,$0F               ;009D1F|        |      ;
-                       db $08,$18,$28,$FF                   ;009D24|        |      ;
- 
-               PAL_31: db $10,$3F,$0F,$08,$27               ;009D28|        |      ;
-                       db $38,$0F,$0F,$0C,$33               ;009D2D|        |      ;
-                       db $0F,$0F,$15,$36,$0F               ;009D32|        |      ;
-                       db $08,$18,$28,$FF                   ;009D37|        |      ;
- 
-               PAL_30: db $10,$3F,$0F,$08,$27               ;009D3B|        |      ;
-                       db $38,$0F,$0F,$0C,$33               ;009D40|        |      ;
-                       db $0F,$08,$15,$38,$0F               ;009D45|        |      ;
-                       db $08,$18,$28,$FF,$00               ;009D4A|        |      ;
-                       db $3F,$0F,$16,$05,$20               ;009D4F|        |      ;
-                       db $0F,$13,$02,$20,$0F               ;009D54|        |      ;
-                       db $14,$03,$3B,$0F,$0F               ;009D59|        |      ;
-                       db $0F,$0F,$FF,$00,$3F               ;009D5E|        |      ;
-                       db $0F,$0F,$0F,$0F,$0F               ;009D63|        |      ;
-                       db $10,$05,$01,$0F,$0F               ;009D68|        |      ;
-                       db $0F,$0F,$0F,$0F,$0F               ;009D6D|        |      ;
-                       db $0F,$FF                           ;009D72|        |      ;
- 
-               PAL_21: db $2A,$22,$5D,$5E,$63               ;009D74|        |      ;
-                       db $00,$52,$5E,$5C,$5F               ;009D79|        |      ;
-                       db $5B,$54,$63,$54,$FE               ;009D7E|        |      ;
-                       db $4B,$22,$63,$61,$68               ;009D83|        |      ;
-                       db $00,$50,$56,$50,$58               ;009D88|        |      ;
-                       db $5D,$FF                           ;009D8D|        |      ;
- 
-               PAL_23: db $08,$22,$86,$A4,$A4               ;009D8F|        |      ;
-                       db $A4,$A4,$A4,$A4,$A4               ;009D94|        |      ;
-                       db $A4,$A4,$A4,$A4,$A4               ;009D99|        |      ;
-                       db $A4,$A4,$87,$FE,$28               ;009D9E|        |      ;
-                       db $22,$96,$00,$00,$00               ;009DA3|        |      ;
-                       db $00,$00,$00,$00,$00               ;009DA8|        |      ;
-                       db $00,$00,$00,$00,$00               ;009DAD|        |      ;
-                       db $00,$97,$FE,$48,$22               ;009DB2|        |      ;
-                       db $96,$00,$00,$00,$00               ;009DB7|        |      ;
- 
-                       db $00,$00,$00,$00,$00               ;009DBC|        |      ;
-                       db $00,$00,$00,$00,$00               ;009DC1|        |      ;
-                       db $97,$FE,$68,$22,$A6               ;009DC6|        |      ;
-                       db $A5,$A5,$A5,$A5,$A5               ;009DCB|        |      ;
-                       db $A5,$A5,$A5,$A5,$A5               ;009DD0|        |      ;
-                       db $A5,$A5,$A5,$A5,$A7               ;009DD5|        |      ;
-                       db $FF                               ;009DDA|        |      ;
- 
-         DATA8_009DDB: db $A5,$6B,$20,$6D,$E8               ;009DDB|        |      ;
-                       db $FA,$9D,$51,$9E,$88               ;009DE0|        |      ;
-                       db $9E,$C5,$9E,$FF,$9E               ;009DE5|        |      ;
-                       db $19,$9F,$50,$9F,$91               ;009DEA|        |      ;
-                       db $9F,$AC,$9F,$F0,$9F               ;009DEF|        |      ;
-                       db $08,$A0,$28,$A0,$50               ;009DF4|        |      ;
-                       db $A0,$A9,$B0,$85,$FF               ;009DF9|        |      ;
- 
-                       db $A9,$00,$85,$31,$AA               ;009DFE|        |      ;
+                       db $B0,$85,$FF,$A9,$00,$85,$31,$AA   ;009DFB|        |      ;
  
           CODE_009E03: STA.W r_bossBoneDragonKingRips,X     ;009E03|9DEC07  |0007EC;
                        INX                                  ;009E06|E8      |      ;
@@ -3803,7 +3544,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        LDA.B #$01                           ;009E0E|A901    |      ;
                        STA.B r_autoPlay                     ;009E10|852C    |00002C;
                        db $20                               ;009E12|        |      ;
-                       dw CODE_0FE666                       ;009E13|        |0FE666;
+                       dw initClearScreen_clearIRQfunc      ;009E13|        |0FE666;
                        JSR.W CODE_00A2B4                    ;009E15|20B4A2  |00A2B4;
                        db $20                               ;009E18|        |      ;
                        dw initSound                         ;009E19|        |0FE227;
@@ -4105,7 +3846,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        BNE CODE_00A03D                      ;00A036|D005    |00A03D;
                        LDA.B #$09                           ;00A038|A909    |      ;
                        db $20                               ;00A03A|        |      ;
-                       dw CODE_0FE25F                       ;00A03B|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00A03B|        |0FE25F;
  
           CODE_00A03D: LDA.W $0401                          ;00A03D|AD0104  |000401;
  
@@ -4215,7 +3956,7 @@ afterBoss_AutoPlay_Dir: db $01,$04,$1E,$00,$00               ;0092E2|        |  
                        dw CODE_0FEF75                       ;00A0EF|        |0FEF75;
  
          DATA8_00A0F1: db $20                               ;00A0F1|        |      ;
-                       dw CODE_0FE666                       ;00A0F2|        |0FE666;
+                       dw initClearScreen_clearIRQfunc      ;00A0F2|        |0FE666;
                        LDA.B #$44                           ;00A0F4|A944    |      ;
                        STA.B r_updateNametable              ;00A0F6|8525    |000025;
                        LDA.B r_PPUCtrl                      ;00A0F8|A5FF    |0000FF;
@@ -4245,16 +3986,13 @@ progressionTableStage: db $00                               ;00A11D|        |   
  
 progressionTableBlock: db $00                               ;00A11E|        |      ;
  
- progressionTableRoom: db $00,$01,$03,$02,$02               ;00A11F|        |      ;
-                       db $01,$00,$03,$00,$02               ;00A124|        |      ;
-                       db $04,$00,$00,$05,$00               ;00A129|        |      ;
-                       db $00,$0B,$00,$00,$07               ;00A12E|        |      ;
-                       db $00,$01,$07,$05,$00               ;00A133|        |      ;
-                       db $09,$00,$00,$0A,$00               ;00A138|        |      ;
-                       db $00,$0A,$00,$00,$0C               ;00A13D|        |      ;
-                       db $00,$00,$0C,$00,$00               ;00A142|        |      ;
-                       db $0D,$00,$00,$0E,$00               ;00A147|        |      ;
-                       db $02                               ;00A14C|        |      ;
+ progressionTableRoom: db $00,$01,$03,$02,$02,$01,$00,$03   ;00A11F|        |      ;
+                       db $00,$02,$04,$00,$00,$05,$00,$00   ;00A127|        |      ;
+                       db $0B,$00,$00,$07,$00,$01,$07,$05   ;00A12F|        |      ;
+                       db $00,$09,$00,$00,$0A,$00,$00,$0A   ;00A137|        |      ;
+ 
+                       db $00,$00,$0C,$00,$00,$0C,$00,$00   ;00A13F|        |      ;
+                       db $0D,$00,$00,$0E,$00,$02           ;00A147|        |      ;
  
 loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00BA6A;
                        dw CODE_00BBBE                       ;00A14F|        |00BBBE;
@@ -4263,23 +4001,20 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
                        dw LOOSE_OP_00BA5E                   ;00A153|        |00BA5E;
  
-   PPUdestLargeLayout: dw $2C80,$2FC8,$2E00                 ;00A155|        |      ;
+   PPUdestLargeLayout: dw $2C80,$2FC8,$2E00,$2FE0           ;00A155|        |      ;
  
-                       dw $2FE0                             ;00A15B|        |      ;
- 
-   RLE_namScreenIndex: dw $FE0C,$1C0C,$1210                 ;00A15D|        |      ;
-                       dw $1CFF,$140E,$1210                 ;00A163|        |      ;
-                       dw $00FF,$0002,$4407                 ;00A169|        |      ;
-                       dw $4444,$AD50,$07EE                 ;00A16F|        |      ;
+   RLE_namScreenIndex: dw $FE0C,$1C0C,$1210,$1CFF           ;00A15D|        |      ;
+                       dw $140E,$1210,$00FF,$0002           ;00A165|        |      ;
+                       dw $4407,$4444,$AD50,$07EE           ;00A16D|        |      ;
                        dw $0329                             ;00A175|        |      ;
                        TAY                                  ;00A177|A8      |      ;
                        LDA.W RLE_namScreenAtri,Y            ;00A178|B96AA1  |00A16A;
-                       STA.B r_currOAM_Attr                 ;00A17B|8510    |000010;
+                       STA.B r_index                        ;00A17B|8510    |000010;
                        LDA.W RLE_namScreenMapping_5105,Y    ;00A17D|B96EA1  |00A16E;
                        STA.B r_updateNametable              ;00A180|8525    |000025;
                        STA.W $5105                          ;00A182|8D0551  |005105;
  
-          CODE_00A185: LDY.B r_currOAM_Attr                 ;00A185|A410    |000010;
+          CODE_00A185: LDY.B r_index                        ;00A185|A410    |000010;
                        LDA.B #$8A                           ;00A187|A98A    |      ;
                        LDX.W RLE_namScreenIndex,Y           ;00A189|BE5DA1  |00A15D;
                        BMI CODE_00A19C                      ;00A18C|300E    |00A19C;
@@ -4289,7 +4024,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
          DATA8_00A194: db $20                               ;00A194|        |      ;
                        dw screenLoadRoutine01               ;00A195|        |0FEBD5;
-                       INC.B r_currOAM_Attr                 ;00A197|E610    |000010;
+                       INC.B r_index                        ;00A197|E610    |000010;
                        JMP.W CODE_00A185                    ;00A199|4C85A1  |00A185;
  
  
@@ -4297,9 +4032,9 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        BCS CODE_00A1C6                      ;00A19E|B026    |00A1C6;
  
                        LDA.B #$00                           ;00A1A0|A900    |      ;
-                       STA.B r_currOAM_Attr                 ;00A1A2|8510    |000010;
+                       STA.B r_index                        ;00A1A2|8510    |000010;
  
-          CODE_00A1A4: LDY.B r_currOAM_Attr                 ;00A1A4|A410    |000010;
+          CODE_00A1A4: LDY.B r_index                        ;00A1A4|A410    |000010;
                        LDA.W loadPointerScreenLoad,Y        ;00A1A6|B94DA1  |00A14D;
                        STA.B $00                            ;00A1A9|8500    |000000;
                        LDA.W PTR16_00A14E,Y                 ;00A1AB|B94EA1  |00A14E;
@@ -4310,9 +4045,9 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDA.B #$8A                           ;00A1B7|A98A    |      ;
                        db $20                               ;00A1B9|        |      ;
                        dw CODE_0FEBE0                       ;00A1BA|        |0FEBE0;
-                       INC.B r_currOAM_Attr                 ;00A1BC|E610    |000010;
-                       INC.B r_currOAM_Attr                 ;00A1BE|E610    |000010;
-                       LDA.B r_currOAM_Attr                 ;00A1C0|A510    |000010;
+                       INC.B r_index                        ;00A1BC|E610    |000010;
+                       INC.B r_index                        ;00A1BE|E610    |000010;
+                       LDA.B r_index                        ;00A1C0|A510    |000010;
                        CMP.B #$08                           ;00A1C2|C908    |      ;
                        BCC CODE_00A1A4                      ;00A1C4|90DE    |00A1A4;
  
@@ -4349,12 +4084,10 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
          DATA8_00A1F5: db $00,$00,$04,$02,$06               ;00A1F5|        |      ;
  
-         DATA8_00A1FA: db $A5,$30,$29,$0F,$D0               ;00A1FA|        |      ;
-                       db $0B,$A5,$30,$C9,$D0               ;00A1FF|        |      ;
-                       db $B0,$05,$A9,$3A,$20               ;00A204|        |      ;
-                       db $5F,$E2,$A5,$30,$4A               ;00A209|        |      ;
-                       db $4A,$4A,$4A,$A8,$B9               ;00A20E|        |      ;
-                       db $37,$A2,$85,$00                   ;00A213|        |      ;
+         DATA8_00A1FA: db $A5,$30,$29,$0F,$D0,$0B,$A5,$30   ;00A1FA|        |      ;
+                       db $C9,$D0,$B0,$05,$A9,$3A,$20,$5F   ;00A202|        |      ;
+                       db $E2,$A5,$30,$4A,$4A,$4A,$4A,$A8   ;00A20A|        |      ;
+                       db $B9,$37,$A2,$85,$00               ;00A212|        |      ;
                        LDA.B r_gameStateLoopCounter         ;00A217|A51A    |00001A;
                        AND.B #$02                           ;00A219|2902    |      ;
                        BEQ CODE_00A224                      ;00A21B|F007    |00A224;
@@ -4375,10 +4108,8 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        STA.B r_PPUCtrl                      ;00A234|85FF    |0000FF;
                        RTS                                  ;00A236|60      |      ;
  
-                       db $01,$01,$01,$01,$01               ;00A237|        |      ;
-                       db $01,$02,$02,$02,$02               ;00A23C|        |      ;
-                       db $02,$01,$00,$00,$00               ;00A241|        |      ;
-                       db $00                               ;00A246|        |      ;
+                       db $01,$01,$01,$01,$01,$01,$02,$02   ;00A237|        |      ;
+                       db $02,$02,$02,$01,$00,$00,$00,$00   ;00A23F|        |      ;
  
           CODE_00A247: LDX.B #$00                           ;00A247|A200    |      ;
                        JMP.W CODE_00A24E                    ;00A249|4C4EA2  |00A24E;
@@ -4466,17 +4197,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        RTS                                  ;00A2D2|60      |      ;
  
  
-         DATA8_00A2D3: db $0F,$0F,$16,$24,$0F               ;00A2D3|        |      ;
-                       db $0F,$05,$16,$0F,$08               ;00A2D8|        |      ;
-                       db $15,$38,$0F,$0F,$15               ;00A2DD|        |      ;
-                       db $36,$0F,$00,$07,$17               ;00A2E2|        |      ;
-                       db $0F,$07,$17,$20,$0F               ;00A2E7|        |      ;
-                       db $00,$03,$13,$0F,$02               ;00A2EC|        |      ;
-                       db $03,$11,$0F,$08,$28               ;00A2F1|        |      ;
-                       db $37,$0F,$21,$11,$20               ;00A2F6|        |      ;
-                       db $0F,$0F,$21,$20,$0F               ;00A2FB|        |      ;
+         DATA8_00A2D3: db $0F,$0F,$16,$24,$0F,$0F,$05,$16   ;00A2D3|        |      ;
  
-                       db $0F,$07,$20                       ;00A300|        |      ;
+                       db $0F,$08,$15,$38,$0F,$0F,$15,$36   ;00A2DB|        |      ;
+                       db $0F,$00,$07,$17,$0F,$07,$17,$20   ;00A2E3|        |      ;
+                       db $0F,$00,$03,$13,$0F,$02,$03,$11   ;00A2EB|        |      ;
+                       db $0F,$08,$28,$37,$0F,$21,$11,$20   ;00A2F3|        |      ;
+                       db $0F,$0F,$21,$20,$0F,$0F,$07,$20   ;00A2FB|        |      ;
  
           CODE_00A303: LDY.B #$01                           ;00A303|A001    |      ;
                        LDA.W $07F1                          ;00A305|ADF107  |0007F1;
@@ -4565,7 +4292,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDX.B #$03                           ;00A390|A203    |      ;
                        JSR.W CODE_00A447                    ;00A392|2047A4  |00A447;
                        LDA.B #$17                           ;00A395|A917    |      ;
-                       STA.B r_currOAM_Attr                 ;00A397|8510    |000010;
+                       STA.B r_index                        ;00A397|8510    |000010;
                        JMP.W CODE_00A272                    ;00A399|4C72A2  |00A272;
  
  
@@ -4574,7 +4301,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDX.B #$03                           ;00A3A1|A203    |      ;
                        JSR.W CODE_00A447                    ;00A3A3|2047A4  |00A447;
                        LDA.B #$20                           ;00A3A6|A920    |      ;
-                       STA.B r_currOAM_Attr                 ;00A3A8|8510    |000010;
+                       STA.B r_index                        ;00A3A8|8510    |000010;
                        JMP.W CODE_00A272                    ;00A3AA|4C72A2  |00A272;
  
  
@@ -4637,15 +4364,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
          DATA8_00A419: db $00,$01,$01,$01                   ;00A419|        |      ;
  
-         DATA8_00A41D: db $BD,$00,$04,$F0,$1C               ;00A41D|        |      ;
-                       db $AD,$ED,$07,$29,$40               ;00A422|        |      ;
-                       db $D0,$0B,$FE,$38,$04               ;00A427|        |      ;
-                       db $BD,$38,$04,$C9,$FC               ;00A42C|        |      ;
-                       db $B0,$0C                           ;00A431|        |      ;
+         DATA8_00A41D: db $BD,$00,$04,$F0,$1C,$AD,$ED,$07   ;00A41D|        |      ;
+                       db $29,$40,$D0,$0B,$FE,$38,$04,$BD   ;00A425|        |      ;
+                       db $38,$04,$C9,$FC,$B0,$0C           ;00A42D|        |      ;
  
-         DATA8_00A433: db $60,$DE,$38,$04,$BD               ;00A433|        |      ;
-                       db $38,$04,$C9,$04,$90               ;00A438|        |      ;
-                       db $01,$60,$4C,$57,$A2               ;00A43D|        |      ;
+         DATA8_00A433: db $60,$DE,$38,$04,$BD,$38,$04,$C9   ;00A433|        |      ;
+ 
+                       db $04,$90,$01,$60,$4C,$57,$A2       ;00A43B|        |      ;
  
           CODE_00A442: LDX.B #$03                           ;00A442|A203    |      ;
                        LDA.W $07F1                          ;00A444|ADF107  |0007F1;
@@ -4688,15 +4413,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
           CODE_00A48A: RTS                                  ;00A48A|60      |      ;
  
  
-         DATA8_00A48B: db $01,$C2,$04,$06,$08               ;00A48B|        |      ;
-                       db $49,$33,$0B,$0C,$71               ;00A490|        |      ;
-                       db $F2,$52,$14,$14,$15               ;00A495|        |      ;
-                       db $56,$16                           ;00A49A|        |      ;
+         DATA8_00A48B: db $01,$C2,$04,$06,$08,$49,$33,$0B   ;00A48B|        |      ;
+                       db $0C,$71,$F2,$52,$14,$14,$15,$56   ;00A493|        |      ;
+                       db $16                               ;00A49B|        |      ;
  
-         DATA8_00A49C: db $00,$00,$00,$00,$00               ;00A49C|        |      ;
-                       db $00,$00,$00,$00,$01               ;00A4A1|        |      ;
-                       db $D1,$D3,$73,$02,$02               ;00A4A6|        |      ;
-                       db $02,$02                           ;00A4AB|        |      ;
+         DATA8_00A49C: db $00,$00,$00,$00,$00,$00,$00,$00   ;00A49C|        |      ;
+                       db $00,$01,$D1,$D3,$73,$02,$02,$02   ;00A4A4|        |      ;
+                       db $02                               ;00A4AC|        |      ;
  
          PTR16_00A4AD: dw PTR16_00A4DB                      ;00A4AD|        |00A4DB;
                        dw PTR16_00A4DB                      ;00A4AF|        |00A4DB;
@@ -4725,50 +4448,44 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        dw DATA8_00A558                      ;00A4D9|        |00A558;
  
          PTR16_00A4DB: dw CODE_00A003                       ;00A4DB|        |00A003;
-                       db $31,$49,$D6,$35,$2B               ;00A4DD|        |      ;
-                       db $D8,$3F,$51                       ;00A4E2|        |      ;
+                       db $31,$49,$D6,$35,$2B,$D8,$3F,$51   ;00A4DD|        |      ;
  
-         DATA8_00A4E5: db $03,$A2,$58,$4F,$D6               ;00A4E5|        |      ;
-                       db $55,$33,$D8,$4A,$57               ;00A4EA|        |      ;
+         DATA8_00A4E5: db $03,$A2,$58,$4F,$D6,$55,$33,$D8   ;00A4E5|        |      ;
+                       db $4A,$57                           ;00A4ED|        |      ;
  
-         DATA8_00A4EF: db $04,$A6,$35,$75,$A8               ;00A4EF|        |      ;
-                       db $4F,$87,$D6,$40,$59               ;00A4F4|        |      ;
-                       db $D8,$59,$83                       ;00A4F9|        |      ;
+         DATA8_00A4EF: db $04,$A6,$35,$75,$A8,$4F,$87,$D6   ;00A4EF|        |      ;
+                       db $40,$59,$D8,$59,$83               ;00A4F7|        |      ;
  
          DATA8_00A4FC: db $01,$AA,$77,$7B                   ;00A4FC|        |      ;
  
-         DATA8_00A500: db $03,$AC,$77,$7B,$D6               ;00A500|        |      ;
-                       db $5F,$73,$D8,$81,$62               ;00A505|        |      ;
+         DATA8_00A500: db $03,$AC,$77,$7B,$D6,$5F,$73,$D8   ;00A500|        |      ;
  
-         DATA8_00A50A: db $03,$AE,$B2,$60,$D6               ;00A50A|        |      ;
-                       db $AF,$5E,$D8,$B5,$44               ;00A50F|        |      ;
+                       db $81,$62                           ;00A508|        |      ;
  
-         DATA8_00A514: db $03,$B0,$A1,$4F,$D6               ;00A514|        |      ;
-                       db $AC,$52,$D8,$86,$42               ;00A519|        |      ;
+         DATA8_00A50A: db $03,$AE,$B2,$60,$D6,$AF,$5E,$D8   ;00A50A|        |      ;
+                       db $B5,$44                           ;00A512|        |      ;
  
-         DATA8_00A51E: db $03,$B4,$7F,$97,$D6               ;00A51E|        |      ;
-                       db $64,$91,$D8,$95,$87               ;00A523|        |      ;
+         DATA8_00A514: db $03,$B0,$A1,$4F,$D6,$AC,$52,$D8   ;00A514|        |      ;
+                       db $86,$42                           ;00A51C|        |      ;
  
-         DATA8_00A528: db $03,$B6,$AA,$85,$D6               ;00A528|        |      ;
-                       db $9B,$78,$D8,$AB,$6D               ;00A52D|        |      ;
+         DATA8_00A51E: db $03,$B4,$7F,$97,$D6,$64,$91,$D8   ;00A51E|        |      ;
+                       db $95,$87                           ;00A526|        |      ;
  
-         DATA8_00A532: db $02,$EA,$90,$7F,$EC               ;00A532|        |      ;
-                       db $96,$6F                           ;00A537|        |      ;
+         DATA8_00A528: db $03,$B6,$AA,$85,$D6,$9B,$78,$D8   ;00A528|        |      ;
+                       db $AB,$6D                           ;00A530|        |      ;
  
-         DATA8_00A539: db $03,$EA,$98,$7F,$EC               ;00A539|        |      ;
-                       db $78,$75,$EC,$6F,$37               ;00A53E|        |      ;
+         DATA8_00A532: db $02,$EA,$90,$7F,$EC,$96,$6F       ;00A532|        |      ;
  
-         DATA8_00A543: db $02,$EA,$22,$77,$EC               ;00A543|        |      ;
-                       db $6E,$7F                           ;00A548|        |      ;
+         DATA8_00A539: db $03,$EA,$98,$7F,$EC,$78,$75,$EC   ;00A539|        |      ;
+                       db $6F,$37                           ;00A541|        |      ;
  
-         DATA8_00A54A: db $02,$EA,$7A,$87,$EC               ;00A54A|        |      ;
-                       db $BF,$6F                           ;00A54F|        |      ;
+         DATA8_00A543: db $02,$EA,$22,$77,$EC,$6E,$7F       ;00A543|        |      ;
  
-         DATA8_00A551: db $02,$EA,$B7,$5C,$EC               ;00A551|        |      ;
-                       db $AC,$2F                           ;00A556|        |      ;
+         DATA8_00A54A: db $02,$EA,$7A,$87,$EC,$BF,$6F       ;00A54A|        |      ;
  
-         DATA8_00A558: db $02,$EA,$9B,$27,$F0               ;00A558|        |      ;
-                       db $69,$2F                           ;00A55D|        |      ;
+         DATA8_00A551: db $02,$EA,$B7,$5C,$EC,$AC,$2F       ;00A551|        |      ;
+ 
+         DATA8_00A558: db $02,$EA,$9B,$27,$F0,$69,$2F       ;00A558|        |      ;
  
           CODE_00A55F: STA.B $00                            ;00A55F|8500    |000000;
                        LDA.B #$01                           ;00A561|A901    |      ;
@@ -4797,19 +4514,14 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
          DATA8_00A582: db $21                               ;00A582|        |      ;
  
-         DATA8_00A583: db $38,$2D,$21,$39,$2E               ;00A583|        |      ;
-                       db $21,$3A,$4C,$21,$55               ;00A588|        |      ;
-                       db $4D,$21,$56,$6C,$21               ;00A58D|        |      ;
-                       db $75,$6D,$21,$76,$6E               ;00A592|        |      ;
-                       db $21,$B1,$8D,$21,$87               ;00A597|        |      ;
-                       db $38,$22,$DF,$39,$22               ;00A59C|        |      ;
+         DATA8_00A583: db $38,$2D,$21,$39,$2E,$21,$3A,$4C   ;00A583|        |      ;
+                       db $21,$55,$4D,$21,$56,$6C,$21,$75   ;00A58B|        |      ;
+                       db $6D,$21,$76,$6E,$21,$B1,$8D,$21   ;00A593|        |      ;
+                       db $87,$38,$22,$DF,$39,$22,$AB,$3A   ;00A59B|        |      ;
+                       db $22,$D4,$57,$22,$AB,$58,$22,$EF   ;00A5A3|        |      ;
  
-                       db $AB,$3A,$22,$D4,$57               ;00A5A1|        |      ;
-                       db $22,$AB,$58,$22,$EF               ;00A5A6|        |      ;
- 
-                       db $59,$22,$AB,$5A,$22               ;00A5AB|        |      ;
-                       db $EF,$77,$22,$D2,$78               ;00A5B0|        |      ;
-                       db $22,$D3                           ;00A5B5|        |      ;
+                       db $59,$22,$AB,$5A,$22,$EF,$77,$22   ;00A5AB|        |      ;
+                       db $D2,$78,$22,$D3                   ;00A5B3|        |      ;
  
     gameState8_states: LDA.B r_gameSubstate                 ;00A5B7|A519    |000019;
                        db $20                               ;00A5B9|        |      ;
@@ -4837,12 +4549,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        LDY.B #$00                           ;00A5DF|A000    |      ;
                        LDA.B r_stage                        ;00A5E1|A532    |000032;
                        CMP.B #$00                           ;00A5E3|C900    |      ;
-                       BEQ $06                              ;00A5E5|F006    |00A5ED;
+                       BEQ CODE_00A5ED                      ;00A5E5|F006    |00A5ED;
                        INY                                  ;00A5E7|C8      |      ;
                        CMP.B #$02                           ;00A5E8|C902    |      ;
-                       BEQ $01                              ;00A5EA|F001    |00A5ED;
+                       BEQ CODE_00A5ED                      ;00A5EA|F001    |00A5ED;
                        INY                                  ;00A5EC|C8      |      ;
-                       STY.W r_soundModeSongSelected        ;00A5ED|8C8007  |000780; stage progression 0 1 2
+ 
+          CODE_00A5ED: STY.W r_soundModeSongSelected        ;00A5ED|8C8007  |000780; stage progression 0 1 2
                        INC.B r_gameSubstate                 ;00A5F0|E619    |000019;
                        RTS                                  ;00A5F2|60      |      ;
  
@@ -4877,7 +4590,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        ASL A                                ;00A621|0A      |      ;
                        TAY                                  ;00A622|A8      |      ;
                        LDA.W progression_780,Y              ;00A623|B91FAE  |00AE1F;
-                       STA.B r_pointerQueue_VRAM            ;00A626|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A626|8508    |000008;
                        LDA.W PTR16_00AE20,Y                 ;00A628|B920AE  |00AE20;
                        STA.B $09                            ;00A62B|8509    |000009;
                        JSR.W CODE_00AD48                    ;00A62D|2048AD  |00AD48;
@@ -4888,14 +4601,12 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        dw CODE_0FE58E                       ;00A635|        |0FE58E;
                        LDA.B #$6C                           ;00A637|A96C    |      ;
                        db $20                               ;00A639|        |      ;
-                       dw CODE_0FE25F                       ;00A63A|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00A63A|        |0FE25F;
                        INC.B r_gameSubstate                 ;00A63C|E619    |000019;
                        RTS                                  ;00A63E|60      |      ;
  
  
-      screensCHR_Data: db $7E,$7B,$74,$75,$76               ;00A63F|        |      ;
- 
-                       db $77                               ;00A644|        |      ;
+      screensCHR_Data: db $7E,$7B,$74,$75,$76,$77           ;00A63F|        |      ;
  
  gameState8_substate2: db $20                               ;00A645|        |      ;
                        dw CODE_0FE579                       ;00A646|        |0FE579;
@@ -4955,10 +4666,9 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
        gameStat08_2f6: db $20                               ;00A69E|        |      ;
  
-       gameStat08_782: db $04,$07,$07,$10,$04               ;00A69F|        |      ;
-                       db $0F,$07,$10,$04,$0F               ;00A6A4|        |      ;
-                       db $0F,$10,$04,$0F,$0F               ;00A6A9|        |      ;
-                       db $0F,$04,$FF                       ;00A6AE|        |      ;
+       gameStat08_782: db $04,$07,$07,$10,$04,$0F,$07,$10   ;00A69F|        |      ;
+                       db $04,$0F,$0F,$10,$04,$0F,$0F,$0F   ;00A6A7|        |      ;
+                       db $04,$FF                           ;00A6AF|        |      ;
  
  gameState8_substate4: LDA.W r_soundModeSongSelected        ;00A6B1|AD8007  |000780;
                        ASL A                                ;00A6B4|0A      |      ;
@@ -4971,7 +4681,7 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        ASL A                                ;00A6C3|0A      |      ;
                        TAY                                  ;00A6C4|A8      |      ;
                        LDA.B (r_temp_Xpos),Y                ;00A6C5|B10A    |00000A;
-                       STA.B r_pointerQueue_VRAM            ;00A6C7|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A6C7|8508    |000008;
                        INY                                  ;00A6C9|C8      |      ;
                        CMP.B #$FF                           ;00A6CA|C9FF    |      ;
                        BEQ CODE_00A6D9                      ;00A6CC|F00B    |00A6D9;
@@ -5020,9 +4730,8 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
     moreProgrData_786: db $01                               ;00A718|        |      ;
  
-    moreProgrData_787: db $28,$00,$01,$80,$01               ;00A719|        |      ;
-                       db $30,$80,$FF,$20,$01               ;00A71E|        |      ;
-                       db $40                               ;00A723|        |      ;
+    moreProgrData_787: db $28,$00,$01,$80,$01,$30,$80,$FF   ;00A719|        |      ;
+                       db $20,$01,$40                       ;00A721|        |      ;
  
  gameState8_substate5: LDA.B #$00                           ;00A724|A900    |      ;
                        LDY.W r_EffectSpeedGeneral           ;00A726|AC8407  |000784;
@@ -5124,13 +4833,13 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
                        STA.B $07                            ;00A7DA|8507    |000007;
                        TAY                                  ;00A7DC|A8      |      ;
                        LDA.W progre_pathSpriteMap_00,Y      ;00A7DD|B926A8  |00A826;
-                       STA.B r_pointerQueue_VRAM            ;00A7E0|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A7E0|8508    |000008;
                        LDA.W PTR16_00A827,Y                 ;00A7E2|B927A8  |00A827;
                        STA.B $09                            ;00A7E5|8509    |000009;
                        LDX.B #$01                           ;00A7E7|A201    |      ;
                        LDY.B #$00                           ;00A7E9|A000    |      ;
  
-          CODE_00A7EB: LDA.B (r_pointerQueue_VRAM),Y        ;00A7EB|B108    |000008;
+          CODE_00A7EB: LDA.B (r_pointerQueue),Y             ;00A7EB|B108    |000008;
                        CMP.B #$FF                           ;00A7ED|C9FF    |      ;
                        BEQ CODE_00A7F8                      ;00A7EF|F007    |00A7F8;
                        STA.W r_entity_Effect,X              ;00A7F1|9D7004  |000470;
@@ -5140,21 +4849,21 @@ loadPointerScreenLoad: dw LOOSE_OP_00BA6A                   ;00A14D|        |00B
  
           CODE_00A7F8: LDY.B $07                            ;00A7F8|A407    |000007;
                        LDA.W PTR16_00A828,Y                 ;00A7FA|B928A8  |00A828;
-                       STA.B r_pointerQueue_VRAM            ;00A7FD|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A7FD|8508    |000008;
                        LDA.W PTR16_00A829,Y                 ;00A7FF|B929A8  |00A829;
                        STA.B $09                            ;00A802|8509    |000009;
                        LDY.B #$00                           ;00A804|A000    |      ;
                        LDA.W r_entity_YPos                  ;00A806|AD1C04  |00041C;
-                       CMP.B (r_pointerQueue_VRAM),Y        ;00A809|D108    |000008;
+                       CMP.B (r_pointerQueue),Y             ;00A809|D108    |000008;
                        BCC CODE_00A80F                      ;00A80B|9002    |00A80F;
                        INY                                  ;00A80D|C8      |      ;
                        INY                                  ;00A80E|C8      |      ;
  
           CODE_00A80F: INY                                  ;00A80F|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A810|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A810|B108    |000008;
                        STA.B r_temp_Xpos                    ;00A812|850A    |00000A;
                        INY                                  ;00A814|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A815|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A815|B108    |000008;
                        STA.B $0B                            ;00A817|850B    |00000B;
                        LDY.B #$00                           ;00A819|A000    |      ;
  
@@ -5176,14 +4885,11 @@ progre_pathSpriteMap_00: dw showSelectionSpriteFlag           ;00A826|        |0
  
                        dw DATA8_00A854                      ;00A830|        |00A854;
  
-showSelectionSpriteFlag: db $00,$80,$80,$80,$80               ;00A832|        |      ;
-                       db $80,$80,$FF                       ;00A837|        |      ;
+showSelectionSpriteFlag: db $00,$80,$80,$80,$80,$80,$80,$FF   ;00A832|        |      ;
  
-         DATA8_00A83A: db $00,$80,$80,$80,$80               ;00A83A|        |      ;
-                       db $80,$80,$FF                       ;00A83F|        |      ;
+         DATA8_00A83A: db $00,$80,$80,$80,$80,$80,$80,$FF   ;00A83A|        |      ;
  
-         DATA8_00A842: db $00,$80,$80,$80,$80               ;00A842|        |      ;
-                       db $80,$80,$FF                       ;00A847|        |      ;
+         DATA8_00A842: db $00,$80,$80,$80,$80,$80,$80,$FF   ;00A842|        |      ;
  
    spriteMapPointer00: db $A0                               ;00A84A|        |      ;
                        dw DATA8_00A861                      ;00A84B|        |00A861;
@@ -5213,13 +4919,13 @@ progre_pathSpriteMap_01: LDA.W r_soundModeSongSelected        ;00A871|AD8007  |0
                        ASL A                                ;00A874|0A      |      ;
                        TAY                                  ;00A875|A8      |      ;
                        LDA.W DATA8_00ADD7,Y                 ;00A876|B9D7AD  |00ADD7;
-                       STA.B r_pointerQueue_VRAM            ;00A879|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A879|8508    |000008;
                        LDA.W DATA8_00ADD8,Y                 ;00A87B|B9D8AD  |00ADD8;
                        STA.B $09                            ;00A87E|8509    |000009;
                        LDX.B #$01                           ;00A880|A201    |      ;
                        LDY.B #$00                           ;00A882|A000    |      ;
  
-          CODE_00A884: LDA.B (r_pointerQueue_VRAM),Y        ;00A884|B108    |000008;
+          CODE_00A884: LDA.B (r_pointerQueue),Y             ;00A884|B108    |000008;
                        CMP.B #$FF                           ;00A886|C9FF    |      ;
                        BEQ CODE_00A8AC                      ;00A888|F022    |00A8AC;
                        STA.W r_OamSpecIdxDoubled,X          ;00A88A|9D0004  |000400;
@@ -5231,10 +4937,10 @@ progre_pathSpriteMap_01: LDA.W r_soundModeSongSelected        ;00A871|AD8007  |0
                        STA.W r_entity_Effect,X              ;00A899|9D7004  |000470;
                        INY                                  ;00A89C|C8      |      ;
  
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A89D|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A89D|B108    |000008;
                        STA.W r_entity_XPos,X                ;00A89F|9D3804  |000438;
                        INY                                  ;00A8A2|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A8A3|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A8A3|B108    |000008;
                        STA.W r_entity_YPos,X                ;00A8A5|9D1C04  |00041C;
                        INY                                  ;00A8A8|C8      |      ;
                        INX                                  ;00A8A9|E8      |      ;
@@ -5258,8 +4964,7 @@ progre_pathSpriteMap_01: LDA.W r_soundModeSongSelected        ;00A871|AD8007  |0
                        RTS                                  ;00A8C2|60      |      ;
  
  
-         DATA8_00A8C3: db $0F,$0F,$21,$20,$0F               ;00A8C3|        |      ;
-                       db $0F,$07,$20                       ;00A8C8|        |      ;
+         DATA8_00A8C3: db $0F,$0F,$21,$20,$0F,$0F,$07,$20   ;00A8C3|        |      ;
  
  gameState8_substate6: JSR.W CODE_00A7B3                    ;00A8CB|20B3A7  |00A7B3;
                        LDA.W r_soundModeSongSelected        ;00A8CE|AD8007  |000780;
@@ -5273,7 +4978,7 @@ progre_pathSpriteMap_01: LDA.W r_soundModeSongSelected        ;00A871|AD8007  |0
                        ASL A                                ;00A8E0|0A      |      ;
                        TAY                                  ;00A8E1|A8      |      ;
                        LDA.B (r_temp_Xpos),Y                ;00A8E2|B10A    |00000A;
-                       STA.B r_pointerQueue_VRAM            ;00A8E4|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A8E4|8508    |000008;
                        INY                                  ;00A8E6|C8      |      ;
                        CMP.B #$FF                           ;00A8E7|C9FF    |      ;
                        BEQ CODE_00A8F6                      ;00A8E9|F00B    |00A8F6;
@@ -5351,7 +5056,7 @@ choosePathProgression: JSR.W CODE_00AA05                    ;00A962|2005AA  |00A
                        ASL A                                ;00A96F|0A      |      ;
                        TAY                                  ;00A970|A8      |      ;
                        LDA.W progressionPointerTable,Y      ;00A971|B9A5A9  |00A9A5;
-                       STA.B r_pointerQueue_VRAM            ;00A974|8508    |000008;
+                       STA.B r_pointerQueue                 ;00A974|8508    |000008;
                        LDA.W progressionPointerTableHi,Y    ;00A976|B9A6A9  |00A9A6;
                        STA.B $09                            ;00A979|8509    |000009;
                        LDA.W $0790                          ;00A97B|AD9007  |000790;
@@ -5359,14 +5064,14 @@ choosePathProgression: JSR.W CODE_00AA05                    ;00A962|2005AA  |00A
                        CLC                                  ;00A97F|18      |      ;
                        ADC.W $0790                          ;00A980|6D9007  |000790;
                        TAY                                  ;00A983|A8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A984|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A984|B108    |000008;
                        STA.B r_stage                        ;00A986|8532    |000032;
  
                        INY                                  ;00A988|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A989|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A989|B108    |000008;
                        STA.B r_blockLevel                   ;00A98B|8533    |000033;
                        INY                                  ;00A98D|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00A98E|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00A98E|B108    |000008;
                        STA.B r_roomIdx                      ;00A990|8534    |000034;
                        LDA.B #$07                           ;00A992|A907    |      ;
                        STA.W $0160                          ;00A994|8D6001  |000160;
@@ -5385,16 +5090,13 @@ progressionPointerTable: dw goClockTower                      ;00A9A5|        |0
                        dw goSymphaOrAlucard                 ;00A9A7|        |00A9B4;
                        dw goCryptOrWater                    ;00A9A9|        |00A9BA;
  
-         goClockTower: db $01,$00,$00,$00,$00               ;00A9AB|        |      ;
-                       db $00                               ;00A9B0|        |      ;
+         goClockTower: db $01,$00,$00,$00,$00,$00           ;00A9AB|        |      ;
  
               goWoods: db $02,$00,$00                       ;00A9B1|        |      ;
  
-    goSymphaOrAlucard: db $02,$03,$02,$06,$00               ;00A9B4|        |      ;
-                       db $01                               ;00A9B9|        |      ;
+    goSymphaOrAlucard: db $02,$03,$02,$06,$00,$01           ;00A9B4|        |      ;
  
-       goCryptOrWater: db $07,$06,$00,$08,$00               ;00A9BA|        |      ;
-                       db $00                               ;00A9BF|        |      ;
+       goCryptOrWater: db $07,$06,$00,$08,$00,$00           ;00A9BA|        |      ;
  
  gameState8_substate9: DEC.B r_timerGenerel                 ;00A9C0|C630    |000030;
                        BEQ CODE_00A9CC                      ;00A9C2|F008    |00A9CC;
@@ -5429,7 +5131,7 @@ gameState8_substate10: db $20                               ;00A9EA|        |   
                        dw setNameTableMapping_E4            ;00A9EB|        |0FEBFD;
                        LDA.W r_soundModeSongSelected        ;00A9ED|AD8007  |000780;
                        BNE DATA8_00A9F5                     ;00A9F0|D003    |00A9F5;
-                       JSR.W CODE_0090C0                    ;00A9F2|20C090  |0090C0;
+                       JSR.W startingStats                  ;00A9F2|20C090  |0090C0;
  
          DATA8_00A9F5: db $20                               ;00A9F5|        |      ;
                        dw stageTransition_69                ;00A9F6|        |0FE78A;
@@ -5570,15 +5272,14 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
          DATA8_00AAE2: db $C0                               ;00AAE2|        |      ;
  
-         DATA8_00AAE3: db $01,$08,$80,$00,$00               ;00AAE3|        |      ;
-                       db $C0,$00,$F8,$80,$01               ;00AAE8|        |      ;
-                       db $FF,$40,$00                       ;00AAED|        |      ;
+         DATA8_00AAE3: db $01,$08,$80,$00,$00,$C0,$00,$F8   ;00AAE3|        |      ;
+                       db $80,$01,$FF,$40,$00               ;00AAEB|        |      ;
                        LDA.B r_gameStateLoopCounter         ;00AAF0|A51A    |00001A;
                        AND.B #$0F                           ;00AAF2|290F    |      ;
                        BNE DATA8_00AAFB                     ;00AAF4|D005    |00AAFB;
                        LDA.B #$09                           ;00AAF6|A909    |      ;
                        db $20                               ;00AAF8|        |      ;
-                       dw CODE_0FE25F                       ;00AAF9|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00AAF9|        |0FE25F;
  
          DATA8_00AAFB: db $20                               ;00AAFB|        |      ;
  
@@ -5759,16 +5460,16 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        ASL A                                ;00AC2B|0A      |      ;
                        TAY                                  ;00AC2C|A8      |      ;
                        LDA.W PTR16_00ADAE,Y                 ;00AC2D|B9AEAD  |00ADAE;
-                       STA.B r_pointerQueue_VRAM            ;00AC30|8508    |000008;
+                       STA.B r_pointerQueue                 ;00AC30|8508    |000008;
                        LDA.W PTR16_00ADAF,Y                 ;00AC32|B9AFAD  |00ADAF;
                        STA.B $09                            ;00AC35|8509    |000009;
                        LDA.W $0790                          ;00AC37|AD9007  |000790;
                        ASL A                                ;00AC3A|0A      |      ;
                        TAY                                  ;00AC3B|A8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AC3C|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AC3C|B108    |000008;
                        STA.B r_temp_Xpos                    ;00AC3E|850A    |00000A;
                        INY                                  ;00AC40|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AC41|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AC41|B108    |000008;
                        STA.B $0B                            ;00AC43|850B    |00000B;
                        RTS                                  ;00AC45|60      |      ;
  
@@ -5777,12 +5478,12 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        ASL A                                ;00AC49|0A      |      ;
                        TAY                                  ;00AC4A|A8      |      ;
                        LDA.W PTR16_00AD9C,Y                 ;00AC4B|B99CAD  |00AD9C;
-                       STA.B r_pointerQueue_VRAM            ;00AC4E|8508    |000008;
+                       STA.B r_pointerQueue                 ;00AC4E|8508    |000008;
                        LDA.W PTR16_00AD9D,Y                 ;00AC50|B99DAD  |00AD9D;
                        STA.B $09                            ;00AC53|8509    |000009;
                        LDY.B #$00                           ;00AC55|A000    |      ;
  
-          CODE_00AC57: LDA.B (r_pointerQueue_VRAM),Y        ;00AC57|B108    |000008;
+          CODE_00AC57: LDA.B (r_pointerQueue),Y             ;00AC57|B108    |000008;
                        CMP.B #$FF                           ;00AC59|C9FF    |      ;
                        BEQ CODE_00AC7F                      ;00AC5B|F022    |00AC7F;
                        STA.B $00                            ;00AC5D|8500    |000000;
@@ -5813,7 +5514,7 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
           CODE_00AC81: LDA.B $00                            ;00AC81|A500    |000000;
                        TAX                                  ;00AC83|AA      |      ;
                        INY                                  ;00AC84|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AC85|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AC85|B108    |000008;
                        SEC                                  ;00AC87|38      |      ;
                        RTS                                  ;00AC88|60      |      ;
  
@@ -5939,27 +5640,27 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
           CODE_00AD48: LDY.B #$00                           ;00AD48|A000    |      ;
  
-          CODE_00AD4A: LDA.B (r_pointerQueue_VRAM),Y        ;00AD4A|B108    |000008;
+          CODE_00AD4A: LDA.B (r_pointerQueue),Y             ;00AD4A|B108    |000008;
                        STA.B $62                            ;00AD4C|8562    |000062;
                        INY                                  ;00AD4E|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD4F|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AD4F|B108    |000008;
                        STA.B r_VRAM_QueueDest               ;00AD51|8561    |000061;
                        INY                                  ;00AD53|C8      |      ;
                        db $20                               ;00AD54|        |      ;
                        dw CODE_0FE8B5                       ;00AD55|        |0FE8B5;
  
-          CODE_00AD57: LDA.B (r_pointerQueue_VRAM),Y        ;00AD57|B108    |000008;
+          CODE_00AD57: LDA.B (r_pointerQueue),Y             ;00AD57|B108    |000008;
                        BEQ CODE_00AD76                      ;00AD59|F01B    |00AD76;
                        CMP.B #$FF                           ;00AD5B|C9FF    |      ;
                        BEQ CODE_00AD91                      ;00AD5D|F032    |00AD91;
                        CMP.B #$FE                           ;00AD5F|C9FE    |      ;
                        BEQ CODE_00AD89                      ;00AD61|F026    |00AD89;
                        INY                                  ;00AD63|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD64|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AD64|B108    |000008;
                        STA.B r_temp_Xpos                    ;00AD66|850A    |00000A;
                        INY                                  ;00AD68|C8      |      ;
  
-          CODE_00AD69: LDA.B (r_pointerQueue_VRAM),Y        ;00AD69|B108    |000008;
+          CODE_00AD69: LDA.B (r_pointerQueue),Y             ;00AD69|B108    |000008;
                        STA.W r_VramQueue,X                  ;00AD6B|9D0003  |000300;
                        INY                                  ;00AD6E|C8      |      ;
                        INX                                  ;00AD6F|E8      |      ;
@@ -5968,10 +5669,10 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        BEQ CODE_00AD57                      ;00AD74|F0E1    |00AD57;
  
           CODE_00AD76: INY                                  ;00AD76|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD77|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AD77|B108    |000008;
                        STA.B r_temp_Xpos                    ;00AD79|850A    |00000A;
                        INY                                  ;00AD7B|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00AD7C|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00AD7C|B108    |000008;
                        INY                                  ;00AD7E|C8      |      ;
  
           CODE_00AD7F: STA.W r_VramQueue,X                  ;00AD7F|9D0003  |000300;
@@ -5999,9 +5700,8 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw DATA8_00ADA9                      ;00AD9E|        |00ADA9;
                        dw DATA8_00ADA9                      ;00ADA0|        |00ADA9;
  
-         DATA8_00ADA2: db $80,$00,$A0,$01,$C0               ;00ADA2|        |      ;
+         DATA8_00ADA2: db $80,$00,$A0,$01,$C0,$02,$FF       ;00ADA2|        |      ;
  
-                       db $02,$FF                           ;00ADA7|        |      ;
  
          DATA8_00ADA9: db $80,$00,$C0,$01,$FF               ;00ADA9|        |      ;
  
@@ -6035,22 +5735,16 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
  
          DATA8_00ADD7: db $DD                               ;00ADD7|        |      ;
  
-         DATA8_00ADD8: db $AD,$F3,$AD,$09,$AE               ;00ADD8|        |      ;
-                       db $A0,$59,$21,$A2,$80               ;00ADDD|        |      ;
-                       db $29,$D6,$70,$28,$D8               ;00ADE2|        |      ;
-                       db $72,$0D,$A4,$6A,$30               ;00ADE7|        |      ;
-                       db $A6,$61,$4D,$D6,$6E               ;00ADEC|        |      ;
-                       db $24,$FF,$A6,$65,$2D               ;00ADF1|        |      ;
-                       db $A8,$7F,$3F,$D6,$71               ;00ADF6|        |      ;
-                       db $2D,$D8,$89,$3B,$B2               ;00ADFB|        |      ;
+         DATA8_00ADD8: db $AD,$F3,$AD,$09,$AE,$A0,$59,$21   ;00ADD8|        |      ;
+                       db $A2,$80,$29,$D6,$70,$28,$D8,$72   ;00ADE0|        |      ;
+                       db $0D,$A4,$6A,$30,$A6,$61,$4D,$D6   ;00ADE8|        |      ;
+                       db $6E,$24,$FF,$A6,$65,$2D,$A8,$7F   ;00ADF0|        |      ;
+                       db $3F,$D6,$71,$2D,$D8,$89,$3B,$B2   ;00ADF8|        |      ;
  
-                       db $6E,$48,$D6,$71,$2D               ;00AE00|        |      ;
-                       db $D8,$78,$4D,$FF,$B4               ;00AE05|        |      ;
-                       db $64,$4C,$B6,$8A,$3D               ;00AE0A|        |      ;
-                       db $D6,$7B,$30,$D8,$8B               ;00AE0F|        |      ;
-                       db $22,$B8,$9D,$4C,$D6               ;00AE14|        |      ;
-                       db $80,$32,$D8,$A9,$37               ;00AE19|        |      ;
-                       db $FF                               ;00AE1E|        |      ;
+                       db $6E,$48,$D6,$71,$2D,$D8,$78,$4D   ;00AE00|        |      ;
+                       db $FF,$B4,$64,$4C,$B6,$8A,$3D,$D6   ;00AE08|        |      ;
+                       db $7B,$30,$D8,$8B,$22,$B8,$9D,$4C   ;00AE10|        |      ;
+                       db $D6,$80,$32,$D8,$A9,$37,$FF       ;00AE18|        |      ;
  
       progression_780: dw DATA8_00AEA3                      ;00AE1F|        |00AEA3;
                        dw DATA8_00AEAF                      ;00AE21|        |00AEAF;
@@ -6129,356 +5823,250 @@ progressionPathSelecter: db $00                               ;00AAE0|        | 
                        dw DATA8_00B3B1                      ;00AE9F|        |00B3B1;
                        dw $FFFF                             ;00AEA1|        |      ;
  
-         DATA8_00AEA3: db $23,$D0,$00,$05,$00               ;00AEA3|        |      ;
-                       db $FE,$23,$D8,$00,$05               ;00AEA8|        |      ;
+         DATA8_00AEA3: db $23,$D0,$00,$05,$00,$FE,$23,$D8   ;00AEA3|        |      ;
+                       db $00,$05,$00,$FF                   ;00AEAB|        |      ;
  
-                       db $00,$FF                           ;00AEAD|        |      ;
+         DATA8_00AEAF: db $23,$D8,$00,$04,$00,$FE,$23,$E0   ;00AEAF|        |      ;
+                       db $00,$04,$00,$FF                   ;00AEB7|        |      ;
  
-         DATA8_00AEAF: db $23,$D8,$00,$04,$00               ;00AEAF|        |      ;
-                       db $FE,$23,$E0,$00,$04               ;00AEB4|        |      ;
-                       db $00,$FF                           ;00AEB9|        |      ;
+         DATA8_00AEBB: db $23,$DB,$00,$04,$00,$FE,$23,$E3   ;00AEBB|        |      ;
+                       db $00,$04,$00,$FF                   ;00AEC3|        |      ;
  
-         DATA8_00AEBB: db $23,$DB,$00,$04,$00               ;00AEBB|        |      ;
-                       db $FE,$23,$E3,$00,$04               ;00AEC0|        |      ;
-                       db $00,$FF                           ;00AEC5|        |      ;
+         DATA8_00AEC7: db $20,$83,$00,$1A,$00,$FE,$20,$A3   ;00AEC7|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AECF|        |      ;
  
-         DATA8_00AEC7: db $20,$83,$00,$1A,$00               ;00AEC7|        |      ;
-                       db $FE,$20,$A3,$00,$1A               ;00AECC|        |      ;
-                       db $00,$FF                           ;00AED1|        |      ;
+         DATA8_00AED3: db $20,$C3,$00,$1A,$00,$FE,$20,$E3   ;00AED3|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AEDB|        |      ;
  
-         DATA8_00AED3: db $20,$C3,$00,$1A,$00               ;00AED3|        |      ;
-                       db $FE,$20,$E3,$00,$1A               ;00AED8|        |      ;
-                       db $00,$FF                           ;00AEDD|        |      ;
+         DATA8_00AEDF: db $20,$C3,$00,$1A,$00,$FE,$20,$E3   ;00AEDF|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AEE7|        |      ;
  
-         DATA8_00AEDF: db $20,$C3,$00,$1A,$00               ;00AEDF|        |      ;
-                       db $FE,$20,$E3,$00,$1A               ;00AEE4|        |      ;
-                       db $00,$FF                           ;00AEE9|        |      ;
+         DATA8_00AEEB: db $21,$14,$00,$09,$00,$FE,$21,$34   ;00AEEB|        |      ;
+                       db $00,$09,$00,$FF                   ;00AEF3|        |      ;
  
-         DATA8_00AEEB: db $21,$14,$00,$09,$00               ;00AEEB|        |      ;
+         DATA8_00AEF7: db $21,$03,$00,$1A,$00,$FE,$21,$23   ;00AEF7|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AEFF|        |      ;
  
-                       db $FE,$21,$34,$00,$09               ;00AEF0|        |      ;
-                       db $00,$FF                           ;00AEF5|        |      ;
+         DATA8_00AF03: db $21,$54,$00,$09,$00,$FE,$21,$74   ;00AF03|        |      ;
+                       db $00,$09,$00,$FF                   ;00AF0B|        |      ;
  
-         DATA8_00AEF7: db $21,$03,$00,$1A,$00               ;00AEF7|        |      ;
+         DATA8_00AF0F: db $21,$43,$00,$1A,$00,$FE,$21,$63   ;00AF0F|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AF17|        |      ;
  
-                       db $FE,$21,$23,$00,$1A               ;00AEFC|        |      ;
-                       db $00,$FF                           ;00AF01|        |      ;
+         DATA8_00AF1B: db $21,$94,$00,$09,$00,$FE,$21,$B4   ;00AF1B|        |      ;
+                       db $00,$09,$00,$FF                   ;00AF23|        |      ;
  
-         DATA8_00AF03: db $21,$54,$00,$09,$00               ;00AF03|        |      ;
-                       db $FE,$21,$74,$00,$09               ;00AF08|        |      ;
-                       db $00,$FF                           ;00AF0D|        |      ;
+         DATA8_00AF27: db $21,$83,$00,$09,$00,$FE,$21,$9C   ;00AF27|        |      ;
+                       db $00,$01,$00,$FE,$21,$A3,$00,$09   ;00AF2F|        |      ;
+                       db $00,$FE,$21,$BC,$00,$01,$00,$FF   ;00AF37|        |      ;
  
-         DATA8_00AF0F: db $21,$43,$00,$1A,$00               ;00AF0F|        |      ;
-                       db $FE,$21,$63,$00,$1A               ;00AF14|        |      ;
-                       db $00,$FF                           ;00AF19|        |      ;
+         DATA8_00AF3F: db $21,$90,$00,$0D,$00,$FE,$21,$B0   ;00AF3F|        |      ;
+                       db $00,$0D,$00,$FF                   ;00AF47|        |      ;
  
-         DATA8_00AF1B: db $21,$94,$00,$09,$00               ;00AF1B|        |      ;
-                       db $FE,$21,$B4,$00,$09               ;00AF20|        |      ;
-                       db $00,$FF                           ;00AF25|        |      ;
+         DATA8_00AF4B: db $21,$D4,$00,$09,$00,$FE,$21,$F4   ;00AF4B|        |      ;
+                       db $00,$09,$00,$FF                   ;00AF53|        |      ;
  
-         DATA8_00AF27: db $21,$83,$00,$09,$00               ;00AF27|        |      ;
-                       db $FE,$21,$9C,$00,$01               ;00AF2C|        |      ;
-                       db $00,$FE,$21,$A3,$00               ;00AF31|        |      ;
-                       db $09,$00,$FE,$21,$BC               ;00AF36|        |      ;
-                       db $00,$01,$00,$FF                   ;00AF3B|        |      ;
+         DATA8_00AF57: db $21,$C3,$00,$09,$00,$FE,$21,$DC   ;00AF57|        |      ;
+                       db $00,$01,$00,$FE,$21,$E3,$00,$09   ;00AF5F|        |      ;
  
-         DATA8_00AF3F: db $21,$90,$00,$0D,$00               ;00AF3F|        |      ;
-                       db $FE,$21,$B0,$00,$0D               ;00AF44|        |      ;
-                       db $00,$FF                           ;00AF49|        |      ;
+                       db $00,$FE,$21,$FC,$00,$01,$00,$FF   ;00AF67|        |      ;
  
-         DATA8_00AF4B: db $21,$D4,$00,$09,$00               ;00AF4B|        |      ;
-                       db $FE,$21,$F4,$00,$09               ;00AF50|        |      ;
-                       db $00,$FF                           ;00AF55|        |      ;
+         DATA8_00AF6F: db $21,$D0,$00,$0D,$00,$FE,$21,$F0   ;00AF6F|        |      ;
+                       db $00,$0D,$00,$FF                   ;00AF77|        |      ;
  
-         DATA8_00AF57: db $21,$C3,$00,$09,$00               ;00AF57|        |      ;
-                       db $FE,$21,$DC,$00,$01               ;00AF5C|        |      ;
-                       db $00,$FE,$21,$E3,$00               ;00AF61|        |      ;
-                       db $09,$00,$FE,$21,$FC               ;00AF66|        |      ;
-                       db $00,$01,$00,$FF                   ;00AF6B|        |      ;
+         DATA8_00AF7B: db $22,$03,$00,$1A,$00,$FE,$22,$23   ;00AF7B|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AF83|        |      ;
  
-         DATA8_00AF6F: db $21,$D0,$00,$0D,$00               ;00AF6F|        |      ;
-                       db $FE,$21,$F0,$00,$0D               ;00AF74|        |      ;
-                       db $00,$FF                           ;00AF79|        |      ;
+         DATA8_00AF87: db $22,$03,$00,$09,$00,$FE,$22,$1C   ;00AF87|        |      ;
+                       db $00,$01,$00,$FE,$22,$23,$00,$09   ;00AF8F|        |      ;
+                       db $00,$FE,$22,$3C,$00,$01,$00,$FF   ;00AF97|        |      ;
  
-         DATA8_00AF7B: db $22,$03,$00,$1A,$00               ;00AF7B|        |      ;
-                       db $FE,$22,$23,$00,$1A               ;00AF80|        |      ;
-                       db $00,$FF                           ;00AF85|        |      ;
+         DATA8_00AF9F: db $22,$10,$00,$0D,$00,$FE,$22,$30   ;00AF9F|        |      ;
+                       db $00,$0D,$00,$FF                   ;00AFA7|        |      ;
  
-         DATA8_00AF87: db $22,$03,$00,$09,$00               ;00AF87|        |      ;
-                       db $FE,$22,$1C,$00,$01               ;00AF8C|        |      ;
-                       db $00,$FE,$22,$23,$00               ;00AF91|        |      ;
-                       db $09,$00,$FE,$22,$3C               ;00AF96|        |      ;
-                       db $00,$01,$00,$FF                   ;00AF9B|        |      ;
+         DATA8_00AFAB: db $22,$43,$00,$1A,$00,$FE,$22,$63   ;00AFAB|        |      ;
+                       db $00,$1A,$00,$FF                   ;00AFB3|        |      ;
  
-         DATA8_00AF9F: db $22,$10,$00,$0D,$00               ;00AF9F|        |      ;
-                       db $FE,$22,$30,$00,$0D               ;00AFA4|        |      ;
-                       db $00,$FF                           ;00AFA9|        |      ;
+         DATA8_00AFB7: db $22,$43,$00,$09,$00,$FE,$22,$5C   ;00AFB7|        |      ;
  
-         DATA8_00AFAB: db $22,$43,$00,$1A,$00               ;00AFAB|        |      ;
-                       db $FE,$22,$63,$00,$1A               ;00AFB0|        |      ;
-                       db $00,$FF                           ;00AFB5|        |      ;
+                       db $00,$01,$00,$FE,$22,$63,$00,$09   ;00AFBF|        |      ;
+                       db $00,$FE,$22,$7C,$00,$01,$00,$FF   ;00AFC7|        |      ;
  
-         DATA8_00AFB7: db $22,$43,$00,$09,$00               ;00AFB7|        |      ;
-                       db $FE,$22,$5C,$00,$01               ;00AFBC|        |      ;
-                       db $00,$FE,$22,$63,$00               ;00AFC1|        |      ;
-                       db $09,$00,$FE,$22,$7C               ;00AFC6|        |      ;
-                       db $00,$01,$00,$FF                   ;00AFCB|        |      ;
+         DATA8_00AFCF: db $22,$50,$00,$0D,$00,$FE,$22,$70   ;00AFCF|        |      ;
+                       db $00,$0D,$00,$FF                   ;00AFD7|        |      ;
  
-         DATA8_00AFCF: db $22,$50,$00,$0D,$00               ;00AFCF|        |      ;
-                       db $FE,$22,$70,$00,$0D               ;00AFD4|        |      ;
-                       db $00,$FF                           ;00AFD9|        |      ;
+         DATA8_00AFDB: db $23,$20,$00,$0C,$00,$80,$14,$7A   ;00AFDB|        |      ;
+                       db $00,$45,$82,$45,$82,$00,$00,$45   ;00AFE3|        |      ;
+                       db $44,$45,$46,$56,$46,$00,$46,$56   ;00AFEB|        |      ;
+                       db $00,$00,$00,$FF                   ;00AFF3|        |      ;
  
-         DATA8_00AFDB: db $23,$20,$00,$0C,$00               ;00AFDB|        |      ;
-                       db $80,$14,$7A,$00,$45               ;00AFE0|        |      ;
-                       db $82,$45,$82,$00,$00               ;00AFE5|        |      ;
-                       db $45,$44,$45,$46,$56               ;00AFEA|        |      ;
-                       db $46,$00,$46,$56,$00               ;00AFEF|        |      ;
-                       db $00,$00,$FF                       ;00AFF4|        |      ;
+         DATA8_00AFF7: db $23,$40,$80,$40,$00,$00,$7A,$7A   ;00AFF7|        |      ;
+                       db $5F,$5F,$6F,$5F,$00,$00,$81,$82   ;00AFFF|        |      ;
  
-         DATA8_00AFF7: db $23,$40,$80,$40,$00               ;00AFF7|        |      ;
-                       db $00,$7A,$7A,$5F,$5F               ;00AFFC|        |      ;
+                       db $82,$00,$8B,$64,$80,$80,$82,$00   ;00B007|        |      ;
+                       db $8B,$80,$90,$91,$45,$79,$9B,$7A   ;00B00F|        |      ;
+                       db $00,$46,$00,$00,$00,$00,$5F,$6F   ;00B017|        |      ;
+                       db $5F,$7A,$7A,$6F,$5F,$00,$91,$8B   ;00B01F|        |      ;
+                       db $90,$00,$00,$00,$91,$8B,$90,$00   ;00B027|        |      ;
+                       db $00,$64,$00,$00,$00,$00,$AB,$00   ;00B02F|        |      ;
+                       db $AC,$00,$00,$00,$FF               ;00B037|        |      ;
  
-                       db $6F,$5F,$00,$00,$81               ;00B001|        |      ;
+         DATA8_00B03C: db $23,$80,$80,$20,$00,$00,$7A,$7A   ;00B03C|        |      ;
+                       db $6F,$5F,$6F,$5F,$7A,$6F,$5F,$7A   ;00B044|        |      ;
+                       db $5F,$7A,$7A,$8A,$89,$8A,$89,$89   ;00B04C|        |      ;
+                       db $8A,$8A,$7A,$79,$8E,$7A,$8E,$79   ;00B054|        |      ;
+                       db $8E,$7A,$00,$00,$FF               ;00B05C|        |      ;
  
-                       db $82,$82,$00,$8B,$64               ;00B006|        |      ;
-                       db $80,$80,$82,$00,$8B               ;00B00B|        |      ;
-                       db $80,$90,$91,$45,$79               ;00B010|        |      ;
-                       db $9B,$7A,$00,$46,$00               ;00B015|        |      ;
-                       db $00,$00,$00,$5F,$6F               ;00B01A|        |      ;
-                       db $5F,$7A,$7A,$6F,$5F               ;00B01F|        |      ;
-                       db $00,$91,$8B,$90,$00               ;00B024|        |      ;
-                       db $00,$00,$91,$8B,$90               ;00B029|        |      ;
-                       db $00,$00,$64,$00,$00               ;00B02E|        |      ;
-                       db $00,$00,$AB,$00,$AC               ;00B033|        |      ;
-                       db $00,$00,$00,$FF                   ;00B038|        |      ;
+         DATA8_00B061: db $20,$00,$80,$0E,$7C,$7C,$7F,$7F   ;00B061|        |      ;
+                       db $7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F   ;00B069|        |      ;
+                       db $7E,$7D,$00,$10,$7F,$00,$02,$7C   ;00B071|        |      ;
+                       db $00,$0D,$00,$80,$03,$BF,$00,$00   ;00B079|        |      ;
+                       db $FF                               ;00B081|        |      ;
  
-         DATA8_00B03C: db $23,$80,$80,$20,$00               ;00B03C|        |      ;
-                       db $00,$7A,$7A,$6F,$5F               ;00B041|        |      ;
-                       db $6F,$5F,$7A,$6F,$5F               ;00B046|        |      ;
-                       db $7A,$5F,$7A,$7A,$8A               ;00B04B|        |      ;
-                       db $89,$8A,$89,$89,$8A               ;00B050|        |      ;
-                       db $8A,$7A,$79,$8E,$7A               ;00B055|        |      ;
-                       db $8E,$79,$8E,$7A,$00               ;00B05A|        |      ;
-                       db $00,$FF                           ;00B05F|        |      ;
+         DATA8_00B082: db $20,$40,$00,$0E,$00,$80,$01,$BF   ;00B082|        |      ;
+                       db $00,$20,$00,$80,$11,$BF,$00,$81   ;00B08A|        |      ;
+                       db $81,$79,$45,$44,$7A,$00,$00,$79   ;00B092|        |      ;
+                       db $45,$44,$79,$7A,$00,$00,$FF       ;00B09A|        |      ;
  
-         DATA8_00B061: db $20,$00,$80,$0E,$7C               ;00B061|        |      ;
-                       db $7C,$7F,$7F,$7F,$7F               ;00B066|        |      ;
-                       db $7F,$7F,$7F,$7F,$7F               ;00B06B|        |      ;
-                       db $7F,$7E,$7D,$00,$10               ;00B070|        |      ;
-                       db $7F,$00,$02,$7C,$00               ;00B075|        |      ;
-                       db $0D,$00,$80,$03,$BF               ;00B07A|        |      ;
-                       db $00,$00,$FF                       ;00B07F|        |      ;
+         DATA8_00B0A1: db $20,$90,$80,$0C,$BF,$00,$64,$90   ;00B0A1|        |      ;
  
-         DATA8_00B082: db $20,$40,$00,$0E,$00               ;00B082|        |      ;
-                       db $80,$01,$BF,$00,$20               ;00B087|        |      ;
-                       db $00,$80,$11,$BF,$00               ;00B08C|        |      ;
-                       db $81,$81,$79,$45,$44               ;00B091|        |      ;
-                       db $7A,$00,$00,$79,$45               ;00B096|        |      ;
-                       db $44,$79,$7A,$00,$00               ;00B09B|        |      ;
+                       db $91,$90,$00,$00,$87,$88,$91,$90   ;00B0A9|        |      ;
+                       db $00,$15,$00,$80,$0F,$BF,$00,$00   ;00B0B1|        |      ;
+                       db $00,$00,$87,$88,$97,$98,$00,$99   ;00B0B9|        |      ;
+                       db $9A,$00,$00,$00,$FF               ;00B0C1|        |      ;
  
-                       db $FF                               ;00B0A0|        |      ;
+         DATA8_00B0C6: db $20,$C0,$00,$0E,$00,$80,$10,$7C   ;00B0C6|        |      ;
+                       db $7C,$00,$00,$BF,$00,$AA,$A9,$A7   ;00B0CE|        |      ;
+                       db $A8,$A7,$A8,$A5,$A9,$AA,$A5,$00   ;00B0D6|        |      ;
+                       db $10,$00,$80,$06,$7C,$7C,$00,$00   ;00B0DE|        |      ;
+                       db $00,$BF,$00,$0C,$00,$FF           ;00B0E6|        |      ;
  
-         DATA8_00B0A1: db $20,$90,$80,$0C,$BF               ;00B0A1|        |      ;
-                       db $00,$64,$90,$91,$90               ;00B0A6|        |      ;
+         DATA8_00B0EC: db $21,$00,$00,$0E,$00,$00,$02,$7C   ;00B0EC|        |      ;
+                       db $00,$0E,$7F,$00,$02,$7C,$FF       ;00B0F4|        |      ;
  
-                       db $00,$00,$87,$88,$91               ;00B0AB|        |      ;
-                       db $90,$00,$15,$00,$80               ;00B0B0|        |      ;
-                       db $0F,$BF,$00,$00,$00               ;00B0B5|        |      ;
-                       db $00,$87,$88,$97,$98               ;00B0BA|        |      ;
-                       db $00,$99,$9A,$00,$00               ;00B0BF|        |      ;
-                       db $00,$FF                           ;00B0C4|        |      ;
+         DATA8_00B0FB: db $23,$F0,$80,$10,$55,$55,$55,$55   ;00B0FB|        |      ;
+                       db $55,$55,$55,$11,$05,$05,$05,$09   ;00B103|        |      ;
+                       db $0A,$06,$05,$01,$FE,$23,$C0,$80   ;00B10B|        |      ;
+                       db $18,$00,$00,$00,$00,$50,$50,$50   ;00B113|        |      ;
+                       db $10,$00,$00,$00,$00,$08,$FE,$FB   ;00B11B|        |      ;
+                       db $32,$00,$00,$00,$00,$00,$00,$00   ;00B123|        |      ;
+                       db $00,$FF                           ;00B12B|        |      ;
  
-         DATA8_00B0C6: db $20,$C0,$00,$0E,$00               ;00B0C6|        |      ;
-                       db $80,$10,$7C,$7C,$00               ;00B0CB|        |      ;
-                       db $00,$BF,$00,$AA,$A9               ;00B0D0|        |      ;
-                       db $A7,$A8,$A7,$A8,$A5               ;00B0D5|        |      ;
-                       db $A9,$AA,$A5,$00,$10               ;00B0DA|        |      ;
-                       db $00,$80,$06,$7C,$7C               ;00B0DF|        |      ;
-                       db $00,$00,$00,$BF,$00               ;00B0E4|        |      ;
-                       db $0C,$00,$FF                       ;00B0E9|        |      ;
+         DATA8_00B12D: db $22,$60,$00,$13,$00,$80,$0D,$81   ;00B12D|        |      ;
+                       db $45,$44,$A2,$A3,$00,$83,$84,$85   ;00B135|        |      ;
+                       db $86,$A3,$00,$00,$FF               ;00B13D|        |      ;
  
-         DATA8_00B0EC: db $21,$00,$00,$0E,$00               ;00B0EC|        |      ;
-                       db $00,$02,$7C,$00,$0E               ;00B0F1|        |      ;
-                       db $7F,$00,$02,$7C,$FF               ;00B0F6|        |      ;
+         DATA8_00B142: db $22,$80,$00,$12,$00,$80,$0C,$81   ;00B142|        |      ;
+                       db $65,$80,$80,$A2,$A3,$00,$96,$94   ;00B14A|        |      ;
+                       db $95,$96,$A3,$00,$14,$00,$80,$0E   ;00B152|        |      ;
+                       db $65,$80,$80,$80,$A2,$A3,$A4,$A6   ;00B15A|        |      ;
+                       db $A4,$94,$A6,$B3,$00,$00,$FF       ;00B162|        |      ;
  
-         DATA8_00B0FB: db $23,$F0,$80,$10,$55               ;00B0FB|        |      ;
-                       db $55,$55,$55,$55,$55               ;00B100|        |      ;
-                       db $55,$11,$05,$05,$05               ;00B105|        |      ;
-                       db $09,$0A,$06,$05,$01               ;00B10A|        |      ;
-                       db $FE,$23,$C0,$80,$18               ;00B10F|        |      ;
-                       db $00,$00,$00,$00,$50               ;00B114|        |      ;
-                       db $50,$50,$10,$00,$00               ;00B119|        |      ;
-                       db $00,$00,$08,$FE,$FB               ;00B11E|        |      ;
-                       db $32,$00,$00,$00,$00               ;00B123|        |      ;
-                       db $00,$00,$00,$00,$FF               ;00B128|        |      ;
+         DATA8_00B169: db $22,$C0,$00,$12,$00,$80,$0C,$92   ;00B169|        |      ;
+                       db $BA,$BB,$BC,$B2,$B3,$A4,$A6,$B4   ;00B171|        |      ;
+                       db $B5,$A6,$A3,$00,$05,$00,$80,$07   ;00B179|        |      ;
+                       db $81,$45,$44,$45,$44,$45,$81,$00   ;00B181|        |      ;
+                       db $16,$00,$FF                       ;00B189|        |      ;
  
-         DATA8_00B12D: db $22,$60,$00,$13,$00               ;00B12D|        |      ;
-                       db $80,$0D,$81,$45,$44               ;00B132|        |      ;
-                       db $A2,$A3,$00,$83,$84               ;00B137|        |      ;
-                       db $85,$86,$A3,$00,$00               ;00B13C|        |      ;
-                       db $FF                               ;00B141|        |      ;
+         DATA8_00B18C: db $23,$00,$00,$03,$00,$80,$08,$91   ;00B18C|        |      ;
+                       db $90,$91,$92,$80,$80,$82,$79,$00   ;00B194|        |      ;
+                       db $05,$00,$80,$05,$7F,$7F,$7F,$7E   ;00B19C|        |      ;
+                       db $7D,$00,$09,$7F,$80,$0E,$7C,$7C   ;00B1A4|        |      ;
+                       db $00,$00,$00,$A1,$00,$A1,$00,$00   ;00B1AC|        |      ;
+                       db $91,$80,$8B,$7A,$00,$06,$00,$80   ;00B1B4|        |      ;
+                       db $01,$7E,$00,$0D,$00,$FF           ;00B1BC|        |      ;
  
-         DATA8_00B142: db $22,$80,$00,$12,$00               ;00B142|        |      ;
-                       db $80,$0C,$81,$65,$80               ;00B147|        |      ;
-                       db $80,$A2,$A3,$00,$96               ;00B14C|        |      ;
-                       db $94,$95,$96,$A3,$00               ;00B151|        |      ;
-                       db $14,$00,$80,$0E,$65               ;00B156|        |      ;
-                       db $80,$80,$80,$A2,$A3               ;00B15B|        |      ;
-                       db $A4,$A6,$A4,$94,$A6               ;00B160|        |      ;
-                       db $B3,$00,$00,$FF                   ;00B165|        |      ;
- 
-         DATA8_00B169: db $22,$C0,$00,$12,$00               ;00B169|        |      ;
-                       db $80,$0C,$92,$BA,$BB               ;00B16E|        |      ;
-                       db $BC,$B2,$B3,$A4,$A6               ;00B173|        |      ;
-                       db $B4,$B5,$A6,$A3,$00               ;00B178|        |      ;
-                       db $05,$00,$80,$07,$81               ;00B17D|        |      ;
-                       db $45,$44,$45,$44,$45               ;00B182|        |      ;
-                       db $81,$00,$16,$00,$FF               ;00B187|        |      ;
- 
-         DATA8_00B18C: db $23,$00,$00,$03,$00               ;00B18C|        |      ;
-                       db $80,$08,$91,$90,$91               ;00B191|        |      ;
-                       db $92,$80,$80,$82,$79               ;00B196|        |      ;
-                       db $00,$05,$00,$80,$05               ;00B19B|        |      ;
-                       db $7F,$7F,$7F,$7E,$7D               ;00B1A0|        |      ;
-                       db $00,$09,$7F,$80,$0E               ;00B1A5|        |      ;
-                       db $7C,$7C,$00,$00,$00               ;00B1AA|        |      ;
-                       db $A1,$00,$A1,$00,$00               ;00B1AF|        |      ;
-                       db $91,$80,$8B,$7A,$00               ;00B1B4|        |      ;
- 
-                       db $06,$00,$80,$01,$7E               ;00B1B9|        |      ;
-                       db $00,$0D,$00,$FF                   ;00B1BE|        |      ;
- 
-         DATA8_00B1C2: db $23,$40,$80,$0C,$00               ;00B1C2|        |      ;
-                       db $00,$00,$B1,$B0,$B1               ;00B1C7|        |      ;
-                       db $A0,$A0,$00,$B0,$00               ;00B1CC|        |      ;
-                       db $A0,$00,$05,$00,$80               ;00B1D1|        |      ;
-                       db $01,$BF,$00,$1E,$00               ;00B1D6|        |      ;
-                       db $80,$01,$BF,$00,$07               ;00B1DB|        |      ;
-                       db $00,$80,$08,$8C,$8D               ;00B1E0|        |      ;
-                       db $8D,$8F,$8C,$00,$00               ;00B1E5|        |      ;
+         DATA8_00B1C2: db $23,$40,$80,$0C,$00,$00,$00,$B1   ;00B1C2|        |      ;
+                       db $B0,$B1,$A0,$A0,$00,$B0,$00,$A0   ;00B1CA|        |      ;
+                       db $00,$05,$00,$80,$01,$BF,$00,$1E   ;00B1D2|        |      ;
+                       db $00,$80,$01,$BF,$00,$07,$00,$80   ;00B1DA|        |      ;
+                       db $08,$8C,$8D,$8D,$8F,$8C,$00,$00   ;00B1E2|        |      ;
                        db $00,$FF                           ;00B1EA|        |      ;
  
-         DATA8_00B1EC: db $23,$80,$00,$02,$7C               ;00B1EC|        |      ;
-                       db $00,$0A,$7F,$80,$11               ;00B1F1|        |      ;
-                       db $7E,$7D,$7F,$7F,$00               ;00B1F6|        |      ;
-                       db $81,$44,$B7,$B8,$B7               ;00B1FB|        |      ;
-                       db $45,$81,$9C,$9D,$9E               ;00B200|        |      ;
-                       db $9F,$9C,$00,$10,$00               ;00B205|        |      ;
-                       db $80,$01,$BF,$00,$03               ;00B20A|        |      ;
-                       db $00,$80,$0F,$64,$8B               ;00B20F|        |      ;
-                       db $B7,$B9,$B7,$8B,$64               ;00B214|        |      ;
-                       db $81,$AD,$AE,$AF,$AD               ;00B219|        |      ;
-                       db $00,$00,$00,$FF                   ;00B21E|        |      ;
+         DATA8_00B1EC: db $23,$80,$00,$02,$7C,$00,$0A,$7F   ;00B1EC|        |      ;
+                       db $80,$11,$7E,$7D,$7F,$7F,$00,$81   ;00B1F4|        |      ;
+                       db $44,$B7,$B8,$B7,$45,$81,$9C,$9D   ;00B1FC|        |      ;
+                       db $9E,$9F,$9C,$00,$10,$00,$80,$01   ;00B204|        |      ;
+                       db $BF,$00,$03,$00,$80,$0F,$64,$8B   ;00B20C|        |      ;
+                       db $B7,$B9,$B7,$8B,$64,$81,$AD,$AE   ;00B214|        |      ;
+                       db $AF,$AD,$00,$00,$00,$FF           ;00B21C|        |      ;
  
-         DATA8_00B222: db $20,$00,$00,$0E,$00               ;00B222|        |      ;
-                       db $80,$12,$BF,$00,$00               ;00B227|        |      ;
-                       db $00,$00,$B7,$00,$B7               ;00B22C|        |      ;
-                       db $81,$BD,$BD,$00,$BE               ;00B231|        |      ;
-                       db $75,$BD,$00,$00,$00               ;00B236|        |      ;
-                       db $FF                               ;00B23B|        |      ;
+         DATA8_00B222: db $20,$00,$00,$0E,$00,$80,$12,$BF   ;00B222|        |      ;
+                       db $00,$00,$00,$00,$B7,$00,$B7,$81   ;00B22A|        |      ;
+                       db $BD,$BD,$00,$BE,$75,$BD,$00,$00   ;00B232|        |      ;
+                       db $00,$FF                           ;00B23A|        |      ;
  
-         DATA8_00B23C: db $20,$20,$00,$0F,$00               ;00B23C|        |      ;
-                       db $80,$01,$BF,$00,$1E               ;00B241|        |      ;
-                       db $00,$00,$10,$7F,$00               ;00B246|        |      ;
-                       db $02,$7C,$FF                       ;00B24B|        |      ;
+         DATA8_00B23C: db $20,$20,$00,$0F,$00,$80,$01,$BF   ;00B23C|        |      ;
+                       db $00,$1E,$00,$00,$10,$7F,$00,$02   ;00B244|        |      ;
+                       db $7C,$FF                           ;00B24C|        |      ;
  
-         DATA8_00B24E: db $23,$E0,$80,$20,$00               ;00B24E|        |      ;
-                       db $00,$00,$00,$C0,$F0               ;00B253|        |      ;
-                       db $F0,$30,$50,$50,$50               ;00B258|        |      ;
-                       db $10,$CC,$FF,$FF,$33               ;00B25D|        |      ;
-                       db $55,$D5,$D5,$11,$80               ;00B262|        |      ;
-                       db $A0,$A0,$20,$00,$00               ;00B267|        |      ;
-                       db $00,$00,$0F,$0B,$0A               ;00B26C|        |      ;
-                       db $02,$FE,$23,$C0,$80               ;00B271|        |      ;
-                       db $10,$00,$00,$00,$00               ;00B276|        |      ;
-                       db $0F,$0B,$0A,$02,$00               ;00B27B|        |      ;
-                       db $00,$00,$00,$00,$00               ;00B280|        |      ;
-                       db $00,$00,$FF                       ;00B285|        |      ;
+         DATA8_00B24E: db $23,$E0,$80,$20,$00,$00,$00,$00   ;00B24E|        |      ;
+                       db $C0,$F0,$F0,$30,$50,$50,$50,$10   ;00B256|        |      ;
+                       db $CC,$FF,$FF,$33,$55,$D5,$D5,$11   ;00B25E|        |      ;
+                       db $80,$A0,$A0,$20,$00,$00,$00,$00   ;00B266|        |      ;
+                       db $0F,$0B,$0A,$02,$FE,$23,$C0,$80   ;00B26E|        |      ;
+                       db $10,$00,$00,$00,$00,$0F,$0B,$0A   ;00B276|        |      ;
+                       db $02,$00,$00,$00,$00,$00,$00,$00   ;00B27E|        |      ;
+                       db $00,$FF                           ;00B286|        |      ;
  
-         DATA8_00B288: db $22,$E0,$80,$20,$00               ;00B288|        |      ;
-                       db $00,$7A,$4B,$4F,$00               ;00B28D|        |      ;
-                       db $4E,$4C,$4F,$4D,$4A               ;00B292|        |      ;
-                       db $49,$4F,$7A,$00,$4A               ;00B297|        |      ;
-                       db $67,$4C,$4E,$4F,$4F               ;00B29C|        |      ;
-                       db $47,$4E,$4C,$B8,$B8               ;00B2A1|        |      ;
-                       db $83,$93,$86,$B8,$00               ;00B2A6|        |      ;
-                       db $00,$FF                           ;00B2AB|        |      ;
+         DATA8_00B288: db $22,$E0,$80,$20,$00,$00,$7A,$4B   ;00B288|        |      ;
+                       db $4F,$00,$4E,$4C,$4F,$4D,$4A,$49   ;00B290|        |      ;
+                       db $4F,$7A,$00,$4A,$67,$4C,$4E,$4F   ;00B298|        |      ;
+                       db $4F,$47,$4E,$4C,$B8,$B8,$83,$93   ;00B2A0|        |      ;
+                       db $86,$B8,$00,$00,$FF               ;00B2A8|        |      ;
  
-         DATA8_00B2AD: db $23,$00,$80,$40,$00               ;00B2AD|        |      ;
-                       db $00,$4B,$4B,$57,$5D               ;00B2B2|        |      ;
-                       db $5E,$00,$58,$59,$5A               ;00B2B7|        |      ;
-                       db $5B,$58,$00,$00,$00               ;00B2BC|        |      ;
+         DATA8_00B2AD: db $23,$00,$80,$40,$00,$00,$4B,$4B   ;00B2AD|        |      ;
+                       db $57,$5D,$5E,$00,$58,$59,$5A,$5B   ;00B2B5|        |      ;
+                       db $58,$00,$00,$00,$69,$58,$5E,$69   ;00B2BD|        |      ;
+                       db $57,$6E,$4A,$57,$93,$B8,$4B,$A1   ;00B2C5|        |      ;
+                       db $4B,$93,$00,$00,$00,$00,$6A,$66   ;00B2CD|        |      ;
+                       db $68,$79,$6E,$6C,$69,$6A,$6A,$66   ;00B2D5|        |      ;
+                       db $4B,$7A,$00,$00,$75,$7A,$6E,$75   ;00B2DD|        |      ;
+                       db $68,$59,$5A,$5B,$00,$4B,$4B,$B1   ;00B2E5|        |      ;
+                       db $4B,$4B,$00,$00,$FF               ;00B2ED|        |      ;
  
-                       db $69,$58,$5E,$69,$57               ;00B2C1|        |      ;
-                       db $6E,$4A,$57,$93,$B8               ;00B2C6|        |      ;
-                       db $4B,$A1,$4B,$93,$00               ;00B2CB|        |      ;
-                       db $00,$00,$00,$6A,$66               ;00B2D0|        |      ;
-                       db $68,$79,$6E,$6C,$69               ;00B2D5|        |      ;
-                       db $6A,$6A,$66,$4B,$7A               ;00B2DA|        |      ;
-                       db $00,$00,$75,$7A,$6E               ;00B2DF|        |      ;
-                       db $75,$68,$59,$5A,$5B               ;00B2E4|        |      ;
-                       db $00,$4B,$4B,$B1,$4B               ;00B2E9|        |      ;
-                       db $4B,$00,$00,$FF                   ;00B2EE|        |      ;
+         DATA8_00B2F2: db $23,$40,$80,$20,$00,$00,$4C,$49   ;00B2F2|        |      ;
+                       db $6D,$5C,$6B,$7B,$49,$48,$4D,$58   ;00B2FA|        |      ;
+                       db $4B,$4B,$00,$00,$00,$4F,$49,$5C   ;00B302|        |      ;
+                       db $6D,$69,$6A,$6B,$00,$4B,$76,$77   ;00B30A|        |      ;
+                       db $78,$00,$00,$00,$FF               ;00B312|        |      ;
  
-         DATA8_00B2F2: db $23,$40,$80,$20,$00               ;00B2F2|        |      ;
-                       db $00,$4C,$49,$6D,$5C               ;00B2F7|        |      ;
-                       db $6B,$7B,$49,$48,$4D               ;00B2FC|        |      ;
-                       db $58,$4B,$4B,$00,$00               ;00B301|        |      ;
-                       db $00,$4F,$49,$5C,$6D               ;00B306|        |      ;
-                       db $69,$6A,$6B,$00,$4B               ;00B30B|        |      ;
-                       db $76,$77,$78,$00,$00               ;00B310|        |      ;
-                       db $00,$FF                           ;00B315|        |      ;
+         DATA8_00B317: db $23,$80,$00,$02,$7C,$00,$11,$7F   ;00B317|        |      ;
+                       db $80,$02,$7E,$7D,$00,$09,$7F,$00   ;00B31F|        |      ;
+                       db $02,$7C,$00,$12,$00,$80,$01,$7E   ;00B327|        |      ;
+                       db $00,$0D,$00,$FF                   ;00B32F|        |      ;
  
-         DATA8_00B317: db $23,$80,$00,$02,$7C               ;00B317|        |      ;
-                       db $00,$11,$7F,$80,$02               ;00B31C|        |      ;
+         DATA8_00B333: db $20,$00,$00,$11,$00,$80,$01,$BF   ;00B333|        |      ;
+                       db $00,$10,$00,$80,$09,$41,$42,$41   ;00B33B|        |      ;
+                       db $42,$42,$43,$44,$45,$7A,$00,$05   ;00B343|        |      ;
+                       db $00,$80,$01,$BF,$00,$0F,$00,$FF   ;00B34B|        |      ;
  
-                       db $7E,$7D,$00,$09,$7F               ;00B321|        |      ;
-                       db $00,$02,$7C,$00,$12               ;00B326|        |      ;
-                       db $00,$80,$01,$7E,$00               ;00B32B|        |      ;
-                       db $0D,$00,$FF                       ;00B330|        |      ;
+         DATA8_00B353: db $20,$40,$80,$10,$00,$00,$40,$55   ;00B353|        |      ;
  
-         DATA8_00B333: db $20,$00,$00,$11,$00               ;00B333|        |      ;
-                       db $80,$01,$BF,$00,$10               ;00B338|        |      ;
-                       db $00,$80,$09,$41,$42               ;00B33D|        |      ;
-                       db $41,$42,$42,$43,$44               ;00B342|        |      ;
-                       db $45,$7A,$00,$05,$00               ;00B347|        |      ;
-                       db $80,$01,$BF,$00,$0F               ;00B34C|        |      ;
-                       db $00,$FF                           ;00B351|        |      ;
- 
-         DATA8_00B353: db $20,$40,$80,$10,$00               ;00B353|        |      ;
-                       db $00,$40,$55,$63,$54               ;00B358|        |      ;
-                       db $40,$52,$53,$54,$55               ;00B35D|        |      ;
-                       db $82,$7A,$00,$00,$BF               ;00B362|        |      ;
-                       db $00,$12,$00,$80,$0D               ;00B367|        |      ;
- 
-                       db $50,$51,$50,$60,$50               ;00B36C|        |      ;
-                       db $00,$61,$00,$62,$64               ;00B371|        |      ;
-                       db $00,$00,$BF,$00,$11               ;00B376|        |      ;
+                       db $63,$54,$40,$52,$53,$54,$55,$82   ;00B35B|        |      ;
+                       db $7A,$00,$00,$BF,$00,$12,$00,$80   ;00B363|        |      ;
+                       db $0D,$50,$51,$50,$60,$50,$00,$61   ;00B36B|        |      ;
+                       db $00,$62,$64,$00,$00,$BF,$00,$11   ;00B373|        |      ;
                        db $00,$FF                           ;00B37B|        |      ;
  
-         DATA8_00B37D: db $20,$80,$80,$12,$00               ;00B37D|        |      ;
-                       db $00,$72,$74,$72,$74               ;00B382|        |      ;
-                       db $72,$70,$71,$74,$72               ;00B387|        |      ;
-                       db $74,$00,$BF,$00,$00               ;00B38C|        |      ;
-                       db $7C,$7C,$00,$1A,$00               ;00B391|        |      ;
-                       db $80,$06,$BF,$00,$00               ;00B396|        |      ;
-                       db $00,$7C,$7C,$00,$0E               ;00B39B|        |      ;
-                       db $00,$FF                           ;00B3A0|        |      ;
+         DATA8_00B37D: db $20,$80,$80,$12,$00,$00,$72,$74   ;00B37D|        |      ;
+                       db $72,$74,$72,$70,$71,$74,$72,$74   ;00B385|        |      ;
+                       db $00,$BF,$00,$00,$7C,$7C,$00,$1A   ;00B38D|        |      ;
+                       db $00,$80,$06,$BF,$00,$00,$00,$7C   ;00B395|        |      ;
+                       db $7C,$00,$0E,$00,$FF               ;00B39D|        |      ;
  
-         DATA8_00B3A2: db $20,$C0,$00,$02,$7C               ;00B3A2|        |      ;
-                       db $00,$0E,$7F,$00,$02               ;00B3A7|        |      ;
-                       db $7C,$00,$0E,$00,$FF               ;00B3AC|        |      ;
+         DATA8_00B3A2: db $20,$C0,$00,$02,$7C,$00,$0E,$7F   ;00B3A2|        |      ;
+                       db $00,$02,$7C,$00,$0E,$00,$FF       ;00B3AA|        |      ;
  
-         DATA8_00B3B1: db $23,$E8,$80,$18,$D0               ;00B3B1|        |      ;
-                       db $50,$50,$90,$A0,$A0               ;00B3B6|        |      ;
-                       db $F0,$B0,$4D,$55,$55               ;00B3BB|        |      ;
-                       db $BB,$AA,$AA,$3F,$8B               ;00B3C0|        |      ;
-                       db $00,$00,$00,$00,$00               ;00B3C5|        |      ;
-                       db $00,$00,$00,$FE,$23               ;00B3CA|        |      ;
-                       db $C0,$80,$10,$FF,$FF               ;00B3CF|        |      ;
-                       db $FF,$33,$00,$00,$00               ;00B3D4|        |      ;
-                       db $00,$0F,$0F,$0F,$00               ;00B3D9|        |      ;
-                       db $00,$00,$00,$00,$FF               ;00B3DE|        |      ;
+         DATA8_00B3B1: db $23,$E8,$80,$18,$D0,$50,$50,$90   ;00B3B1|        |      ;
+                       db $A0,$A0,$F0,$B0,$4D,$55,$55,$BB   ;00B3B9|        |      ;
+                       db $AA,$AA,$3F,$8B,$00,$00,$00,$00   ;00B3C1|        |      ;
+ 
+                       db $00,$00,$00,$00,$FE,$23,$C0,$80   ;00B3C9|        |      ;
+ 
+                       db $10,$FF,$FF,$FF,$33,$00,$00,$00   ;00B3D1|        |      ;
+                       db $00,$0F,$0F,$0F,$00,$00,$00,$00   ;00B3D9|        |      ;
+                       db $00,$FF                           ;00B3E1|        |      ;
  
           CODE_00B3E3: LDA.B #$00                           ;00B3E3|A900    |      ;
                        STA.B r_074                          ;00B3E5|8574    |000074;
@@ -6556,7 +6144,7 @@ bossBoneDragonWaterScene: LDA.B r_menuSelectIdx                ;00B3EA|A56B    |
  
           CODE_00B455: LDX.B #$10                           ;00B455|A210    |      ;
  
-          CODE_00B457: STX.B r_pointerQueue_VRAM            ;00B457|8608    |000008;
+          CODE_00B457: STX.B r_pointerQueue                 ;00B457|8608    |000008;
                        LDX.B #$F0                           ;00B459|A2F0    |      ;
                        LDA.B #$FB                           ;00B45B|A9FB    |      ;
                        db $20                               ;00B45D|        |      ;
@@ -6567,13 +6155,13 @@ bossBoneDragonWaterScene: LDA.B r_menuSelectIdx                ;00B3EA|A56B    |
                        db $20                               ;00B466|        |      ;
                        dw CODE_0FFCDD                       ;00B467|        |0FFCDD;
                        BNE CODE_00B449                      ;00B469|D0DE    |00B449;
-                       LDX.B r_pointerQueue_VRAM            ;00B46B|A608    |000008;
+                       LDX.B r_pointerQueue                 ;00B46B|A608    |000008;
                        LDA.B #$FB                           ;00B46D|A9FB    |      ;
                        db $20                               ;00B46F|        |      ;
                        dw CODE_0FFCDD                       ;00B470|        |0FFCDD;
                        BNE CODE_00B47E                      ;00B472|D00A    |00B47E;
                        LDA.B #$05                           ;00B474|A905    |      ;
-                       LDX.B r_pointerQueue_VRAM            ;00B476|A608    |000008;
+                       LDX.B r_pointerQueue                 ;00B476|A608    |000008;
  
                        db $20                               ;00B478|        |      ;
                        dw CODE_0FFCDD                       ;00B479|        |0FFCDD;
@@ -6839,9 +6427,8 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
          DATA8_00B630: db $11                               ;00B630|        |      ;
  
-         DATA8_00B631: db $20,$01,$31,$11,$01               ;00B631|        |      ;
-                       db $11,$31,$01,$20,$11               ;00B636|        |      ;
-                       db $FF                               ;00B63B|        |      ;
+         DATA8_00B631: db $20,$01,$31,$11,$01,$11,$31,$01   ;00B631|        |      ;
+                       db $20,$11,$FF                       ;00B639|        |      ;
  
           CODE_00B63C: SEC                                  ;00B63C|38      |      ;
                        RTS                                  ;00B63D|60      |      ;
@@ -6884,7 +6471,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        ASL A                                ;00B67C|0A      |      ;
                        TAY                                  ;00B67D|A8      |      ;
                        LDA.W DATA8_00B6EA,Y                 ;00B67E|B9EAB6  |00B6EA;
-                       STA.B r_pointerQueue_VRAM            ;00B681|8508    |000008;
+                       STA.B r_pointerQueue                 ;00B681|8508    |000008;
                        LDA.W DATA8_00B6EB,Y                 ;00B683|B9EBB6  |00B6EB;
                        STA.B $09                            ;00B686|8509    |000009;
                        LDA.B $02                            ;00B688|A502    |000002;
@@ -6910,7 +6497,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
           CODE_00B6A5: LDA.B #$04                           ;00B6A5|A904    |      ;
                        STA.B $00                            ;00B6A7|8500    |000000;
  
-          CODE_00B6A9: LDA.B (r_pointerQueue_VRAM),Y        ;00B6A9|B108    |000008;
+          CODE_00B6A9: LDA.B (r_pointerQueue),Y             ;00B6A9|B108    |000008;
                        db $20                               ;00B6AB|        |      ;
                        dw CODE_0FED16                       ;00B6AC|        |0FED16;
                        INY                                  ;00B6AE|C8      |      ;
@@ -6955,21 +6542,15 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
          DATA8_00B6E3: db $D0                               ;00B6E3|        |      ;
  
-         DATA8_00B6E4: db $00,$2A,$80,$2B,$E8               ;00B6E4|        |      ;
-                       db $03                               ;00B6E9|        |      ;
+         DATA8_00B6E4: db $00,$2A,$80,$2B,$E8,$03           ;00B6E4|        |      ;
  
          DATA8_00B6EA: db $F6                               ;00B6EA|        |      ;
  
-         DATA8_00B6EB: db $B6,$06,$B7,$06,$B7               ;00B6EB|        |      ;
-                       db $06,$B7,$06,$B7,$06               ;00B6F0|        |      ;
-                       db $B7,$8B,$8B,$8B,$8B               ;00B6F5|        |      ;
-                       db $9B,$3D,$9B,$3D,$3D               ;00B6FA|        |      ;
-                       db $9B,$3D,$9B,$3D,$3D               ;00B6FF|        |      ;
-                       db $3D,$3D,$3D,$3D,$3D               ;00B704|        |      ;
- 
-                       db $3D,$3D,$3D,$3D,$3D               ;00B709|        |      ;
- 
-                       db $3D,$3D,$3D,$3D,$3D               ;00B70E|        |      ;
+         DATA8_00B6EB: db $B6,$06,$B7,$06,$B7,$06,$B7,$06   ;00B6EB|        |      ;
+                       db $B7,$06,$B7,$8B,$8B,$8B,$8B,$9B   ;00B6F3|        |      ;
+                       db $3D,$9B,$3D,$3D,$9B,$3D,$9B,$3D   ;00B6FB|        |      ;
+                       db $3D,$3D,$3D,$3D,$3D,$3D,$3D,$3D   ;00B703|        |      ;
+                       db $3D,$3D,$3D,$3D,$3D,$3D,$3D,$3D   ;00B70B|        |      ;
  
                        db $3D,$3D,$3D                       ;00B713|        |      ;
  
@@ -7001,16 +6582,16 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        ASL A                                ;00B73A|0A      |      ;
                        TAY                                  ;00B73B|A8      |      ;
                        LDA.W DATA16_00B771,Y                ;00B73C|B971B7  |00B771;
-                       STA.B r_pointerQueue_VRAM            ;00B73F|8508    |000008;
-                       LDA.W PTR16_00B772,Y                 ;00B741|B972B7  |00B772;
+                       STA.B r_pointerQueue                 ;00B73F|8508    |000008;
+                       LDA.W DATA8_00B772,Y                 ;00B741|B972B7  |00B772;
                        STA.B $09                            ;00B744|8509    |000009;
                        LDA.W r_FogParallelPos               ;00B746|AD8207  |000782;
                        ASL A                                ;00B749|0A      |      ;
                        TAY                                  ;00B74A|A8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00B74B|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00B74B|B108    |000008;
                        STA.W $0783                          ;00B74D|8D8307  |000783;
                        INY                                  ;00B750|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00B751|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00B751|B108    |000008;
                        STA.W r_soundModeSongSelected        ;00B753|8D8007  |000780;
                        INC.W r_FogParallelPos               ;00B756|EE8207  |000782;
                        RTS                                  ;00B759|60      |      ;
@@ -7019,29 +6600,21 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
          PTR16_00B75A: dw DATA16_00B75E                     ;00B75A|        |00B75E;
                        dw DATA16_00B76E                     ;00B75C|        |00B76E;
  
-        DATA16_00B75E: dw $8020,$4001,$02A0                 ;00B75E|        |      ;
-                       dw $B090,$BE03,$0490                 ;00B764|        |      ;
-                       dw $70D0,$FF05                       ;00B76A|        |      ;
+        DATA16_00B75E: dw $8020,$4001,$02A0,$B090           ;00B75E|        |      ;
+                       dw $BE03,$0490,$70D0,$FF05           ;00B766|        |      ;
  
         DATA16_00B76E: dw $70E4,$8107                       ;00B76E|        |      ;
  
-         PTR16_00B772: dw DATA8_0083B7                      ;00B772|        |0083B7;
-                       dw DATA8_0087B7                      ;00B774|        |0087B7;
-                       dw CODE_008BB7                       ;00B776|        |008BB7;
-                       dw LOOSE_OP_0093B7                   ;00B778|        |0093B7;
-                       dw DATA8_009BB7                      ;00B77A|        |009BB7;
-                       dw DATA8_0081B7                      ;00B77C|        |0081B7;
-                       dw DATA8_0087B7                      ;00B77E|        |0087B7;
-                       dw $01B7                             ;00B780|        |0001B7;
-                       db $FF,$01                           ;00B782|        |      ;
-                       dw $0101,$81FF,$0104                 ;00B784|        |      ;
-                       dw $81FF,$0108,$8110                 ;00B78A|        |      ;
-                       dw $0104,$81FF,$0108                 ;00B790|        |      ;
-                       dw $8120,$0104,$00FF                 ;00B796|        |      ;
-                       dw $A0FF                             ;00B79C|        |      ;
-                       db $02                               ;00B79E|        |      ;
+         DATA8_00B772: db $B7,$83,$B7,$87,$B7,$8B,$B7,$93   ;00B772|        |      ;
+                       db $B7,$9B,$B7,$81,$B7,$87,$B7,$01   ;00B77A|        |      ;
+                       db $FF,$01,$01,$01,$FF,$81,$04,$01   ;00B782|        |      ;
+                       db $FF,$81,$08,$01,$10,$81,$04,$01   ;00B78A|        |      ;
+                       db $FF,$81,$08,$01,$20,$81,$04,$01   ;00B792|        |      ;
+                       db $FF,$00,$FF                       ;00B79A|        |      ;
+ 
+          CODE_00B79D: LDY.B #$02                           ;00B79D|A002    |      ;
                        LDA.W PTR16_00B75A,Y                 ;00B79F|B95AB7  |00B75A;
-                       STA.B r_pointerQueue_VRAM            ;00B7A2|8508    |000008;
+                       STA.B r_pointerQueue                 ;00B7A2|8508    |000008;
                        LDA.W PTR16_00B75B,Y                 ;00B7A4|B95BB7  |00B75B;
                        STA.B $09                            ;00B7A7|8509    |000009;
                        LDY.B #$00                           ;00B7A9|A000    |      ;
@@ -7052,7 +6625,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
           CODE_00B7B0: LDY.B #$00                           ;00B7B0|A000    |      ;
                        LDA.W PTR16_00B75A,Y                 ;00B7B2|B95AB7  |00B75A;
-                       STA.B r_pointerQueue_VRAM            ;00B7B5|8508    |000008;
+                       STA.B r_pointerQueue                 ;00B7B5|8508    |000008;
                        LDA.W PTR16_00B75B,Y                 ;00B7B7|B95BB7  |00B75B;
                        STA.B $09                            ;00B7BA|8509    |000009;
                        LDY.B #$00                           ;00B7BC|A000    |      ;
@@ -7072,14 +6645,14 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        LDA.B #$00                           ;00B7D3|A900    |      ;
                        STA.W r_entity_PaletteOverride,X     ;00B7D5|9D5404  |000454;
                        STA.W r_entity_Effect,X              ;00B7D8|9D7004  |000470;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00B7DB|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00B7DB|B108    |000008;
                        STA.W r_entity_XPos,X                ;00B7DD|9D3804  |000438;
                        INY                                  ;00B7E0|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00B7E1|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00B7E1|B108    |000008;
  
                        STA.W r_entity_YPos,X                ;00B7E3|9D1C04  |00041C;
                        INY                                  ;00B7E6|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00B7E7|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00B7E7|B108    |000008;
                        STA.W r_entity_ObjectIdxes,X         ;00B7E9|9D4E05  |00054E;
                        INY                                  ;00B7EC|C8      |      ;
                        RTS                                  ;00B7ED|60      |      ;
@@ -7135,7 +6708,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        BNE CODE_00B845                      ;00B830|D013    |00B845;
                        LDA.B #$3D                           ;00B832|A93D    |      ;
                        db $20                               ;00B834|        |      ;
-                       dw CODE_0FE25F                       ;00B835|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00B835|        |0FE25F;
                        JMP.W CODE_00B845                    ;00B837|4C45B8  |00B845;
  
  
@@ -7145,7 +6718,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        BNE CODE_00B845                      ;00B83E|D005    |00B845;
                        LDA.B #$3B                           ;00B840|A93B    |      ;
                        db $20                               ;00B842|        |      ;
-                       dw CODE_0FE25F                       ;00B843|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00B843|        |0FE25F;
  
           CODE_00B845: LDA.B r_gameStateLoopCounter         ;00B845|A51A    |00001A;
                        AND.B #$02                           ;00B847|2902    |      ;
@@ -7163,8 +6736,8 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
          DATA8_00B859: db $A2,$01                           ;00B859|        |      ;
  
-         DATA8_00B85B: db $BD,$D8,$05,$D0,$0B               ;00B85B|        |      ;
-                       db $A9,$00,$9D,$00                   ;00B860|        |      ;
+         DATA8_00B85B: db $BD,$D8,$05,$D0,$0B,$A9,$00,$9D   ;00B85B|        |      ;
+                       db $00                               ;00B863|        |      ;
  
          DATA8_00B864: db $04                               ;00B864|        |      ;
  
@@ -7239,12 +6812,10 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        RTS                                  ;00B8EF|60      |      ;
  
  
-         DATA8_00B8F0: db $FF,$80,$00,$C0,$80               ;00B8F0|        |      ;
-                       db $38,$01,$C0,$01,$40               ;00B8F5|        |      ;
-                       db $78,$3C,$FE,$00,$01               ;00B8FA|        |      ;
-                       db $C0,$90,$34,$02,$40               ;00B8FF|        |      ;
-                       db $01,$80,$74,$40,$00               ;00B904|        |      ;
-                       db $C0,$01,$40,$7C,$3C               ;00B909|        |      ;
+         DATA8_00B8F0: db $FF,$80,$00,$C0,$80,$38,$01,$C0   ;00B8F0|        |      ;
+                       db $01,$40,$78,$3C,$FE,$00,$01,$C0   ;00B8F8|        |      ;
+                       db $90,$34,$02,$40,$01,$80,$74,$40   ;00B900|        |      ;
+                       db $00,$C0,$01,$40,$7C,$3C           ;00B908|        |      ;
  
           CODE_00B90E: DEC.W r_EffectSpeedGeneral           ;00B90E|CE8407  |000784;
                        BEQ CODE_00B915                      ;00B911|F002    |00B915;
@@ -7289,14 +6860,14 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        LDA.W DATA8_00BA3B,Y                 ;00B94D|B93BBA  |00BA3B;
                        STA.B $02                            ;00B950|8502    |000002;
                        LDA.W DATA8_00BA2A                   ;00B952|AD2ABA  |00BA2A;
-                       STA.B r_pointerQueue_VRAM            ;00B955|8508    |000008;
+                       STA.B r_pointerQueue                 ;00B955|8508    |000008;
                        LDA.W DATA8_00BA2B                   ;00B957|AD2BBA  |00BA2B;
                        STA.B $09                            ;00B95A|8509    |000009;
                        JSR.W CODE_00B977                    ;00B95C|2077B9  |00B977;
                        LDA.B $02                            ;00B95F|A502    |000002;
                        STA.B $01                            ;00B961|8501    |000001;
                        LDA.W DATA8_00BA2C                   ;00B963|AD2CBA  |00BA2C;
-                       STA.B r_pointerQueue_VRAM            ;00B966|8508    |000008;
+                       STA.B r_pointerQueue                 ;00B966|8508    |000008;
                        LDA.W DATA8_00BA2D                   ;00B968|AD2DBA  |00BA2D;
                        STA.B $09                            ;00B96B|8509    |000009;
                        JSR.W CODE_00B977                    ;00B96D|2077B9  |00B977;
@@ -7315,11 +6886,11 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
           CODE_00B980: ASL A                                ;00B980|0A      |      ;
                        TAY                                  ;00B981|A8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00B982|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00B982|B108    |000008;
  
                        AND.B $01                            ;00B984|2501    |000001;
                        INY                                  ;00B986|C8      |      ;
-                       ORA.B (r_pointerQueue_VRAM),Y        ;00B987|1108    |000008;
+                       ORA.B (r_pointerQueue),Y             ;00B987|1108    |000008;
                        STA.W r_VramQueue,X                  ;00B989|9D0003  |000300;
                        INX                                  ;00B98C|E8      |      ;
                        STX.B r_sceneDrawQueue               ;00B98D|861D    |00001D;
@@ -7377,33 +6948,26 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
                        dw endVRAM_queue                     ;00B9DE|        |0FE8DE;
  
-         DATA8_00B9E0: db $55,$79,$78,$55,$5A               ;00B9E0|        |      ;
-                       db $5B,$5B,$78,$4C,$5C               ;00B9E5|        |      ;
-                       db $6C,$7C,$4D,$5D,$6D               ;00B9EA|        |      ;
-                       db $7D,$FF,$55,$79,$78               ;00B9EF|        |      ;
-                       db $55,$5A,$5B,$5B,$78               ;00B9F4|        |      ;
-                       db $FF                               ;00B9F9|        |      ;
+         DATA8_00B9E0: db $55,$79,$78,$55,$5A,$5B,$5B,$78   ;00B9E0|        |      ;
+                       db $4C,$5C,$6C,$7C,$4D,$5D,$6D,$7D   ;00B9E8|        |      ;
+                       db $FF,$55,$79,$78,$55,$5A,$5B,$5B   ;00B9F0|        |      ;
+                       db $78,$FF                           ;00B9F8|        |      ;
  
          DATA8_00B9FA: db $20                               ;00B9FA|        |      ;
  
          DATA8_00B9FB: db $CE                               ;00B9FB|        |      ;
  
-         DATA8_00B9FC: db $20,$CE,$21,$0E,$21               ;00B9FC|        |      ;
+         DATA8_00B9FC: db $20,$CE,$21,$0E,$21,$4E,$21,$8E   ;00B9FC|        |      ;
  
-                       db $4E,$21,$8E,$21,$CE               ;00BA01|        |      ;
-                       db $22,$0E,$22,$4E,$22               ;00BA06|        |      ;
+                       db $21,$CE,$22,$0E,$22,$4E,$22,$8E   ;00BA04|        |      ;
  
-                       db $8E,$22,$CE,$23,$0E               ;00BA0B|        |      ;
-                       db $23,$4E                           ;00BA10|        |      ;
+                       db $22,$CE,$23,$0E,$23,$4E           ;00BA0C|        |      ;
  
          DATA8_00BA12: db $23                               ;00BA12|        |      ;
  
-         DATA8_00BA13: db $CB,$23,$D3,$23,$D3               ;00BA13|        |      ;
-                       db $23,$DB,$23,$DB,$23               ;00BA18|        |      ;
-                       db $E3,$23,$E3,$23,$EB               ;00BA1D|        |      ;
-                       db $23,$EB,$23,$F3,$23               ;00BA22|        |      ;
- 
-                       db $F3,$FF,$FF                       ;00BA27|        |      ;
+         DATA8_00BA13: db $CB,$23,$D3,$23,$D3,$23,$DB,$23   ;00BA13|        |      ;
+                       db $DB,$23,$E3,$23,$E3,$23,$EB,$23   ;00BA1B|        |      ;
+                       db $EB,$23,$F3,$23,$F3,$FF,$FF       ;00BA23|        |      ;
  
          DATA8_00BA2A: db $2E                               ;00BA2A|        |      ;
  
@@ -7411,15 +6975,13 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
          DATA8_00BA2C: db $34                               ;00BA2C|        |      ;
  
-         DATA8_00BA2D: db $BA,$F3,$04,$33,$44               ;00BA2D|        |      ;
-                       db $33,$40,$FC,$01,$CC               ;00BA32|        |      ;
-                       db $11,$CC,$10                       ;00BA37|        |      ;
+         DATA8_00BA2D: db $BA,$F3,$04,$33,$44,$33,$40,$FC   ;00BA2D|        |      ;
+                       db $01,$CC,$11,$CC,$10               ;00BA35|        |      ;
  
          DATA8_00BA3A: db $A0                               ;00BA3A|        |      ;
  
-         DATA8_00BA3B: db $A0,$2A,$8A,$BB,$E0               ;00BA3B|        |      ;
-                       db $BA,$EA,$0A,$0A,$00               ;00BA40|        |      ;
-                       db $00                               ;00BA45|        |      ;
+         DATA8_00BA3B: db $A0,$2A,$8A,$BB,$E0,$BA,$EA,$0A   ;00BA3B|        |      ;
+                       db $0A,$00,$00                       ;00BA43|        |      ;
  
           CODE_00BA46: LDA.B r_menuSelectIdx                ;00BA46|A56B    |00006B;
  
@@ -7474,18 +7036,18 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        STA.B r_gameTransition               ;00BA92|852A    |00002A;
                        RTS                                  ;00BA94|60      |      ;
  
-                       JSR.W CODE_00BDDA                    ;00BA95|20DABD  |00BDDA;
+                       JSR.W freezWaterRoutine              ;00BA95|20DABD  |00BDDA;
                        LDY.B #$00                           ;00BA98|A000    |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BA9A|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BA9A|B108    |000008;
                        ASL A                                ;00BA9C|0A      |      ;
                        SEC                                  ;00BA9D|38      |      ;
                        SBC.B #$02                           ;00BA9E|E902    |      ;
                        STA.B r_tempCurrGroup                ;00BAA0|850C    |00000C;
                        LDY.B #$01                           ;00BAA2|A001    |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BAA4|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BAA4|B108    |000008;
                        STA.B r_temp_Xpos                    ;00BAA6|850A    |00000A;
                        INY                                  ;00BAA8|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BAA9|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BAA9|B108    |000008;
                        STA.B $0B                            ;00BAAB|850B    |00000B;
                        JSR.W CODE_00BAC2                    ;00BAAD|20C2BA  |00BAC2;
                        LDA.B r_tempCurrGroup                ;00BAB0|A50C    |00000C;
@@ -7493,10 +7055,10 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        ADC.B #$02                           ;00BAB3|6902    |      ;
                        STA.B r_tempCurrGroup                ;00BAB5|850C    |00000C;
                        LDY.B #$03                           ;00BAB7|A003    |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BAB9|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BAB9|B108    |000008;
                        STA.B r_temp_Xpos                    ;00BABB|850A    |00000A;
                        INY                                  ;00BABD|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BABE|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BABE|B108    |000008;
                        STA.B $0B                            ;00BAC0|850B    |00000B;
  
           CODE_00BAC2: LDY.B $59                            ;00BAC2|A459    |000059;
@@ -7532,12 +7094,12 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
           CODE_00BAF0: JSR.W CODE_00BB07                    ;00BAF0|2007BB  |00BB07;
                        LDA.B #$00                           ;00BAF3|A900    |      ;
-                       STA.W r_collisionMapValues90,Y       ;00BAF5|99E006  |0006E0;
+                       STA.W r_collisionMap,Y               ;00BAF5|99E006  |0006E0;
                        BEQ CODE_00BADC                      ;00BAF8|F0E2    |00BADC;
  
           CODE_00BAFA: JSR.W CODE_00BB07                    ;00BAFA|2007BB  |00BB07;
                        LDA.B #$00                           ;00BAFD|A900    |      ;
-                       STA.W r_collisionMapValues90,Y       ;00BAFF|99E006  |0006E0;
+                       STA.W r_collisionMap,Y               ;00BAFF|99E006  |0006E0;
                        STA.W $06E1,Y                        ;00BB02|99E106  |0006E1;
                        BEQ CODE_00BADC                      ;00BB05|F0D5    |00BADC;
  
@@ -7557,15 +7119,19 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        RTS                                  ;00BB19|60      |      ;
  
  
-         DATA8_00BB1A: db $A5,$6B,$20,$6D,$E8               ;00BB1A|        |      ;
-                       db $27,$BB,$6C                       ;00BB1F|        |      ;
+ freezWaterRoutine_00: LDA.B r_menuSelectIdx                ;00BB1A|A56B    |00006B;
+                       db $20                               ;00BB1C|        |      ;
+                       dw jumpFromStackYXpreserved          ;00BB1D|        |0FE86D;
  
-                       TYX                                  ;00BB22|BB      |      ;
-                       INX                                  ;00BB23|E8      |      ;
-                       LDY.W CODE_00BCF5,X                  ;00BB24|BCF5BC  |00BCF5;
-                       LDA.B #$35                           ;00BB27|A935    |      ;
+      freezWaterState: dw freezWaterState_00                ;00BB1F|        |00BB27;
+                       dw freezWaterState_01                ;00BB21|        |00BB6C;
+ 
+                       dw freezWaterState_02                ;00BB23|        |00BCE8;
+                       dw freezWaterState_03                ;00BB25|        |00BCF5;
+ 
+   freezWaterState_00: LDA.B #$35                           ;00BB27|A935    |      ;
                        db $20                               ;00BB29|        |      ;
-                       dw CODE_0FE25F                       ;00BB2A|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;00BB2A|        |0FE25F;
                        LDA.W r_entity_XPos                  ;00BB2C|AD3804  |000438;
                        CLC                                  ;00BB2F|18      |      ;
                        ADC.B r_sceneScrollOffsetLo          ;00BB30|6556    |000056;
@@ -7605,7 +7171,8 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        INC.B r_menuSelectIdx                ;00BB69|E66B    |00006B;
                        RTS                                  ;00BB6B|60      |      ;
  
-                       LDA.B r_gameStateLoopCounter         ;00BB6C|A51A    |00001A;
+ 
+   freezWaterState_01: LDA.B r_gameStateLoopCounter         ;00BB6C|A51A    |00001A;
                        AND.B #$01                           ;00BB6E|2901    |      ;
  
                        BEQ CODE_00BB79                      ;00BB70|F007    |00BB79;
@@ -7636,7 +7203,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        LDY.B #$00                           ;00BB97|A000    |      ;
                        LDA.W r_EffectSpeedSupGeneral        ;00BB99|AD8507  |000785;
                        SEC                                  ;00BB9C|38      |      ;
-                       SBC.B (r_pointerQueue_VRAM),Y        ;00BB9D|F108    |000008;
+                       SBC.B (r_pointerQueue),Y             ;00BB9D|F108    |000008;
                        BNE CODE_00BBA6                      ;00BB9F|D005    |00BBA6;
                        INC.W r_EffectSpeedSupGeneral        ;00BBA1|EE8507  |000785;
                        BNE CODE_00BBAE                      ;00BBA4|D008    |00BBAE;
@@ -7670,7 +7237,7 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
                        LDA.W $0787                          ;00BBCA|AD8707  |000787;
                        SEC                                  ;00BBCD|38      |      ;
-                       SBC.B (r_pointerQueue_VRAM),Y        ;00BBCE|F108    |000008;
+                       SBC.B (r_pointerQueue),Y             ;00BBCE|F108    |000008;
                        BNE CODE_00BBD6                      ;00BBD0|D004    |00BBD6;
                        INC.W $0787                          ;00BBD2|EE8707  |000787;
                        RTS                                  ;00BBD5|60      |      ;
@@ -7688,14 +7255,14 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        LDY.B #$00                           ;00BBE0|A000    |      ;
                        LDA.W r_EffectSpeedSupGeneral,X      ;00BBE2|BD8507  |000785;
                        SEC                                  ;00BBE5|38      |      ;
-                       SBC.B (r_pointerQueue_VRAM),Y        ;00BBE6|F108    |000008;
+                       SBC.B (r_pointerQueue),Y             ;00BBE6|F108    |000008;
                        ASL A                                ;00BBE8|0A      |      ;
                        TAY                                  ;00BBE9|A8      |      ;
                        INY                                  ;00BBEA|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BBEB|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BBEB|B108    |000008;
                        STA.B r_temp_Xpos                    ;00BBED|850A    |00000A;
                        INY                                  ;00BBEF|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BBF0|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BBF0|B108    |000008;
                        STA.B $0B                            ;00BBF2|850B    |00000B;
                        LDA.W r_EffectSpeedGeneral,X         ;00BBF4|BD8407  |000784;
                        LSR A                                ;00BBF7|4A      |      ;
@@ -7839,24 +7406,25 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        LDA.W r_EffectSpeedGeneral,X         ;00BCC8|BD8407  |000784;
                        AND.B #$0F                           ;00BCCB|290F    |      ;
                        LSR A                                ;00BCCD|4A      |      ;
-                       ORA.W DATA8_0FFD61,Y                 ;00BCCE|1961FD  |0FFD61;
+                       ORA.W freezWaterData,Y               ;00BCCE|1961FD  |0FFD61;
  
-          CODE_00BCD1: CMP.B #$0C                           ;00BCD1|C90C    |      ;
-                       BCC CODE_00BCDA                      ;00BCD3|9005    |00BCDA;
+           findValueC: CMP.B #$0C                           ;00BCD1|C90C    |      ;
+                       BCC updateCollusion                  ;00BCD3|9005    |00BCDA;
                        SBC.B #$0C                           ;00BCD5|E90C    |      ;
-                       JMP.W CODE_00BCD1                    ;00BCD7|4CD1BC  |00BCD1;
+                       JMP.W findValueC                     ;00BCD7|4CD1BC  |00BCD1;
  
  
-          CODE_00BCDA: TAY                                  ;00BCDA|A8      |      ;
+      updateCollusion: TAY                                  ;00BCDA|A8      |      ;
                        LDA.W OAM_attribTableFF,Y            ;00BCDB|B94CFD  |0FFD4C;
                        CLC                                  ;00BCDE|18      |      ;
                        ADC.B $00                            ;00BCDF|6500    |000000;
                        TAY                                  ;00BCE1|A8      |      ;
                        LDA.B #$88                           ;00BCE2|A988    |      ;
-                       STA.W r_collisionMapValues90,Y       ;00BCE4|99E006  |0006E0;
+                       STA.W r_collisionMap,Y               ;00BCE4|99E006  |0006E0;
                        RTS                                  ;00BCE7|60      |      ;
  
-                       LDA.B #$1C                           ;00BCE8|A91C    |      ;
+ 
+   freezWaterState_02: LDA.B #$1C                           ;00BCE8|A91C    |      ;
                        db $20                               ;00BCEA|        |      ;
                        dw screenLoadRoutine                 ;00BCEB|        |0FECE9;
                        LDA.B #$04                           ;00BCED|A904    |      ;
@@ -7866,9 +7434,9 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        RTS                                  ;00BCF4|60      |      ;
  
  
-          CODE_00BCF5: JSR.W CODE_00BDDA                    ;00BCF5|20DABD  |00BDDA;
+   freezWaterState_03: JSR.W freezWaterRoutine              ;00BCF5|20DABD  |00BDDA;
                        LDY.B #$00                           ;00BCF8|A000    |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BCFA|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BCFA|B108    |000008;
                        ASL A                                ;00BCFC|0A      |      ;
                        ASL A                                ;00BCFD|0A      |      ;
                        ASL A                                ;00BCFE|0A      |      ;
@@ -7922,10 +7490,10 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        STA.B $05                            ;00BD4C|8505    |000005;
                        LDY.B #$01                           ;00BD4E|A001    |      ;
  
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD50|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BD50|B108    |000008;
                        STA.B r_temp_Xpos                    ;00BD52|850A    |00000A;
                        INY                                  ;00BD54|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD55|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BD55|B108    |000008;
                        STA.B $0B                            ;00BD57|850B    |00000B;
                        JSR.W CODE_00BD86                    ;00BD59|2086BD  |00BD86;
                        LDA.B $04                            ;00BD5C|A504    |000004;
@@ -7935,10 +7503,10 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        ADC.B #$08                           ;00BD63|6908    |      ;
                        STA.B r_VRAM_QueueDest               ;00BD65|8561    |000061;
                        LDY.B #$03                           ;00BD67|A003    |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD69|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BD69|B108    |000008;
                        STA.B r_temp_Xpos                    ;00BD6B|850A    |00000A;
                        INY                                  ;00BD6D|C8      |      ;
-                       LDA.B (r_pointerQueue_VRAM),Y        ;00BD6E|B108    |000008;
+                       LDA.B (r_pointerQueue),Y             ;00BD6E|B108    |000008;
                        STA.B $0B                            ;00BD70|850B    |00000B;
                        JSR.W CODE_00BD86                    ;00BD72|2086BD  |00BD86;
                        LDA.W r_Player_StateDoubled          ;00BD75|AD6505  |000565;
@@ -8006,8 +7574,8 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
                        RTS                                  ;00BDD9|60      |      ;
  
  
-          CODE_00BDDA: LDA.W $0789                          ;00BDDA|AD8907  |000789;
-                       JMP.W CODE_00BDF1                    ;00BDDD|4CF1BD  |00BDF1;
+    freezWaterRoutine: LDA.W $0789                          ;00BDDA|AD8907  |000789;
+                       JMP.W freezWater_SetUpdatePPU        ;00BDDD|4CF1BD  |00BDF1;
  
  
           CODE_00BDE0: LDA.B r_roomEffect                   ;00BDE0|A57D    |00007D;
@@ -8020,128 +7588,100 @@ ram_6b_boneDragonBossTrans_0b: LDA.B #$02                           ;00B561|A902
  
           CODE_00BDEE: STA.W $0789                          ;00BDEE|8D8907  |000789;
  
-          CODE_00BDF1: ASL A                                ;00BDF1|0A      |      ;
+freezWater_SetUpdatePPU: ASL A                                ;00BDF1|0A      |      ;
                        TAY                                  ;00BDF2|A8      |      ;
-                       LDA.W DATA8_00BDFE,Y                 ;00BDF3|B9FEBD  |00BDFE;
+                       LDA.W PTR16_00BDFE,Y                 ;00BDF3|B9FEBD  |00BDFE;
  
-                       STA.B r_pointerQueue_VRAM            ;00BDF6|8508    |000008;
-                       LDA.W DATA8_00BDFF,Y                 ;00BDF8|B9FFBD  |00BDFF;
+                       STA.B r_pointerQueue                 ;00BDF6|8508    |000008;
+                       LDA.W PTR16_00BDFF,Y                 ;00BDF8|B9FFBD  |00BDFF;
                        STA.B $09                            ;00BDFB|8509    |000009;
                        RTS                                  ;00BDFD|60      |      ;
  
  
-         DATA8_00BDFE: db $72                               ;00BDFE|        |      ;
+         PTR16_00BDFE: dw DATA8_00BE72                      ;00BDFE|        |00BE72;
+                       dw DATA8_00BE04                      ;00BE00|        |00BE04;
  
-         DATA8_00BDFF: db $BE,$04,$BE,$09,$BE               ;00BDFF|        |      ;
-                       db $03,$0E,$BE,$27,$BE               ;00BE04|        |      ;
-                       db $05,$40,$BE,$59,$BE               ;00BE09|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BE0E|        |      ;
-                       db $AA,$0A,$0A,$0A,$0A               ;00BE13|        |      ;
-                       db $0A,$0A,$0A,$0A,$0A               ;00BE18|        |      ;
-                       db $0A,$0A,$AA,$00,$00               ;00BE1D|        |      ;
-                       db $00,$00,$00,$00,$FF               ;00BE22|        |      ;
+                       dw DATA8_00BE09                      ;00BE02|        |00BE09;
  
-                       db $00,$00,$00,$00,$00               ;00BE27|        |      ;
-                       db $AA,$00,$00,$00,$00               ;00BE2C|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BE31|        |      ;
-                       db $00,$00,$AA,$00,$00               ;00BE36|        |      ;
-                       db $00,$00,$00,$00,$FF               ;00BE3B|        |      ;
-                       db $00,$00,$A5,$A5,$A5               ;00BE40|        |      ;
-                       db $AA,$A5,$A5,$A5,$A5               ;00BE45|        |      ;
-                       db $A5,$A5,$A5,$A5,$A5               ;00BE4A|        |      ;
+         DATA8_00BE04: db $03,$0E,$BE,$27,$BE               ;00BE04|        |      ;
  
-                       db $A5,$A5,$AA,$A5,$A5               ;00BE4F|        |      ;
-                       db $A5,$A5,$00,$00,$FF               ;00BE54|        |      ;
+         DATA8_00BE09: db $05,$40,$BE,$59,$BE,$00,$00,$00   ;00BE09|        |      ;
+                       db $00,$00,$AA,$0A,$0A,$0A,$0A,$0A   ;00BE11|        |      ;
+                       db $0A,$0A,$0A,$0A,$0A,$0A,$AA,$00   ;00BE19|        |      ;
+                       db $00,$00,$00,$00,$00,$FF,$00,$00   ;00BE21|        |      ;
+                       db $00,$00,$00,$AA,$00,$00,$00,$00   ;00BE29|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$AA   ;00BE31|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$FF,$00   ;00BE39|        |      ;
+                       db $00,$A5,$A5,$A5,$AA,$A5,$A5,$A5   ;00BE41|        |      ;
+                       db $A5,$A5,$A5,$A5,$A5,$A5,$A5,$A5   ;00BE49|        |      ;
+                       db $AA,$A5,$A5,$A5,$A5,$00,$00,$FF   ;00BE51|        |      ;
  
-                       db $00,$00,$AA,$00,$00               ;00BE59|        |      ;
+                       db $00,$00,$AA,$00,$00,$00,$00,$00   ;00BE59|        |      ;
  
-                       db $00,$00,$00,$00,$00               ;00BE5E|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BE63|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BE68|        |      ;
-                       db $00,$AA,$00,$00,$FF               ;00BE6D|        |      ;
-                       db $04,$77,$BE,$98,$BE               ;00BE72|        |      ;
-                       db $00,$00,$AA,$0A,$0A               ;00BE77|        |      ;
-                       db $0A,$0A,$0A,$0A,$0A               ;00BE7C|        |      ;
-                       db $0A,$0A,$0A,$0A,$0A               ;00BE81|        |      ;
-                       db $0A,$0A,$0A,$0A,$0A               ;00BE86|        |      ;
-                       db $0A,$0A,$0A,$0A,$0A               ;00BE8B|        |      ;
-                       db $0A,$0A,$AA,$00,$00               ;00BE90|        |      ;
-                       db $00,$00,$FF,$00,$00               ;00BE95|        |      ;
-                       db $0A,$00,$00,$00,$00               ;00BE9A|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BE9F|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BEA4|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BEA9|        |      ;
-                       db $00,$00,$00,$00,$00               ;00BEAE|        |      ;
-                       db $AA,$00,$00,$00,$00               ;00BEB3|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEB8|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEBD|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEC2|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEC7|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BECC|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$00   ;00BE61|        |      ;
+                       db $00,$00,$00,$00,$00,$AA,$00,$00   ;00BE69|        |      ;
+                       db $FF                               ;00BE71|        |      ;
  
-                       db $FF,$FF,$FF,$FF,$FF               ;00BED1|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BED6|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEDB|        |      ;
+         DATA8_00BE72: db $04,$77,$BE,$98,$BE,$00,$00,$AA   ;00BE72|        |      ;
+                       db $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A   ;00BE7A|        |      ;
+                       db $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A   ;00BE82|        |      ;
+                       db $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A   ;00BE8A|        |      ;
  
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEE0|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEE5|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEEA|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEEF|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEF4|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEF9|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BEFE|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF03|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF08|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF0D|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF12|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF17|        |      ;
+                       db $AA,$00,$00,$00,$00,$FF,$00,$00   ;00BE92|        |      ;
+                       db $0A,$00,$00,$00,$00,$00,$00,$00   ;00BE9A|        |      ;
  
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF1C|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF21|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF26|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF2B|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF30|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF35|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF3A|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF3F|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF44|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF49|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF4E|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF53|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF58|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF5D|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF62|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF67|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF6C|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF71|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF76|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF7B|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF80|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF85|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF8A|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF8F|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF94|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF99|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BF9E|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFA3|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFA8|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFAD|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFB2|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFB7|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFBC|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFC1|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFC6|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFCB|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFD0|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFD5|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFDA|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFDF|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFE4|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFE9|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFEE|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFF3|        |      ;
-                       db $FF,$FF,$FF,$FF,$FF               ;00BFF8|        |      ;
-                       db $FF,$FF,$FF                       ;00BFFD|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$00   ;00BEA2|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$00   ;00BEAA|        |      ;
+                       db $00,$AA,$00,$00,$00,$00,$FF,$FF   ;00BEB2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEBA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEC2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BECA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BED2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEDA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEE2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEEA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEF2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BEFA|        |      ;
+ 
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF02|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF0A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF12|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF1A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF22|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF2A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF32|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF3A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF42|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF4A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF52|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF5A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF62|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF6A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF72|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF7A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF82|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF8A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF92|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BF9A|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFA2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFAA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFB2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFBA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFC2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFCA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFD2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFDA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFE2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFEA|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;00BFF2|        |      ;
+                       db $FF,$FF,$FF,$FF,$FF,$FF           ;00BFFA|        |      ;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  

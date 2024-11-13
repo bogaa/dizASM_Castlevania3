@@ -2,4 +2,10 @@
 ;pos=01E000
 r 443 XD
 Xj
-r 1604 XD
+r 383 XD
+XH
+r 752 XD
+XH
+r 19 XD
+XH
+r 447 XD

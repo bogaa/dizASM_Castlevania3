@@ -1011,13 +1011,10 @@ BH
 BD
 BD
 Bj
-Ej
-r 15 ED
-AD
-AD
-r 10 BD
-BL
-r 14 BD
+Aj
+r 27 AD
+AL
+r 14 AD
 +H
 .D
 +D

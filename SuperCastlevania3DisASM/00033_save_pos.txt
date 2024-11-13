@@ -14,13 +14,32 @@ r 158 XD
 XH
 r 122 XD
 XH
-r 97 XD
+r 56 XD
 XH
-r 32 XD
+r 25 XD
+XH
+r 14 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XH
+r 26 XD
 XH
 r 15 XD
 XH
-r 549 XD
+r 327 XD
+Xj
+r 190 XD
+XH
+r 25 XD
+XH
+XD
+XD
+XD
+XD
 XH
 r 45 XD
 XH
@@ -28,6 +47,8 @@ r 109 XD
 XH
 r 38 XD
 XH
-r 288 XD
+r 15 XD
+XH
+r 272 XD
 XH
 r 137 XD

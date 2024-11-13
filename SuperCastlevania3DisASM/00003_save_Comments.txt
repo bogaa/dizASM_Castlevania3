@@ -1,5 +1,8 @@
 <Comments>
         <sys:Item Key="32768" Value="NES PRG 0000" />
+        <sys:Item Key="33781" Value="3d slot offset" />
+        <sys:Item Key="33853" Value="CHR 44 is base value" />
+        <sys:Item Key="33945" Value="type, illTileID" />
         <sys:Item Key="34249" Value="Trevor Palette Index" />
         <sys:Item Key="34250" Value="Sympa Palette Index" />
         <sys:Item Key="34251" Value="Grant Palette Index" />
@@ -18,12 +21,54 @@
         <sys:Item Key="163840" Value="NES PRG 8000" />
         <sys:Item Key="229376" Value="NES PRG C000" />
         <sys:Item Key="294912" Value="NES PRG 10000" />
+        <sys:Item Key="296715" Value="C1" />
+        <sys:Item Key="296717" Value="C#1" />
+        <sys:Item Key="296719" Value="D1" />
+        <sys:Item Key="296721" Value="D#1" />
+        <sys:Item Key="296723" Value="E1" />
+        <sys:Item Key="296725" Value="F1" />
+        <sys:Item Key="296727" Value="F#1" />
+        <sys:Item Key="296729" Value="G1" />
+        <sys:Item Key="296731" Value="G#1" />
+        <sys:Item Key="296733" Value="A1" />
+        <sys:Item Key="296735" Value="A#1" />
+        <sys:Item Key="296737" Value="B1" />
+        <sys:Item Key="296739" Value="C2" />
+        <sys:Item Key="296741" Value=" C#2" />
+        <sys:Item Key="296743" Value="D2" />
+        <sys:Item Key="296745" Value="D#2" />
+        <sys:Item Key="296747" Value="E2" />
+        <sys:Item Key="296749" Value="F2" />
+        <sys:Item Key="296751" Value="F#2" />
+        <sys:Item Key="296753" Value="G2" />
+        <sys:Item Key="296755" Value="G#2" />
+        <sys:Item Key="296757" Value="A2" />
+        <sys:Item Key="296759" Value="A#2" />
+        <sys:Item Key="296761" Value="B2" />
+        <sys:Item Key="296763" Value="C3" />
+        <sys:Item Key="296765" Value="C#3" />
+        <sys:Item Key="296767" Value="D3" />
+        <sys:Item Key="296769" Value="D#3" />
+        <sys:Item Key="296771" Value="E3" />
+        <sys:Item Key="296773" Value="F3" />
+        <sys:Item Key="296775" Value=" F#3" />
+        <sys:Item Key="296777" Value="G3" />
+        <sys:Item Key="296779" Value="G#3" />
+        <sys:Item Key="296781" Value="A3" />
+        <sys:Item Key="296783" Value="A#3" />
+        <sys:Item Key="296785" Value="B3" />
         <sys:Item Key="360448" Value="NES PRG 14000" />
         <sys:Item Key="425984" Value="NES PRG 18000" />
+        <sys:Item Key="437820" Value="reused " />
         <sys:Item Key="491520" Value="NES PRG 1c000" />
         <sys:Item Key="557056" Value="PRG 20000" />
         <sys:Item Key="622592" Value="NES PRG 24000" />
         <sys:Item Key="622699" Value="region C000-DFFF is swapped with bank 7 " />
+        <sys:Item Key="622920" Value="??" />
+        <sys:Item Key="622998" Value="entiyIndex_stuff_0F seems off?? " />
+        <sys:Item Key="623012" Value=" entiyIndex_stuff_16 seems off as well.. " />
+        <sys:Item Key="624241" Value="enity script execution?? " />
+        <sys:Item Key="624979" Value="boss HP" />
         <sys:Item Key="688128" Value="NES PRG 28000" />
         <sys:Item Key="689447" Value="#00  Unused address used by diverted spawners" />
         <sys:Item Key="689449" Value="#01  Zombie (slow rate) normal zombie&#x9; " />
@@ -116,6 +161,7 @@
         <sys:Item Key="691193" Value="floating eye 14" />
         <sys:Item Key="691287" Value="bonePillar, crow" />
         <sys:Item Key="692769" Value="clouds" />
+        <sys:Item Key="693071" Value="entity HP table " />
         <sys:Item Key="701974" Value="address then bank" />
         <sys:Item Key="753664" Value="PRG 2c000" />
         <sys:Item Key="753952" Value="boneKing0, grant" />
@@ -134,6 +180,21 @@
         <sys:Item Key="766132" Value="44-4b" />
         <sys:Item Key="766164" Value="52,53" />
         <sys:Item Key="819200" Value="NES PRG 30000" />
+        <sys:Item Key="821086" Value="start Sound Engine" />
+        <sys:Item Key="821303" Value="plays sfx or music accumulator holds ID" />
+        <sys:Item Key="821327" Value="mainSoundTable-2" />
+        <sys:Item Key="821332" Value="mainSoundTable-1" />
+        <sys:Item Key="823335" Value=" 00 03 square1,  01 04 square2 ,  02 triangle,  05 06 noise" />
+        <sys:Item Key="824255" Value="are samples using this?? " />
+        <sys:Item Key="825484" Value="reused!" />
+        <sys:Item Key="825736" Value="reused " />
+        <sys:Item Key="825787" Value="reused " />
+        <sys:Item Key="827067" Value="instrument tunning data??  VolumeTable over time??" />
+        <sys:Item Key="827728" Value="DMCFreq (speed)" />
+        <sys:Item Key="827729" Value="DMCCount" />
+        <sys:Item Key="827730" Value="DMCAdress 0x1= 0x40 Base C000 " />
+        <sys:Item Key="827731" Value="DMCLangth 0x1= 0x10" />
+        <sys:Item Key="828463" Value="that ram address is used for attack on stairs.. " />
         <sys:Item Key="884736" Value="PRG 34000" />
         <sys:Item Key="950272" Value="NES PRG 38000" />
         <sys:Item Key="952865" Value="??" />
@@ -142,7 +203,10 @@
         <sys:Item Key="953002" Value="sypha" />
         <sys:Item Key="953008" Value="grant" />
         <sys:Item Key="953009" Value="grant" />
+        <sys:Item Key="959493" Value="grantClimb Speed Right" />
+        <sys:Item Key="959518" Value="grant climb Spee Left" />
         <sys:Item Key="1032192" Value="NES PRG 3C000" />
+        <sys:Item Key="1037780" Value="90 90 90 90 90    8E 8E 8E 8E 8C    8C 8E 8C 8C 8C " />
         <sys:Item Key="1040384" Value="NES PRG 3e000" />
         <sys:Item Key="1040397" Value="blank" />
         <sys:Item Key="1040405" Value="init Stack " />

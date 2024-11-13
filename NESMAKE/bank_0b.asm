@@ -119,7 +119,7 @@
           CODE_0B80CB: LDA.W $0438,X                        ;0B80CB|BD3804  |0B0438;
  
           CODE_0B80CE: SEC                                  ;0B80CE|38      |      ;
-                       SBC.B r_currOAM_Attr                 ;0B80CF|E510    |000010;
+                       SBC.B r_index                        ;0B80CF|E510    |000010;
                        BCS CODE_0B80C0                      ;0B80D1|B0ED    |0B80C0;
                        BCC CODE_0B80BC                      ;0B80D3|90E7    |0B80BC;
  
@@ -247,7 +247,7 @@
                        BCC CODE_0B819A                      ;0B8190|9008    |0B819A;
                        LDA.B #$23                           ;0B8192|A923    |      ;
                        db $20                               ;0B8194|        |      ;
-                       dw CODE_0FE25F                       ;0B8195|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B8195|        |0FE25F;
                        INC.W $05C1,X                        ;0B8197|FEC105  |0B05C1;
  
           CODE_0B819A: RTS                                  ;0B819A|60      |      ;
@@ -387,11 +387,9 @@ enemyID_sleepingBat_0C: INC.W $05C1,X                        ;0B8256|FEC105  |0B
  
                        dw CODE_0FEF75                       ;0B826A|        |0FEF75;
  
-         DATA8_0B826C: db $00,$01,$03,$04,$02               ;0B826C|        |      ;
-                       db $05,$06,$10,$07,$08               ;0B8271|        |      ;
-                       db $09,$11,$0B,$0D,$00               ;0B8276|        |      ;
-                       db $06,$0F,$00,$12,$05               ;0B827B|        |      ;
-                       db $1B,$1C,$00,$00                   ;0B8280|        |      ;
+         DATA8_0B826C: db $00,$01,$03,$04,$02,$05,$06,$10   ;0B826C|        |      ;
+                       db $07,$08,$09,$11,$0B,$0D,$00,$06   ;0B8274|        |      ;
+                       db $0F,$00,$12,$05,$1B,$1C,$00,$00   ;0B827C|        |      ;
  
 enemyID_skeletonWalk_26: INC.W $05C1,X                        ;0B8284|FEC105  |0B05C1;
                        LDY.B #$01                           ;0B8287|A001    |      ;
@@ -494,21 +492,15 @@ enemyID_skeletonWalk_26: INC.W $05C1,X                        ;0B8284|FEC105  |0
                        JMP.W CODE_0B81EC                    ;0B8330|4CEC81  |0B81EC;
  
  
-         DATA8_0B8333: db $00,$00,$00,$00,$0E               ;0B8333|        |      ;
-                       db $0E,$0E,$0E,$00,$00               ;0B8338|        |      ;
-                       db $00,$00,$0E,$0E,$0E               ;0B833D|        |      ;
-                       db $0E,$0E,$0E,$0E,$0E               ;0B8342|        |      ;
-                       db $0E,$0E,$0E,$0E,$0E               ;0B8347|        |      ;
-                       db $0E,$0E,$0E,$0E,$0E               ;0B834C|        |      ;
-                       db $0E,$0E                           ;0B8351|        |      ;
+         DATA8_0B8333: db $00,$00,$00,$00,$0E,$0E,$0E,$0E   ;0B8333|        |      ;
+                       db $00,$00,$00,$00,$0E,$0E,$0E,$0E   ;0B833B|        |      ;
+                       db $0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E   ;0B8343|        |      ;
+                       db $0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E   ;0B834B|        |      ;
  
-         DATA8_0B8353: db $46,$42,$4E,$50,$68               ;0B8353|        |      ;
-                       db $54,$56,$52,$4E,$46               ;0B8358|        |      ;
-                       db $54,$54,$6A,$1C,$1E               ;0B835D|        |      ;
-                       db $20,$24,$24,$24,$24               ;0B8362|        |      ;
-                       db $24,$24,$24,$24,$24               ;0B8367|        |      ;
-                       db $22,$10,$0E,$58,$5A               ;0B836C|        |      ;
-                       db $6A,$10                           ;0B8371|        |      ;
+         DATA8_0B8353: db $46,$42,$4E,$50,$68,$54,$56,$52   ;0B8353|        |      ;
+                       db $4E,$46,$54,$54,$6A,$1C,$1E,$20   ;0B835B|        |      ;
+                       db $24,$24,$24,$24,$24,$24,$24,$24   ;0B8363|        |      ;
+                       db $24,$22,$10,$0E,$58,$5A,$6A,$10   ;0B836B|        |      ;
  
         enemy_2_ID_0E: INC.W $05C1,X                        ;0B8373|FEC105  |0B05C1;
                        LDA.B #$0E                           ;0B8376|A90E    |      ;
@@ -522,8 +514,8 @@ enemyID_skeletonWalk_26: INC.W $05C1,X                        ;0B8284|FEC105  |0
                        RTS                                  ;0B8388|60      |      ;
  
  
-         DATA8_0B8389: db $26,$28,$2A,$2C,$2E               ;0B8389|        |      ;
-                       db $30,$32,$34,$70                   ;0B838E|        |      ;
+         DATA8_0B8389: db $26,$28,$2A,$2C,$2E,$30,$32,$34   ;0B8389|        |      ;
+                       db $70                               ;0B8391|        |      ;
  
         enemy_2_ID_10: LDY.B #$00                           ;0B8392|A000    |      ;
                        LDA.B r_CHR_BankSpr_0800             ;0B8394|A548    |000048;
@@ -630,8 +622,7 @@ enemyID_skeletonWalk_26: INC.W $05C1,X                        ;0B8284|FEC105  |0
                        LDA.W someMoreData,Y                 ;0B8434|B93984  |0B8439;
                        BNE CODE_0B8445                      ;0B8437|D00C    |0B8445;
  
-         someMoreData: db $A0,$60,$70,$80,$30               ;0B8439|        |      ;
-                       db $48,$38,$40                       ;0B843E|        |      ;
+         someMoreData: db $A0,$60,$70,$80,$30,$48,$38,$40   ;0B8439|        |      ;
  
 enemyID_bonePillarTwo_3E: LDY.B #$01                           ;0B8441|A001    |      ;
                        LDA.B ($02),Y                        ;0B8443|B102    |000002;
@@ -657,11 +648,9 @@ enemyID_bonePillarTwo_3E: LDY.B #$01                           ;0B8441|A001    |
                        LDA.W startYforSinusoidalMovement,Y  ;0B8460|B96584  |0B8465;
                        BNE CODE_0B8445                      ;0B8463|D0E0    |0B8445;
  
-startYforSinusoidalMovement: db $68,$84,$62,$73,$94               ;0B8465|        |      ;
-                       db $79,$81,$A7                       ;0B846A|        |      ;
+startYforSinusoidalMovement: db $68,$84,$62,$73,$94,$79,$81,$A7   ;0B8465|        |      ;
  
-startYforSinusoidalMovementSecondQuest: db $58,$74,$42,$63,$24               ;0B846D|        |      ;
-                       db $49,$31,$47                       ;0B8472|        |      ;
+startYforSinusoidalMovementSecondQuest: db $58,$74,$42,$63,$24,$49,$31,$47   ;0B846D|        |      ;
  
 difficultyModeOffsetsForAbove: db $00,$08                           ;0B8475|        |      ;
  
@@ -690,12 +679,12 @@ enemyID_shroomFloat_18: LDY.B #$01                           ;0B8482|A001    |  
                        STA.B $09                            ;0B8499|8509    |000009;
                        INY                                  ;0B849B|C8      |      ;
                        LDA.B ($02),Y                        ;0B849C|B102    |000002;
-                       STA.B r_pointerQueue_VRAM            ;0B849E|8508    |000008;
+                       STA.B r_pointerQueue                 ;0B849E|8508    |000008;
                        JSR.W CODE_0B80B3                    ;0B84A0|20B380  |0B80B3;
                        CMP.B $09                            ;0B84A3|C509    |000009;
                        BCS CODE_0B8494                      ;0B84A5|B0ED    |0B8494;
                        JSR.W CODE_0B80D5                    ;0B84A7|20D580  |0B80D5;
-                       CMP.B r_pointerQueue_VRAM            ;0B84AA|C508    |000008;
+                       CMP.B r_pointerQueue                 ;0B84AA|C508    |000008;
                        BCS CODE_0B8494                      ;0B84AC|B0E6    |0B8494;
                        BCC CODE_0B8491                      ;0B84AE|90E1    |0B8491;
  
@@ -817,16 +806,16 @@ enemyID_skeletonSword_20: LDA.W $0606,X                        ;0B856C|BD0606  |
                        BNE CODE_0B859A                      ;0B8593|D005    |0B859A;
                        LDA.B #$0D                           ;0B8595|A90D    |      ;
                        db $20                               ;0B8597|        |      ;
-                       dw CODE_0FE25F                       ;0B8598|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B8598|        |0FE25F;
  
           CODE_0B859A: LDX.B r_entityID_processed           ;0B859A|A66C    |00006C;
                        db $20                               ;0B859C|        |      ;
                        dw UNREACH_0FFEC8                    ;0B859D|        |0FFEC8;
                        INC.W $05C1,X                        ;0B859F|FEC105  |0B05C1;
-                       LDA.W $041C,X                        ;0B85A2|BD1C04  |0B041C;
+                       LDA.W r_entity_YPos,X                ;0B85A2|BD1C04  |00041C;
                        AND.B #$F0                           ;0B85A5|29F0    |      ;
                        ORA.B #$08                           ;0B85A7|0908    |      ;
-                       STA.W $041C,X                        ;0B85A9|9D1C04  |0B041C;
+                       STA.W r_entity_YPos,X                ;0B85A9|9D1C04  |00041C;
  
           CODE_0B85AC: RTS                                  ;0B85AC|60      |      ;
  
@@ -836,7 +825,7 @@ enemyID_skeletonSword_20: LDA.W $0606,X                        ;0B856C|BD0606  |
  
  
           CODE_0B85B2: LDX.B r_entityID_processed           ;0B85B2|A66C    |00006C;
-                       LDA.W $0520,X                        ;0B85B4|BD2005  |0B0520;
+                       LDA.W r_entity_YposSpeed,X           ;0B85B4|BD2005  |000520;
                        BPL CODE_0B85AC                      ;0B85B7|10F3    |0B85AC;
                        JMP.W CODE_0B805D                    ;0B85B9|4C5D80  |0B805D;
  
@@ -944,23 +933,17 @@ enemyID_skeletonSword_20: LDA.W $0606,X                        ;0B856C|BD0606  |
                        RTS                                  ;0B8681|60      |      ;
  
  
-         DATA8_0B8682: db $FE,$FE,$FE,$FF,$FF               ;0B8682|        |      ;
-                       db $FF,$FF,$02                       ;0B8687|        |      ;
+         DATA8_0B8682: db $FE,$FE,$FE,$FF,$FF,$FF,$FF,$02   ;0B8682|        |      ;
  
-         DATA8_0B868A: db $00,$80,$C0,$00,$40               ;0B868A|        |      ;
-                       db $F0,$A0,$00                       ;0B868F|        |      ;
+         DATA8_0B868A: db $00,$80,$C0,$00,$40,$F0,$A0,$00   ;0B868A|        |      ;
  
-         DATA8_0B8692: db $FF,$01,$FD,$04,$FF               ;0B8692|        |      ;
-                       db $01                               ;0B8697|        |      ;
+         DATA8_0B8692: db $FF,$01,$FD,$04,$FF,$01           ;0B8692|        |      ;
  
-         DATA8_0B8698: db $00,$C0,$00,$C0,$00               ;0B8698|        |      ;
-                       db $C0                               ;0B869D|        |      ;
+         DATA8_0B8698: db $00,$C0,$00,$C0,$00,$C0           ;0B8698|        |      ;
  
-         DATA8_0B869E: db $3F,$27,$3C,$1D,$3F               ;0B869E|        |      ;
-                       db $27                               ;0B86A3|        |      ;
+         DATA8_0B869E: db $3F,$27,$3C,$1D,$3F,$27           ;0B869E|        |      ;
  
-          enemyID__E8: db $DE,$1D,$06,$D0,$22               ;0B86A4|        |      ;
-                       db $FE,$33,$06                       ;0B86A9|        |      ;
+          enemyID__E8: db $DE,$1D,$06,$D0,$22,$FE,$33,$06   ;0B86A4|        |      ;
  
           CODE_0B86AC: LDY.W $0633,X                        ;0B86AC|BC3306  |0B0633;
                        LDA.W DATA8_0B8692,Y                 ;0B86AF|B99286  |0B8692;
@@ -1054,14 +1037,11 @@ enemyID_bonePillar3_24: LDA.B r_roomOrientation              ;0B86CB|A568    |00
                        RTS                                  ;0B875A|60      |      ;
  
  
-         DATA8_0B875B: db $FE,$FC,$FF,$FD,$02               ;0B875B|        |      ;
-                       db $03,$01,$02                       ;0B8760|        |      ;
+         DATA8_0B875B: db $FE,$FC,$FF,$FD,$02,$03,$01,$02   ;0B875B|        |      ;
  
-         DATA8_0B8763: db $00,$80,$00,$80,$00               ;0B8763|        |      ;
-                       db $80,$00,$80                       ;0B8768|        |      ;
+         DATA8_0B8763: db $00,$80,$00,$80,$00,$80,$00,$80   ;0B8763|        |      ;
  
-         DATA8_0B876B: db $3F,$4C,$1B,$28,$3F               ;0B876B|        |      ;
-                       db $4C,$1B,$28                       ;0B8770|        |      ;
+         DATA8_0B876B: db $3F,$4C,$1B,$28,$3F,$4C,$1B,$28   ;0B876B|        |      ;
  
        enemyID_bat_DE: LDY.B #$01                           ;0B8773|A001    |      ;
                        LDA.B ($02),Y                        ;0B8775|B102    |000002;
@@ -1197,7 +1177,7 @@ enemyID_thunderStorm_C2: LDA.B #$14                           ;0B87DF|A914    | 
                        LDX.B r_entityID_processed           ;0B8856|A66C    |00006C;
                        LDA.B #$22                           ;0B8858|A922    |      ;
                        db $20                               ;0B885A|        |      ;
-                       dw CODE_0FE25F                       ;0B885B|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B885B|        |0FE25F;
                        JSR.W CODE_0B81AA                    ;0B885D|20AA81  |0B81AA;
                        JSR.W CODE_0B8230                    ;0B8860|203082  |0B8230;
                        LDA.B #$08                           ;0B8863|A908    |      ;
@@ -1412,11 +1392,9 @@ enemyID_skeletonBone_12: JSR.W CODE_0B81EC                    ;0B89AC|20EC81  |0
          DATA8_0B89DC: db $60                               ;0B89DC|        |      ;
  
  
-         DATA8_0B89DD: db $68,$A0,$68,$88,$98               ;0B89DD|        |      ;
-                       db $78,$90,$70,$58,$4C               ;0B89E2|        |      ;
-                       db $48,$A0,$5C,$60,$C0               ;0B89E7|        |      ;
-                       db $50,$30,$D8,$38,$40               ;0B89EC|        |      ;
-                       db $38,$44,$C0,$2C                   ;0B89F1|        |      ;
+         DATA8_0B89DD: db $68,$A0,$68,$88,$98,$78,$90,$70   ;0B89DD|        |      ;
+                       db $58,$4C,$48,$A0,$5C,$60,$C0,$50   ;0B89E5|        |      ;
+                       db $30,$D8,$38,$40,$38,$44,$C0,$2C   ;0B89ED|        |      ;
  
          DATA8_0B89F5: db $00,$08,$10                       ;0B89F5|        |      ;
  
@@ -1424,11 +1402,11 @@ enemyID_skeletonRedWhip_44: INC.W $05C1,X                        ;0B89F8|FEC105 
                        LDA.B r_gameStateLoopCounter         ;0B89FB|A51A    |00001A;
                        ADC.W $0438                          ;0B89FD|6D3804  |0B0438;
                        AND.B #$07                           ;0B8A00|2907    |      ;
-                       STA.B r_currOAM_Attr                 ;0B8A02|8510    |000010;
+                       STA.B r_index                        ;0B8A02|8510    |000010;
                        LDY.B #$01                           ;0B8A04|A001    |      ;
                        LDA.B ($02),Y                        ;0B8A06|B102    |000002;
                        CLC                                  ;0B8A08|18      |      ;
-                       ADC.B r_currOAM_Attr                 ;0B8A09|6510    |000010;
+                       ADC.B r_index                        ;0B8A09|6510    |000010;
                        TAY                                  ;0B8A0B|A8      |      ;
                        LDA.W DATA8_0B8A16,Y                 ;0B8A0C|B9168A  |0B8A16;
                        ADC.W $0438                          ;0B8A0F|6D3804  |0B0438;
@@ -1436,11 +1414,9 @@ enemyID_skeletonRedWhip_44: INC.W $05C1,X                        ;0B89F8|FEC105 
                        RTS                                  ;0B8A15|60      |      ;
  
  
-         DATA8_0B8A16: db $40,$D0,$70,$90,$60               ;0B8A16|        |      ;
+         DATA8_0B8A16: db $40,$D0,$70,$90,$60,$C0,$50,$A0   ;0B8A16|        |      ;
  
-                       db $C0,$50,$A0,$40,$20               ;0B8A1B|        |      ;
-                       db $E0,$D0,$10,$F0,$50               ;0B8A20|        |      ;
-                       db $70                               ;0B8A25|        |      ;
+                       db $40,$20,$E0,$D0,$10,$F0,$50,$70   ;0B8A1E|        |      ;
  
         enemy_2_ID_50: JSR.W CODE_0B81EF                    ;0B8A26|20EF81  |0B81EF;
  
@@ -1568,11 +1544,11 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
                        LDA.W $0470,X                        ;0B8B05|BD7004  |0B0470;
                        ORA.B #$60                           ;0B8B08|0960    |      ;
                        STA.B $03                            ;0B8B0A|8503    |000003;
-                       STX.B r_pointerQueue_VRAM            ;0B8B0C|8608    |000008;
+                       STX.B r_pointerQueue                 ;0B8B0C|8608    |000008;
                        JSR.W CODE_0B8B5A                    ;0B8B0E|205A8B  |0B8B5A;
                        BNE CODE_0B8B4C                      ;0B8B11|D039    |0B8B4C;
                        STX.B $09                            ;0B8B13|8609    |000009;
-                       LDX.B r_pointerQueue_VRAM            ;0B8B15|A608    |000008;
+                       LDX.B r_pointerQueue                 ;0B8B15|A608    |000008;
                        JSR.W CODE_0B819E                    ;0B8B17|209E81  |0B819E;
                        JSR.W CODE_0B81EF                    ;0B8B1A|20EF81  |0B81EF;
                        LDX.B $09                            ;0B8B1D|A609    |000009;
@@ -1701,8 +1677,7 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
  
                        dw UNREACH_0FFEC8                    ;0B8BED|        |0FFEC8;
  
-         DATA8_0B8BEF: db $08,$F8,$F8,$08,$10               ;0B8BEF|        |      ;
-                       db $F0,$F0,$10                       ;0B8BF4|        |      ;
+         DATA8_0B8BEF: db $08,$F8,$F8,$08,$10,$F0,$F0,$10   ;0B8BEF|        |      ;
  
         enemy_2_ID_2C: JSR.W CODE_0B81D4                    ;0B8BF7|20D481  |0B81D4;
                        JSR.W CODE_0B80E3                    ;0B8BFA|20E380  |0B80E3;
@@ -1740,7 +1715,7 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
                        STA.W $0537,X                        ;0B8C3B|9D3705  |0B0537;
                        LDA.B #$50                           ;0B8C3E|A950    |      ;
                        STA.W $0606,X                        ;0B8C40|9D0606  |0B0606;
-                       STX.B r_pointerQueue_VRAM            ;0B8C43|8608    |000008;
+                       STX.B r_pointerQueue                 ;0B8C43|8608    |000008;
                        LDA.W $061D,X                        ;0B8C45|BD1D06  |0B061D;
                        TAX                                  ;0B8C48|AA      |      ;
                        LDA.B #$57                           ;0B8C49|A957    |      ;
@@ -1749,7 +1724,7 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
                        STA.W $05C1,X                        ;0B8C50|9DC105  |0B05C1;
                        LDA.B #$68                           ;0B8C53|A968    |      ;
                        STA.W $054E,X                        ;0B8C55|9D4E05  |0B054E;
-                       LDA.B r_pointerQueue_VRAM            ;0B8C58|A508    |000008;
+                       LDA.B r_pointerQueue                 ;0B8C58|A508    |000008;
                        STA.W $0606,X                        ;0B8C5A|9D0606  |0B0606;
                        LDX.B r_entityID_processed           ;0B8C5D|A66C    |00006C;
  
@@ -1791,7 +1766,7 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
         enemy_2_ID_38: LDA.W $0606,X                        ;0B8C9A|BD0606  |0B0606;
                        TAX                                  ;0B8C9D|AA      |      ;
                        LDA.W $0438,X                        ;0B8C9E|BD3804  |0B0438;
-                       STA.B r_pointerQueue_VRAM            ;0B8CA1|8508    |000008;
+                       STA.B r_pointerQueue                 ;0B8CA1|8508    |000008;
                        LDA.W $0470,X                        ;0B8CA3|BD7004  |0B0470;
                        ORA.B #$30                           ;0B8CA6|0930    |      ;
                        AND.B #$BB                           ;0B8CA8|29BB    |      ;
@@ -1813,18 +1788,18 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
                        STA.W $04A8,X                        ;0B8CC7|9DA804  |0B04A8;
                        LDA.W DATA8_0B8CE5,Y                 ;0B8CCA|B9E58C  |0B8CE5;
                        STA.W $041C,X                        ;0B8CCD|9D1C04  |0B041C;
-                       LDA.B r_pointerQueue_VRAM            ;0B8CD0|A508    |000008;
+                       LDA.B r_pointerQueue                 ;0B8CD0|A508    |000008;
                        STA.W $0438,X                        ;0B8CD2|9D3804  |0B0438;
                        LDA.B $09                            ;0B8CD5|A509    |000009;
                        STA.W $0470,X                        ;0B8CD7|9D7004  |0B0470;
                        RTS                                  ;0B8CDA|60      |      ;
  
  
-         DATA8_0B8CDB: db $C0,$C2,$C4,$C6,$C8               ;0B8CDB|        |      ;
-                       db $D8,$D8,$D8,$D8,$D8               ;0B8CE0|        |      ;
+         DATA8_0B8CDB: db $C0,$C2,$C4,$C6,$C8,$D8,$D8,$D8   ;0B8CDB|        |      ;
+                       db $D8,$D8                           ;0B8CE3|        |      ;
  
-         DATA8_0B8CE5: db $30,$38,$40,$48,$50               ;0B8CE5|        |      ;
-                       db $58,$60,$68,$70,$78               ;0B8CEA|        |      ;
+         DATA8_0B8CE5: db $30,$38,$40,$48,$50,$58,$60,$68   ;0B8CE5|        |      ;
+                       db $70,$78                           ;0B8CED|        |      ;
  
  enemyID_mummyWrap_BA: LDA.B #$02                           ;0B8CEF|A902    |      ;
                        STA.W $0606,X                        ;0B8CF1|9D0606  |0B0606;
@@ -1982,7 +1957,7 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
                        JSR.W CODE_0B9FC9                    ;0B8DFF|20C99F  |0B9FC9;
                        LDA.B $07                            ;0B8E02|A507    |000007;
                        STA.W $05EF,X                        ;0B8E04|9DEF05  |0B05EF;
-                       STX.B r_pointerQueue_VRAM            ;0B8E07|8608    |000008;
+                       STX.B r_pointerQueue                 ;0B8E07|8608    |000008;
                        LDX.B r_entityID_processed           ;0B8E09|A66C    |00006C;
                        RTS                                  ;0B8E0B|60      |      ;
  
@@ -2034,7 +2009,7 @@ enemyID_shroomGround_48: JSR.W CODE_0B8230                    ;0B8AD3|203082  |0
  
           CODE_0B8E55: LDA.B #$32                           ;0B8E55|A932    |      ;
                        db $20                               ;0B8E57|        |      ;
-                       dw CODE_0FE25F                       ;0B8E58|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B8E58|        |0FE25F;
  
 enemyID_wingDeamon_1A: INC.W $05C1,X                        ;0B8E5A|FEC105  |0B05C1;
                        LDA.W $0470,X                        ;0B8E5D|BD7004  |0B0470;
@@ -2082,52 +2057,41 @@ enemyID_wingDeamon_1A: INC.W $05C1,X                        ;0B8E5A|FEC105  |0B0
                        RTS                                  ;0B8EB3|60      |      ;
  
  
-         DATA8_0B8EB4: db $00,$00,$00,$01,$00               ;0B8EB4|        |      ;
-                       db $00,$00,$00                       ;0B8EB9|        |      ;
+         DATA8_0B8EB4: db $00,$00,$00,$01,$00,$00,$00,$00   ;0B8EB4|        |      ;
  
-         DATA8_0B8EBC: db $01,$00,$00,$01,$00               ;0B8EBC|        |      ;
-                       db $01,$00,$00                       ;0B8EC1|        |      ;
+         DATA8_0B8EBC: db $01,$00,$00,$01,$00,$01,$00,$00   ;0B8EBC|        |      ;
  
-         DATA8_0B8EC4: db $40,$41,$42,$40,$43               ;0B8EC4|        |      ;
- 
-                       db $44,$45,$41                       ;0B8EC9|        |      ;
- 
-         DATA8_0B8ECC: db $FE,$F6,$04,$F7,$F4               ;0B8ECC|        |      ;
-                       db $FB,$00,$09                       ;0B8ED1|        |      ;
- 
-         DATA8_0B8ED4: db $58,$59,$5A,$58,$5B               ;0B8ED4|        |      ;
-                       db $5C,$5D,$59                       ;0B8ED9|        |      ;
+         DATA8_0B8EC4: db $40,$41,$42,$40,$43,$44,$45,$41   ;0B8EC4|        |      ;
  
  
-         DATA8_0B8EDC: db $08,$F8,$14,$EC,$04               ;0B8EDC|        |      ;
-                       db $FC,$08,$F8,$00,$00               ;0B8EE1|        |      ;
-                       db $08,$F8,$00,$00,$08               ;0B8EE6|        |      ;
-                       db $F8                               ;0B8EEB|        |      ;
+         DATA8_0B8ECC: db $FE,$F6,$04,$F7,$F4,$FB,$00,$09   ;0B8ECC|        |      ;
  
-         DATA8_0B8EEC: db $02,$FE,$01,$FE,$00               ;0B8EEC|        |      ;
-                       db $00,$01,$FE,$00,$FF               ;0B8EF1|        |      ;
-                       db $01,$FE,$01,$FE,$01               ;0B8EF6|        |      ;
-                       db $FE,$02,$FD                       ;0B8EFB|        |      ;
+         DATA8_0B8ED4: db $58,$59,$5A,$58,$5B,$5C,$5D,$59   ;0B8ED4|        |      ;
  
-         DATA8_0B8EFE: db $00,$00,$80,$80,$00               ;0B8EFE|        |      ;
-                       db $00,$80,$80,$C0,$40               ;0B8F03|        |      ;
-                       db $80,$80,$80,$80,$80               ;0B8F08|        |      ;
+         DATA8_0B8EDC: db $08,$F8,$14,$EC,$04,$FC,$08,$F8   ;0B8EDC|        |      ;
+                       db $00,$00,$08,$F8,$00,$00,$08,$F8   ;0B8EE4|        |      ;
  
-                       db $80,$40,$C0                       ;0B8F0D|        |      ;
+         DATA8_0B8EEC: db $02,$FE,$01,$FE,$00,$00,$01,$FE   ;0B8EEC|        |      ;
+                       db $00,$FF,$01,$FE,$01,$FE,$01,$FE   ;0B8EF4|        |      ;
+                       db $02,$FD                           ;0B8EFC|        |      ;
  
-         DATA8_0B8F10: db $00,$00,$00,$00,$01               ;0B8F10|        |      ;
-                       db $01,$00,$00,$FD,$FD               ;0B8F15|        |      ;
-                       db $00,$00,$00,$00,$00               ;0B8F1A|        |      ;
-                       db $00,$00,$00                       ;0B8F1F|        |      ;
+         DATA8_0B8EFE: db $00,$00,$80,$80,$00,$00,$80,$80   ;0B8EFE|        |      ;
+                       db $C0,$40,$80,$80,$80,$80,$80,$80   ;0B8F06|        |      ;
+                       db $40,$C0                           ;0B8F0E|        |      ;
  
-         DATA8_0B8F22: db $00,$00,$00,$00,$80               ;0B8F22|        |      ;
-                       db $80,$00,$00,$40,$40               ;0B8F27|        |      ;
-                       db $00,$00,$00,$00,$00               ;0B8F2C|        |      ;
-                       db $00,$00,$00                       ;0B8F31|        |      ;
+ 
+         DATA8_0B8F10: db $00,$00,$00,$00,$01,$01,$00,$00   ;0B8F10|        |      ;
+                       db $FD,$FD,$00,$00,$00,$00,$00,$00   ;0B8F18|        |      ;
+                       db $00,$00                           ;0B8F20|        |      ;
+ 
+         DATA8_0B8F22: db $00,$00,$00,$00,$80,$80,$00,$00   ;0B8F22|        |      ;
+                       db $40,$40,$00,$00,$00,$00,$00,$00   ;0B8F2A|        |      ;
+ 
+                       db $00,$00                           ;0B8F32|        |      ;
  
   enemyID_zombieGr_04: INC.W $05C1,X                        ;0B8F34|FEC105  |0B05C1;
                        LDA.B #$04                           ;0B8F37|A904    |      ;
-                       STA.B r_pointerQueue_VRAM            ;0B8F39|8508    |000008;
+                       STA.B r_pointerQueue                 ;0B8F39|8508    |000008;
                        LDA.W $0438,X                        ;0B8F3B|BD3804  |0B0438;
                        STA.B $00                            ;0B8F3E|8500    |000000;
                        LDA.W $041C,X                        ;0B8F40|BD1C04  |0B041C;
@@ -2151,7 +2115,7 @@ enemyID_wingDeamon_1A: INC.W $05C1,X                        ;0B8E5A|FEC105  |0B0
                        STA.W $0438,X                        ;0B8F67|9D3804  |0B0438;
                        LDA.B $01                            ;0B8F6A|A501    |000001;
                        STA.W $041C,X                        ;0B8F6C|9D1C04  |0B041C;
-                       LDY.B r_pointerQueue_VRAM            ;0B8F6F|A408    |000008;
+                       LDY.B r_pointerQueue                 ;0B8F6F|A408    |000008;
                        LDA.W DATA8_0B8F92,Y                 ;0B8F71|B9928F  |0B8F92;
                        STA.W $04F2,X                        ;0B8F74|9DF204  |0B04F2;
                        LDA.W DATA8_0B8F97,Y                 ;0B8F77|B9978F  |0B8F97;
@@ -2161,7 +2125,7 @@ enemyID_wingDeamon_1A: INC.W $05C1,X                        ;0B8E5A|FEC105  |0B0
                        LDA.W DATA8_0B8F9C,Y                 ;0B8F82|B99C8F  |0B8F9C;
                        STA.W $0537,X                        ;0B8F85|9D3705  |0B0537;
                        JSR.W CODE_0B9FC9                    ;0B8F88|20C99F  |0B9FC9;
-                       DEC.B r_pointerQueue_VRAM            ;0B8F8B|C608    |000008;
+                       DEC.B r_pointerQueue                 ;0B8F8B|C608    |000008;
                        BNE CODE_0B8F4E                      ;0B8F8D|D0BF    |0B8F4E;
  
           CODE_0B8F8F: LDX.B r_entityID_processed           ;0B8F8F|A66C    |00006C;
@@ -2176,7 +2140,7 @@ enemyID_wingDeamon_1A: INC.W $05C1,X                        ;0B8E5A|FEC105  |0B0
  
         enemy_2_ID_46: LDA.B #$38                           ;0B8FA1|A938    |      ;
                        db $20                               ;0B8FA3|        |      ;
-                       dw CODE_0FE25F                       ;0B8FA4|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B8FA4|        |0FE25F;
                        LDA.W $0470,X                        ;0B8FA6|BD7004  |0B0470;
                        AND.B #$F1                           ;0B8FA9|29F1    |      ;
                        ORA.B #$60                           ;0B8FAB|0960    |      ;
@@ -2214,7 +2178,7 @@ enemyID_wingDeamon_1A: INC.W $05C1,X                        ;0B8E5A|FEC105  |0B0
                        LDA.B ($02),Y                        ;0B8FEC|B102    |000002;
                        db $4C                               ;0B8FEE|        |      ;
  
-                       dw CODE_0FE25F                       ;0B8FEF|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B8FEF|        |0FE25F;
  
    enemyID_fireMan_52: JSR.W CODE_0B90C2                    ;0B8FF1|20C290  |0B90C2;
                        JSR.W CODE_0B93B0                    ;0B8FF4|20B093  |0B93B0;
@@ -2344,7 +2308,7 @@ enemyID_fishManSwim_50: JSR.W enemy_2_ID_22                  ;0B9027|204082  |0B
                        BEQ CODE_0B90F6                      ;0B90D4|F020    |0B90F6;
                        LDY.B $00                            ;0B90D6|A400    |000000;
                        LDA.W $0438,Y                        ;0B90D8|B93804  |0B0438;
-                       STA.B r_currOAM_Attr                 ;0B90DB|8510    |000010;
+                       STA.B r_index                        ;0B90DB|8510    |000010;
                        LDX.B r_entityID_processed           ;0B90DD|A66C    |00006C;
                        JSR.W CODE_0B80CB                    ;0B90DF|20CB80  |0B80CB;
                        CMP.B #$04                           ;0B90E2|C904    |      ;
@@ -2373,7 +2337,7 @@ enemyID_fishManSwim_50: JSR.W enemy_2_ID_22                  ;0B9027|204082  |0B
                        LDY.B #$07                           ;0B9108|A007    |      ;
  
           CODE_0B910A: JSR.W CODE_0B8E11                    ;0B910A|20118E  |0B8E11;
-                       LDA.B r_pointerQueue_VRAM            ;0B910D|A508    |000008;
+                       LDA.B r_pointerQueue                 ;0B910D|A508    |000008;
                        AND.B #$0F                           ;0B910F|290F    |      ;
                        ORA.B #$80                           ;0B9111|0980    |      ;
                        STA.B $09                            ;0B9113|8509    |000009;
@@ -2781,9 +2745,7 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
           CODE_0B93FA: RTS                                  ;0B93FA|60      |      ;
  
  
-         DATA8_0B93FB: db $73,$48,$48,$65,$63               ;0B93FB|        |      ;
-                       db $5C,$8F,$54                       ;0B9400|        |      ;
- 
+         DATA8_0B93FB: db $73,$48,$48,$65,$63,$5C,$8F,$54   ;0B93FB|        |      ;
  
           enemyID__FA: LDA.W $0470,X                        ;0B9403|BD7004  |0B0470;
                        AND.B #$01                           ;0B9406|2901    |      ;
@@ -2844,24 +2806,24 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
                        RTS                                  ;0B9472|60      |      ;
  
  
-         DATA8_0B9473: db $00,$01,$01,$02,$02               ;0B9473|        |      ;
-                       db $02,$03,$03,$03,$04               ;0B9478|        |      ;
+         DATA8_0B9473: db $00,$01,$01,$02,$02,$02,$03,$03   ;0B9473|        |      ;
+                       db $03,$04                           ;0B947B|        |      ;
  
-         DATA8_0B947D: db $C0,$80,$C0,$00,$80               ;0B947D|        |      ;
-                       db $C0,$00,$80,$C0,$80               ;0B9482|        |      ;
+         DATA8_0B947D: db $C0,$80,$C0,$00,$80,$C0,$00,$80   ;0B947D|        |      ;
+                       db $C0,$80                           ;0B9485|        |      ;
  
-         DATA8_0B9487: db $01,$01,$02,$02,$02               ;0B9487|        |      ;
-                       db $03,$03,$03,$04,$04               ;0B948C|        |      ;
+         DATA8_0B9487: db $01,$01,$02,$02,$02,$03,$03,$03   ;0B9487|        |      ;
+                       db $04,$04                           ;0B948F|        |      ;
  
-         DATA8_0B9491: db $80,$C0,$00,$80,$C0               ;0B9491|        |      ;
+         DATA8_0B9491: db $80,$C0,$00,$80,$C0,$00,$80,$C0   ;0B9491|        |      ;
  
-                       db $00,$80,$C0,$00,$80               ;0B9496|        |      ;
+                       db $00,$80                           ;0B9499|        |      ;
  
         enemy_2_ID_00: LDA.W $0520,X                        ;0B949B|BD2005  |0B0520;
                        BPL CODE_0B94B8                      ;0B949E|1018    |0B94B8;
                        LDA.B #$26                           ;0B94A0|A926    |      ;
                        db $20                               ;0B94A2|        |      ;
-                       dw CODE_0FE25F                       ;0B94A3|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0B94A3|        |0FE25F;
                        JSR.W CODE_0B81F8                    ;0B94A5|20F881  |0B81F8;
                        LDY.B #$06                           ;0B94A8|A006    |      ;
                        LDA.B #$12                           ;0B94AA|A912    |      ;
@@ -3057,23 +3019,17 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
                        RTS                                  ;0B95FA|60      |      ;
  
  
-         DATA8_0B95FB: db $01,$FF,$FF,$00,$FF               ;0B95FB|        |      ;
-                       db $00,$FE,$00                       ;0B9600|        |      ;
+         DATA8_0B95FB: db $01,$FF,$FF,$00,$FF,$00,$FE,$00   ;0B95FB|        |      ;
  
-         DATA8_0B9603: db $20,$10,$20,$F8,$10               ;0B9603|        |      ;
-                       db $D0,$D0,$C0                       ;0B9608|        |      ;
+         DATA8_0B9603: db $20,$10,$20,$F8,$10,$D0,$D0,$C0   ;0B9603|        |      ;
  
-         DATA8_0B960B: db $FF,$FE,$FE,$FE,$FF               ;0B960B|        |      ;
-                       db $FE,$FE,$FE                       ;0B9610|        |      ;
+         DATA8_0B960B: db $FF,$FE,$FE,$FE,$FF,$FE,$FE,$FE   ;0B960B|        |      ;
  
-         DATA8_0B9613: db $00,$40,$C0,$20,$20               ;0B9613|        |      ;
-                       db $C0,$40,$81                       ;0B9618|        |      ;
+         DATA8_0B9613: db $00,$40,$C0,$20,$20,$C0,$40,$81   ;0B9613|        |      ;
  
-         DATA8_0B961B: db $20,$24,$3C,$48,$30               ;0B961B|        |      ;
-                       db $28,$1C,$38                       ;0B9620|        |      ;
+         DATA8_0B961B: db $20,$24,$3C,$48,$30,$28,$1C,$38   ;0B961B|        |      ;
  
-          enemyID__8C: db $DE,$1D,$06,$F0,$09               ;0B9623|        |      ;
-                       db $BD,$06,$06                       ;0B9628|        |      ;
+          enemyID__8C: db $DE,$1D,$06,$F0,$09,$BD,$06,$06   ;0B9623|        |      ;
                        JSR.W CODE_0B807F                    ;0B962B|207F80  |0B807F;
                        JMP.W enemyID_boneDragonRip_5C       ;0B962E|4CB884  |0B84B8;
  
@@ -3219,13 +3175,11 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
  
          DATA8_0B9738: db $01                               ;0B9738|        |      ;
  
-         DATA8_0B9739: db $80,$01,$C0,$02,$00               ;0B9739|        |      ;
-                       db $02,$40                           ;0B973E|        |      ;
+         DATA8_0B9739: db $80,$01,$C0,$02,$00,$02,$40       ;0B9739|        |      ;
  
          DATA8_0B9740: db $01                               ;0B9740|        |      ;
  
-         DATA8_0B9741: db $00,$00,$A0,$00,$C0               ;0B9741|        |      ;
-                       db $01,$20                           ;0B9746|        |      ;
+         DATA8_0B9741: db $00,$00,$A0,$00,$C0,$01,$20       ;0B9741|        |      ;
  
          DATA8_0B9748: db $60,$70,$58,$50                   ;0B9748|        |      ;
  
@@ -3276,7 +3230,7 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
           enemyID__AC: INC.W $05C1,X                        ;0B9789|FEC105  |0B05C1;
                        LDY.B #$01                           ;0B978C|A001    |      ;
                        LDA.B ($02),Y                        ;0B978E|B102    |000002;
-                       STA.B r_currOAM_Attr                 ;0B9790|8510    |000010;
+                       STA.B r_index                        ;0B9790|8510    |000010;
                        LDA.W $0438                          ;0B9792|AD3804  |0B0438;
                        STA.B $04                            ;0B9795|8504    |000004;
                        LDA.W $041C                          ;0B9797|AD1C04  |0B041C;
@@ -3288,7 +3242,7 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
           CODE_0B97A1: STA.B $00                            ;0B97A1|8500    |000000;
                        TAY                                  ;0B97A3|A8      |      ;
                        LDA.W DATA8_0B97E0,Y                 ;0B97A4|B9E097  |0B97E0;
-                       LDY.B r_currOAM_Attr                 ;0B97A7|A410    |000010;
+                       LDY.B r_index                        ;0B97A7|A410    |000010;
  
           CODE_0B97A9: CLC                                  ;0B97A9|18      |      ;
                        ADC.W DATA8_0B9800,Y                 ;0B97AA|790098  |0B9800;
@@ -3319,53 +3273,39 @@ enemyID_zombieSide_68: JSR.W CODE_0B93B0                    ;0B9298|20B093  |0B9
                        RTS                                  ;0B97DF|60      |      ;
  
  
-         DATA8_0B97E0: db $00,$01,$02,$03,$04               ;0B97E0|        |      ;
-                       db $05,$06,$07,$08,$07               ;0B97E5|        |      ;
-                       db $06,$05,$04,$03,$02               ;0B97EA|        |      ;
-                       db $01,$00,$01,$02,$03               ;0B97EF|        |      ;
-                       db $04,$05,$06,$07,$08               ;0B97F4|        |      ;
-                       db $07,$06,$05,$04,$03               ;0B97F9|        |      ;
-                       db $02,$01                           ;0B97FE|        |      ;
+         DATA8_0B97E0: db $00,$01,$02,$03,$04,$05,$06,$07   ;0B97E0|        |      ;
+                       db $08,$07,$06,$05,$04,$03,$02,$01   ;0B97E8|        |      ;
+                       db $00,$01,$02,$03,$04,$05,$06,$07   ;0B97F0|        |      ;
+                       db $08,$07,$06,$05,$04,$03,$02,$01   ;0B97F8|        |      ;
  
          DATA8_0B9800: db $00,$12,$24                       ;0B9800|        |      ;
  
-         DATA8_0B9803: db $FF,$00,$FF,$06,$FF               ;0B9803|        |      ;
-                       db $14,$FF,$2C,$FF,$4C               ;0B9808|        |      ;
-                       db $FF,$72,$FF,$9E,$FF               ;0B980D|        |      ;
-                       db $CF,$00,$00,$FE,$80               ;0B9812|        |      ;
-                       db $FE,$88,$FE,$9E,$FE               ;0B9817|        |      ;
-                       db $C1,$FE,$F1,$FF,$2B               ;0B981C|        |      ;
-                       db $FF,$6B,$FF,$B6,$00               ;0B9821|        |      ;
-                       db $00,$FE,$00,$FE,$0B               ;0B9826|        |      ;
-                       db $FE,$27,$FE,$57,$FE               ;0B982B|        |      ;
-                       db $97,$FE,$E4,$FE,$3C               ;0B9830|        |      ;
-                       db $FE,$9D,$00,$00                   ;0B9835|        |      ;
+         DATA8_0B9803: db $FF,$00,$FF,$06,$FF,$14,$FF,$2C   ;0B9803|        |      ;
+                       db $FF,$4C,$FF,$72,$FF,$9E,$FF,$CF   ;0B980B|        |      ;
+                       db $00,$00,$FE,$80,$FE,$88,$FE,$9E   ;0B9813|        |      ;
+                       db $FE,$C1,$FE,$F1,$FF,$2B,$FF,$6B   ;0B981B|        |      ;
+                       db $FF,$B6,$00,$00,$FE,$00,$FE,$0B   ;0B9823|        |      ;
+                       db $FE,$27,$FE,$57,$FE,$97,$FE,$E4   ;0B982B|        |      ;
+                       db $FE,$3C,$FE,$9D,$00,$00           ;0B9833|        |      ;
  
-         DATA8_0B9839: db $00,$00,$00,$31,$00               ;0B9839|        |      ;
-                       db $62,$00,$8E,$00,$B4               ;0B983E|        |      ;
-                       db $00,$D4,$00,$EC,$00               ;0B9843|        |      ;
-                       db $FA,$01,$00,$00                   ;0B9848|        |      ;
+         DATA8_0B9839: db $00,$00,$00,$31,$00,$62,$00,$8E   ;0B9839|        |      ;
+                       db $00,$B4,$00,$D4,$00,$EC,$00,$FA   ;0B9841|        |      ;
+                       db $01,$00,$00                       ;0B9849|        |      ;
  
-         DATA8_0B984C: db $00,$00,$4A,$00,$93               ;0B984C|        |      ;
-                       db $00,$D5,$01,$0F,$01               ;0B9851|        |      ;
-                       db $3F,$01,$62,$01,$78               ;0B9856|        |      ;
-                       db $01,$80,$00,$00,$00               ;0B985B|        |      ;
-                       db $63,$00,$C4,$01,$1C               ;0B9860|        |      ;
-                       db $01,$69,$01,$A9,$01               ;0B9865|        |      ;
-                       db $D9,$01,$F5,$02,$00               ;0B986A|        |      ;
+         DATA8_0B984C: db $00,$00,$4A,$00,$93,$00,$D5,$01   ;0B984C|        |      ;
+                       db $0F,$01,$3F,$01,$62,$01,$78,$01   ;0B9854|        |      ;
+                       db $80,$00,$00,$00,$63,$00,$C4,$01   ;0B985C|        |      ;
+                       db $1C,$01,$69,$01,$A9,$01,$D9,$01   ;0B9864|        |      ;
+                       db $F5,$02,$00                       ;0B986C|        |      ;
  
-          enemyID__AE: db $20,$40,$82,$18,$AD               ;0B986F|        |      ;
-                       db $F6,$07,$0A,$7D,$A8               ;0B9874|        |      ;
-                       db $04,$A8,$B9,$9F,$98               ;0B9879|        |      ;
-                       db $9D,$F2,$04,$B9,$A3               ;0B987E|        |      ;
-                       db $98,$9D,$09,$05,$A0               ;0B9883|        |      ;
-                       db $00,$BD,$1C,$04,$CD               ;0B9888|        |      ;
-                       db $1C,$04,$90,$01,$C8               ;0B988D|        |      ;
-                       db $B9,$A7,$98,$9D,$20               ;0B9892|        |      ;
-                       db $05,$B9,$A9,$98,$9D               ;0B9897|        |      ;
-                       db $37,$05,$60,$00,$FF               ;0B989C|        |      ;
-                       db $00,$FF,$80,$80,$C0               ;0B98A1|        |      ;
-                       db $40,$00,$FF,$40,$C0               ;0B98A6|        |      ;
+          enemyID__AE: db $20,$40,$82,$18,$AD,$F6,$07,$0A   ;0B986F|        |      ;
+                       db $7D,$A8,$04,$A8,$B9,$9F,$98,$9D   ;0B9877|        |      ;
+                       db $F2,$04,$B9,$A3,$98,$9D,$09,$05   ;0B987F|        |      ;
+                       db $A0,$00,$BD,$1C,$04,$CD,$1C,$04   ;0B9887|        |      ;
+                       db $90,$01,$C8,$B9,$A7,$98,$9D,$20   ;0B988F|        |      ;
+                       db $05,$B9,$A9,$98,$9D,$37,$05,$60   ;0B9897|        |      ;
+                       db $00,$FF,$00,$FF,$80,$80,$C0,$40   ;0B989F|        |      ;
+                       db $00,$FF,$40,$C0                   ;0B98A7|        |      ;
  
 enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0606;
                        BEQ CODE_0B98B7                      ;0B98AE|F007    |0B98B7;
@@ -3639,12 +3579,12 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        STA.W $0438,Y                        ;0B9A9B|993804  |0B0438;
                        LDA.W $0470,X                        ;0B9A9E|BD7004  |0B0470;
                        AND.B #$BE                           ;0B9AA1|29BE    |      ;
-                       STA.B r_pointerQueue_VRAM            ;0B9AA3|8508    |000008;
+                       STA.B r_pointerQueue                 ;0B9AA3|8508    |000008;
                        LDA.W $0470,X                        ;0B9AA5|BD7004  |0B0470;
                        AND.B #$01                           ;0B9AA8|2901    |      ;
                        ADC.B $09                            ;0B9AAA|6509    |000009;
                        AND.B #$01                           ;0B9AAC|2901    |      ;
-                       ORA.B r_pointerQueue_VRAM            ;0B9AAE|0508    |000008;
+                       ORA.B r_pointerQueue                 ;0B9AAE|0508    |000008;
                        STA.W $0470,Y                        ;0B9AB0|997004  |0B0470;
                        LDA.B $00                            ;0B9AB3|A500    |000000;
                        STA.W $04A8,Y                        ;0B9AB5|99A804  |0B04A8;
@@ -3732,12 +3672,11 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        RTS                                  ;0B9B5F|60      |      ;
  
  
-         DATA8_0B9B60: db $02,$02,$02,$02,$02               ;0B9B60|        |      ;
-                       db $02,$02,$02,$02                   ;0B9B65|        |      ;
+         DATA8_0B9B60: db $02,$02,$02,$02,$02,$02,$02,$02   ;0B9B60|        |      ;
+                       db $02                               ;0B9B68|        |      ;
  
-         DATA8_0B9B69: db $80,$80,$80,$80,$80               ;0B9B69|        |      ;
-                       db $80,$80,$80,$80                   ;0B9B6E|        |      ;
- 
+         DATA8_0B9B69: db $80,$80,$80,$80,$80,$80,$80,$80   ;0B9B69|        |      ;
+                       db $80                               ;0B9B71|        |      ;
  
          DATA8_0B9B72: db $FF,$00                           ;0B9B72|        |      ;
  
@@ -3821,9 +3760,9 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
  
  
           CODE_0B9BF8: LDA.B #$01                           ;0B9BF8|A901    |      ;
-                       STA.B r_currOAM_Attr                 ;0B9BFA|8510    |000010;
+                       STA.B r_index                        ;0B9BFA|8510    |000010;
  
-          CODE_0B9BFC: LDX.B r_currOAM_Attr                 ;0B9BFC|A610    |000010;
+          CODE_0B9BFC: LDX.B r_index                        ;0B9BFC|A610    |000010;
                        CPX.B #$07                           ;0B9BFE|E007    |      ;
                        BEQ CODE_0B9C23                      ;0B9C00|F021    |0B9C23;
                        LDA.W $0438,X                        ;0B9C02|BD3804  |0B0438;
@@ -3837,7 +3776,7 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        ADC.B $05                            ;0B9C16|6505    |000005;
                        STA.W $041C,X                        ;0B9C18|9D1C04  |0B041C;
                        JSR.W CODE_0B9C89                    ;0B9C1B|20899C  |0B9C89;
-                       INC.B r_currOAM_Attr                 ;0B9C1E|E610    |000010;
+                       INC.B r_index                        ;0B9C1E|E610    |000010;
                        JMP.W CODE_0B9BFC                    ;0B9C20|4CFC9B  |0B9BFC;
  
  
@@ -3859,21 +3798,15 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        RTS                                  ;0B9C46|60      |      ;
  
  
-         DATA8_0B9C47: db $00,$02,$03,$05,$06               ;0B9C47|        |      ;
-                       db $07,$08,$09,$09,$09               ;0B9C4C|        |      ;
-                       db $08,$07,$06,$05,$03               ;0B9C51|        |      ;
-                       db $02,$00,$FE,$FD,$FB               ;0B9C56|        |      ;
-                       db $FA,$F9,$F8,$F7,$F7               ;0B9C5B|        |      ;
-                       db $F7,$F8,$F9,$FA,$FB               ;0B9C60|        |      ;
-                       db $FD,$FE                           ;0B9C65|        |      ;
+         DATA8_0B9C47: db $00,$02,$03,$05,$06,$07,$08,$09   ;0B9C47|        |      ;
+                       db $09,$09,$08,$07,$06,$05,$03,$02   ;0B9C4F|        |      ;
+                       db $00,$FE,$FD,$FB,$FA,$F9,$F8,$F7   ;0B9C57|        |      ;
+                       db $F7,$F7,$F8,$F9,$FA,$FB,$FD,$FE   ;0B9C5F|        |      ;
  
-         DATA8_0B9C67: db $F7,$F7,$F8,$F9,$FA               ;0B9C67|        |      ;
-                       db $FB,$FD,$FE,$00,$02               ;0B9C6C|        |      ;
-                       db $03,$05,$06,$07,$08               ;0B9C71|        |      ;
-                       db $09,$09,$09,$08,$07               ;0B9C76|        |      ;
-                       db $06,$05,$03,$02,$00               ;0B9C7B|        |      ;
-                       db $FE,$FD,$FB,$FA,$F9               ;0B9C80|        |      ;
-                       db $F7,$F7                           ;0B9C85|        |      ;
+         DATA8_0B9C67: db $F7,$F7,$F8,$F9,$FA,$FB,$FD,$FE   ;0B9C67|        |      ;
+                       db $00,$02,$03,$05,$06,$07,$08,$09   ;0B9C6F|        |      ;
+                       db $09,$09,$08,$07,$06,$05,$03,$02   ;0B9C77|        |      ;
+                       db $00,$FE,$FD,$FB,$FA,$F9,$F7,$F7   ;0B9C7F|        |      ;
  
          DATA8_0B9C87: db $0F,$F1                           ;0B9C87|        |      ;
  
@@ -3894,22 +3827,15 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        RTS                                  ;0B9CA7|60      |      ;
  
  
-         DATA8_0B9CA8: db $3E,$3E,$40,$40,$40               ;0B9CA8|        |      ;
-                       db $40,$40,$42,$42,$42               ;0B9CAD|        |      ;
+         DATA8_0B9CA8: db $3E,$3E,$40,$40,$40,$40,$40,$42   ;0B9CA8|        |      ;
+                       db $42,$42,$42,$44,$44,$44,$44,$46   ;0B9CB0|        |      ;
+                       db $46,$46,$44,$44,$44,$44,$44,$42   ;0B9CB8|        |      ;
+                       db $42,$42,$42,$46,$46,$46,$46,$44   ;0B9CC0|        |      ;
  
-                       db $42,$44,$44,$44,$44               ;0B9CB2|        |      ;
-                       db $46,$46,$46,$44,$44               ;0B9CB7|        |      ;
-                       db $44,$44,$44,$42,$42               ;0B9CBC|        |      ;
-                       db $42,$42,$46,$46,$46               ;0B9CC1|        |      ;
-                       db $46,$44                           ;0B9CC6|        |      ;
- 
-         DATA8_0B9CC8: db $01,$00,$00,$00,$00               ;0B9CC8|        |      ;
-                       db $00,$00,$00,$00,$00               ;0B9CCD|        |      ;
-                       db $00,$00,$00,$00,$00               ;0B9CD2|        |      ;
-                       db $00,$00,$01,$01,$01               ;0B9CD7|        |      ;
-                       db $01,$01,$01,$01,$01               ;0B9CDC|        |      ;
-                       db $01,$01,$01,$01,$01               ;0B9CE1|        |      ;
-                       db $01,$01                           ;0B9CE6|        |      ;
+         DATA8_0B9CC8: db $01,$00,$00,$00,$00,$00,$00,$00   ;0B9CC8|        |      ;
+                       db $00,$00,$00,$00,$00,$00,$00,$00   ;0B9CD0|        |      ;
+                       db $00,$01,$01,$01,$01,$01,$01,$01   ;0B9CD8|        |      ;
+                       db $01,$01,$01,$01,$01,$01,$01,$01   ;0B9CE0|        |      ;
  
           enemyID__F4: LDX.B #$01                           ;0B9CE8|A201    |      ;
                        LDA.B r_gameStateLoopCounter         ;0B9CEA|A51A    |00001A;
@@ -3960,19 +3886,14 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        JMP.W CODE_0B9D1E                    ;0B9D3C|4C1E9D  |0B9D1E;
  
  
-         DATA8_0B9D3F: db $08,$0E,$0E,$0A,$0A               ;0B9D3F|        |      ;
-                       db $08,$08,$08,$08,$06               ;0B9D44|        |      ;
-                       db $04,$04,$08,$0C,$0C               ;0B9D49|        |      ;
-                       db $0E,$0A,$0A,$08,$08               ;0B9D4E|        |      ;
-                       db $0E,$0E,$0E,$0E,$0C               ;0B9D53|        |      ;
-                       db $0A,$08,$08,$08,$04               ;0B9D58|        |      ;
-                       db $FF,$18,$12,$12,$16               ;0B9D5D|        |      ;
-                       db $16,$18,$18,$18,$18               ;0B9D62|        |      ;
-                       db $1A,$14,$14,$18,$14               ;0B9D67|        |      ;
-                       db $14,$12,$16,$16,$18               ;0B9D6C|        |      ;
-                       db $18,$12,$12,$12,$12               ;0B9D71|        |      ;
-                       db $14,$16,$18,$18,$18               ;0B9D76|        |      ;
-                       db $14,$FF                           ;0B9D7B|        |      ;
+         DATA8_0B9D3F: db $08,$0E,$0E,$0A,$0A,$08,$08,$08   ;0B9D3F|        |      ;
+                       db $08,$06,$04,$04,$08,$0C,$0C,$0E   ;0B9D47|        |      ;
+                       db $0A,$0A,$08,$08,$0E,$0E,$0E,$0E   ;0B9D4F|        |      ;
+                       db $0C,$0A,$08,$08,$08,$04,$FF,$18   ;0B9D57|        |      ;
+                       db $12,$12,$16,$16,$18,$18,$18,$18   ;0B9D5F|        |      ;
+                       db $1A,$14,$14,$18,$14,$14,$12,$16   ;0B9D67|        |      ;
+                       db $16,$18,$18,$12,$12,$12,$12,$14   ;0B9D6F|        |      ;
+                       db $16,$18,$18,$18,$14,$FF           ;0B9D77|        |      ;
  
          DATA8_0B9D7D: db $00,$1F                           ;0B9D7D|        |      ;
  
@@ -4091,7 +4012,7 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        ORA.B $09                            ;0B9E52|0509    |000009;
                        STA.W $0470,X                        ;0B9E54|9D7004  |0B0470;
                        LDA.B #$01                           ;0B9E57|A901    |      ;
-                       STA.B r_currOAM_Attr                 ;0B9E59|8510    |000010;
+                       STA.B r_index                        ;0B9E59|8510    |000010;
                        LDA.W DATA8_0B9E75,Y                 ;0B9E5B|B9759E  |0B9E75;
                        JSR.W CODE_0B97A1                    ;0B9E5E|20A197  |0B97A1;
  
@@ -4111,10 +4032,9 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
  
          DATA8_0B9E79: db $00,$FF                           ;0B9E79|        |      ;
  
-         DATA8_0B9E7B: db $A5,$49,$C9,$11,$F0               ;0B9E7B|        |      ;
-                       db $01,$C8,$B9,$89,$9E               ;0B9E80|        |      ;
-                       db $9D,$00,$04,$60,$3A               ;0B9E85|        |      ;
-                       db $48,$3C,$4A                       ;0B9E8A|        |      ;
+         DATA8_0B9E7B: db $A5,$49,$C9,$11,$F0,$01,$C8,$B9   ;0B9E7B|        |      ;
+                       db $89,$9E,$9D,$00,$04,$60,$3A,$48   ;0B9E83|        |      ;
+                       db $3C,$4A                           ;0B9E8B|        |      ;
  
         enemy_2_ID_08: LDY.W $0633,X                        ;0B9E8D|BC3306  |0B0633;
                        LDA.W DATA8_0B9F0D,Y                 ;0B9E90|B90D9F  |0B9F0D;
@@ -4141,36 +4061,25 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        RTS                                  ;0B9EC8|60      |      ;
  
  
-         DATA8_0B9EC9: db $FF,$00,$00,$00,$FF               ;0B9EC9|        |      ;
-                       db $00,$00,$00,$FF,$00               ;0B9ECE|        |      ;
-                       db $01,$00,$FE,$00,$01               ;0B9ED3|        |      ;
-                       db $00                               ;0B9ED8|        |      ;
+         DATA8_0B9EC9: db $FF,$00,$00,$00,$FF,$00,$00,$00   ;0B9EC9|        |      ;
+                       db $FF,$00,$01,$00,$FE,$00,$01,$00   ;0B9ED1|        |      ;
  
-         DATA8_0B9ED9: db $80,$00,$80,$00,$40               ;0B9ED9|        |      ;
-                       db $00,$C0,$00,$00,$00               ;0B9EDE|        |      ;
-                       db $00,$00,$C0,$00,$40               ;0B9EE3|        |      ;
-                       db $00                               ;0B9EE8|        |      ;
+         DATA8_0B9ED9: db $80,$00,$80,$00,$40,$00,$C0,$00   ;0B9ED9|        |      ;
+                       db $00,$00,$00,$00,$C0,$00,$40,$00   ;0B9EE1|        |      ;
  
-         DATA8_0B9EE9: db $00,$00,$00,$FF,$00               ;0B9EE9|        |      ;
-                       db $00,$00,$FF,$00,$01               ;0B9EEE|        |      ;
-                       db $00,$FF,$00,$01,$00               ;0B9EF3|        |      ;
-                       db $FE                               ;0B9EF8|        |      ;
+         DATA8_0B9EE9: db $00,$00,$00,$FF,$00,$00,$00,$FF   ;0B9EE9|        |      ;
+                       db $00,$01,$00,$FF,$00,$01,$00,$FE   ;0B9EF1|        |      ;
  
-         DATA8_0B9EF9: db $00,$80,$00,$80,$00               ;0B9EF9|        |      ;
-                       db $C0,$00,$40,$00,$00               ;0B9EFE|        |      ;
-                       db $00,$00,$00,$40,$00               ;0B9F03|        |      ;
-                       db $C0                               ;0B9F08|        |      ;
+         DATA8_0B9EF9: db $00,$80,$00,$80,$00,$C0,$00,$40   ;0B9EF9|        |      ;
+                       db $00,$00,$00,$00,$00,$40,$00,$C0   ;0B9F01|        |      ;
  
          DATA8_0B9F09: db $00,$04,$08,$0C                   ;0B9F09|        |      ;
  
-         DATA8_0B9F0D: db $00,$01,$01,$00,$00               ;0B9F0D|        |      ;
-                       db $00,$00,$00                       ;0B9F12|        |      ;
+         DATA8_0B9F0D: db $00,$01,$01,$00,$00,$00,$00,$00   ;0B9F0D|        |      ;
  
-         DATA8_0B9F15: db $00,$02,$02,$00,$02               ;0B9F15|        |      ;
-                       db $00,$00,$00                       ;0B9F1A|        |      ;
+         DATA8_0B9F15: db $00,$02,$02,$00,$02,$00,$00,$00   ;0B9F15|        |      ;
  
-         DATA8_0B9F1D: db $02,$01,$02,$03,$03               ;0B9F1D|        |      ;
-                       db $00,$00,$00                       ;0B9F22|        |      ;
+         DATA8_0B9F1D: db $02,$01,$02,$03,$03,$00,$00,$00   ;0B9F1D|        |      ;
  
         enemy_2_ID_0A: JSR.W CODE_0B9F8E                    ;0B9F25|208E9F  |0B9F8E;
                        JSR.W DATA8_0B9F9B                   ;0B9F28|209B9F  |0B9F9B;
@@ -4190,10 +4099,8 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
                        JMP.W CODE_0B9F81                    ;0B9F46|4C819F  |0B9F81;
  
  
-         DATA8_0B9F49: db $01,$02,$03,$00,$03               ;0B9F49|        |      ;
-                       db $00,$01,$02,$03,$00               ;0B9F4E|        |      ;
-                       db $01,$02,$01,$02,$03               ;0B9F53|        |      ;
-                       db $00                               ;0B9F58|        |      ;
+         DATA8_0B9F49: db $01,$02,$03,$00,$03,$00,$01,$02   ;0B9F49|        |      ;
+                       db $03,$00,$01,$02,$01,$02,$03,$00   ;0B9F51|        |      ;
  
         enemy_2_ID_0C: JSR.W CODE_0B9F8E                    ;0B9F59|208E9F  |0B9F8E;
                        JSR.W DATA8_0B9F9B                   ;0B9F5C|209B9F  |0B9F9B;
@@ -4234,16 +4141,12 @@ enemyID_spiderling_BC: DEC.W $0606,X                        ;0B98AB|DE0606  |0B0
  
          DATA8_0B9F99: db $00,$08                           ;0B9F99|        |      ;
  
-         DATA8_0B9F9B: db $A8,$B9,$B9,$9F,$85               ;0B9F9B|        |      ;
-                       db $00,$B9,$A9,$9F,$A4               ;0B9FA0|        |      ;
-                       db $00,$4C,$1E,$FC,$07               ;0B9FA5|        |      ;
-                       db $0C,$F8,$F4,$F8,$00               ;0B9FAA|        |      ;
-                       db $07,$00,$07,$F4,$F8               ;0B9FAF|        |      ;
-                       db $0C,$F8,$00,$07,$00               ;0B9FB4|        |      ;
-                       db $0C,$F8,$F4,$07,$00               ;0B9FB9|        |      ;
-                       db $07,$00,$F8,$F4,$F8               ;0B9FBE|        |      ;
-                       db $0C,$07,$00,$07,$00               ;0B9FC3|        |      ;
-                       db $F8                               ;0B9FC8|        |      ;
+         DATA8_0B9F9B: db $A8,$B9,$B9,$9F,$85,$00,$B9,$A9   ;0B9F9B|        |      ;
+                       db $9F,$A4,$00,$4C,$1E,$FC,$07,$0C   ;0B9FA3|        |      ;
+                       db $F8,$F4,$F8,$00,$07,$00,$07,$F4   ;0B9FAB|        |      ;
+                       db $F8,$0C,$F8,$00,$07,$00,$0C,$F8   ;0B9FB3|        |      ;
+                       db $F4,$07,$00,$07,$00,$F8,$F4,$F8   ;0B9FBB|        |      ;
+                       db $0C,$07,$00,$07,$00,$F8           ;0B9FC3|        |      ;
  
           CODE_0B9FC9: LDA.W $07F6                          ;0B9FC9|ADF607  |0B07F6;
                        BNE CODE_0B9FE3                      ;0B9FCC|D015    |0B9FE3;
@@ -4487,8 +4390,8 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        RTS                                  ;0BA170|60      |      ;
  
  
-         DATA8_0BA171: db $01,$02,$03,$04,$0B               ;0BA171|        |      ;
-                       db $05,$06,$07,$08,$09               ;0BA176|        |      ;
+         DATA8_0BA171: db $01,$02,$03,$04,$0B,$05,$06,$07   ;0BA171|        |      ;
+                       db $08,$09                           ;0BA179|        |      ;
  
           CODE_0BA17B: LDA.B #$00                           ;0BA17B|A900    |      ;
                        STA.B $9C                            ;0BA17D|859C    |00009C;
@@ -4497,11 +4400,11 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        LDA.B #$1C                           ;0BA184|A91C    |      ;
                        db $4C                               ;0BA186|        |      ;
  
-                       dw CODE_0FE25F                       ;0BA187|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA187|        |0FE25F;
  
           CODE_0BA189: LDA.B #$1C                           ;0BA189|A91C    |      ;
                        db $20                               ;0BA18B|        |      ;
-                       dw CODE_0FE25F                       ;0BA18C|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA18C|        |0FE25F;
                        LDA.B #$01                           ;0BA18E|A901    |      ;
  
           CODE_0BA190: STA.B r_powerUpDrop                  ;0BA190|85B7    |0000B7;
@@ -4519,7 +4422,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
           CODE_0BA1A9: LDA.B #$17                           ;0BA1A9|A917    |      ;
                        db $20                               ;0BA1AB|        |      ;
-                       dw CODE_0FE25F                       ;0BA1AC|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA1AC|        |0FE25F;
                        LDA.B #$B4                           ;0BA1AE|A9B4    |      ;
                        STA.B r_potionTimer                  ;0BA1B0|85AD    |0000AD;
                        LDX.B r_entityID_processed           ;0BA1B2|A66C    |00006C;
@@ -4528,7 +4431,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
           CODE_0BA1B5: LDA.B #$4A                           ;0BA1B5|A94A    |      ;
                        db $20                               ;0BA1B7|        |      ;
-                       dw CODE_0FE25F                       ;0BA1B8|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA1B8|        |0FE25F;
                        LDX.B #$01                           ;0BA1BA|A201    |      ;
  
           CODE_0BA1BC: LDA.W $054E,X                        ;0BA1BC|BD4E05  |0B054E;
@@ -4562,7 +4465,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
           CODE_0BA1EF: LDA.B #$18                           ;0BA1EF|A918    |      ;
                        db $20                               ;0BA1F1|        |      ;
-                       dw CODE_0FE25F                       ;0BA1F2|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA1F2|        |0FE25F;
                        SEC                                  ;0BA1F4|38      |      ;
                        LDA.W $054E,X                        ;0BA1F5|BD4E05  |0B054E;
                        SBC.B #$A3                           ;0BA1F8|E9A3    |      ;
@@ -4580,11 +4483,11 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        RTS                                  ;0BA20E|60      |      ;
  
  
-         DATA8_0BA20F: db $01,$02,$04,$07,$10               ;0BA20F|        |      ;
-                       db $20,$40,$70,$00                   ;0BA214|        |      ;
+         DATA8_0BA20F: db $01,$02,$04,$07,$10,$20,$40,$70   ;0BA20F|        |      ;
+                       db $00                               ;0BA217|        |      ;
  
-         DATA8_0BA218: db $00,$00,$00,$00,$00               ;0BA218|        |      ;
-                       db $00,$00,$00,$01                   ;0BA21D|        |      ;
+         DATA8_0BA218: db $00,$00,$00,$00,$00,$00,$00,$00   ;0BA218|        |      ;
+                       db $01                               ;0BA220|        |      ;
  
           CODE_0BA221: LDA.B #$01                           ;0BA221|A901    |      ;
                        STA.B $D7                            ;0BA223|85D7    |0000D7;
@@ -4597,7 +4500,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
           CODE_0BA22B: LDA.B #$1B                           ;0BA22B|A91B    |      ;
                        db $20                               ;0BA22D|        |      ;
-                       dw CODE_0FE25F                       ;0BA22E|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA22E|        |0FE25F;
                        SEC                                  ;0BA230|38      |      ;
                        LDA.W $054E,X                        ;0BA231|BD4E05  |0B054E;
                        SBC.B #$AD                           ;0BA234|E9AD    |      ;
@@ -4613,7 +4516,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
           CODE_0BA242: LDA.B #$1C                           ;0BA242|A91C    |      ;
                        db $20                               ;0BA244|        |      ;
-                       dw CODE_0FE25F                       ;0BA245|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA245|        |0FE25F;
                        LDY.B r_partnerIdx                   ;0BA247|A43B    |00003B;
                        LDA.W $0085,Y                        ;0BA249|B98500  |0B0085;
                        CMP.B #$0B                           ;0BA24C|C90B    |      ;
@@ -4706,7 +4609,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
           CODE_0BA2E2: LDA.B #$33                           ;0BA2E2|A933    |      ;
                        db $20                               ;0BA2E4|        |      ;
-                       dw CODE_0FE25F                       ;0BA2E5|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BA2E5|        |0FE25F;
                        LDA.W $05D8,X                        ;0BA2E7|BDD805  |0B05D8;
                        CMP.B #$AC                           ;0BA2EA|C9AC    |      ;
                        BEQ CODE_0BA2D8                      ;0BA2EC|F0EA    |0BA2D8;
@@ -4791,12 +4694,10 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        JMP.W CODE_0BA398                    ;0BA36E|4C98A3  |0BA398;
  
  
-         DATA8_0BA371: db $AD,$4E,$05,$F0,$0E               ;0BA371|        |      ;
-                       db $A5,$86,$C9,$08,$F0               ;0BA376|        |      ;
-                       db $E7,$A9,$95,$D0,$E8               ;0BA37B|        |      ;
+         DATA8_0BA371: db $AD,$4E,$05,$F0,$0E,$A5,$86,$C9   ;0BA371|        |      ;
+                       db $08,$F0,$E7,$A9,$95,$D0,$E8       ;0BA379|        |      ;
  
-         DATA8_0BA380: db $A9,$94,$D0,$14,$A9               ;0BA380|        |      ;
-                       db $95,$D0,$10                       ;0BA385|        |      ;
+         DATA8_0BA380: db $A9,$94,$D0,$14,$A9,$95,$D0,$10   ;0BA380|        |      ;
  
          DATA8_0BA388: db $A9,$96,$D0,$0C                   ;0BA388|        |      ;
  
@@ -4806,7 +4707,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
  
          DATA8_0BA394: db $A9,$98,$D0,$00                   ;0BA394|        |      ;
  
-          CODE_0BA398: STA.B r_currOAM_Attr                 ;0BA398|8510    |000010;
+          CODE_0BA398: STA.B r_index                        ;0BA398|8510    |000010;
                        LDY.B r_partnerIdx                   ;0BA39A|A43B    |00003B;
                        SEC                                  ;0BA39C|38      |      ;
                        SBC.B #$93                           ;0BA39D|E993    |      ;
@@ -4815,7 +4716,7 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
                        LDY.B r_partnerIdx                   ;0BA3A3|A43B    |00003B;
                        CMP.W $0085,Y                        ;0BA3A5|D98500  |0B0085;
                        BEQ CODE_0BA363                      ;0BA3A8|F0B9    |0BA363;
-                       LDA.B r_currOAM_Attr                 ;0BA3AA|A510    |000010;
+                       LDA.B r_index                        ;0BA3AA|A510    |000010;
  
           CODE_0BA3AC: STA.W $054E,X                        ;0BA3AC|9D4E05  |0B054E;
                        RTS                                  ;0BA3AF|60      |      ;
@@ -4879,25 +4780,18 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
           CODE_0BA40A: RTS                                  ;0BA40A|60      |      ;
  
  
-     entityScripts_60: db $97,$00,$00,$00,$17               ;0BA40B|        |      ; boss hammerTime
-                       db $00,$00,$00,$14,$00               ;0BA410|        |      ;
-                       db $00,$00,$15,$00,$00               ;0BA415|        |      ;
-                       db $00,$13,$0A,$0B,$00               ;0BA41A|        |      ;
-                       db $16,$00,$00,$00,$6C               ;0BA41F|        |      ;
-                       db $2D,$00,$00,$30,$02               ;0BA424|        |      ;
-                       db $00,$00,$1A,$04,$00               ;0BA429|        |      ;
-                       db $00,$1B,$00,$00,$00               ;0BA42E|        |      ;
-                       db $17,$00,$00,$00,$1A               ;0BA433|        |      ;
-                       db $10,$00,$00,$1B,$00               ;0BA438|        |      ;
-                       db $00,$00,$7B,$03,$00               ;0BA43D|        |      ;
-                       db $00,$30,$03,$00,$00               ;0BA442|        |      ;
-                       db $16,$00,$00,$00,$1A               ;0BA447|        |      ;
-                       db $01,$00,$00,$1B,$00               ;0BA44C|        |      ;
-                       db $00,$00,$17,$00,$00               ;0BA451|        |      ;
-                       db $00,$1A,$02,$00,$00               ;0BA456|        |      ;
-                       db $1B,$00,$00,$00,$7C               ;0BA45B|        |      ;
-                       db $F9,$00,$00,$18,$00               ;0BA460|        |      ;
-                       db $00,$00                           ;0BA465|        |      ;
+     entityScripts_60: db $97,$00,$00,$00,$17,$00,$00,$00   ;0BA40B|        |      ; boss hammerTime
+                       db $14,$00,$00,$00,$15,$00,$00,$00   ;0BA413|        |      ;
+                       db $13,$0A,$0B,$00,$16,$00,$00,$00   ;0BA41B|        |      ;
+                       db $6C,$2D,$00,$00,$30,$02,$00,$00   ;0BA423|        |      ;
+                       db $1A,$04,$00,$00,$1B,$00,$00,$00   ;0BA42B|        |      ;
+                       db $17,$00,$00,$00,$1A,$10,$00,$00   ;0BA433|        |      ;
+                       db $1B,$00,$00,$00,$7B,$03,$00,$00   ;0BA43B|        |      ;
+                       db $30,$03,$00,$00,$16,$00,$00,$00   ;0BA443|        |      ;
+                       db $1A,$01,$00,$00,$1B,$00,$00,$00   ;0BA44B|        |      ;
+                       db $17,$00,$00,$00,$1A,$02,$00,$00   ;0BA453|        |      ;
+                       db $1B,$00,$00,$00,$7C,$F9,$00,$00   ;0BA45B|        |      ;
+                       db $18,$00,$00,$00                   ;0BA463|        |      ;
  
         enemy_2_ID_2E: INC.W $05C1,X                        ;0BA467|FEC105  |0B05C1;
                        db $4C                               ;0BA46A|        |      ;
@@ -4954,9 +4848,8 @@ enemyID_zombieSide_E2: JSR.W CODE_0BA0EF                    ;0BA0A8|20EFA0  |0BA
          DATA8_0BA4BF: db $80                               ;0BA4BF|        |      ;
  
  
-         DATA8_0BA4C0: db $01,$00,$02,$58,$00               ;0BA4C0|        |      ;
-                       db $60,$00,$00,$01,$00               ;0BA4C5|        |      ;
-                       db $04,$80,$01,$20,$01               ;0BA4CA|        |      ;
+         DATA8_0BA4C0: db $01,$00,$02,$58,$00,$60,$00,$00   ;0BA4C0|        |      ;
+                       db $01,$00,$04,$80,$01,$20,$01       ;0BA4C8|        |      ;
  
      enemyID_flame_2A: DEC.W $05D8,X                        ;0BA4CF|DED805  |0B05D8;
                        BPL CODE_0BA4E2                      ;0BA4D2|100E    |0BA4E2;
@@ -5028,713 +4921,477 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        RTS                                  ;0BA537|60      |      ;
  
  
-     entityScripts_6b: db $20,$00,$00,$00,$A1               ;0BA538|        |      ;
-                       db $00,$00,$00,$A2,$00               ;0BA53D|        |      ;
-                       db $00,$00                           ;0BA542|        |      ;
+     entityScripts_6b: db $20,$00,$00,$00,$A1,$00,$00,$00   ;0BA538|        |      ;
+                       db $A2,$00,$00,$00                   ;0BA540|        |      ;
  
-     entityScripts_6c: db $0B,$0E,$46,$00,$45               ;0BA544|        |      ;
-                       db $0F,$00,$00,$46,$00               ;0BA549|        |      ;
-                       db $00,$00                           ;0BA54E|        |      ;
+     entityScripts_6c: db $0B,$0E,$46,$00,$45,$0F,$00,$00   ;0BA544|        |      ;
+                       db $46,$00,$00,$00                   ;0BA54C|        |      ;
  
-     entityScripts_2c: db $88,$3A,$00,$00,$77               ;0BA550|        |      ;
-                       db $00,$00,$00,$76,$00               ;0BA555|        |      ;
-                       db $00,$00,$78,$00,$00               ;0BA55A|        |      ;
-                       db $00                               ;0BA55F|        |      ;
+     entityScripts_2c: db $88,$3A,$00,$00,$77,$00,$00,$00   ;0BA550|        |      ;
+                       db $76,$00,$00,$00,$78,$00,$00,$00   ;0BA558|        |      ;
  
-     entityScripts_2d: db $88,$42,$00,$00,$75               ;0BA560|        |      ;
-                       db $00,$00,$00,$79,$00               ;0BA565|        |      ;
-                       db $00,$00                           ;0BA56A|        |      ;
+     entityScripts_2d: db $88,$42,$00,$00,$75,$00,$00,$00   ;0BA560|        |      ;
+                       db $79,$00,$00,$00                   ;0BA568|        |      ;
  
-     entityScripts_2e: db $88,$42,$00,$00,$75               ;0BA56C|        |      ;
-                       db $00,$00,$00,$79,$00               ;0BA571|        |      ;
-                       db $00,$00                           ;0BA576|        |      ;
+     entityScripts_2e: db $88,$42,$00,$00,$75,$00,$00,$00   ;0BA56C|        |      ;
+                       db $79,$00,$00,$00                   ;0BA574|        |      ;
  
      entityScripts_61: db $7A,$00,$00,$00                   ;0BA578|        |      ;
  
-     entityScripts_64: db $8B,$00,$00,$00,$84               ;0BA57C|        |      ;
-                       db $00,$00,$00,$85,$00               ;0BA581|        |      ;
-                       db $00,$00,$86,$00,$00               ;0BA586|        |      ;
-                       db $00                               ;0BA58B|        |      ;
+     entityScripts_64: db $8B,$00,$00,$00,$84,$00,$00,$00   ;0BA57C|        |      ;
+                       db $85,$00,$00,$00,$86,$00,$00,$00   ;0BA584|        |      ;
  
-     entityScripts_6f: db $A5,$00,$00,$00,$84               ;0BA58C|        |      ;
-                       db $00,$00,$00,$85,$00               ;0BA591|        |      ;
-                       db $00,$00,$86,$00,$00               ;0BA596|        |      ;
-                       db $00                               ;0BA59B|        |      ;
+     entityScripts_6f: db $A5,$00,$00,$00,$84,$00,$00,$00   ;0BA58C|        |      ;
+                       db $85,$00,$00,$00,$86,$00,$00,$00   ;0BA594|        |      ;
  
-     entityScripts_01: db $07,$00,$80,$00,$1C               ;0BA59C|        |      ;
-                       db $00,$00,$00,$1D,$00               ;0BA5A1|        |      ;
-                       db $01,$00                           ;0BA5A6|        |      ;
+     entityScripts_01: db $07,$00,$80,$00,$1C,$00,$00,$00   ;0BA59C|        |      ;
+                       db $1D,$00,$01,$00                   ;0BA5A4|        |      ;
  
-     entityScripts_24: db $5D,$00,$00,$00,$07               ;0BA5A8|        |      ;
-                       db $00,$80,$00,$1C,$00               ;0BA5AD|        |      ;
-                       db $00,$00,$1D,$01,$01               ;0BA5B2|        |      ;
-                       db $00                               ;0BA5B7|        |      ;
+     entityScripts_24: db $5D,$00,$00,$00,$07,$00,$80,$00   ;0BA5A8|        |      ;
+                       db $1C,$00,$00,$00,$1D,$01,$01,$00   ;0BA5B0|        |      ;
  
-     entityScripts_70: db $A6,$00,$A0,$00,$1C               ;0BA5B8|        |      ;
-                       db $00,$00,$00,$1D,$00               ;0BA5BD|        |      ;
-                       db $01,$00                           ;0BA5C2|        |      ;
+     entityScripts_70: db $A6,$00,$A0,$00,$1C,$00,$00,$00   ;0BA5B8|        |      ;
+                       db $1D,$00,$01,$00                   ;0BA5C0|        |      ;
  
-     entityScripts_02: db $09,$00,$00,$00,$05               ;0BA5C4|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BA5C9|        |      ;
-                       db $06,$00,$1F,$08,$00               ;0BA5CE|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BA5D3|        |      ;
-                       db $53,$00,$00,$00,$0B               ;0BA5D8|        |      ;
-                       db $08,$08,$00,$1F,$08               ;0BA5DD|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA5E2|        |      ;
-                       db $00,$08,$00,$00,$00               ;0BA5E7|        |      ;
-                       db $07,$00,$80,$00,$1C               ;0BA5EC|        |      ;
-                       db $00,$00,$00,$1D,$09               ;0BA5F1|        |      ;
-                       db $01,$00,$01,$00,$00               ;0BA5F6|        |      ;
-                       db $00,$0B,$08,$08,$00               ;0BA5FB|        |      ;
-                       db $1F,$08,$00,$00,$20               ;0BA600|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BA605|        |      ;
-                       db $06,$00,$1F,$08,$00               ;0BA60A|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BA60F|        |      ;
+     entityScripts_02: db $09,$00,$00,$00,$05,$00,$00,$00   ;0BA5C4|        |      ;
+                       db $0B,$08,$06,$00,$1F,$08,$00,$00   ;0BA5CC|        |      ;
+                       db $20,$00,$00,$00,$53,$00,$00,$00   ;0BA5D4|        |      ;
+                       db $0B,$08,$08,$00,$1F,$08,$00,$00   ;0BA5DC|        |      ;
+                       db $20,$00,$00,$00,$08,$00,$00,$00   ;0BA5E4|        |      ;
+                       db $07,$00,$80,$00,$1C,$00,$00,$00   ;0BA5EC|        |      ;
+                       db $1D,$09,$01,$00,$01,$00,$00,$00   ;0BA5F4|        |      ;
+                       db $0B,$08,$08,$00,$1F,$08,$00,$00   ;0BA5FC|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$06,$00   ;0BA604|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BA60C|        |      ;
                        db $27,$00,$00,$00                   ;0BA614|        |      ;
  
-     entityScripts_07: db $2D,$00,$00,$00,$1E               ;0BA618|        |      ;
-                       db $01,$10,$00,$95,$00               ;0BA61D|        |      ;
-                       db $00,$00,$9C,$07,$00               ;0BA622|        |      ;
-                       db $08,$9D,$00,$00,$00               ;0BA627|        |      ;
+     entityScripts_07: db $2D,$00,$00,$00,$1E,$01,$10,$00   ;0BA618|        |      ;
+                       db $95,$00,$00,$00,$9C,$07,$00,$08   ;0BA620|        |      ;
+                       db $9D,$00,$00,$00                   ;0BA628|        |      ;
  
-     entityScripts_6d: db $2D,$00,$00,$00,$1E               ;0BA62C|        |      ;
-                       db $01,$10,$00,$13,$08               ;0BA631|        |      ;
-                       db $27,$00,$A3,$00,$00               ;0BA636|        |      ;
-                       db $00,$A4,$00,$00,$00               ;0BA63B|        |      ;
+     entityScripts_6d: db $2D,$00,$00,$00,$1E,$01,$10,$00   ;0BA62C|        |      ;
+                       db $13,$08,$27,$00,$A3,$00,$00,$00   ;0BA634|        |      ;
+                       db $A4,$00,$00,$00                   ;0BA63C|        |      ;
  
-     entityScripts_1e: db $6E,$00,$00,$00,$0B               ;0BA640|        |      ;
-                       db $08,$3E,$00,$9F,$00               ;0BA645|        |      ;
-                       db $00,$00,$26,$08,$04               ;0BA64A|        |      ;
-                       db $00,$23,$03,$04,$00               ;0BA64F|        |      ;
-                       db $52,$00,$00,$00,$1F               ;0BA654|        |      ;
-                       db $24,$00,$00,$20,$00               ;0BA659|        |      ;
-                       db $00,$00,$52,$00,$00               ;0BA65E|        |      ;
-                       db $00,$08,$01,$00,$00               ;0BA663|        |      ;
-                       db $20,$00,$00,$00,$04               ;0BA668|        |      ;
-                       db $01,$00,$00                       ;0BA66D|        |      ;
+     entityScripts_1e: db $6E,$00,$00,$00,$0B,$08,$3E,$00   ;0BA640|        |      ;
+                       db $9F,$00,$00,$00,$26,$08,$04,$00   ;0BA648|        |      ;
+                       db $23,$03,$04,$00,$52,$00,$00,$00   ;0BA650|        |      ;
+                       db $1F,$24,$00,$00,$20,$00,$00,$00   ;0BA658|        |      ;
+                       db $52,$00,$00,$00,$08,$01,$00,$00   ;0BA660|        |      ;
+                       db $20,$00,$00,$00,$04,$01,$00,$00   ;0BA668|        |      ;
  
-     entityScripts_12: db $6E,$00,$00,$00,$0B               ;0BA670|        |      ;
-                       db $08,$3E,$00,$1F,$20               ;0BA675|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA67A|        |      ;
-                       db $00,$26,$08,$04,$00               ;0BA67F|        |      ;
-                       db $23,$03,$04,$00,$26               ;0BA684|        |      ;
-                       db $04,$08,$00,$25,$28               ;0BA689|        |      ;
-                       db $24,$00,$04,$02,$00               ;0BA68E|        |      ;
-                       db $00                               ;0BA693|        |      ;
+     entityScripts_12: db $6E,$00,$00,$00,$0B,$08,$3E,$00   ;0BA670|        |      ;
+                       db $1F,$20,$00,$00,$20,$00,$00,$00   ;0BA678|        |      ;
+                       db $26,$08,$04,$00,$23,$03,$04,$00   ;0BA680|        |      ;
+                       db $26,$04,$08,$00,$25,$28,$24,$00   ;0BA688|        |      ;
+                       db $04,$02,$00,$00                   ;0BA690|        |      ;
  
-     entityScripts_2f: db $6E,$00,$00,$00,$0B               ;0BA694|        |      ;
-                       db $08,$40,$00,$1F,$20               ;0BA699|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA69E|        |      ;
-                       db $00,$26,$08,$04,$00               ;0BA6A3|        |      ;
-                       db $23,$03,$04,$00,$26               ;0BA6A8|        |      ;
-                       db $04,$08,$00,$25,$28               ;0BA6AD|        |      ;
-                       db $24,$00,$04,$02,$00               ;0BA6B2|        |      ;
-                       db $00                               ;0BA6B7|        |      ;
+     entityScripts_2f: db $6E,$00,$00,$00,$0B,$08,$40,$00   ;0BA694|        |      ;
+                       db $1F,$20,$00,$00,$20,$00,$00,$00   ;0BA69C|        |      ;
+                       db $26,$08,$04,$00,$23,$03,$04,$00   ;0BA6A4|        |      ;
+                       db $26,$04,$08,$00,$25,$28,$24,$00   ;0BA6AC|        |      ;
+                       db $04,$02,$00,$00                   ;0BA6B4|        |      ;
  
-     entityScripts_69: db $2D,$00,$00,$00,$1F               ;0BA6B8|        |      ;
-                       db $10,$00,$00,$20,$00               ;0BA6BD|        |      ;
-                       db $00,$00,$0B,$08,$4C               ;0BA6C2|        |      ;
-                       db $00,$93,$00,$00,$00               ;0BA6C7|        |      ;
-                       db $94,$00,$00,$00,$21               ;0BA6CC|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BA6D1|        |      ;
-                       db $4E,$00,$10,$00,$00               ;0BA6D6|        |      ;
-                       db $00,$0B,$08,$4C,$00               ;0BA6DB|        |      ;
-                       db $1F,$08,$00,$00,$20               ;0BA6E0|        |      ;
-                       db $00,$00,$00,$04,$06               ;0BA6E5|        |      ;
-                       db $00,$00                           ;0BA6EA|        |      ;
+     entityScripts_69: db $2D,$00,$00,$00,$1F,$10,$00,$00   ;0BA6B8|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$4C,$00   ;0BA6C0|        |      ;
+                       db $93,$00,$00,$00,$94,$00,$00,$00   ;0BA6C8|        |      ;
+                       db $21,$00,$00,$00,$0B,$08,$4E,$00   ;0BA6D0|        |      ;
+                       db $10,$00,$00,$00,$0B,$08,$4C,$00   ;0BA6D8|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BA6E0|        |      ;
+                       db $04,$06,$00,$00                   ;0BA6E8|        |      ;
  
-     entityScripts_0e: db $01,$00,$00,$00,$91               ;0BA6EC|        |      ;
-                       db $00,$00,$00,$06,$00               ;0BA6F1|        |      ;
-                       db $00,$00,$1F,$28,$00               ;0BA6F6|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BA6FB|        |      ;
-                       db $21,$00,$00,$00,$0B               ;0BA700|        |      ;
-                       db $08,$4E,$00,$10,$00               ;0BA705|        |      ;
-                       db $00,$00,$0B,$08,$4C               ;0BA70A|        |      ;
-                       db $00,$1F,$08,$00,$00               ;0BA70F|        |      ;
-                       db $20,$00,$00,$00,$04               ;0BA714|        |      ;
-                       db $05,$00,$00                       ;0BA719|        |      ;
+     entityScripts_0e: db $01,$00,$00,$00,$91,$00,$00,$00   ;0BA6EC|        |      ;
+                       db $06,$00,$00,$00,$1F,$28,$00,$00   ;0BA6F4|        |      ;
+                       db $20,$00,$00,$00,$21,$00,$00,$00   ;0BA6FC|        |      ;
+                       db $0B,$08,$4E,$00,$10,$00,$00,$00   ;0BA704|        |      ;
+                       db $0B,$08,$4C,$00,$1F,$08,$00,$00   ;0BA70C|        |      ;
+                       db $20,$00,$00,$00,$04,$05,$00,$00   ;0BA714|        |      ;
  
-     entityScripts_05: db $07,$01,$40,$00,$11               ;0BA71C|        |      ;
-                       db $04,$00,$00,$12,$00               ;0BA721|        |      ;
-                       db $00,$00                           ;0BA726|        |      ;
+     entityScripts_05: db $07,$01,$40,$00,$11,$04,$00,$00   ;0BA71C|        |      ;
+                       db $12,$00,$00,$00                   ;0BA724|        |      ;
  
-     entityScripts_66: db $2D,$00,$00,$00,$1E               ;0BA728|        |      ;
-                       db $01,$40,$00,$13,$08               ;0BA72D|        |      ;
-                       db $24,$00,$11,$04,$00               ;0BA732|        |      ;
-                       db $00,$12,$00,$00,$00               ;0BA737|        |      ;
+     entityScripts_66: db $2D,$00,$00,$00,$1E,$01,$40,$00   ;0BA728|        |      ;
+                       db $13,$08,$24,$00,$11,$04,$00,$00   ;0BA730|        |      ;
+                       db $12,$00,$00,$00                   ;0BA738|        |      ;
  
-     entityScripts_06: db $0B,$08,$1E,$00,$4D               ;0BA73C|        |      ;
-                       db $60,$20,$00,$07,$01               ;0BA741|        |      ;
+     entityScripts_06: db $0B,$08,$1E,$00,$4D,$60,$20,$00   ;0BA73C|        |      ;
+                       db $07,$01,$40,$00,$6F,$00,$20,$00   ;0BA744|        |      ;
+                       db $70,$0A,$00,$00,$11,$04,$00,$00   ;0BA74C|        |      ;
+                       db $12,$00,$00,$00                   ;0BA754|        |      ;
  
-                       db $40,$00,$6F,$00,$20               ;0BA746|        |      ;
-                       db $00,$70,$0A,$00,$00               ;0BA74B|        |      ;
-                       db $11,$04,$00,$00,$12               ;0BA750|        |      ;
-                       db $00,$00,$00                       ;0BA755|        |      ;
+     entityScripts_6e: db $2D,$00,$00,$00,$1E,$01,$40,$00   ;0BA758|        |      ;
+                       db $13,$14,$06,$00,$11,$04,$00,$00   ;0BA760|        |      ;
+                       db $12,$00,$00,$00                   ;0BA768|        |      ;
  
-     entityScripts_6e: db $2D,$00,$00,$00,$1E               ;0BA758|        |      ;
-                       db $01,$40,$00,$13,$14               ;0BA75D|        |      ;
-                       db $06,$00,$11,$04,$00               ;0BA762|        |      ;
-                       db $00,$12,$00,$00,$00               ;0BA767|        |      ;
+     entityScripts_63: db $2D,$00,$00,$00,$54,$00,$00,$00   ;0BA76C|        |      ;
+                       db $0B,$12,$02,$00,$7E,$00,$00,$00   ;0BA774|        |      ;
+                       db $7D,$40,$00,$00,$0B,$12,$04,$00   ;0BA77C|        |      ;
+                       db $1F,$03,$00,$00,$20,$00,$00,$00   ;0BA784|        |      ;
+                       db $0B,$12,$06,$00,$1F,$10,$00,$00   ;0BA78C|        |      ;
+                       db $20,$00,$00,$00,$53,$00,$00,$00   ;0BA794|        |      ;
+                       db $0B,$12,$08,$00,$1F,$10,$00,$00   ;0BA79C|        |      ;
+                       db $20,$00,$00,$00,$83,$00,$00,$00   ;0BA7A4|        |      ;
+                       db $2A,$00,$00,$00,$1F,$06,$00,$00   ;0BA7AC|        |      ;
+                       db $20,$00,$00,$00,$01,$00,$00,$00   ;0BA7B4|        |      ;
+                       db $1F,$04,$00,$00,$20,$00,$00,$00   ;0BA7BC|        |      ;
+                       db $2A,$00,$00,$00,$0B,$12,$0A,$00   ;0BA7C4|        |      ;
+                       db $7F,$00,$00,$00,$80,$00,$00,$00   ;0BA7CC|        |      ;
+                       db $81,$00,$00,$00,$01,$00,$00,$00   ;0BA7D4|        |      ;
+                       db $05,$00,$00,$00,$1F,$20,$00,$00   ;0BA7DC|        |      ;
+                       db $20,$00,$00,$00,$0B,$12,$0A,$00   ;0BA7E4|        |      ;
+                       db $2A,$00,$00,$00,$7F,$00,$00,$00   ;0BA7EC|        |      ;
+                       db $80,$00,$00,$00,$82,$00,$00,$00   ;0BA7F4|        |      ;
  
-     entityScripts_63: db $2D,$00,$00,$00,$54               ;0BA76C|        |      ;
-                       db $00,$00,$00,$0B,$12               ;0BA771|        |      ;
-                       db $02,$00,$7E,$00,$00               ;0BA776|        |      ;
-                       db $00,$7D,$40,$00,$00               ;0BA77B|        |      ;
-                       db $0B,$12,$04,$00,$1F               ;0BA780|        |      ;
-                       db $03,$00,$00,$20,$00               ;0BA785|        |      ;
-                       db $00,$00,$0B,$12,$06               ;0BA78A|        |      ;
-                       db $00,$1F,$10,$00,$00               ;0BA78F|        |      ;
-                       db $20,$00,$00,$00,$53               ;0BA794|        |      ;
-                       db $00,$00,$00,$0B,$12               ;0BA799|        |      ;
-                       db $08,$00,$1F,$10,$00               ;0BA79E|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BA7A3|        |      ;
-                       db $83,$00,$00,$00,$2A               ;0BA7A8|        |      ;
-                       db $00,$00,$00,$1F,$06               ;0BA7AD|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA7B2|        |      ;
-                       db $00,$01,$00,$00,$00               ;0BA7B7|        |      ;
-                       db $1F,$04,$00,$00,$20               ;0BA7BC|        |      ;
-                       db $00,$00,$00,$2A,$00               ;0BA7C1|        |      ;
-                       db $00,$00,$0B,$12,$0A               ;0BA7C6|        |      ;
-                       db $00,$7F,$00,$00,$00               ;0BA7CB|        |      ;
-                       db $80,$00,$00,$00,$81               ;0BA7D0|        |      ;
-                       db $00,$00,$00,$01,$00               ;0BA7D5|        |      ;
-                       db $00,$00,$05,$00,$00               ;0BA7DA|        |      ;
-                       db $00,$1F,$20,$00,$00               ;0BA7DF|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BA7E4|        |      ;
-                       db $12,$0A,$00,$2A,$00               ;0BA7E9|        |      ;
-                       db $00,$00,$7F,$00,$00               ;0BA7EE|        |      ;
-                       db $00,$80,$00,$00,$00               ;0BA7F3|        |      ;
-                       db $82,$00,$00,$00                   ;0BA7F8|        |      ;
+     entityScripts_65: db $2D,$00,$00,$00,$1E,$02,$10,$00   ;0BA7FC|        |      ;
+                       db $13,$12,$08,$00,$0C,$40,$00,$00   ;0BA804|        |      ;
+                       db $92,$00,$00,$00,$20,$00,$00,$00   ;0BA80C|        |      ;
+                       db $0B,$12,$76,$00,$1F,$10,$00,$00   ;0BA814|        |      ;
+                       db $20,$00,$00,$00,$2A,$00,$00,$00   ;0BA81C|        |      ;
+                       db $13,$12,$09,$00,$00,$00,$00,$00   ;0BA824|        |      ;
  
-     entityScripts_65: db $2D,$00,$00,$00,$1E               ;0BA7FC|        |      ;
-                       db $02,$10,$00,$13,$12               ;0BA801|        |      ;
-                       db $08,$00,$0C,$40,$00               ;0BA806|        |      ;
-                       db $00,$92,$00,$00,$00               ;0BA80B|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BA810|        |      ;
-                       db $12,$76,$00,$1F,$10               ;0BA815|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA81A|        |      ;
-                       db $00,$2A,$00,$00,$00               ;0BA81F|        |      ;
-                       db $13,$12,$09,$00,$00               ;0BA824|        |      ;
-                       db $00,$00,$00                       ;0BA829|        |      ;
+     entityScripts_11: db $28,$00,$00,$00,$29,$00,$00,$00   ;0BA82C|        |      ;
+                       db $1F,$0A,$00,$00,$20,$00,$00,$00   ;0BA834|        |      ;
+                       db $8F,$00,$00,$00,$1F,$08,$00,$00   ;0BA83C|        |      ;
+                       db $20,$00,$00,$00,$2C,$00,$00,$00   ;0BA844|        |      ;
  
-     entityScripts_11: db $28,$00,$00,$00,$29               ;0BA82C|        |      ;
-                       db $00,$00,$00,$1F,$0A               ;0BA831|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA836|        |      ;
-                       db $00,$8F,$00,$00,$00               ;0BA83B|        |      ;
-                       db $1F,$08,$00,$00,$20               ;0BA840|        |      ;
-                       db $00,$00,$00,$2C,$00               ;0BA845|        |      ;
-                       db $00,$00                           ;0BA84A|        |      ;
+     entityScripts_2b: db $13,$12,$05,$00,$1E,$00,$60,$00   ;0BA84C|        |      ;
+                       db $6B,$00,$00,$00,$6D,$00,$00,$00   ;0BA854|        |      ;
+                       db $04,$01,$00,$00                   ;0BA85C|        |      ;
  
-     entityScripts_2b: db $13,$12,$05,$00,$1E               ;0BA84C|        |      ;
-                       db $00,$60,$00,$6B,$00               ;0BA851|        |      ;
-                       db $00,$00,$6D,$00,$00               ;0BA856|        |      ;
-                       db $00,$04,$01,$00,$00               ;0BA85B|        |      ;
+     entityScripts_71: db $13,$14,$09,$00,$1E,$00,$90,$00   ;0BA860|        |      ;
+                       db $6B,$00,$00,$00,$6D,$00,$00,$00   ;0BA868|        |      ;
+                       db $04,$00,$00,$00,$0B,$14,$64,$00   ;0BA870|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BA878|        |      ;
+                       db $0B,$08,$FE,$00,$1F,$16,$00,$00   ;0BA880|        |      ;
+                       db $20,$00,$00,$00,$0B,$14,$64,$00   ;0BA888|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BA890|        |      ;
+                       db $04,$00,$00,$00                   ;0BA898|        |      ;
  
-     entityScripts_71: db $13,$14,$09,$00,$1E               ;0BA860|        |      ;
-                       db $00,$90,$00,$6B,$00               ;0BA865|        |      ;
-                       db $00,$00,$6D,$00,$00               ;0BA86A|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BA86F|        |      ;
-                       db $0B,$14,$64,$00,$1F               ;0BA874|        |      ;
-                       db $08,$00,$00,$20,$00               ;0BA879|        |      ;
-                       db $00,$00,$0B,$08,$FE               ;0BA87E|        |      ;
-                       db $00,$1F,$16,$00,$00               ;0BA883|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BA888|        |      ;
-                       db $14,$64,$00,$1F,$08               ;0BA88D|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA892|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BA897|        |      ;
+     entityScripts_68: db $13,$08,$25,$00,$54,$00,$00,$00   ;0BA89C|        |      ;
+                       db $8E,$00,$00,$00,$20,$00,$00,$00   ;0BA8A4|        |      ;
+                       db $53,$00,$00,$00,$2A,$00,$00,$00   ;0BA8AC|        |      ;
+                       db $13,$08,$23,$00,$1F,$16,$00,$00   ;0BA8B4|        |      ;
+                       db $20,$00,$00,$00,$13,$08,$02,$00   ;0BA8BC|        |      ;
+                       db $57,$00,$00,$00,$1F,$20,$00,$00   ;0BA8C4|        |      ;
+                       db $20,$00,$00,$00,$04,$0A,$00,$00   ;0BA8CC|        |      ;
  
-     entityScripts_68: db $13,$08,$25,$00,$54               ;0BA89C|        |      ;
-                       db $00,$00,$00,$8E,$00               ;0BA8A1|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA8A6|        |      ;
-                       db $00,$53,$00,$00,$00               ;0BA8AB|        |      ;
-                       db $2A,$00,$00,$00,$13               ;0BA8B0|        |      ;
-                       db $08,$23,$00,$1F,$16               ;0BA8B5|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA8BA|        |      ;
-                       db $00,$13,$08,$02,$00               ;0BA8BF|        |      ;
-                       db $57,$00,$00,$00,$1F               ;0BA8C4|        |      ;
-                       db $20,$00,$00,$20,$00               ;0BA8C9|        |      ;
-                       db $00,$00,$04,$0A,$00               ;0BA8CE|        |      ;
-                       db $00                               ;0BA8D3|        |      ;
+     entityScripts_08: db $13,$08,$23,$00,$2A,$00,$00,$00   ;0BA8D4|        |      ;
+                       db $1F,$16,$00,$00,$20,$00,$00,$00   ;0BA8DC|        |      ;
+                       db $13,$08,$02,$00,$57,$00,$00,$00   ;0BA8E4|        |      ;
+                       db $1F,$20,$00,$00,$20,$00,$00,$00   ;0BA8EC|        |      ;
+                       db $04,$05,$00,$00                   ;0BA8F4|        |      ;
  
-     entityScripts_08: db $13,$08,$23,$00,$2A               ;0BA8D4|        |      ;
-                       db $00,$00,$00,$1F,$16               ;0BA8D9|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA8DE|        |      ;
-                       db $00,$13,$08,$02,$00               ;0BA8E3|        |      ;
-                       db $57,$00,$00,$00,$1F               ;0BA8E8|        |      ;
-                       db $20,$00,$00,$20,$00               ;0BA8ED|        |      ;
-                       db $00,$00,$04,$05,$00               ;0BA8F2|        |      ;
-                       db $00                               ;0BA8F7|        |      ;
+     entityScripts_13: db $13,$08,$26,$00,$1E,$00,$60,$00   ;0BA8F8|        |      ; behavior 55 push
+                       db $1F,$C0,$00,$00,$2F,$00,$00,$00   ;0BA900|        |      ; colusion behavier??
+                       db $6D,$00,$00,$00,$04,$01,$00,$00   ;0BA908|        |      ;
  
-     entityScripts_13: db $13,$08,$26,$00,$1E               ;0BA8F8|        |      ; behavior 55 push
-                       db $00,$60,$00,$1F,$C0               ;0BA8FD|        |      ; xSpeed walking Skelly
-                       db $00,$00,$2F,$00,$00               ;0BA902|        |      ;
-                       db $00,$6D,$00,$00,$00               ;0BA907|        |      ;
-                       db $04,$01,$00,$00                   ;0BA90C|        |      ; behavior
+     entityScripts_09: db $07,$00,$90,$00,$35,$00,$00,$00   ;0BA910|        |      ;
+                       db $34,$00,$00,$00,$33,$0B,$00,$00   ;0BA918|        |      ;
+                       db $97,$00,$00,$00,$13,$08,$17,$00   ;0BA920|        |      ;
+                       db $1F,$0F,$00,$00,$20,$00,$00,$00   ;0BA928|        |      ;
+                       db $0D,$04,$00,$00,$1F,$30,$00,$00   ;0BA930|        |      ;
+                       db $04,$00,$00,$00,$1D,$04,$06,$00   ;0BA938|        |      ;
  
-     entityScripts_09: db $07,$00,$90,$00,$35               ;0BA910|        |      ;
-                       db $00,$00,$00,$34,$00               ;0BA915|        |      ;
-                       db $00,$00,$33,$0B,$00               ;0BA91A|        |      ;
-                       db $00,$97,$00,$00,$00               ;0BA91F|        |      ;
-                       db $13,$08,$17,$00,$1F               ;0BA924|        |      ;
-                       db $0F,$00,$00,$20,$00               ;0BA929|        |      ;
-                       db $00,$00,$0D,$04,$00               ;0BA92E|        |      ;
-                       db $00,$1F,$30,$00,$00               ;0BA933|        |      ;
-                       db $04,$00,$00,$00,$1D               ;0BA938|        |      ;
-                       db $04,$06,$00                       ;0BA93D|        |      ;
- 
-     entityScripts_17: db $30,$03,$00,$00,$07               ;0BA940|        |      ;
-                       db $00,$80,$00,$1F,$60               ;0BA945|        |      ;
-                       db $00,$00,$2F,$00,$00               ;0BA94A|        |      ;
-                       db $00,$04,$01,$00,$00               ;0BA94F|        |      ;
-                       db $54,$00,$00,$00,$01               ;0BA954|        |      ;
-                       db $00,$00,$00,$13,$08               ;0BA959|        |      ;
-                       db $22,$00,$1F,$38,$00               ;0BA95E|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BA963|        |      ;
-                       db $2D,$00,$00,$00,$1F               ;0BA968|        |      ;
-                       db $50,$00,$00,$20,$00               ;0BA96D|        |      ;
-                       db $00,$00,$0B,$08,$9E               ;0BA972|        |      ;
-                       db $00,$1F,$18,$00,$00               ;0BA977|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BA97C|        |      ;
-                       db $08,$9C,$00,$1F,$18               ;0BA981|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA986|        |      ;
-                       db $00,$53,$00,$00,$00               ;0BA98B|        |      ;
+     entityScripts_17: db $30,$03,$00,$00,$07,$00,$80,$00   ;0BA940|        |      ;
+                       db $1F,$60,$00,$00,$2F,$00,$00,$00   ;0BA948|        |      ;
+                       db $04,$01,$00,$00,$54,$00,$00,$00   ;0BA950|        |      ;
+                       db $01,$00,$00,$00,$13,$08,$22,$00   ;0BA958|        |      ;
+                       db $1F,$38,$00,$00,$20,$00,$00,$00   ;0BA960|        |      ;
+                       db $2D,$00,$00,$00,$1F,$50,$00,$00   ;0BA968|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$9E,$00   ;0BA970|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BA978|        |      ;
+                       db $0B,$08,$9C,$00,$1F,$18,$00,$00   ;0BA980|        |      ;
+                       db $20,$00,$00,$00,$53,$00,$00,$00   ;0BA988|        |      ;
                        db $04,$01,$00,$00                   ;0BA990|        |      ;
  
-     entityScripts_21: db $30,$03,$00,$00,$07               ;0BA994|        |      ;
-                       db $00,$80,$00,$35,$00               ;0BA999|        |      ;
-                       db $00,$00,$3B,$00,$00               ;0BA99E|        |      ;
-                       db $00,$6D,$00,$00,$00               ;0BA9A3|        |      ;
-                       db $04,$00,$00,$00,$36               ;0BA9A8|        |      ;
-                       db $48,$00,$00,$97,$00               ;0BA9AD|        |      ;
-                       db $00,$00,$0B,$08,$AC               ;0BA9B2|        |      ;
-                       db $00,$1F,$08,$00,$00               ;0BA9B7|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BA9BC|        |      ;
-                       db $08,$EE,$00,$1F,$08               ;0BA9C1|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BA9C6|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BA9CB|        |      ;
-                       db $54,$00,$00,$00,$97               ;0BA9D0|        |      ;
-                       db $00,$00,$00,$13,$08               ;0BA9D5|        |      ;
-                       db $22,$00,$1F,$38,$00               ;0BA9DA|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BA9DF|        |      ;
-                       db $2D,$00,$00,$00,$1F               ;0BA9E4|        |      ;
-                       db $50,$00,$00,$20,$00               ;0BA9E9|        |      ;
-                       db $00,$00,$0B,$08,$9E               ;0BA9EE|        |      ;
-                       db $00,$1F,$18,$00,$00               ;0BA9F3|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BA9F8|        |      ;
-                       db $08,$9C,$00,$1F,$18               ;0BA9FD|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAA02|        |      ;
-                       db $00,$53,$00,$00,$00               ;0BAA07|        |      ;
+     entityScripts_21: db $30,$03,$00,$00,$07,$00,$80,$00   ;0BA994|        |      ;
+                       db $35,$00,$00,$00,$3B,$00,$00,$00   ;0BA99C|        |      ;
+                       db $6D,$00,$00,$00,$04,$00,$00,$00   ;0BA9A4|        |      ;
+                       db $36,$48,$00,$00,$97,$00,$00,$00   ;0BA9AC|        |      ;
+                       db $0B,$08,$AC,$00,$1F,$08,$00,$00   ;0BA9B4|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$EE,$00   ;0BA9BC|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BA9C4|        |      ;
+                       db $04,$00,$00,$00,$54,$00,$00,$00   ;0BA9CC|        |      ;
+                       db $97,$00,$00,$00,$13,$08,$22,$00   ;0BA9D4|        |      ;
+                       db $1F,$38,$00,$00,$20,$00,$00,$00   ;0BA9DC|        |      ;
+                       db $2D,$00,$00,$00,$1F,$50,$00,$00   ;0BA9E4|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$9E,$00   ;0BA9EC|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BA9F4|        |      ;
+                       db $0B,$08,$9C,$00,$1F,$18,$00,$00   ;0BA9FC|        |      ;
+                       db $20,$00,$00,$00,$53,$00,$00,$00   ;0BAA04|        |      ;
                        db $04,$01,$00,$00                   ;0BAA0C|        |      ;
  
-     entityScripts_0a: db $07,$00,$90,$00,$35               ;0BAA10|        |      ;
-                       db $00,$00,$00,$34,$00               ;0BAA15|        |      ;
-                       db $00,$00,$33,$12,$00               ;0BAA1A|        |      ;
-                       db $00,$36,$40,$00,$00               ;0BAA1F|        |      ;
-                       db $97,$00,$00,$00,$0B               ;0BAA24|        |      ;
-                       db $08,$AC,$00,$1F,$08               ;0BAA29|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAA2E|        |      ;
-                       db $00,$0B,$08,$EE,$00               ;0BAA33|        |      ;
-                       db $1F,$08,$00,$00,$20               ;0BAA38|        |      ;
-                       db $00,$00,$00,$04,$00               ;0BAA3D|        |      ;
-                       db $00,$00,$1D,$04,$06               ;0BAA42|        |      ;
-                       db $00                               ;0BAA47|        |      ;
+     entityScripts_0a: db $07,$00,$90,$00,$35,$00,$00,$00   ;0BAA10|        |      ;
+                       db $34,$00,$00,$00,$33,$12,$00,$00   ;0BAA18|        |      ;
+                       db $36,$40,$00,$00,$97,$00,$00,$00   ;0BAA20|        |      ;
+                       db $0B,$08,$AC,$00,$1F,$08,$00,$00   ;0BAA28|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$EE,$00   ;0BAA30|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BAA38|        |      ;
+                       db $04,$00,$00,$00,$1D,$04,$06,$00   ;0BAA40|        |      ;
  
-     entityScripts_0b: db $07,$01,$14,$00,$1F               ;0BAA48|        |      ;
-                       db $20,$00,$00,$20,$00               ;0BAA4D|        |      ;
-                       db $00,$00,$2D,$00,$00               ;0BAA52|        |      ;
-                       db $00,$0B,$08,$5C,$00               ;0BAA57|        |      ;
-                       db $1F,$10,$00,$00,$20               ;0BAA5C|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BAA61|        |      ;
-                       db $5E,$00,$1F,$10,$00               ;0BAA66|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAA6B|        |      ;
-                       db $0B,$08,$5C,$00,$1F               ;0BAA70|        |      ;
-                       db $04,$00,$00,$20,$00               ;0BAA75|        |      ;
-                       db $00,$00,$0D,$02,$00               ;0BAA7A|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BAA7F|        |      ;
+     entityScripts_0b: db $07,$01,$14,$00,$1F,$20,$00,$00   ;0BAA48|        |      ;
+                       db $20,$00,$00,$00,$2D,$00,$00,$00   ;0BAA50|        |      ;
+                       db $0B,$08,$5C,$00,$1F,$10,$00,$00   ;0BAA58|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$5E,$00   ;0BAA60|        |      ;
+                       db $1F,$10,$00,$00,$20,$00,$00,$00   ;0BAA68|        |      ;
+                       db $0B,$08,$5C,$00,$1F,$04,$00,$00   ;0BAA70|        |      ;
+                       db $20,$00,$00,$00,$0D,$02,$00,$00   ;0BAA78|        |      ;
+                       db $04,$00,$00,$00                   ;0BAA80|        |      ;
  
-     entityScripts_0c: db $07,$00,$60,$00,$58               ;0BAA84|        |      ;
-                       db $04,$FF,$FF,$59,$00               ;0BAA89|        |      ;
-                       db $00,$00,$57,$00,$00               ;0BAA8E|        |      ;
-                       db $00,$1F,$20,$00,$00               ;0BAA93|        |      ;
-                       db $20,$00,$00,$00,$04               ;0BAA98|        |      ;
-                       db $00,$00,$00                       ;0BAA9D|        |      ;
+     entityScripts_0c: db $07,$00,$60,$00,$58,$04,$FF,$FF   ;0BAA84|        |      ;
+                       db $59,$00,$00,$00,$57,$00,$00,$00   ;0BAA8C|        |      ;
+                       db $1F,$20,$00,$00,$20,$00,$00,$00   ;0BAA94|        |      ;
+                       db $04,$00,$00,$00                   ;0BAA9C|        |      ;
  
-     entityScripts_22: db $13,$08,$20,$00,$4D               ;0BAAA0|        |      ;
-                       db $20,$20,$00                       ;0BAAA5|        |      ;
+     entityScripts_22: db $13,$08,$20,$00,$4D,$20,$20,$00   ;0BAAA0|        |      ;
  
-     entityScripts_23: db $13,$08,$21,$00,$1F               ;0BAAA8|        |      ;
-                       db $2E,$00,$00,$20,$00               ;0BAAAD|        |      ;
-                       db $00,$00,$02,$00,$00               ;0BAAB2|        |      ;
-                       db $00,$27,$00,$00,$00               ;0BAAB7|        |      ;
+     entityScripts_23: db $13,$08,$21,$00,$1F,$2E,$00,$00   ;0BAAA8|        |      ;
+                       db $20,$00,$00,$00,$02,$00,$00,$00   ;0BAAB0|        |      ;
+                       db $27,$00,$00,$00                   ;0BAAB8|        |      ;
  
-     entityScripts_20: db $13,$08,$1E,$00,$1F               ;0BAABC|        |      ;
-                       db $2E,$00,$00,$20,$00               ;0BAAC1|        |      ;
-                       db $00,$00,$02,$00,$00               ;0BAAC6|        |      ;
-                       db $00,$27,$00,$00,$00               ;0BAACB|        |      ;
+     entityScripts_20: db $13,$08,$1E,$00,$1F,$2E,$00,$00   ;0BAABC|        |      ;
+                       db $20,$00,$00,$00,$02,$00,$00,$00   ;0BAAC4|        |      ;
+                       db $27,$00,$00,$00                   ;0BAACC|        |      ;
  
-     entityScripts_0d: db $07,$01,$10,$00,$73               ;0BAAD0|        |      ;
-                       db $00,$00,$00,$74,$00               ;0BAAD5|        |      ;
-                       db $00,$00                           ;0BAADA|        |      ;
+     entityScripts_0d: db $07,$01,$10,$00,$73,$00,$00,$00   ;0BAAD0|        |      ;
+                       db $74,$00,$00,$00                   ;0BAAD8|        |      ;
  
-     entityScripts_03: db $8D,$00,$00,$00,$4D               ;0BAADC|        |      ; 04
-                       db $78,$80,$00,$8C,$00               ;0BAAE1|        |      ;
-                       db $00,$00,$47,$00,$00               ;0BAAE6|        |      ;
-                       db $00,$48,$00,$00,$00               ;0BAAEB|        |      ;
-                       db $49,$00,$00,$00                   ;0BAAF0|        |      ;
+     entityScripts_03: db $8D,$00,$00,$00,$4D,$78,$80,$00   ;0BAADC|        |      ; 04
+                       db $8C,$00,$00,$00,$47,$00,$00,$00   ;0BAAE4|        |      ;
+                       db $48,$00,$00,$00,$49,$00,$00,$00   ;0BAAEC|        |      ;
  
-     entityScripts_0f: db $0B,$08,$62,$00,$1F               ;0BAAF4|        |      ;
-                       db $20,$00,$00,$20,$00               ;0BAAF9|        |      ;
-                       db $00,$00,$0F,$00,$00               ;0BAAFE|        |      ;
-                       db $00,$0B,$08,$64,$00               ;0BAB03|        |      ;
-                       db $44,$17,$00,$00,$0B               ;0BAB08|        |      ;
-                       db $08,$62,$00,$1F,$10               ;0BAB0D|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAB12|        |      ;
-                       db $00,$3C,$01,$0A,$00               ;0BAB17|        |      ;
-                       db $0B,$08,$66,$00,$3E               ;0BAB1C|        |      ;
-                       db $00,$00,$00,$3D,$17               ;0BAB21|        |      ;
-                       db $00,$00,$0B,$08,$38               ;0BAB26|        |      ;
-                       db $00,$1F,$10,$00,$00               ;0BAB2B|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BAB30|        |      ;
-                       db $08,$3A,$00,$40,$00               ;0BAB35|        |      ;
-                       db $00,$00,$41,$00,$00               ;0BAB3A|        |      ;
-                       db $00,$3C,$0D,$14,$00               ;0BAB3F|        |      ;
-                       db $43,$01,$80,$00,$3F               ;0BAB44|        |      ;
-                       db $00,$00,$00,$04,$00               ;0BAB49|        |      ;
-                       db $00,$00,$1F,$40,$00               ;0BAB4E|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAB53|        |      ;
-                       db $42,$01,$80,$00,$0B               ;0BAB58|        |      ;
-                       db $08,$3C,$00,$3F,$00               ;0BAB5D|        |      ;
-                       db $00,$00,$04,$00,$00               ;0BAB62|        |      ;
-                       db $00                               ;0BAB67|        |      ;
+     entityScripts_0f: db $0B,$08,$62,$00,$1F,$20,$00,$00   ;0BAAF4|        |      ;
+                       db $20,$00,$00,$00,$0F,$00,$00,$00   ;0BAAFC|        |      ;
+                       db $0B,$08,$64,$00,$44,$17,$00,$00   ;0BAB04|        |      ;
+                       db $0B,$08,$62,$00,$1F,$10,$00,$00   ;0BAB0C|        |      ;
+                       db $20,$00,$00,$00,$3C,$01,$0A,$00   ;0BAB14|        |      ;
+                       db $0B,$08,$66,$00,$3E,$00,$00,$00   ;0BAB1C|        |      ;
+                       db $3D,$17,$00,$00,$0B,$08,$38,$00   ;0BAB24|        |      ;
+                       db $1F,$10,$00,$00,$20,$00,$00,$00   ;0BAB2C|        |      ;
+                       db $0B,$08,$3A,$00,$40,$00,$00,$00   ;0BAB34|        |      ;
+                       db $41,$00,$00,$00,$3C,$0D,$14,$00   ;0BAB3C|        |      ;
+                       db $43,$01,$80,$00,$3F,$00,$00,$00   ;0BAB44|        |      ;
+                       db $04,$00,$00,$00,$1F,$40,$00,$00   ;0BAB4C|        |      ;
+                       db $20,$00,$00,$00,$42,$01,$80,$00   ;0BAB54|        |      ;
+                       db $0B,$08,$3C,$00,$3F,$00,$00,$00   ;0BAB5C|        |      ;
+                       db $04,$00,$00,$00                   ;0BAB64|        |      ;
  
-     entityScripts_10: db $07,$00,$80,$00,$35               ;0BAB68|        |      ;
-                       db $00,$00,$00,$3B,$00               ;0BAB6D|        |      ;
-                       db $00,$00,$6D,$00,$00               ;0BAB72|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BAB77|        |      ;
-                       db $0B,$08,$B4,$00,$1F               ;0BAB7C|        |      ;
-                       db $08,$00,$00,$20,$00               ;0BAB81|        |      ;
+     entityScripts_10: db $07,$00,$80,$00,$35,$00,$00,$00   ;0BAB68|        |      ;
+                       db $3B,$00,$00,$00,$6D,$00,$00,$00   ;0BAB70|        |      ;
+                       db $04,$00,$00,$00,$0B,$08,$B4,$00   ;0BAB78|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BAB80|        |      ;
+                       db $3A,$08,$B6,$00,$1F,$08,$00,$00   ;0BAB88|        |      ;
+                       db $20,$00,$00,$00,$3A,$08,$F0,$00   ;0BAB90|        |      ;
+                       db $1F,$10,$00,$00,$20,$00,$00,$00   ;0BAB98|        |      ;
+                       db $3A,$08,$B4,$02,$1F,$08,$00,$00   ;0BABA0|        |      ;
+                       db $20,$00,$00,$00,$04,$00,$00,$00   ;0BABA8|        |      ;
  
-                       db $00,$00,$3A,$08,$B6               ;0BAB86|        |      ;
-                       db $00,$1F,$08,$00,$00               ;0BAB8B|        |      ;
-                       db $20,$00,$00,$00,$3A               ;0BAB90|        |      ;
-                       db $08,$F0,$00,$1F,$10               ;0BAB95|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAB9A|        |      ;
-                       db $00,$3A,$08,$B4,$02               ;0BAB9F|        |      ;
-                       db $1F,$08,$00,$00,$20               ;0BABA4|        |      ;
-                       db $00,$00,$00,$04,$00               ;0BABA9|        |      ;
-                       db $00,$00                           ;0BABAE|        |      ;
+     entityScripts_1c: db $07,$00,$60,$00,$35,$00,$00,$00   ;0BABB0|        |      ;
+                       db $3B,$00,$00,$00,$6D,$00,$00,$00   ;0BABB8|        |      ;
+                       db $04,$00,$00,$00,$3A,$08,$F2,$00   ;0BABC0|        |      ;
+                       db $1F,$04,$00,$00,$20,$00,$00,$00   ;0BABC8|        |      ;
+                       db $3A,$08,$F8,$00,$1F,$04,$00,$00   ;0BABD0|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$F4,$00   ;0BABD8|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BABE0|        |      ;
+                       db $3A,$08,$F2,$02,$1F,$04,$00,$00   ;0BABE8|        |      ;
+                       db $20,$00,$00,$00,$04,$00,$00,$00   ;0BABF0|        |      ;
  
-     entityScripts_1c: db $07,$00,$60,$00,$35               ;0BABB0|        |      ;
-                       db $00,$00,$00,$3B,$00               ;0BABB5|        |      ;
-                       db $00,$00,$6D,$00,$00               ;0BABBA|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BABBF|        |      ;
-                       db $3A,$08,$F2,$00,$1F               ;0BABC4|        |      ;
-                       db $04,$00,$00,$20,$00               ;0BABC9|        |      ;
-                       db $00,$00,$3A,$08,$F8               ;0BABCE|        |      ;
-                       db $00,$1F,$04,$00,$00               ;0BABD3|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BABD8|        |      ;
-                       db $08,$F4,$00,$1F,$08               ;0BABDD|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BABE2|        |      ;
-                       db $00,$3A,$08,$F2,$02               ;0BABE7|        |      ;
-                       db $1F,$04,$00,$00,$20               ;0BABEC|        |      ;
-                       db $00,$00,$00,$04,$00               ;0BABF1|        |      ;
-                       db $00,$00                           ;0BABF6|        |      ;
+     entityScripts_6a: db $98,$00,$00,$00,$68,$18,$2A,$00   ;0BABF8|        |      ;
+                       db $99,$00,$00,$00,$0B,$08,$48,$00   ;0BAC00|        |      ;
+                       db $1F,$06,$00,$00,$20,$00,$00,$00   ;0BAC08|        |      ;
+                       db $07,$00,$70,$00,$1F,$90,$00,$00   ;0BAC10|        |      ;
+                       db $2F,$00,$00,$00,$05,$00,$00,$00   ;0BAC18|        |      ;
+                       db $2D,$00,$00,$00,$0B,$08,$4A,$00   ;0BAC20|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BAC28|        |      ;
+                       db $0D,$03,$00,$00,$1F,$18,$00,$00   ;0BAC30|        |      ;
+                       db $20,$00,$00,$00,$98,$01,$00,$00   ;0BAC38|        |      ;
+                       db $2A,$00,$00,$00,$99,$01,$00,$00   ;0BAC40|        |      ;
+                       db $6C,$23,$00,$00,$27,$00,$00,$00   ;0BAC48|        |      ;
  
-     entityScripts_6a: db $98,$00,$00,$00,$68               ;0BABF8|        |      ;
-                       db $18,$2A,$00,$99,$00               ;0BABFD|        |      ;
-                       db $00,$00,$0B,$08,$48               ;0BAC02|        |      ;
-                       db $00,$1F,$06,$00,$00               ;0BAC07|        |      ;
-                       db $20,$00,$00,$00,$07               ;0BAC0C|        |      ;
-                       db $00,$70,$00,$1F,$90               ;0BAC11|        |      ;
-                       db $00,$00,$2F,$00,$00               ;0BAC16|        |      ;
-                       db $00,$05,$00,$00,$00               ;0BAC1B|        |      ;
-                       db $2D,$00,$00,$00,$0B               ;0BAC20|        |      ;
-                       db $08,$4A,$00,$1F,$18               ;0BAC25|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAC2A|        |      ;
-                       db $00,$0D,$03,$00,$00               ;0BAC2F|        |      ;
-                       db $1F,$18,$00,$00,$20               ;0BAC34|        |      ;
-                       db $00,$00,$00,$98,$01               ;0BAC39|        |      ;
-                       db $00,$00,$2A,$00,$00               ;0BAC3E|        |      ;
-                       db $00,$99,$01,$00,$00               ;0BAC43|        |      ;
-                       db $6C,$23,$00,$00,$27               ;0BAC48|        |      ;
-                       db $00,$00,$00                       ;0BAC4D|        |      ;
+     entityScripts_14: db $09,$00,$00,$00,$05,$00,$00,$00   ;0BAC50|        |      ;
+                       db $0B,$08,$46,$00,$2A,$00,$00,$00   ;0BAC58|        |      ;
+                       db $6C,$22,$00,$00,$63,$F9,$2C,$00   ;0BAC60|        |      ;
+                       db $64,$00,$00,$00,$0B,$08,$48,$00   ;0BAC68|        |      ;
+                       db $1F,$06,$00,$00,$20,$00,$00,$00   ;0BAC70|        |      ;
+                       db $07,$00,$70,$00,$1F,$90,$00,$00   ;0BAC78|        |      ;
+                       db $2F,$00,$00,$00,$05,$00,$00,$00   ;0BAC80|        |      ;
+                       db $2D,$00,$00,$00,$0B,$08,$4A,$00   ;0BAC88|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BAC90|        |      ;
+                       db $0D,$03,$00,$00,$1F,$18,$00,$00   ;0BAC98|        |      ;
+                       db $20,$00,$00,$00,$07,$00,$70,$00   ;0BACA0|        |      ;
+                       db $1F,$90,$00,$00,$2F,$00,$00,$00   ;0BACA8|        |      ;
+                       db $05,$00,$00,$00,$2D,$00,$00,$00   ;0BACB0|        |      ;
+                       db $0B,$08,$4A,$00,$1F,$18,$00,$00   ;0BACB8|        |      ;
+                       db $20,$00,$00,$00,$0D,$03,$00,$00   ;0BACC0|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BACC8|        |      ;
+                       db $63,$FF,$20,$00,$2A,$00,$00,$00   ;0BACD0|        |      ;
+                       db $64,$01,$00,$00,$6C,$23,$00,$00   ;0BACD8|        |      ;
+                       db $27,$00,$00,$00,$9E,$00,$00,$00   ;0BACE0|        |      ;
+                       db $27,$00,$00,$00                   ;0BACE8|        |      ;
  
-     entityScripts_14: db $09,$00,$00,$00,$05               ;0BAC50|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BAC55|        |      ;
-                       db $46,$00,$2A,$00,$00               ;0BAC5A|        |      ;
-                       db $00,$6C,$22,$00,$00               ;0BAC5F|        |      ;
-                       db $63,$F9,$2C,$00,$64               ;0BAC64|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BAC69|        |      ;
-                       db $48,$00,$1F,$06,$00               ;0BAC6E|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAC73|        |      ;
-                       db $07,$00,$70,$00,$1F               ;0BAC78|        |      ;
-                       db $90,$00,$00,$2F,$00               ;0BAC7D|        |      ;
-                       db $00,$00,$05,$00,$00               ;0BAC82|        |      ;
-                       db $00,$2D,$00,$00,$00               ;0BAC87|        |      ;
-                       db $0B,$08,$4A,$00,$1F               ;0BAC8C|        |      ;
-                       db $18,$00,$00,$20,$00               ;0BAC91|        |      ;
-                       db $00,$00,$0D,$03,$00               ;0BAC96|        |      ;
-                       db $00,$1F,$18,$00,$00               ;0BAC9B|        |      ;
-                       db $20,$00,$00,$00,$07               ;0BACA0|        |      ;
-                       db $00,$70,$00,$1F,$90               ;0BACA5|        |      ;
-                       db $00,$00,$2F,$00,$00               ;0BACAA|        |      ;
-                       db $00,$05,$00,$00,$00               ;0BACAF|        |      ;
-                       db $2D,$00,$00,$00,$0B               ;0BACB4|        |      ;
-                       db $08,$4A,$00,$1F,$18               ;0BACB9|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BACBE|        |      ;
-                       db $00,$0D,$03,$00,$00               ;0BACC3|        |      ;
-                       db $1F,$18,$00,$00,$20               ;0BACC8|        |      ;
-                       db $00,$00,$00,$63,$FF               ;0BACCD|        |      ;
-                       db $20,$00,$2A,$00,$00               ;0BACD2|        |      ;
-                       db $00,$64,$01,$00,$00               ;0BACD7|        |      ;
-                       db $6C,$23,$00,$00,$27               ;0BACDC|        |      ;
-                       db $00,$00,$00,$9E,$00               ;0BACE1|        |      ;
-                       db $00,$00,$27,$00,$00               ;0BACE6|        |      ;
-                       db $00                               ;0BACEB|        |      ;
+     entityScripts_27: db $65,$00,$00,$00,$13,$12,$02,$00   ;0BACEC|        |      ;
+                       db $1E,$01,$20,$00,$58,$05,$00,$60   ;0BACF4|        |      ;
+                       db $60,$00,$00,$00,$01,$00,$00,$00   ;0BACFC|        |      ;
  
-     entityScripts_27: db $65,$00,$00,$00,$13               ;0BACEC|        |      ;
-                       db $12,$02,$00,$1E,$01               ;0BACF1|        |      ;
-                       db $20,$00,$58,$05,$00               ;0BACF6|        |      ;
-                       db $60,$60,$00,$00,$00               ;0BACFB|        |      ;
+                       db $05,$00,$00,$00,$62,$00,$F8,$00   ;0BAD04|        |      ;
+                       db $2D,$00,$00,$00,$0B,$08,$42,$00   ;0BAD0C|        |      ;
+                       db $6C,$22,$00,$00,$68,$18,$62,$00   ;0BAD14|        |      ;
  
-                       db $01,$00,$00,$00,$05               ;0BAD00|        |      ;
-                       db $00,$00,$00,$62,$00               ;0BAD05|        |      ;
-                       db $F8,$00,$2D,$00,$00               ;0BAD0A|        |      ;
-                       db $00,$0B,$08,$42,$00               ;0BAD0F|        |      ;
-                       db $6C,$22,$00,$00,$68               ;0BAD14|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BAD1C|        |      ;
+                       db $0B,$08,$4A,$00,$1F,$10,$00,$00   ;0BAD24|        |      ;
+                       db $20,$00,$00,$00,$0D,$03,$00,$00   ;0BAD2C|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BAD34|        |      ;
+                       db $62,$00,$08,$00,$04,$01,$00,$00   ;0BAD3C|        |      ;
+                       db $61,$01,$0A,$00                   ;0BAD44|        |      ;
  
-                       db $18,$62,$00,$1F,$18               ;0BAD19|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAD1E|        |      ;
-                       db $00,$0B,$08,$4A,$00               ;0BAD23|        |      ;
-                       db $1F,$10,$00,$00,$20               ;0BAD28|        |      ;
-                       db $00,$00,$00,$0D,$03               ;0BAD2D|        |      ;
-                       db $00,$00,$1F,$18,$00               ;0BAD32|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAD37|        |      ;
-                       db $62,$00,$08,$00,$04               ;0BAD3C|        |      ;
-                       db $01,$00,$00,$61,$01               ;0BAD41|        |      ;
-                       db $0A,$00                           ;0BAD46|        |      ;
+     entityScripts_29: db $65,$00,$00,$00,$13,$12,$02,$00   ;0BAD48|        |      ;
+                       db $1E,$01,$80,$00,$90,$06,$00,$60   ;0BAD50|        |      ;
+                       db $67,$00,$00,$00,$03,$00,$00,$00   ;0BAD58|        |      ;
+                       db $01,$00,$00,$00,$05,$00,$00,$00   ;0BAD60|        |      ;
+                       db $0B,$08,$46,$00,$2A,$00,$00,$00   ;0BAD68|        |      ;
+                       db $6C,$22,$00,$00,$63,$FA,$24,$00   ;0BAD70|        |      ;
+                       db $68,$18,$2A,$00,$64,$03,$2A,$00   ;0BAD78|        |      ;
+                       db $0B,$08,$48,$00,$1F,$06,$00,$00   ;0BAD80|        |      ;
+                       db $20,$00,$00,$00,$07,$00,$70,$00   ;0BAD88|        |      ;
+                       db $1F,$90,$00,$00,$2F,$00,$00,$00   ;0BAD90|        |      ;
+                       db $05,$00,$00,$00,$2D,$00,$00,$00   ;0BAD98|        |      ;
+                       db $0B,$08,$4A,$00,$1F,$18,$00,$00   ;0BADA0|        |      ;
+                       db $20,$00,$00,$00,$0D,$03,$00,$00   ;0BADA8|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BADB0|        |      ;
+                       db $07,$00,$70,$00,$1F,$90,$00,$00   ;0BADB8|        |      ;
+                       db $2F,$00,$00,$00,$05,$00,$00,$00   ;0BADC0|        |      ;
+                       db $2D,$00,$00,$00,$0B,$08,$4A,$00   ;0BADC8|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BADD0|        |      ;
+                       db $0D,$03,$00,$00,$1F,$18,$00,$00   ;0BADD8|        |      ;
+                       db $20,$00,$00,$00,$63,$FF,$20,$00   ;0BADE0|        |      ;
+                       db $2A,$00,$00,$00,$64,$02,$B0,$00   ;0BADE8|        |      ;
+                       db $6C,$23,$00,$00,$27,$00,$00,$00   ;0BADF0|        |      ;
  
-     entityScripts_29: db $65,$00,$00,$00,$13               ;0BAD48|        |      ;
-                       db $12,$02,$00,$1E,$01               ;0BAD4D|        |      ;
-                       db $80,$00,$90,$06,$00               ;0BAD52|        |      ;
-                       db $60,$67,$00,$00,$00               ;0BAD57|        |      ;
+     entityScripts_28: db $13,$12,$03,$00,$1E,$00,$80,$00   ;0BADF8|        |      ;
+                       db $1F,$40,$00,$00,$66,$00,$00,$00   ;0BAE00|        |      ;
  
-                       db $03,$00,$00,$00,$01               ;0BAD5C|        |      ;
-                       db $00,$00,$00,$05,$00               ;0BAD61|        |      ;
-                       db $00,$00,$0B,$08,$46               ;0BAD66|        |      ;
-                       db $00,$2A,$00,$00,$00               ;0BAD6B|        |      ;
-                       db $6C,$22,$00,$00,$63               ;0BAD70|        |      ;
-                       db $FA,$24,$00,$68,$18               ;0BAD75|        |      ;
-                       db $2A,$00,$64,$03,$2A               ;0BAD7A|        |      ;
-                       db $00,$0B,$08,$48,$00               ;0BAD7F|        |      ;
-                       db $1F,$06,$00,$00,$20               ;0BAD84|        |      ;
-                       db $00,$00,$00,$07,$00               ;0BAD89|        |      ;
-                       db $70,$00,$1F,$90,$00               ;0BAD8E|        |      ;
-                       db $00,$2F,$00,$00,$00               ;0BAD93|        |      ;
-                       db $05,$00,$00,$00,$2D               ;0BAD98|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BAD9D|        |      ;
-                       db $4A,$00,$1F,$18,$00               ;0BADA2|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BADA7|        |      ;
-                       db $0D,$03,$00,$00,$1F               ;0BADAC|        |      ;
-                       db $18,$00,$00,$20,$00               ;0BADB1|        |      ;
-                       db $00,$00,$07,$00,$70               ;0BADB6|        |      ;
-                       db $00,$1F,$90,$00,$00               ;0BADBB|        |      ;
-                       db $2F,$00,$00,$00,$05               ;0BADC0|        |      ;
-                       db $00,$00,$00,$2D,$00               ;0BADC5|        |      ;
-                       db $00,$00,$0B,$08,$4A               ;0BADCA|        |      ;
-                       db $00,$1F,$18,$00,$00               ;0BADCF|        |      ;
-                       db $20,$00,$00,$00,$0D               ;0BADD4|        |      ;
-                       db $03,$00,$00,$1F,$18               ;0BADD9|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BADDE|        |      ;
-                       db $00,$63,$FF,$20,$00               ;0BADE3|        |      ;
-                       db $2A,$00,$00,$00,$64               ;0BADE8|        |      ;
-                       db $02,$B0,$00,$6C,$23               ;0BADED|        |      ;
-                       db $00,$00,$27,$00,$00               ;0BADF2|        |      ;
-                       db $00                               ;0BADF7|        |      ;
+     entityScripts_25: db $5F,$00,$00,$00,$6C,$0F,$00,$00   ;0BAE08|        |      ;
+                       db $0B,$12,$20,$00,$1F,$12,$00,$00   ;0BAE10|        |      ;
+                       db $20,$00,$00,$00,$53,$00,$00,$00   ;0BAE18|        |      ;
+                       db $0B,$12,$22,$00,$1F,$08,$00,$00   ;0BAE20|        |      ;
+                       db $20,$00,$00,$00,$08,$01,$00,$00   ;0BAE28|        |      ;
+                       db $13,$12,$00,$00,$1E,$00,$60,$00   ;0BAE30|        |      ;
+                       db $5E,$00,$00,$00,$0B,$12,$22,$00   ;0BAE38|        |      ;
+                       db $1F,$08,$00,$00,$20,$00,$00,$00   ;0BAE40|        |      ;
+                       db $0B,$12,$20,$00,$1F,$08,$00,$00   ;0BAE48|        |      ;
+                       db $20,$00,$00,$00,$27,$00,$00,$00   ;0BAE50|        |      ;
  
-     entityScripts_28: db $13,$12,$03,$00,$1E               ;0BADF8|        |      ;
-                       db $00,$80,$00,$1F,$40               ;0BADFD|        |      ;
-                       db $00,$00,$66,$00,$00               ;0BAE02|        |      ;
-                       db $00                               ;0BAE07|        |      ;
+     entityScripts_26: db $A7,$05,$00,$00,$89,$A8,$00,$00   ;0BAE58|        |      ;
+                       db $05,$00,$00,$00,$6C,$22,$00,$00   ;0BAE60|        |      ;
+                       db $5B,$01,$00,$00,$68,$00,$67,$00   ;0BAE68|        |      ;
+                       db $2A,$00,$00,$00,$0B,$12,$12,$00   ;0BAE70|        |      ;
+                       db $5C,$00,$00,$00,$68,$00,$67,$00   ;0BAE78|        |      ;
+                       db $1F,$06,$00,$00,$20,$00,$00,$00   ;0BAE80|        |      ;
+                       db $0B,$12,$10,$00,$1F,$20,$00,$00   ;0BAE88|        |      ;
+                       db $20,$00,$00,$00,$05,$00,$00,$00   ;0BAE90|        |      ;
+                       db $5B,$00,$00,$00,$68,$00,$67,$00   ;0BAE98|        |      ;
+                       db $2A,$00,$00,$00,$0B,$12,$12,$00   ;0BAEA0|        |      ;
+                       db $5C,$00,$00,$00,$68,$00,$67,$00   ;0BAEA8|        |      ;
+                       db $04,$0A,$00,$00,$0B,$12,$60,$00   ;0BAEB0|        |      ;
+                       db $1F,$02,$00,$00,$20,$00,$00,$00   ;0BAEB8|        |      ;
+                       db $0B,$12,$62,$00,$1F,$02,$00,$00   ;0BAEC0|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$FA,$00   ;0BAEC8|        |      ;
+                       db $1F,$02,$00,$00,$20,$00,$00,$00   ;0BAED0|        |      ;
+                       db $0B,$08,$FC,$00,$1F,$02,$00,$00   ;0BAED8|        |      ;
+                       db $20,$00,$00,$00,$0B,$08,$FA,$00   ;0BAEE0|        |      ;
+                       db $1F,$02,$00,$00,$20,$00,$00,$00   ;0BAEE8|        |      ;
+                       db $0B,$12,$62,$00,$1F,$02,$00,$00   ;0BAEF0|        |      ;
+                       db $20,$00,$00,$00,$04,$0A,$00,$00   ;0BAEF8|        |      ;
+                       db $68,$00,$67,$00,$8A,$00,$00,$00   ;0BAF00|        |      ;
+                       db $A8,$C0,$00,$00                   ;0BAF08|        |      ;
  
-     entityScripts_25: db $5F,$00,$00,$00,$6C               ;0BAE08|        |      ;
-                       db $0F,$00,$00,$0B,$12               ;0BAE0D|        |      ;
-                       db $20,$00,$1F,$12,$00               ;0BAE12|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAE17|        |      ;
-                       db $53,$00,$00,$00,$0B               ;0BAE1C|        |      ;
-                       db $12,$22,$00,$1F,$08               ;0BAE21|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAE26|        |      ;
-                       db $00,$08,$01,$00,$00               ;0BAE2B|        |      ;
-                       db $13,$12,$00,$00,$1E               ;0BAE30|        |      ;
-                       db $00,$60,$00,$5E,$00               ;0BAE35|        |      ;
-                       db $00,$00,$0B,$12,$22               ;0BAE3A|        |      ;
-                       db $00,$1F,$08,$00,$00               ;0BAE3F|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BAE44|        |      ;
-                       db $12,$20,$00,$1F,$08               ;0BAE49|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAE4E|        |      ;
-                       db $00,$27,$00,$00,$00               ;0BAE53|        |      ;
+     entityScripts_1d: db $96,$00,$00,$00,$50,$00,$00,$00   ;0BAF0C|        |      ;
+                       db $53,$00,$00,$00,$51,$00,$00,$00   ;0BAF14|        |      ;
+                       db $01,$00,$00,$00,$1F,$10,$00,$00   ;0BAF1C|        |      ;
+                       db $20,$00,$00,$00,$9A,$06,$00,$00   ;0BAF24|        |      ;
+                       db $1F,$10,$00,$00,$20,$00,$00,$00   ;0BAF2C|        |      ;
+                       db $50,$01,$00,$00,$51,$00,$00,$00   ;0BAF34|        |      ;
+                       db $22,$08,$00,$00,$05,$00,$00,$00   ;0BAF3C|        |      ;
+                       db $08,$00,$00,$00,$20,$00,$00,$00   ;0BAF44|        |      ;
+                       db $04,$00,$00,$00                   ;0BAF4C|        |      ;
  
-     entityScripts_26: db $A7,$05,$00,$00,$89               ;0BAE58|        |      ;
-                       db $A8,$00,$00,$05,$00               ;0BAE5D|        |      ;
-                       db $00,$00,$6C,$22,$00               ;0BAE62|        |      ;
-                       db $00,$5B,$01,$00,$00               ;0BAE67|        |      ;
-                       db $68,$00,$67,$00,$2A               ;0BAE6C|        |      ;
-                       db $00,$00,$00,$0B,$12               ;0BAE71|        |      ;
-                       db $12,$00,$5C,$00,$00               ;0BAE76|        |      ;
-                       db $00,$68,$00,$67,$00               ;0BAE7B|        |      ;
-                       db $1F,$06,$00,$00,$20               ;0BAE80|        |      ;
-                       db $00,$00,$00,$0B,$12               ;0BAE85|        |      ;
-                       db $10,$00,$1F,$20,$00               ;0BAE8A|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAE8F|        |      ;
-                       db $05,$00,$00,$00,$5B               ;0BAE94|        |      ;
-                       db $00,$00,$00,$68,$00               ;0BAE99|        |      ;
-                       db $67,$00,$2A,$00,$00               ;0BAE9E|        |      ;
-                       db $00,$0B,$12,$12,$00               ;0BAEA3|        |      ;
-                       db $5C,$00,$00,$00,$68               ;0BAEA8|        |      ;
-                       db $00,$67,$00,$04,$0A               ;0BAEAD|        |      ;
-                       db $00,$00,$0B,$12,$60               ;0BAEB2|        |      ;
-                       db $00,$1F,$02,$00,$00               ;0BAEB7|        |      ;
-                       db $20,$00,$00,$00,$0B               ;0BAEBC|        |      ;
-                       db $12,$62,$00,$1F,$02               ;0BAEC1|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAEC6|        |      ;
-                       db $00,$0B,$08,$FA,$00               ;0BAECB|        |      ;
-                       db $1F,$02,$00,$00,$20               ;0BAED0|        |      ;
-                       db $00,$00,$00,$0B,$08               ;0BAED5|        |      ;
-                       db $FC,$00,$1F,$02,$00               ;0BAEDA|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAEDF|        |      ;
-                       db $0B,$08,$FA,$00,$1F               ;0BAEE4|        |      ;
-                       db $02,$00,$00,$20,$00               ;0BAEE9|        |      ;
-                       db $00,$00,$0B,$12,$62               ;0BAEEE|        |      ;
-                       db $00,$1F,$02,$00,$00               ;0BAEF3|        |      ;
-                       db $20,$00,$00,$00,$04               ;0BAEF8|        |      ;
-                       db $0A,$00,$00,$68,$00               ;0BAEFD|        |      ;
-                       db $67,$00,$8A,$00,$00               ;0BAF02|        |      ;
-                       db $00,$A8,$C0,$00,$00               ;0BAF07|        |      ;
+     entityScripts_16: db $13,$08,$14,$00,$54,$00,$00,$00   ;0BAF50|        |      ;
+                       db $1F,$3A,$00,$00,$20,$00,$00,$00   ;0BAF58|        |      ;
+                       db $53,$00,$00,$00,$1F,$20,$00,$00   ;0BAF60|        |      ;
+                       db $07,$00,$70,$00,$2F,$00,$00,$00   ;0BAF68|        |      ;
+                       db $05,$00,$00,$00,$2D,$00,$00,$00   ;0BAF70|        |      ;
+                       db $97,$00,$00,$00,$0D,$05,$00,$00   ;0BAF78|        |      ;
+                       db $1F,$18,$00,$00,$20,$00,$00,$00   ;0BAF80|        |      ;
+                       db $08,$03,$00,$00,$04,$06,$00,$00   ;0BAF88|        |      ;
  
-     entityScripts_1d: db $96,$00,$00,$00,$50               ;0BAF0C|        |      ;
-                       db $00,$00,$00,$53,$00               ;0BAF11|        |      ;
-                       db $00,$00,$51,$00,$00               ;0BAF16|        |      ;
-                       db $00,$01,$00,$00,$00               ;0BAF1B|        |      ;
-                       db $1F,$10,$00,$00,$20               ;0BAF20|        |      ;
-                       db $00,$00,$00,$9A,$06               ;0BAF25|        |      ;
-                       db $00,$00,$1F,$10,$00               ;0BAF2A|        |      ;
-                       db $00,$20,$00,$00,$00               ;0BAF2F|        |      ;
-                       db $50,$01,$00,$00,$51               ;0BAF34|        |      ;
-                       db $00,$00,$00,$22,$08               ;0BAF39|        |      ;
-                       db $00,$00,$05,$00,$00               ;0BAF3E|        |      ;
-                       db $00,$08,$00,$00,$00               ;0BAF43|        |      ;
-                       db $20,$00,$00,$00,$04               ;0BAF48|        |      ;
-                       db $00,$00,$00                       ;0BAF4D|        |      ;
+     entityScripts_30: db $13,$0E,$00,$00,$55,$01,$00,$00   ;0BAF90|        |      ; first boss bone king
+                       db $A0,$00,$00,$00                   ;0BAF98|        |      ;
  
-     entityScripts_16: db $13,$08,$14,$00,$54               ;0BAF50|        |      ;
-                       db $00,$00,$00,$1F,$3A               ;0BAF55|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAF5A|        |      ;
-                       db $00,$53,$00,$00,$00               ;0BAF5F|        |      ;
-                       db $1F,$20,$00,$00,$07               ;0BAF64|        |      ;
-                       db $00,$70,$00,$2F,$00               ;0BAF69|        |      ;
-                       db $00,$00,$05,$00,$00               ;0BAF6E|        |      ;
-                       db $00,$2D,$00,$00,$00               ;0BAF73|        |      ;
-                       db $97,$00,$00,$00,$0D               ;0BAF78|        |      ;
-                       db $05,$00,$00,$1F,$18               ;0BAF7D|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BAF82|        |      ;
-                       db $00,$08,$03,$00,$00               ;0BAF87|        |      ;
-                       db $04,$06,$00,$00                   ;0BAF8C|        |      ;
+     entityScripts_31: db $13,$0E,$02,$00,$55,$01,$00,$00   ;0BAF9C|        |      ;
+                       db $00,$80,$00,$00                   ;0BAFA4|        |      ;
  
-     entityScripts_30: db $13,$0E,$00,$00,$55               ;0BAF90|        |      ; first boss bone king
-                       db $01,$00,$00,$A0,$00               ;0BAF95|        |      ;
-                       db $00,$00                           ;0BAF9A|        |      ;
+     entityScripts_32: db $4E,$00,$00,$00,$55,$01,$00,$00   ;0BAFA8|        |      ;
+                       db $00,$80,$00,$00                   ;0BAFB0|        |      ;
  
-     entityScripts_31: db $13,$0E,$02,$00,$55               ;0BAF9C|        |      ;
-                       db $01,$00,$00,$00,$80               ;0BAFA1|        |      ;
-                       db $00,$00                           ;0BAFA6|        |      ;
+     entityScripts_58: db $0B,$0E,$14,$00,$0E,$00,$00,$00   ;0BAFB4|        |      ;
  
-     entityScripts_32: db $4E,$00,$00,$00,$55               ;0BAFA8|        |      ;
-                       db $01,$00,$00,$00,$80               ;0BAFAD|        |      ;
-                       db $00,$00                           ;0BAFB2|        |      ;
+     entityScripts_59: db $13,$0E,$03,$00,$1F,$38,$00,$00   ;0BAFBC|        |      ;
+                       db $20,$00,$00,$00,$2B,$00,$00,$00   ;0BAFC4|        |      ;
+                       db $00,$80,$00,$00                   ;0BAFCC|        |      ;
  
-     entityScripts_58: db $0B,$0E,$14,$00,$0E               ;0BAFB4|        |      ;
-                       db $00,$00,$00                       ;0BAFB9|        |      ;
+     entityScripts_5a: db $0B,$08,$60,$00,$2E,$00,$00,$00   ;0BAFD0|        |      ;
  
-     entityScripts_59: db $13,$0E,$03,$00,$1F               ;0BAFBC|        |      ;
-                       db $38,$00,$00,$20,$00               ;0BAFC1|        |      ;
-                       db $00,$00,$2B,$00,$00               ;0BAFC6|        |      ;
-                       db $00,$00,$80,$00,$00               ;0BAFCB|        |      ;
+     entityScripts_5b: db $13,$08,$16,$00,$32,$1A,$00,$00   ;0BAFD8|        |      ;
  
-     entityScripts_5a: db $0B,$08,$60,$00,$2E               ;0BAFD0|        |      ;
-                       db $00,$00,$00                       ;0BAFD5|        |      ;
+     entityScripts_5c: db $13,$08,$18,$00,$11,$03,$00,$00   ;0BAFE0|        |      ;
+                       db $12,$00,$00,$00                   ;0BAFE8|        |      ;
  
-     entityScripts_5b: db $13,$08,$16,$00,$32               ;0BAFD8|        |      ;
-                       db $1A,$00,$00                       ;0BAFDD|        |      ;
+     entityScripts_5d: db $13,$08,$1D,$00,$56,$01,$00,$00   ;0BAFEC|        |      ;
+                       db $0E,$00,$00,$00                   ;0BAFF4|        |      ;
  
-     entityScripts_5c: db $13,$08,$18,$00,$11               ;0BAFE0|        |      ;
-                       db $03,$00,$00,$12,$00               ;0BAFE5|        |      ;
-                       db $00,$00                           ;0BAFEA|        |      ;
+     entityScripts_18: db $13,$0E,$04,$00,$1F,$10,$00,$00   ;0BAFF8|        |      ; 72
+                       db $20,$00,$00,$00,$27,$00,$00,$00   ;0BB000|        |      ;
  
-     entityScripts_5d: db $13,$08,$1D,$00,$56               ;0BAFEC|        |      ;
-                       db $01,$00,$00,$0E,$00               ;0BAFF1|        |      ;
-                       db $00,$00                           ;0BAFF6|        |      ;
+                       db $04,$00,$00,$00                   ;0BB008|        |      ;
  
-     entityScripts_18: db $13,$0E,$04,$00,$1F               ;0BAFF8|        |      ; 72
-                       db $10,$00,$00,$20,$00               ;0BAFFD|        |      ;
+     entityScripts_19: db $13,$08,$19,$00,$1F,$10,$00,$00   ;0BB00C|        |      ;
+                       db $20,$00,$00,$00,$27,$00,$00,$00   ;0BB014|        |      ;
  
-                       db $00,$00,$27,$00,$00               ;0BB002|        |      ;
-                       db $00,$04,$00,$00,$00               ;0BB007|        |      ;
+     entityScripts_1a: db $13,$08,$1A,$00,$6C,$27,$00,$00   ;0BB01C|        |      ;
+                       db $1F,$20,$00,$00,$20,$00,$00,$00   ;0BB024|        |      ;
+                       db $27,$00,$00,$00                   ;0BB02C|        |      ;
  
-     entityScripts_19: db $13,$08,$19,$00,$1F               ;0BB00C|        |      ;
-                       db $10,$00,$00,$20,$00               ;0BB011|        |      ;
-                       db $00,$00,$27,$00,$00               ;0BB016|        |      ;
-                       db $00                               ;0BB01B|        |      ;
+     entityScripts_1b: db $30,$00,$00,$00,$0B,$0E,$46,$00   ;0BB030|        |      ;
+                       db $45,$30,$00,$00,$46,$00,$00,$00   ;0BB038|        |      ;
  
-     entityScripts_1a: db $13,$08,$1A,$00,$6C               ;0BB01C|        |      ;
-                       db $27,$00,$00,$1F,$20               ;0BB021|        |      ;
-                       db $00,$00,$20,$00,$00               ;0BB026|        |      ;
-                       db $00,$27,$00,$00,$00               ;0BB02B|        |      ;
- 
-     entityScripts_1b: db $30,$00,$00,$00,$0B               ;0BB030|        |      ;
-                       db $0E,$46,$00,$45,$30               ;0BB035|        |      ;
-                       db $00,$00,$46,$00,$00               ;0BB03A|        |      ;
-                       db $00                               ;0BB03F|        |      ;
- 
-     entityScripts_2a: db $0B,$0E,$1A,$00,$45               ;0BB040|        |      ;
-                       db $20,$00,$00,$46,$00               ;0BB045|        |      ;
-                       db $00,$00                           ;0BB04A|        |      ;
+     entityScripts_2a: db $0B,$0E,$1A,$00,$45,$20,$00,$00   ;0BB040|        |      ;
+                       db $46,$00,$00,$00                   ;0BB048|        |      ;
  
      entityScripts_67: db $30,$02,$00,$00                   ;0BB04C|        |      ;
  
-     entityScripts_62: db $0B,$0E,$1A,$00,$45               ;0BB050|        |      ;
-                       db $10,$00,$00,$46,$00               ;0BB055|        |      ;
-                       db $00,$00                           ;0BB05A|        |      ;
+     entityScripts_62: db $0B,$0E,$1A,$00,$45,$10,$00,$00   ;0BB050|        |      ;
+                       db $46,$00,$00,$00                   ;0BB058|        |      ;
  
-     entityScripts_5e: db $13,$08,$1F,$00,$1F               ;0BB05C|        |      ;
-                       db $28,$00,$00,$20,$00               ;0BB061|        |      ;
-                       db $00,$00,$5A,$08,$00               ;0BB066|        |      ;
-                       db $00                               ;0BB06B|        |      ;
+     entityScripts_5e: db $13,$08,$1F,$00,$1F,$28,$00,$00   ;0BB05C|        |      ;
+                       db $20,$00,$00,$00,$5A,$08,$00,$00   ;0BB064|        |      ;
  
-     entityScripts_5f: db $13,$12,$04,$00,$1F               ;0BB06C|        |      ;
-                       db $FF,$00,$00,$20,$00               ;0BB071|        |      ;
-                       db $00,$00,$0B,$12,$32               ;0BB076|        |      ;
-                       db $00,$1F,$0A,$00,$00               ;0BB07B|        |      ;
-                       db $20,$00,$00,$00,$27               ;0BB080|        |      ;
-                       db $00,$00,$00                       ;0BB085|        |      ;
+     entityScripts_5f: db $13,$12,$04,$00,$1F,$FF,$00,$00   ;0BB06C|        |      ;
+                       db $20,$00,$00,$00,$0B,$12,$32,$00   ;0BB074|        |      ;
+                       db $1F,$0A,$00,$00,$20,$00,$00,$00   ;0BB07C|        |      ;
+                       db $27,$00,$00,$00                   ;0BB084|        |      ;
  
-     entityScripts_4e: db $4F,$00,$00,$00,$39               ;0BB088|        |      ;
-                       db $00,$40,$00,$69,$00               ;0BB08D|        |      ;
-                       db $01,$00,$6A,$00,$00               ;0BB092|        |      ;
-                       db $00,$38,$00,$00,$00               ;0BB097|        |      ;
-                       db $27,$00,$00,$00                   ;0BB09C|        |      ;
+     entityScripts_4e: db $4F,$00,$00,$00,$39,$00,$40,$00   ;0BB088|        |      ;
+                       db $69,$00,$01,$00,$6A,$00,$00,$00   ;0BB090|        |      ;
+                       db $38,$00,$00,$00,$27,$00,$00,$00   ;0BB098|        |      ;
  
-     entityScripts_33: db $4F,$00,$00,$00,$39               ;0BB0A0|        |      ; 34 - 42,4c-50
-                       db $01,$00,$00,$37,$00               ;0BB0A5|        |      ;
-                       db $00,$00,$38,$00,$00               ;0BB0AA|        |      ;
-                       db $00,$27,$00,$00,$00               ;0BB0AF|        |      ;
+     entityScripts_33: db $4F,$00,$00,$00,$39,$01,$00,$00   ;0BB0A0|        |      ; 34 - 42,4c-50
+                       db $37,$00,$00,$00,$38,$00,$00,$00   ;0BB0A8|        |      ;
+                       db $27,$00,$00,$00                   ;0BB0B0|        |      ;
  
-     entityScripts_43: db $4F,$00,$00,$00,$39               ;0BB0B4|        |      ; 44-4b
-                       db $01,$00,$00,$37,$00               ;0BB0B9|        |      ;
-                       db $00,$00,$38,$00,$00               ;0BB0BE|        |      ;
-                       db $00,$87,$00,$00,$00               ;0BB0C3|        |      ;
-                       db $1F,$38,$00,$00,$20               ;0BB0C8|        |      ;
-                       db $00,$00,$00,$27,$00               ;0BB0CD|        |      ;
-                       db $00,$00                           ;0BB0D2|        |      ;
+     entityScripts_43: db $4F,$00,$00,$00,$39,$01,$00,$00   ;0BB0B4|        |      ; 44-4b
+                       db $37,$00,$00,$00,$38,$00,$00,$00   ;0BB0BC|        |      ;
+                       db $87,$00,$00,$00,$1F,$38,$00,$00   ;0BB0C4|        |      ;
+                       db $20,$00,$00,$00,$27,$00,$00,$00   ;0BB0CC|        |      ;
  
      entityScripts_51: db $00,$00,$00,$00                   ;0BB0D4|        |      ; 52,53
  
@@ -5742,13 +5399,11 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
  
          DATA8_0BB0DC: db $01                               ;0BB0DC|        |      ;
  
-         DATA8_0BB0DD: db $00,$01,$00,$00,$00               ;0BB0DD|        |      ;
-                       db $00,$00,$01,$0C,$71               ;0BB0E2|        |      ;
-                       db $7C,$01,$00,$01,$00               ;0BB0E7|        |      ;
-                       db $01,$00,$01,$0C,$10               ;0BB0EC|        |      ;
-                       db $10,$01,$FC,$01,$1C               ;0BB0F1|        |      ;
-                       db $01,$0C,$01,$0C,$01               ;0BB0F6|        |      ;
-                       db $0C,$01,$0C,$01,$00               ;0BB0FB|        |      ;
+         DATA8_0BB0DD: db $00,$01,$00,$00,$00,$00,$00,$01   ;0BB0DD|        |      ;
+                       db $0C,$71,$7C,$01,$00,$01,$00,$01   ;0BB0E5|        |      ;
+                       db $00,$01,$0C,$10,$10,$01,$FC,$01   ;0BB0ED|        |      ;
+                       db $1C,$01,$0C,$01,$0C,$01,$0C,$01   ;0BB0F5|        |      ;
+                       db $0C,$01,$00                       ;0BB0FD|        |      ;
  
           CODE_0BB100: JMP.W CODE_0BB9D0                    ;0BB100|4CD0B9  |0BB9D0;
  
@@ -6175,7 +5830,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        LDA.W DATA8_0BBB84,Y                 ;0BB3ED|B984BB  |0BBB84;
                        CLC                                  ;0BB3F0|18      |      ;
                        ADC.W $0438,X                        ;0BB3F1|7D3804  |0B0438;
-                       STA.B r_currOAM_Attr                 ;0BB3F4|8510    |000010;
+                       STA.B r_index                        ;0BB3F4|8510    |000010;
                        JSR.W CODE_0BB745                    ;0BB3F6|2045B7  |0BB745;
                        CMP.B $02                            ;0BB3F9|C502    |000002;
                        BCS CODE_0BB3D1                      ;0BB3FB|B0D4    |0BB3D1;
@@ -6188,7 +5843,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        LDA.W DATA8_0BBB96,Y                 ;0BB409|B996BB  |0BBB96;
                        CLC                                  ;0BB40C|18      |      ;
                        ADC.W $041C,X                        ;0BB40D|7D1C04  |0B041C;
-                       STA.B r_currOAM_Attr                 ;0BB410|8510    |000010;
+                       STA.B r_index                        ;0BB410|8510    |000010;
                        LDY.B #$00                           ;0BB412|A000    |      ;
                        LDA.B r_currPartnerID                ;0BB414|A582    |000082;
                        CMP.B #$04                           ;0BB416|C904    |      ;
@@ -6220,7 +5875,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        CLC                                  ;0BB445|18      |      ;
                        LDA.W DATA8_0BBB5F,Y                 ;0BB446|B95FBB  |0BBB5F;
                        ADC.W $0438                          ;0BB449|6D3804  |0B0438;
-                       STA.B r_currOAM_Attr                 ;0BB44C|8510    |000010;
+                       STA.B r_index                        ;0BB44C|8510    |000010;
                        CLC                                  ;0BB44E|18      |      ;
                        LDY.B r_currPartnerID                ;0BB44F|A482    |000082;
                        LDA.W $042F                          ;0BB451|AD2F04  |0B042F;
@@ -6265,7 +5920,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB497: STA.B $01                            ;0BB497|8501    |000001;
                        LDX.B $9E                            ;0BB499|A69E    |00009E;
                        LDA.W $0438,X                        ;0BB49B|BD3804  |0B0438;
-                       STA.B r_currOAM_Attr                 ;0BB49E|8510    |000010;
+                       STA.B r_index                        ;0BB49E|8510    |000010;
                        LDA.W $041C,X                        ;0BB4A0|BD1C04  |0B041C;
                        STA.B r_collisionPointYinScreen      ;0BB4A3|8511    |000011;
                        LDX.B r_entityID_processed           ;0BB4A5|A66C    |00006C;
@@ -6320,7 +5975,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        BMI CODE_0BB53E                      ;0BB503|3039    |0BB53E;
                        LDA.B #$29                           ;0BB505|A929    |      ;
                        db $20                               ;0BB507|        |      ;
-                       dw CODE_0FE25F                       ;0BB508|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BB508|        |0FE25F;
                        LDY.B #$00                           ;0BB50A|A000    |      ;
                        LDA.W $054E,X                        ;0BB50C|BD4E05  |0B054E;
                        CMP.B #$64                           ;0BB50F|C964    |      ;
@@ -6336,7 +5991,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
  
           CODE_0BB51E: LDA.B #$28                           ;0BB51E|A928    |      ;
                        db $20                               ;0BB520|        |      ;
-                       dw CODE_0FE25F                       ;0BB521|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BB521|        |0FE25F;
                        LDY.B #$00                           ;0BB523|A000    |      ;
                        BEQ CODE_0BB514                      ;0BB525|F0ED    |0BB514;
  
@@ -6370,7 +6025,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        LDA.B #$33                           ;0BB553|A933    |      ;
  
          DATA8_0BB555: db $20                               ;0BB555|        |      ;
-                       dw CODE_0FE25F                       ;0BB556|        |0FE25F;
+                       dw initFreezWaterEffect_01           ;0BB556|        |0FE25F;
                        LDA.W $054E,X                        ;0BB558|BD4E05  |0B054E;
                        CMP.B #$5B                           ;0BB55B|C95B    |      ;
                        BEQ CODE_0BB596                      ;0BB55D|F037    |0BB596;
@@ -6537,7 +6192,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        LDA.W DATA8_0BB68B,Y                 ;0BB670|B98BB6  |0BB68B;
                        CLC                                  ;0BB673|18      |      ;
                        ADC.W $041C                          ;0BB674|6D1C04  |0B041C;
-                       STA.B r_currOAM_Attr                 ;0BB677|8510    |000010;
+                       STA.B r_index                        ;0BB677|8510    |000010;
                        LDY.W $054E,X                        ;0BB679|BC4E05  |0B054E;
                        SEC                                  ;0BB67C|38      |      ;
                        LDA.W $041C,X                        ;0BB67D|BD1C04  |0B041C;
@@ -6549,8 +6204,8 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB68A: RTS                                  ;0BB68A|60      |      ;
  
  
-         DATA8_0BB68B: db $10,$10,$0C,$10,$10               ;0BB68B|        |      ;
-                       db $10,$0C,$10,$04,$38               ;0BB690|        |      ;
+         DATA8_0BB68B: db $10,$10,$0C,$10,$10,$10,$0C,$10   ;0BB68B|        |      ;
+                       db $04,$38                           ;0BB693|        |      ;
                        LDA.W $0400,X                        ;0BB695|BD0004  |0B0400;
                        SBC.B #$08                           ;0BB698|E908    |      ;
                        LSR A                                ;0BB69A|4A      |      ;
@@ -6564,7 +6219,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
                        LDY.B r_currPartnerID                ;0BB6A9|A482    |000082;
                        LDA.W DATA8_0BB6DA,Y                 ;0BB6AB|B9DAB6  |0BB6DA;
                        ADC.W $041C                          ;0BB6AE|6D1C04  |0B041C;
-                       STA.B r_currOAM_Attr                 ;0BB6B1|8510    |000010;
+                       STA.B r_index                        ;0BB6B1|8510    |000010;
                        SEC                                  ;0BB6B3|38      |      ;
                        LDY.W $054E,X                        ;0BB6B4|BC4E05  |0B054E;
                        LDA.W $041C,X                        ;0BB6B7|BD1C04  |0B041C;
@@ -6577,15 +6232,14 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
           CODE_0BB6C7: RTS                                  ;0BB6C7|60      |      ;
  
  
-         DATA8_0BB6C8: db $0A,$0A,$0A,$0A,$0A               ;0BB6C8|        |      ;
-                       db $0A,$0A,$0A,$0A                   ;0BB6CD|        |      ;
+         DATA8_0BB6C8: db $0A,$0A,$0A,$0A,$0A,$0A,$0A,$0A   ;0BB6C8|        |      ;
+                       db $0A                               ;0BB6D0|        |      ;
  
-         DATA8_0BB6D1: db $04,$04,$04,$04,$04               ;0BB6D1|        |      ;
-                       db $04,$04,$04,$04                   ;0BB6D6|        |      ;
+         DATA8_0BB6D1: db $04,$04,$04,$04,$04,$04,$04,$04   ;0BB6D1|        |      ;
+                       db $04                               ;0BB6D9|        |      ;
  
-         DATA8_0BB6DA: db $10,$10,$08,$10,$08               ;0BB6DA|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BB6DF|        |      ;
-                       db $08,$08                           ;0BB6E4|        |      ;
+         DATA8_0BB6DA: db $10,$10,$08,$10,$08,$08,$08,$08   ;0BB6DA|        |      ;
+                       db $08,$08,$08,$08                   ;0BB6E2|        |      ;
  
           CODE_0BB6E6: LDA.W $054E,X                        ;0BB6E6|BD4E05  |0B054E;
                        CMP.B #$40                           ;0BB6E9|C940    |      ;
@@ -6637,7 +6291,7 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
  
           CODE_0BB739: SEC                                  ;0BB739|38      |      ;
                        LDA.B r_collisionPointYinScreen      ;0BB73A|A511    |000011;
-                       SBC.B r_currOAM_Attr                 ;0BB73C|E510    |000010;
+                       SBC.B r_index                        ;0BB73C|E510    |000010;
                        BCS CODE_0BB744                      ;0BB73E|B004    |0BB744;
  
           CODE_0BB740: EOR.B #$FF                           ;0BB740|49FF    |      ;
@@ -6647,12 +6301,12 @@ enemyID_skeletonCrumbl_36: DEC.W $05D8,X                        ;0BA502|DED805  
  
  
           CODE_0BB745: SEC                                  ;0BB745|38      |      ;
-                       LDA.B r_currOAM_Attr                 ;0BB746|A510    |000010;
+                       LDA.B r_index                        ;0BB746|A510    |000010;
                        SBC.W $0438                          ;0BB748|ED3804  |0B0438;
                        BCS CODE_0BB744                      ;0BB74B|B0F7    |0BB744;
                        BCC CODE_0BB740                      ;0BB74D|90F1    |0BB740;
                        SEC                                  ;0BB74F|38      |      ;
-                       LDA.B r_currOAM_Attr                 ;0BB750|A510    |000010;
+                       LDA.B r_index                        ;0BB750|A510    |000010;
                        SBC.W $041C                          ;0BB752|ED1C04  |0B041C;
                        BCS CODE_0BB744                      ;0BB755|B0ED    |0BB744;
                        BCC CODE_0BB740                      ;0BB757|90E7    |0BB740;
@@ -6720,23 +6374,17 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
                        dw UNREACH_0FFC1E                    ;0BB7BB|        |0FFC1E;
  
-         data_17_17bd: db $08,$F8,$F8,$08,$08               ;0BB7BD|        |      ;
-                       db $F8,$08,$F8,$04,$FC               ;0BB7C2|        |      ;
-                       db $08,$F8,$04,$FC,$10               ;0BB7C7|        |      ;
-                       db $F0,$08,$F8,$0C,$F4               ;0BB7CC|        |      ;
-                       db $FC,$04,$EC,$14,$08               ;0BB7D1|        |      ;
-                       db $F7,$00,$00,$00,$00               ;0BB7D6|        |      ;
-                       db $10,$F0,$18,$E8,$04               ;0BB7DB|        |      ;
-                       db $FC,$08,$F8                       ;0BB7E0|        |      ;
+         data_17_17bd: db $08,$F8,$F8,$08,$08,$F8,$08,$F8   ;0BB7BD|        |      ;
+                       db $04,$FC,$08,$F8,$04,$FC,$10,$F0   ;0BB7C5|        |      ;
+                       db $08,$F8,$0C,$F4,$FC,$04,$EC,$14   ;0BB7CD|        |      ;
+                       db $08,$F7,$00,$00,$00,$00,$10,$F0   ;0BB7D5|        |      ;
+                       db $18,$E8,$04,$FC,$08,$F8           ;0BB7DD|        |      ;
  
-         DATA8_0BB7E3: db $08,$08,$10,$10,$FC               ;0BB7E3|        |      ;
-                       db $FC,$08,$08,$F8,$F8               ;0BB7E8|        |      ;
-                       db $10,$10,$10,$10,$00               ;0BB7ED|        |      ;
-                       db $00,$10,$10,$F8,$F8               ;0BB7F2|        |      ;
-                       db $10,$10,$10,$10,$F4               ;0BB7F7|        |      ;
-                       db $F4,$10,$10,$08,$08               ;0BB7FC|        |      ;
-                       db $FC,$FC,$00,$00,$08               ;0BB801|        |      ;
-                       db $08,$00,$00                       ;0BB806|        |      ;
+         DATA8_0BB7E3: db $08,$08,$10,$10,$FC,$FC,$08,$08   ;0BB7E3|        |      ;
+                       db $F8,$F8,$10,$10,$10,$10,$00,$00   ;0BB7EB|        |      ;
+                       db $10,$10,$F8,$F8,$10,$10,$10,$10   ;0BB7F3|        |      ;
+                       db $F4,$F4,$10,$10,$08,$08,$FC,$FC   ;0BB7FB|        |      ;
+                       db $00,$00,$08,$08,$00,$00           ;0BB803|        |      ;
  
           CODE_0BB809: LDY.B #$00                           ;0BB809|A000    |      ;
  
@@ -6997,11 +6645,11 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
                        BCS CODE_0BB9AB                      ;0BB9AE|B0FB    |0BB9AB;
                        BCC CODE_0BB99B                      ;0BB9B0|90E9    |0BB99B;
  
-         DATA8_0BB9B2: db $10,$10,$0C,$10,$10               ;0BB9B2|        |      ;
-                       db $10,$0C,$10,$08                   ;0BB9B7|        |      ;
+         DATA8_0BB9B2: db $10,$10,$0C,$10,$10,$10,$0C,$10   ;0BB9B2|        |      ;
+                       db $08                               ;0BB9BA|        |      ;
  
-         DATA8_0BB9BB: db $08,$08,$04,$08,$02               ;0BB9BB|        |      ;
-                       db $02,$00,$02,$04                   ;0BB9C0|        |      ;
+         DATA8_0BB9BB: db $08,$08,$04,$08,$02,$02,$00,$02   ;0BB9BB|        |      ;
+                       db $04                               ;0BB9C3|        |      ;
  
           CODE_0BB9C4: INY                                  ;0BB9C4|C8      |      ;
                        STY.B r_roomSectionChrBanksDataOffset;0BB9C5|840F    |00000F;
@@ -7116,160 +6764,119 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
           CODE_0BBA7D: RTS                                  ;0BBA7D|60      |      ;
  
  
-         DATA8_0BBA7E: db $40,$40,$40,$40,$40               ;0BBA7E|        |      ;
+         DATA8_0BBA7E: db $40,$40,$40,$40,$40,$40,$40,$40   ;0BBA7E|        |      ;
  
-                       db $40,$40,$40,$3F,$3F               ;0BBA83|        |      ;
+                       db $3F,$3F,$3F,$3F,$3F,$3F,$3E,$3E   ;0BBA86|        |      ;
+                       db $3E,$3E,$3D,$3D,$3D,$3C,$3C,$3C   ;0BBA8E|        |      ;
+                       db $3B,$3B,$3A,$3A,$3A,$39,$39,$38   ;0BBA96|        |      ;
+                       db $37,$37,$36,$36,$35,$34,$33,$33   ;0BBA9E|        |      ;
+                       db $32,$31,$30,$2F,$2E,$2E,$2C,$2B   ;0BBAA6|        |      ;
+                       db $2A,$29,$28,$27,$25,$24,$22,$21   ;0BBAAE|        |      ;
+                       db $1F,$1D,$1B,$19,$16,$13,$10,$0B   ;0BBAB6|        |      ;
+                       db $00                               ;0BBABE|        |      ;
  
-                       db $3F,$3F,$3F,$3F,$3E               ;0BBA88|        |      ;
-                       db $3E,$3E,$3E,$3D,$3D               ;0BBA8D|        |      ;
-                       db $3D,$3C,$3C,$3C,$3B               ;0BBA92|        |      ;
-                       db $3B,$3A,$3A,$3A,$39               ;0BBA97|        |      ;
-                       db $39,$38,$37,$37,$36               ;0BBA9C|        |      ;
-                       db $36,$35,$34,$33,$33               ;0BBAA1|        |      ;
-                       db $32,$31,$30,$2F,$2E               ;0BBAA6|        |      ;
-                       db $2E,$2C,$2B,$2A,$29               ;0BBAAB|        |      ;
-                       db $28,$27,$25,$24,$22               ;0BBAB0|        |      ;
-                       db $21,$1F,$1D,$1B,$19               ;0BBAB5|        |      ;
-                       db $16,$13,$10,$0B,$00               ;0BBABA|        |      ;
+         DATA8_0BBABF: db $20,$20,$20,$20,$20,$20,$1F,$1F   ;0BBABF|        |      ;
+                       db $1F,$1F,$1E,$1E,$1E,$1D,$1D,$1C   ;0BBAC7|        |      ;
+                       db $1C,$1B,$1A,$1A,$19,$18,$17,$16   ;0BBACF|        |      ;
+                       db $15,$14,$13,$11,$0F,$0E,$0B,$08   ;0BBAD7|        |      ;
+                       db $00                               ;0BBADF|        |      ;
  
-         DATA8_0BBABF: db $20,$20,$20,$20,$20               ;0BBABF|        |      ;
-                       db $20,$1F,$1F,$1F,$1F               ;0BBAC4|        |      ;
-                       db $1E,$1E,$1E,$1D,$1D               ;0BBAC9|        |      ;
-                       db $1C,$1C,$1B,$1A,$1A               ;0BBACE|        |      ;
-                       db $19,$18,$17,$16,$15               ;0BBAD3|        |      ;
-                       db $14,$13,$11,$0F,$0E               ;0BBAD8|        |      ;
-                       db $0B,$08,$00                       ;0BBADD|        |      ;
+         DATA8_0BBAE0: db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBAE0|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$07   ;0BBAE8|        |      ;
+                       db $07,$07,$07,$07,$07,$07,$07,$07   ;0BBAF0|        |      ;
+                       db $07,$07,$06,$06,$06,$06,$06,$06   ;0BBAF8|        |      ;
+                       db $06                               ;0BBB00|        |      ;
  
-         DATA8_0BBAE0: db $08,$08,$08,$08,$08               ;0BBAE0|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBAE5|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBAEA|        |      ;
-                       db $07,$07,$07,$07,$07               ;0BBAEF|        |      ;
-                       db $07,$07,$07,$07,$07               ;0BBAF4|        |      ;
-                       db $07,$06,$06,$06,$06               ;0BBAF9|        |      ;
-                       db $06,$06,$06                       ;0BBAFE|        |      ;
+         DATA8_0BBB01: db $00,$00,$00,$01,$01,$01,$01,$01   ;0BBB01|        |      ;
+                       db $02,$02,$02,$02,$02,$03,$03,$03   ;0BBB09|        |      ;
+                       db $03,$03,$03,$04,$04,$04,$04,$04   ;0BBB11|        |      ;
+                       db $04,$05,$05,$05,$05,$05,$05,$06   ;0BBB19|        |      ;
+                       db $06                               ;0BBB21|        |      ;
  
-         DATA8_0BBB01: db $00,$00,$00,$01,$01               ;0BBB01|        |      ;
-                       db $01,$01,$01,$02,$02               ;0BBB06|        |      ;
-                       db $02,$02,$02,$03,$03               ;0BBB0B|        |      ;
-                       db $03,$03,$03,$03,$04               ;0BBB10|        |      ;
-                       db $04,$04,$04,$04,$04               ;0BBB15|        |      ;
-                       db $05,$05,$05,$05,$05               ;0BBB1A|        |      ;
-                       db $05,$06,$06                       ;0BBB1F|        |      ;
+         DATA8_0BBB22: db $3C,$3C,$3C,$3C,$3C,$3C,$3B,$3B   ;0BBB22|        |      ;
+                       db $3B,$3B,$3A,$3A,$39,$39,$38,$38   ;0BBB2A|        |      ;
+                       db $37,$37,$36,$36,$35,$34,$33,$33   ;0BBB32|        |      ;
+                       db $32,$31,$30,$2F,$2E,$2D,$2C,$2B   ;0BBB3A|        |      ;
+                       db $2A                               ;0BBB42|        |      ;
  
-         DATA8_0BBB22: db $3C,$3C,$3C,$3C,$3C               ;0BBB22|        |      ;
-                       db $3C,$3B,$3B,$3B,$3B               ;0BBB27|        |      ;
-                       db $3A,$3A,$39,$39,$38               ;0BBB2C|        |      ;
-                       db $38,$37,$37,$36,$36               ;0BBB31|        |      ;
-                       db $35,$34,$33,$33,$32               ;0BBB36|        |      ;
-                       db $31,$30,$2F,$2E,$2D               ;0BBB3B|        |      ;
-                       db $2C,$2B,$2A                       ;0BBB40|        |      ;
+         DATA8_0BBB43: db $06,$06,$06,$06,$06,$06,$06,$06   ;0BBB43|        |      ;
+                       db $06                               ;0BBB4B|        |      ;
  
-         DATA8_0BBB43: db $06,$06,$06,$06,$06               ;0BBB43|        |      ;
-                       db $06,$06,$06,$06                   ;0BBB48|        |      ;
- 
-         DATA8_0BBB4C: db $0C,$0C,$0A,$0C,$08               ;0BBB4C|        |      ;
-                       db $08,$06,$08,$05                   ;0BBB51|        |      ;
+         DATA8_0BBB4C: db $0C,$0C,$0A,$0C,$08,$08,$06,$08   ;0BBB4C|        |      ;
+                       db $05                               ;0BBB54|        |      ;
  
          DATA8_0BBB55: db $14,$14,$1E,$0E,$0E               ;0BBB55|        |      ;
  
          DATA8_0BBB5A: db $03,$03,$03,$08,$03               ;0BBB5A|        |      ;
  
-         DATA8_0BBB5F: db $14,$EC,$14,$EC,$1C               ;0BBB5F|        |      ;
-                       db $E4,$10,$F0,$0C,$F4               ;0BBB64|        |      ;
+         DATA8_0BBB5F: db $14,$EC,$14,$EC,$1C,$E4,$10,$F0   ;0BBB5F|        |      ;
+                       db $0C,$F4                           ;0BBB67|        |      ;
  
-         DATA8_0BBB69: db $FE,$FC,$FC,$00,$FE               ;0BBB69|        |      ;
-                       db $FC,$FC,$00,$00                   ;0BBB6E|        |      ;
+         DATA8_0BBB69: db $FE,$FC,$FC,$00,$FE,$FC,$FC,$00   ;0BBB69|        |      ;
+                       db $00                               ;0BBB71|        |      ;
  
-         DATA8_0BBB72: db $1A,$0C,$0C,$10,$10               ;0BBB72|        |      ;
-                       db $12,$12,$16,$12                   ;0BBB77|        |      ;
+         DATA8_0BBB72: db $1A,$0C,$0C,$10,$10,$12,$12,$16   ;0BBB72|        |      ;
+                       db $12                               ;0BBB7A|        |      ;
  
-         DATA8_0BBB7B: db $03,$05,$03,$03,$03               ;0BBB7B|        |      ;
-                       db $03,$03,$03,$03                   ;0BBB80|        |      ;
+         DATA8_0BBB7B: db $03,$05,$03,$03,$03,$03,$03,$03   ;0BBB7B|        |      ;
+                       db $03                               ;0BBB83|        |      ;
  
-         DATA8_0BBB84: db $18,$E8,$10,$F0,$0C               ;0BBB84|        |      ;
-                       db $F4,$10,$F0,$14,$EC               ;0BBB89|        |      ;
-                       db $14,$EC,$08,$F8,$0C               ;0BBB8E|        |      ;
-                       db $F4,$0C,$F4                       ;0BBB93|        |      ;
+         DATA8_0BBB84: db $18,$E8,$10,$F0,$0C,$F4,$10,$F0   ;0BBB84|        |      ;
+                       db $14,$EC,$14,$EC,$08,$F8,$0C,$F4   ;0BBB8C|        |      ;
+                       db $0C,$F4                           ;0BBB94|        |      ;
  
-         DATA8_0BBB96: db $00,$00,$00,$00,$FC               ;0BBB96|        |      ;
-                       db $FC,$FC,$FC,$FC,$FC               ;0BBB9B|        |      ;
-                       db $FC,$FC,$00,$00,$00               ;0BBBA0|        |      ;
-                       db $00,$FC,$FC                       ;0BBBA5|        |      ;
+         DATA8_0BBB96: db $00,$00,$00,$00,$FC,$FC,$FC,$FC   ;0BBB96|        |      ;
+                       db $FC,$FC,$FC,$FC,$00,$00,$00,$00   ;0BBB9E|        |      ;
+                       db $FC,$FC                           ;0BBBA6|        |      ;
  
-         DATA8_0BBBA8: db $00,$06,$07,$06,$0C               ;0BBBA8|        |      ;
-                       db $1C,$06,$06,$06,$06               ;0BBBAD|        |      ;
-                       db $03                               ;0BBBB2|        |      ;
+         DATA8_0BBBA8: db $00,$06,$07,$06,$0C,$1C,$06,$06   ;0BBBA8|        |      ;
+                       db $06,$06,$03                       ;0BBBB0|        |      ;
  
-         DATA8_0BBBB3: db $00,$06,$07,$03,$0C               ;0BBBB3|        |      ;
-                       db $04,$06,$06,$03,$06               ;0BBBB8|        |      ;
-                       db $04                               ;0BBBBD|        |      ;
+         DATA8_0BBBB3: db $00,$06,$07,$03,$0C,$04,$06,$06   ;0BBBB3|        |      ;
+                       db $03,$06,$04                       ;0BBBBB|        |      ;
  
-         DATA8_0BBBBE: db $00,$04,$0F,$0F,$16               ;0BBBBE|        |      ;
-                       db $16,$12,$12,$0A,$0A               ;0BBBC3|        |      ;
+         DATA8_0BBBBE: db $00,$04,$0F,$0F,$16,$16,$12,$12   ;0BBBBE|        |      ;
+                       db $0A,$0A                           ;0BBBC6|        |      ;
  
-         DATA8_0BBBC8: db $08,$08,$0A,$08,$08               ;0BBBC8|        |      ;
-                       db $10,$08,$0D,$0C,$18               ;0BBBCD|        |      ;
-                       db $10,$06,$0C,$08,$08               ;0BBBD2|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBBD7|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBBDC|        |      ;
-                       db $08,$08,$10,$08,$08               ;0BBBE1|        |      ;
-                       db $08,$0C,$08,$08,$10               ;0BBBE6|        |      ;
-                       db $06,$08,$08,$08,$08               ;0BBBEB|        |      ;
-                       db $08,$08,$10,$08,$03               ;0BBBF0|        |      ;
-                       db $05,$08,$08,$08,$08               ;0BBBF5|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBBFA|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBBFF|        |      ;
-                       db $08,$08,$08,$08,$03               ;0BBC04|        |      ;
-                       db $04,$02,$06,$04,$04               ;0BBC09|        |      ;
-                       db $03,$08,$08,$08,$08               ;0BBC0E|        |      ;
-                       db $05,$08,$08,$08,$08               ;0BBC13|        |      ;
-                       db $06,$08,$0C,$06,$08               ;0BBC18|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBC1D|        |      ;
-                       db $08,$08,$08,$08,$06               ;0BBC22|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBC27|        |      ;
-                       db $06,$08,$08,$0C,$08               ;0BBC2C|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBC31|        |      ;
-                       db $08,$08,$08,$30,$10               ;0BBC36|        |      ;
-                       db $20,$80,$10,$20,$08               ;0BBC3B|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBC40|        |      ;
-                       db $11,$0C,$10,$08,$08               ;0BBC45|        |      ;
-                       db $0C,$08,$0E,$08,$10               ;0BBC4A|        |      ;
-                       db $10,$10,$08,$10,$08               ;0BBC4F|        |      ;
-                       db $08,$08,$08,$08,$04               ;0BBC54|        |      ;
-                       db $06,$04,$02,$02,$02               ;0BBC59|        |      ;
-                       db $02,$02                           ;0BBC5E|        |      ;
+         DATA8_0BBBC8: db $08,$08,$0A,$08,$08,$10,$08,$0D   ;0BBBC8|        |      ;
+                       db $0C,$18,$10,$06,$0C,$08,$08,$08   ;0BBBD0|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBBD8|        |      ;
+                       db $08,$08,$08,$10,$08,$08,$08,$0C   ;0BBBE0|        |      ;
+                       db $08,$08,$10,$06,$08,$08,$08,$08   ;0BBBE8|        |      ;
+                       db $08,$08,$10,$08,$03,$05,$08,$08   ;0BBBF0|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBBF8|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBC00|        |      ;
+                       db $03,$04,$02,$06,$04,$04,$03,$08   ;0BBC08|        |      ;
+                       db $08,$08,$08,$05,$08,$08,$08,$08   ;0BBC10|        |      ;
+                       db $06,$08,$0C,$06,$08,$08,$08,$08   ;0BBC18|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$06,$08   ;0BBC20|        |      ;
+                       db $08,$08,$08,$08,$06,$08,$08,$0C   ;0BBC28|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBC30|        |      ;
+                       db $08,$30,$10,$20,$80,$10,$20,$08   ;0BBC38|        |      ;
+                       db $08,$08,$08,$08,$08,$11,$0C,$10   ;0BBC40|        |      ;
+                       db $08,$08,$0C,$08,$0E,$08,$10,$10   ;0BBC48|        |      ;
+                       db $10,$08,$10,$08,$08,$08,$08,$08   ;0BBC50|        |      ;
+                       db $04,$06,$04,$02,$02,$02,$02,$02   ;0BBC58|        |      ;
  
-         DATA8_0BBC60: db $0E,$10,$10,$10,$10               ;0BBC60|        |      ;
-                       db $10,$08,$20,$0C,$18               ;0BBC65|        |      ;
-                       db $10,$0C,$14,$08,$14               ;0BBC6A|        |      ;
-                       db $0E,$0E,$08,$0E,$0E               ;0BBC6F|        |      ;
-                       db $04,$0E,$0E,$0E,$0E               ;0BBC74|        |      ;
-                       db $0E,$0E,$09,$0E,$0A               ;0BBC79|        |      ;
-                       db $14,$0E,$06,$04,$02               ;0BBC7E|        |      ;
-                       db $06,$08,$0E,$02,$04               ;0BBC83|        |      ;
-                       db $0E,$0E,$08,$08,$03               ;0BBC88|        |      ;
-                       db $05,$0E,$0E,$08,$08               ;0BBC8D|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBC92|        |      ;
-                       db $08,$08,$08,$08,$08               ;0BBC97|        |      ;
-                       db $08,$08,$08,$08,$04               ;0BBC9C|        |      ;
-                       db $08,$04,$06,$02,$06               ;0BBCA1|        |      ;
-                       db $06,$0E,$0E,$0E,$06               ;0BBCA6|        |      ;
-                       db $05,$08,$0E,$0E,$0E               ;0BBCAB|        |      ;
-                       db $0E,$0E,$08,$04,$0E               ;0BBCB0|        |      ;
-                       db $0E,$0E,$0E,$0E,$06               ;0BBCB5|        |      ;
-                       db $0E,$0E,$0E,$0E,$06               ;0BBCBA|        |      ;
-                       db $0E,$0E,$0E,$0E,$0E               ;0BBCBF|        |      ;
-                       db $06,$0E,$0E,$0E,$0E               ;0BBCC4|        |      ;
-                       db $0E,$0E,$0E,$0E,$0E               ;0BBCC9|        |      ;
-                       db $0E,$0E,$0E,$20,$28               ;0BBCCE|        |      ;
-                       db $10,$10,$10,$28,$0E               ;0BBCD3|        |      ;
-                       db $0E,$05,$05,$0E,$0E               ;0BBCD8|        |      ;
-                       db $04,$08,$08,$0E,$0E               ;0BBCDD|        |      ;
-                       db $04,$04,$08,$0E,$08               ;0BBCE2|        |      ;
-                       db $08,$08,$0E,$08,$0E               ;0BBCE7|        |      ;
-                       db $0E,$0E,$0E,$0E,$07               ;0BBCEC|        |      ;
-                       db $0C,$07,$04,$04,$04               ;0BBCF1|        |      ;
-                       db $04,$04                           ;0BBCF6|        |      ;
+         DATA8_0BBC60: db $0E,$10,$10,$10,$10,$10,$08,$20   ;0BBC60|        |      ;
+                       db $0C,$18,$10,$0C,$14,$08,$14,$0E   ;0BBC68|        |      ;
+                       db $0E,$08,$0E,$0E,$04,$0E,$0E,$0E   ;0BBC70|        |      ;
+                       db $0E,$0E,$0E,$09,$0E,$0A,$14,$0E   ;0BBC78|        |      ;
+                       db $06,$04,$02,$06,$08,$0E,$02,$04   ;0BBC80|        |      ;
+                       db $0E,$0E,$08,$08,$03,$05,$0E,$0E   ;0BBC88|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBC90|        |      ;
+                       db $08,$08,$08,$08,$08,$08,$08,$08   ;0BBC98|        |      ;
+                       db $04,$08,$04,$06,$02,$06,$06,$0E   ;0BBCA0|        |      ;
+                       db $0E,$0E,$06,$05,$08,$0E,$0E,$0E   ;0BBCA8|        |      ;
+                       db $0E,$0E,$08,$04,$0E,$0E,$0E,$0E   ;0BBCB0|        |      ;
+                       db $0E,$06,$0E,$0E,$0E,$0E,$06,$0E   ;0BBCB8|        |      ;
+                       db $0E,$0E,$0E,$0E,$06,$0E,$0E,$0E   ;0BBCC0|        |      ;
+                       db $0E,$0E,$0E,$0E,$0E,$0E,$0E,$0E   ;0BBCC8|        |      ;
+                       db $0E,$20,$28,$10,$10,$10,$28,$0E   ;0BBCD0|        |      ;
+                       db $0E,$05,$05,$0E,$0E,$04,$08,$08   ;0BBCD8|        |      ;
+                       db $0E,$0E,$04,$04,$08,$0E,$08,$08   ;0BBCE0|        |      ;
+                       db $08,$0E,$08,$0E,$0E,$0E,$0E,$0E   ;0BBCE8|        |      ;
+                       db $07,$0C,$07,$04,$04,$04,$04,$04   ;0BBCF0|        |      ;
  
           CODE_0BBCF8: RTS                                  ;0BBCF8|60      |      ;
  
@@ -7620,27 +7227,18 @@ getCollisionTileValUsingOffsetPresets: TYA                                  ;0BB
  
                        dw entity_RTS_19_stub                ;0BBF8C|        |0BBF8B;
                        dw entity_RTS_19_stub                ;0BBF8E|        |0BBF8B;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBF90|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBF95|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBF9A|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBF9F|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFA4|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFA9|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFAE|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFB3|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFB8|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFBD|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFC2|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFC7|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFCC|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFD1|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFD6|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFDB|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFE0|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFE5|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFEA|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFEF|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFF4|        |FFFFFF;
-                       db $FF,$FF,$FF,$FF,$FF               ;0BBFF9|        |FFFFFF;
-                       db $FF,$FF                           ;0BBFFE|        |0000FF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBF90|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBF98|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFA0|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFA8|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFB0|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFB8|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFC0|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFC8|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFD0|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFD8|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFE0|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFE8|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFF0|        |FFFFFF;
+                       db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF   ;0BBFF8|        |FFFFFF;
  

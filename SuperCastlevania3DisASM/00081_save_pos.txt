@@ -1,8 +1,35 @@
 
 ;pos=026000
-r 931 XD
+r 421 XD
+XH
+XD
+XD
+XD
+XD
+XH
+r 34 XD
+XH
+r 15 XD
+XH
+r 13 XD
+XH
+r 13 XD
+XH
+r 9 XD
+XH
+XD
+XD
+XD
+XD
+XD
+XD
+XD
+XH
+r 407 XD
 Xj
-r 1101 XD
+r 784 XD
+XH
+r 316 XD
 Xj
 Xj
 r 13 XD

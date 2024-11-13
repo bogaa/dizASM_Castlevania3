@@ -1,4 +1,6 @@
 
 ;pos=063800
-r 2047 UD0C
+r 1184 UD0C
+Uj0C
+r 862 UD0C
 XD

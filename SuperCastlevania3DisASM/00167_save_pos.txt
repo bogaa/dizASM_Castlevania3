@@ -690,7 +690,7 @@ r 28 AD0A
 +D0A
 .D0A
 .D0A
-+H0A
++H
 .D0A
 .D0A
 +T0A

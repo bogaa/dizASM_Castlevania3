@@ -1,10 +1,10 @@
-                       r_pointerQueue_VRAM = $000008
+                       r_pointerQueue = $000008
                        r_temp_Xpos = $00000A
                        r_tempCurrGroup = $00000C
                        r_tempCurrSection = $00000D
                        r_tempCurrRoomIdx = $00000E
                        r_roomSectionChrBanksDataOffset = $00000F
-                       r_currOAM_Attr = $000010
+                       r_index = $000010
                        r_collisionPointYinScreen = $000011
                        r_collisionPointXvalDiv32 = $000012
                        r_collisionPointAbsoluteXInRoom = $000013
@@ -267,9 +267,9 @@
                        r_InstrumentsCurrEnvelopeLoops = $0006A9
                        r_TimeSpecialDMCSoundPlayed = $0006C8
                        r_sound_musicStop = $0006C9
-                       r_collisionMapValues90 = $0006E0
-                       r_collisionTypeOffsetsCurr = $000770
-                       r_CHR6TileSolidsDefine = $000778
+                       r_collisionMap = $0006E0
+                       r_collisionTypeCHR400 = $000770
+                       r_collisionTypeCHR800 = $000778
                        r_soundModeSongSelected = $000780
                        r_animTimerBG_CHR = $000781
                        r_FogParallelPos = $000782
@@ -292,36 +292,31 @@
                        r_bossBoneDragonKingRips = $0007EC
                        r_hardMode = $0007F6
                        r_7f7 = $0007F7
-                       chrGroup02 = $0080B7
- 
- 
- 
+                       collusioBitHi = $00843E
+                       cullusion_CHR_33_36_37Hi = $008494
+                       extraNameCheckHi = $00904E
                        RLE_namScreenAtri = $00A16A
                        RLE_namScreenMapping_5105 = $00A16E
                        AndMoreProgData_78c = $00A7AE
- 
                        progressionPointerTableHi = $00A9A6
                        pointerPointTable01 = $01892A
+                       symphaScreenUpdateStatue = $019D93
                        irq_dataHi = $019F32
                        gearCHRanimPointerHi = $019FBE
+                       someJumpTablePointer00Hi = $0486F6
+                       someJumpTablePointer01Hi = $048704
+                       nextEndityIndexHi = $0981D5
+ 
                        enemySpawnerIDPointerTableHi = $0A8528
                        enemyIDTableHi01 = $0BBD50
                        enemyIDTable01Hi = $0BBE50
                        enemyScriptTableHi = $0BBEA2
- 
                        compressScreenTilemapPointerHi = $0FEC78
                        spriteAnimIndexHi = $0FEFB5
- 
- 
- 
- 
                        PTR16_008067 = $008067
-                       PTR16_00843E = $00843E
-                       PTR16_008494 = $008494
                        PTR16_0085CE = $0085CE
                        PTR16_008BD2 = $008BD2
                        PTR16_008DD0 = $008DD0
-                       LOOSE_OP_0093B7 = $0093B7
                        DATA16_009409 = $009409
                        LOOSE_OP_00948B = $00948B
                        LOOSE_OP_009820 = $009820
@@ -344,20 +339,40 @@
                        LOOSE_OP_00B53F = $00B53F
                        PTR16_00B75B = $00B75B
                        DATA16_00B771 = $00B771
-                       CODE_00B79D = $00B79D
                        LOOSE_OP_00B878 = $00B878
                        LOOSE_OP_00BA5E = $00BA5E
                        LOOSE_OP_00BA6A = $00BA6A
                        LOOSE_OP_00BB94 = $00BB94
+                       PTR16_00BDFF = $00BDFF
                        PTR16_00FFFF = $00FFFF
                        PTR16_01831B = $01831B
                        PTR16_018333 = $018333
                        PTR16_018A27 = $018A27
+                       PTR16_018F51 = $018F51
+                       PTR16_0194E2 = $0194E2
+                       PTR16_0195A2 = $0195A2
+                       LOOSE_OP_019D6A = $019D6A
+                       PTR16_019E5C = $019E5C
+                       PTR16_01A7B2 = $01A7B2
                        PTR16_01A7E4 = $01A7E4
+                       PTR16_01ACD4 = $01ACD4
+                       PTR16_01AD51 = $01AD51
+                       PTR16_01AF01 = $01AF01
+                       LOOSE_OP_01B8B4 = $01B8B4
+                       LOOSE_OP_01B8C5 = $01B8C5
                        PTR16_02B7DE = $02B7DE
                        PTR16_02B8BA = $02B8BA
                        PTR16_02B8BC = $02B8BC
+                       DATA16_0399A5 = $0399A5
+                       PTR16_0483D5 = $0483D5
+                       PTR16_048421 = $048421
+                       DATA16_04870C = $04870C
+                       DATA16_048724 = $048724
+                       PTR16_04B26A = $04B26A
+                       PTR16_04BA5A = $04BA5A
                        LOOSE_OP_098139 = $098139
+                       PTR16_098179 = $098179
+                       PTR16_098672 = $098672
                        PTR16_0A875A = $0A875A
                        LOOSE_OP_0A926F = $0A926F
                        PTR16_0A9380 = $0A9380
@@ -372,8 +387,21 @@
                        LOOSE_OP_0B9D10 = $0B9D10
                        LOOSE_OP_0BA15E = $0BA15E
                        CODE_0BA358 = $0BA358
+                       PTR16_0C83D5 = $0C83D5
+                       PTR16_0C8421 = $0C8421
+                       PTR16_0C86F6 = $0C86F6
+                       PTR16_0C8704 = $0C8704
+                       DATA16_0C870C = $0C870C
+                       DATA16_0C8724 = $0C8724
+                       PTR16_0C8B3E = $0C8B3E
+                       PTR16_0C8DCB = $0C8DCB
+                       PTR16_0C9E26 = $0C9E26
+                       PTR16_0C9E7C = $0C9E7C
+                       PTR16_0CA2DC = $0CA2DC
+                       DATA16_0CA453 = $0CA453
                        PTR16_0D823F = $0D823F
                        PTR16_0E87E1 = $0E87E1
                        PTR16_0E8847 = $0E8847
                        PTR16_0E8849 = $0E8849
-                       UNREACH_612086 = $612086
+                       PTR16_0FD5D5 = $0FD5D5
+                       CODE_612086 = $612086
