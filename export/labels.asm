@@ -306,7 +306,6 @@
                        someJumpTablePointer00Hi = $0486F6
                        someJumpTablePointer01Hi = $048704
                        nextEndityIndexHi = $0981D5
- 
                        enemySpawnerIDPointerTableHi = $0A8528
                        enemyIDTableHi01 = $0BBD50
                        enemyIDTable01Hi = $0BBE50
@@ -373,6 +372,7 @@
                        LOOSE_OP_098139 = $098139
                        PTR16_098179 = $098179
                        PTR16_098672 = $098672
+                       PTR16_0989F0 = $0989F0
                        PTR16_0A875A = $0A875A
                        LOOSE_OP_0A926F = $0A926F
                        PTR16_0A9380 = $0A9380
@@ -400,6 +400,8 @@
                        PTR16_0CA2DC = $0CA2DC
                        DATA16_0CA453 = $0CA453
                        PTR16_0D823F = $0D823F
+                       PTR16_0E8299 = $0E8299
+                       PTR16_0E82E5 = $0E82E5
                        PTR16_0E87E1 = $0E87E1
                        PTR16_0E8847 = $0E8847
                        PTR16_0E8849 = $0E8849

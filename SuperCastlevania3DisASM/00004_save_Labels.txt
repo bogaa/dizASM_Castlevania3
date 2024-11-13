@@ -2727,7 +2727,7 @@
           <Value exs:type="ns1:Label" Name="setEnityAi_scriptInex" Comment="" />
         </sys:Item>
         <sys:Item Key="624224">
-          <Value exs:type="ns1:Label" Name="wiredRTS_returnPoint" Comment="" />
+          <Value exs:type="ns1:Label" Name="" Comment="" />
         </sys:Item>
         <sys:Item Key="624490">
           <Value exs:type="ns1:Label" Name="someReturingPoint" Comment="" />

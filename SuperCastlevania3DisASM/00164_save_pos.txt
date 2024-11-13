@@ -2,13 +2,17 @@
 ;pos=04F800
 r 1023 XD
 XH
-r 696 XD
+r 29 XD
+XH
+r 666 XD
 XH
 r 14 XD
 XH
 r 55 XD
 Xj
-r 185 XD
+r 47 XD
+XH
+r 137 XD
 XH
 r 69 XD
 AD0A
